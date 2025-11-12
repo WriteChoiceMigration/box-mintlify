@@ -1,0 +1,58 @@
+---
+title: "フォルダ (Base)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+最も基本的なフォルダのBase版の表示。`fields`クエリパラメータを使用すると、最小限の数のフィールドが返されます。
+
+* [Full](/reference/resources/folder--full/)
+* [Standard](/reference/resources/folder/)
+* [Mini](/reference/resources/folder--mini/)
+* [Base](/reference/resources/folder--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+フォルダを表す一意の識別子。
+
+フォルダIDを確認するには、ウェブアプリケーションでフォルダにアクセスして、URLからIDをコピーします。たとえば、URLが`https://*.app.box.com/folders/123`の場合、`folder_id`は`123`です。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `folder`
+
+値は常に`folder`になります。
+
+次の値に固定: `folder`
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このフォルダのHTTP `etag`。これは変更が発生した場合 (またはしなかった場合) にフォルダに対して変更を行う目的でのみ、`If-Match`および`If-None-Match`ヘッダー内の一部のAPIエンドポイントで使用できます。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "folder",
+  "etag": "1"
+}
+```
+
+</ResponseExample>

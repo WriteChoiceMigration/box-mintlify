@@ -1,0 +1,382 @@
+---
+title: "AI agent (Full)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Full representation of an AI Agent instance.
+
+* [Full](/reference/resources/ai-single-agent-response--full/)
+* [Standard](/reference/resources/ai-single-agent-response/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **full** variant can be returned
+by API endpoints that support the `fields` parameter. For example,
+by defining the `fields` request parameter as
+`id,type` when requesting a file by ID, only those fields will
+be returned in the API response.
+</Info>
+
+<ParamField body="id" type="string">
+example: `1234567890`
+
+The unique identifier of the AI Agent.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `ai_agent`
+
+The type of agent used to handle queries.
+
+Value is always `ai_agent`
+</ParamField>
+
+<ParamField body="access_state" type="string">
+example: `enabled`
+
+The state of the AI Agent. Possible values are: `enabled`, `disabled`, and `enabled_for_selected_users`.
+</ParamField>
+
+<ParamField body="allowed_entities" type="The entity with type and ID[Group (Base)/User (Base)]array">
+List of allowed users or groups.
+</ParamField>
+
+<ParamField body="ask" type="AI agent capability askobject">
+The AI agent to be used to ask questions.
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2022-01-01T00:00:00Z`
+
+The ISO date-time formatted timestamp of when this AI agent was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Base)object">
+The user who created this agent.
+</ParamField>
+
+<ParamField body="extract" type="AI agent capability extractobject">
+The AI agent to be used for metadata extraction.
+</ParamField>
+
+<ParamField body="icon_reference" type="string">
+example: `https://cdn01.boxcdn.net/app-assets/aistudio/avatars/logo_analytics.svg`
+
+The icon reference of the AI Agent.
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2022-01-01T00:00:00Z`
+
+The ISO date-time formatted timestamp of when this AI agent was recently modified.
+</ParamField>
+
+<ParamField body="modified_by" type="User (Base)object">
+The user who most recently modified this agent.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `This is my Agent`
+
+The name of the AI Agent.
+</ParamField>
+
+<ParamField body="origin" type="string">
+example: `CUSTOM`
+
+The provider of the AI Agent.
+</ParamField>
+
+<ParamField body="text_gen" type="AI agent capability text generationobject">
+The AI agent to be used to generate text.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "1234567890",
+  "type": "ai_agent",
+  "access_state": "enabled",
+  "allowed_entities": [
+    {
+      "id": "11446498",
+      "type": "user"
+    }
+  ],
+  "ask": {
+    "type": "ai_agent_ask",
+    "access_state": "enabled",
+    "basic_image": {
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "basic_image_multi": {
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "basic_text": {
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "basic_text_multi": {
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "custom_instructions": "This is a custom instruction",
+    "description": "This is ASK Agent",
+    "long_text": {
+      "embeddings": {
+        "model": "azure__openai__text_embedding_ada_002",
+        "strategy": {
+          "id": "basic",
+          "num_tokens_per_chunk": 64
+        }
+      },
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "long_text_multi": {
+      "embeddings": {
+        "model": "azure__openai__text_embedding_ada_002",
+        "strategy": {
+          "id": "basic",
+          "num_tokens_per_chunk": 64
+        }
+      },
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "spreadsheet": {
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "suggested_questions": [
+      "What is in this file?",
+      "What are the main highlights of this document?"
+    ]
+  },
+  "created_at": "2022-01-01T00:00:00Z",
+  "created_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "extract": {
+    "type": "ai_agent_extract",
+    "access_state": "enabled",
+    "basic_image": {
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "basic_text": {
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "custom_instructions": "This is a custom instruction",
+    "description": "This is ASK Agent",
+    "long_text": {
+      "embeddings": {
+        "model": "azure__openai__text_embedding_ada_002",
+        "strategy": {
+          "id": "basic",
+          "num_tokens_per_chunk": 64
+        }
+      },
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    }
+  },
+  "icon_reference": "https://cdn01.boxcdn.net/app-assets/aistudio/avatars/logo_analytics.svg",
+  "modified_at": "2022-01-01T00:00:00Z",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "name": "This is my Agent",
+  "origin": "CUSTOM",
+  "text_gen": {
+    "type": "ai_agent_text_gen",
+    "access_state": "enabled",
+    "basic_gen": {
+      "content_template": "---{content}---",
+      "embeddings": {
+        "model": "azure__openai__text_embedding_ada_002",
+        "strategy": {
+          "id": "basic",
+          "num_tokens_per_chunk": 64
+        }
+      },
+      "is_custom_instructions_included": false,
+      "llm_endpoint_params": {
+        "type": "openai_params",
+        "frequency_penalty": 1.5,
+        "presence_penalty": 1.5,
+        "stop": "<|im_end|>",
+        "temperature": 0,
+        "top_p": 1
+      },
+      "model": "azure__openai__gpt_4o_mini",
+      "num_tokens_for_completion": 8400,
+      "prompt_template": "It is `{current_date}`, and I have $8000 and want to spend a week in the Azores. `{user_question}`",
+      "system_message": "You are a helpful travel assistant specialized in budget travel",
+      "warnings": [
+        "MODEL_INACTIVE"
+      ]
+    },
+    "custom_instructions": "This is a custom instruction",
+    "description": "This is ASK Agent",
+    "suggested_questions": [
+      "What is in this file?",
+      "What are the main highlights of this document?"
+    ]
+  }
+}
+```
+
+</ResponseExample>

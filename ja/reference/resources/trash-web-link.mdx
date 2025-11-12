@@ -1,0 +1,220 @@
+---
+title: "ごみ箱内のウェブリンク"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ごみ箱内のウェブリンクを表します。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このウェブリンクの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `web_link`
+
+値は常に`web_link`になります。
+
+次の値に固定: `web_link`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルがBoxのサーバー上に作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+このウェブリンクを作成したユーザー。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `Example page`
+
+ウェブリンクに付加される説明。この説明は、Boxウェブアプリケーション内に表示されます。
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このウェブリンクのエンティティタグ。`If-Match`ヘッダーで使用します。
+</ParamField>
+
+<ParamField body="item_status" type="string">
+例 `trashed`
+
+この項目が削除されたかどうか。値には、`active`、`trashed` (ファイルがごみ箱に移動された場合)、`deleted` (ファイルが完全に削除された場合) があります。
+
+次の値のいずれか1つ: `active`,`trashed`,`deleted`
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルがBoxサーバー上で最後に更新された日時。
+</ParamField>
+
+<ParamField body="modified_by" type="ユーザー (Mini)object">
+このウェブリンクを最後に変更したユーザー。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `My Bookmark`
+
+ウェブリンクの名前。
+</ParamField>
+
+<ParamField body="owned_by" type="ユーザー (Mini)object">
+このウェブリンクを所有するユーザー。
+</ParamField>
+
+<ParamField body="parent" type="フォルダ (Mini)object">
+ウェブリンクが属する親オブジェクト。
+</ParamField>
+
+<ParamField body="path_collection" type="object">
+ルートフォルダを起点にした、このウェブリンクを含むフォルダツリー。
+
+<Expandable>
+  <ParamField body="entries" type="objectarray">
+  この項目のパスのコレクションのフォルダの配列。
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    例 `123456789`
+    
+    フォルダを表す一意の識別子。
+    </ParamField>
+  
+    <ParamField body="type" type="string">
+    例 `folder`
+    
+    値は常に`folder`になります。
+    
+    次の値に固定: `folder`
+    </ParamField>
+  
+    <ParamField body="etag" type="string">
+    ごみ箱フォルダの場合、このフィールドはnullです。
+    </ParamField>
+  
+    <ParamField body="name" type="string">
+    例 `Trash`
+    
+    ごみ箱フォルダの名前。
+    </ParamField>
+  
+    <ParamField body="sequence_id" type="string">
+    ごみ箱フォルダの場合、このフィールドはnullです。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="total_count" type="integer(int64)">
+  例 `1`
+  
+  このリスト内のフォルダの数。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="purged_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルが完全に削除される日時。
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+例 `3`
+
+この項目に適用された最新のUser Eventを表す数値の識別子。
+
+これを`GET /events`エンドポイントと組み合わせて使用すると、この識別子が読み取られる前に発生した可能性があるUser Eventを除外できます。
+
+たとえば、Box DriveなどのアプリケーションがAPIを介して項目を取得し、その項目の変更に関連するUser Eventの発生を監視する場合などがこれに該当します。User Eventの`sequence_id`が最初に取得されたリソースの`sequence_id`よりも小さいか同じである場合、アプリケーションはそのようなUser Eventをすべて無視します。
+</ParamField>
+
+<ParamField body="shared_link" type="string">
+このブックマークの共有リンク。ブックマークがごみ箱に移動された場合、このリンクはアクティブではなくなるため、これは`null`になります。
+</ParamField>
+
+<ParamField body="trashed_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルが最後にごみ箱に移動された日時。
+</ParamField>
+
+<ParamField body="url" type="string">
+例 `https://www.example.com/example/1234`
+
+このウェブリンクが指すURL。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "web_link",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Example page",
+  "etag": "1",
+  "item_status": "trashed",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "name": "My Bookmark",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "path_collection": {
+    "entries": [
+      {
+        "etag": "null",
+        "id": "123456789",
+        "name": "Trash",
+        "sequence_id": "null",
+        "type": "folder"
+      }
+    ],
+    "total_count": 1
+  },
+  "purged_at": "2012-12-12T10:53:43-08:00",
+  "sequence_id": "3",
+  "shared_link": "null",
+  "trashed_at": "2012-12-12T10:53:43-08:00",
+  "url": "https://www.example.com/example/1234"
+}
+```
+
+</ResponseExample>

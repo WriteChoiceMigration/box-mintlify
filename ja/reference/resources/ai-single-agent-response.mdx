@@ -1,0 +1,116 @@
+---
+title: "AIエージェント"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+AIエージェントインスタンスのStandard版の表示。
+
+* [Full](/reference/resources/ai-single-agent-response--full/)
+* [Standard](/reference/resources/ai-single-agent-response/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `1234567890`
+
+AIエージェントの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `ai_agent`
+
+クエリの処理に使用されるエージェントのタイプ。
+
+次の値に固定: `ai_agent`
+</ParamField>
+
+<ParamField body="access_state" type="string">
+例 `enabled`
+
+AIエージェントの状態。使用可能な値は`enabled`、`disabled`、`enabled_for_selected_users`です。
+</ParamField>
+
+<ParamField body="allowed_entities" type="タイプとIDが指定されたエンティティ[グループ (Base)/ユーザー (Base)]array">
+許可するユーザーまたはグループのリスト。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2022-01-01T00:00:00Z`
+
+このAIエージェントが作成された時点のISO日時形式のタイムスタンプ。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Base)object">
+このエージェントを作成したユーザー。
+</ParamField>
+
+<ParamField body="icon_reference" type="string">
+例 `https://cdn01.boxcdn.net/app-assets/aistudio/avatars/logo_analytics.svg`
+
+AIエージェントのアイコン参照。
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2022-01-01T00:00:00Z`
+
+このAIエージェントが最近変更された時点のISO日時形式のタイムスタンプ。
+</ParamField>
+
+<ParamField body="modified_by" type="ユーザー (Base)object">
+このエージェントを直近で変更したユーザー。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `This is my Agent`
+
+AIエージェントの名前。
+</ParamField>
+
+<ParamField body="origin" type="string">
+例 `CUSTOM`
+
+AIエージェントのプロバイダ。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "1234567890",
+  "type": "ai_agent",
+  "access_state": "enabled",
+  "allowed_entities": [
+    {
+      "id": "11446498",
+      "type": "user"
+    }
+  ],
+  "created_at": "2022-01-01T00:00:00Z",
+  "created_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "icon_reference": "https://cdn01.boxcdn.net/app-assets/aistudio/avatars/logo_analytics.svg",
+  "modified_at": "2022-01-01T00:00:00Z",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "name": "This is my Agent",
+  "origin": "CUSTOM"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,139 @@
+---
+title: "Box Doc Gen templates"
+rank: 4
+related_endpoints:
+  - get_docgen_templates_v2025.0
+  - get_docgen_templates_id_v2025.0
+  - get_docgen_templates_id_tags_v2025.0
+  - post_docgen_templates_v2025.0
+related_guides:
+  - docgen/docgen-getting-started
+  - docgen/generate-document
+---
+Box Doc Gen API allows you to retrieve information related to Box Doc Gen templates.
+
+## Prerequisites
+
+Before you start using Box Doc Gen API, follow the steps listed in the [get started with Box Doc Gen][docgen-prerequisites] guide to create a platform app and a Box Doc Gen template.
+
+## List Box Doc Gen templates
+
+To get a list of all created Box Doc Gen templates,
+use the `GET /2.0/docgen_templates` endpoint. You don't have to provide any additional parameters.
+
+<CodeGroup>
+
+```sh cURL
+curl -L 'https://api.box.com/2.0/docgen_templates' \
+     -H 'box-version: 2025.0' \
+     -H 'Authorization: Bearer <ACCESS_TOKEN>'
+```
+
+```typescript Node/TypeScript v10
+await client.docgenTemplate.getDocgenTemplatesV2025R0();
+```
+
+```python Python v10
+client.docgen_template.get_docgen_templates_v2025_r0()
+```
+
+```cs .NET v10
+await client.DocgenTemplate.GetDocgenTemplatesV2025R0Async();
+```
+
+```swift Swift v10
+try await client.docgenTemplate.getDocgenTemplatesV2025R0()
+```
+
+```java Java v10
+client.getDocgenTemplate().getDocgenTemplatesV2025R0()
+```
+
+</CodeGroup>
+
+The response will contain an `entries` array listing the already created Box Doc Gen templates.
+
+## Get a  Box Doc Gen template by ID
+
+To get a specific Box Doc Gen template,
+use the `GET /2.0/docgen_templates_id` endpoint and provide the `template_id`.
+
+<CodeGroup>
+
+```sh cURL
+curl -L 'https://api.box.com/2.0/docgen_templates/12345678' \
+     -H 'box-version: 2025.0' \
+     -H 'Authorization: Bearer <ACCESS_TOKEN>'
+```
+
+```typescript Node/TypeScript v10
+await client.docgenTemplate.getDocgenTemplateByIdV2025R0(
+  createdDocgenTemplate.file!.id,
+);
+```
+
+```python Python v10
+client.docgen_template.get_docgen_template_by_id_v2025_r0(
+    created_docgen_template.file.id
+)
+```
+
+```cs .NET v10
+await client.DocgenTemplate.GetDocgenTemplateByIdV2025R0Async(templateId: NullableUtils.Unwrap(createdDocgenTemplate.File).Id);
+```
+
+```swift Swift v10
+try await client.docgenTemplate.getDocgenTemplateByIdV2025R0(templateId: createdDocgenTemplate.file!.id)
+```
+
+```java Java v10
+client.getDocgenTemplate().getDocgenTemplateByIdV2025R0(createdDocgenTemplate.getFile().getId())
+```
+
+</CodeGroup>
+
+The response will contain details of a file that was used as a Box Doc Gen template.
+
+## List all document generation jobs for a template
+
+To get a list of all created Box Doc Gen templates,
+use the `GET /2.0/docgen_template_jobs_id` endpoint and provide the `template_id`.
+
+<CodeGroup>
+
+```sh cURL
+curl -L 'https://api.box.com/2.0/docgen_template_jobs/12345678' \
+     -H 'box-version: 2025.0' \
+     -H 'Authorization: Bearer <ACCESS_TOKEN>'
+```
+
+```typescript Node/TypeScript v10
+await client.docgenTemplate.getDocgenTemplateJobByIdV2025R0(
+  fetchedDocgenTemplate.file!.id,
+);
+```
+
+```python Python v10
+client.docgen_template.get_docgen_template_job_by_id_v2025_r0(
+    fetched_docgen_template.file.id
+)
+```
+
+```cs .NET v10
+await client.DocgenTemplate.GetDocgenTemplateJobByIdV2025R0Async(templateId: NullableUtils.Unwrap(fetchedDocgenTemplate.File).Id);
+```
+
+```swift Swift v10
+try await client.docgenTemplate.getDocgenTemplateJobByIdV2025R0(templateId: fetchedDocgenTemplate.file!.id)
+```
+
+```java Java v10
+client.getDocgenTemplate().getDocgenTemplateJobByIdV2025R0(fetchedDocgenTemplate.getFile().getId())
+```
+
+</CodeGroup>
+
+The response will contain a list of Box Doc Gen jobs that were run to generate
+documents.
+
+[docgen-prerequisites]: /guides/docgen/docgen-getting-started

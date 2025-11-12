@@ -1,0 +1,20 @@
+---
+title: "Supported Endpoints"
+rank: 4
+related_endpoints:
+  - get_authorize
+related_guides:
+  - authentication/app-token/app-token-setup
+required_guides: []
+related_resources: []
+alias_paths: []
+---
+App Token authentication currently only supports a handful of the BOX API.
+
+| Endpoint                                     | Path                     |
+| -------------------------------------------- | ------------------------ |
+| [Create a folder](/reference/post-folders)          | `POST /folders`    |
+| [Upload a file](/reference/post-files-content)      | `POST /files/content`    |
+| [Download a file](/reference/get-files-id-content)  | `GET /files/:id/content` |
+| [Delete a file](/reference/delete-files-id) | `DELETE /files/:id`      |
+| [Get embed link](/reference/get-files-id)          | `GET /files/:id`         |

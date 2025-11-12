@@ -1,0 +1,52 @@
+---
+title: "Retention policy (Base)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A base representation of a retention policy.
+
+* [Standard](/reference/resources/retention-policy/)
+* [Mini](/reference/resources/retention-policy--mini/)
+* [Base](/reference/resources/retention-policy--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **base** variant represent
+the default fields that are always returned when using the `fields`
+query parameter, additional to the fields specified in the
+parameter.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represents a retention policy.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `retention_policy`
+
+The value will always be `retention_policy`.
+
+Value is always `retention_policy`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "retention_policy"
+}
+```
+
+</ResponseExample>

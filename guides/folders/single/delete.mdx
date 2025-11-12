@@ -1,0 +1,88 @@
+---
+title: "Delete Folder"
+rank: 6
+related_endpoints:
+  - delete_folders_id
+related_guides:
+  - folders/single/create
+required_guides:
+  - folders/single/create
+alias_paths: []
+related_resources:
+  - folder
+---
+To remove a folder in Box you will need to provide our API with the ID of the
+folder.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X DELETE "https://api.box.com/2.0/folders/4353455" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.folders.deleteFolderById(newFolder.id);
+```
+
+```python Python v10
+client.folders.delete_folder_by_id(new_folder.id)
+```
+
+```cs .NET v10
+await client.Folders.DeleteFolderByIdAsync(folderId: newFolder.Id);
+```
+
+```swift Swift v10
+try await client.folders.deleteFolderById(folderId: newFolder.id)
+```
+
+```java Java v10
+client.getFolders().deleteFolderById(newFolder.getId())
+```
+
+```java Java v5
+// Delete the folder and all its contents
+BoxFolder folder = new BoxFolder(api, "id");
+folder.delete(true);
+```
+
+```python Python v4
+client.folder(folder_id='22222').delete()
+```
+
+```cs .NET v6
+await client.FoldersManager.DeleteAsync("11111", recursive: true);
+```
+
+```javascript Node v4
+client.folders.delete('12345', {recursive: true})
+    .then(() => {
+        // deletion succeeded — no value returned
+    });
+```
+
+</CodeGroup>
+
+## Deleting non-empty folders
+
+This API returns an error if the folder is not empty. When deleting a
+folder, you can pass in the `recursive` parameter to force a
+folder to be deleted even if it is not empty. This will delete all
+items within this folder, including any of their descendants.
+
+## Folder locking
+
+The enterprise settings determine whether the folder will
+be permanently deleted from Box or moved to the trash.
+
+During this operation, part of the file tree will be locked, mainly
+the source folder and all of its descendants.
+
+For the duration of the operation, no other move, copy, delete, or restore
+operation can performed on any of the locked folders.
+
+## Timeout
+
+Timeout for this operation is 600 seconds. The operation will complete
+after a `HTTP 503` has been returned.

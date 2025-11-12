@@ -1,0 +1,337 @@
+---
+title: "ウェブリンク"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ウェブリンクとは、URLを指すオブジェクトです。これらのオブジェクトはBoxウェブアプリケーション内ではブックマークとも呼ばれます。
+
+ウェブリンクオブジェクトはファイルオブジェクトと同様に扱われ、通常のファイルに適用されるアクションの大部分もサポートしています。
+
+* [Standard](/reference/resources/web-link/)
+* [Mini](/reference/resources/web-link--mini/)
+* [Base](/reference/resources/web-link--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このウェブリンクの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `web_link`
+
+値は常に`web_link`になります。
+
+次の値に固定: `web_link`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルがBoxのサーバー上に作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+このウェブリンクを作成したユーザー。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `Example page`
+
+ウェブリンクに付加される説明。この説明は、Boxウェブアプリケーション内に表示されます。
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このウェブリンクのエンティティタグ。`If-Match`ヘッダーで使用します。
+</ParamField>
+
+<ParamField body="item_status" type="string">
+例 `active`
+
+この項目が削除されたかどうか。値には、`active`、`trashed` (ファイルがごみ箱に移動された場合)、`deleted` (ファイルが完全に削除された場合) があります。
+
+次の値のいずれか1つ: `active`,`trashed`,`deleted`
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルがBoxサーバー上で最後に更新された日時。
+</ParamField>
+
+<ParamField body="modified_by" type="ユーザー (Mini)object">
+このウェブリンクを最後に変更したユーザー。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `My Bookmark`
+
+ウェブリンクの名前。
+</ParamField>
+
+<ParamField body="owned_by" type="ユーザー (Mini)object">
+このウェブリンクを所有するユーザー。
+</ParamField>
+
+<ParamField body="parent" type="フォルダ (Mini)object">
+ウェブリンクが属する親オブジェクト。
+</ParamField>
+
+<ParamField body="path_collection" type="object">
+ルートフォルダを起点にした、このウェブリンクを含むフォルダツリー。
+
+<Expandable>
+  <ParamField body="entries" type="フォルダ (Mini)array">
+  この項目の親フォルダ。
+  </ParamField>
+
+  <ParamField body="total_count" type="integer(int64)">
+  例 `1`
+  
+  このリスト内のフォルダの数。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="purged_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルが完全に削除される日時。
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+例 `3`
+
+この項目に適用された最新のUser Eventを表す数値の識別子。
+
+これを`GET /events`エンドポイントと組み合わせて使用すると、この識別子が読み取られる前に発生した可能性があるUser Eventを除外できます。
+
+たとえば、Box DriveなどのアプリケーションがAPIを介して項目を取得し、その項目の変更に関連するUser Eventの発生を監視する場合などがこれに該当します。User Eventの`sequence_id`が最初に取得されたリソースの`sequence_id`よりも小さいか同じである場合、アプリケーションはそのようなUser Eventをすべて無視します。
+</ParamField>
+
+<ParamField body="shared_link" type="object">
+この項目の共有リンクオブジェクト。共有リンクがまだ作成されていない場合は、`null`になります。
+
+<Expandable>
+  <ParamField body="access" type="string">
+  例 `open`
+  
+  この共有リンクのアクセスレベル
+  
+  * `open` - このリンクを知っている全員にこの項目へのアクセスを許可します
+  * `company` - 同じ会社のユーザーにのみこの項目へのアクセスを許可します
+  * `collaborators` - この項目のコラボレータとなっているユーザーに対してのみこの項目へのアクセスを許可します
+  
+  共有リンクの作成時にこのフィールドを省略した場合は、Enterprise管理者によって指定されたデフォルトのアクセスレベルに設定されます。
+  
+  次の値のいずれか1つ: `open`,`company`,`collaborators`
+  </ParamField>
+
+  <ParamField body="download_count" type="integer">
+  例 `3`
+  
+  この項目がダウンロードされた回数。
+  </ParamField>
+
+  <ParamField body="download_url" type="string(url)">
+  例 `https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg`
+  
+  ファイルをダウンロードするために使用できるURL。このURLをブラウザで使用すると、ファイルをダウンロードできます。このURLには、ファイルを正しいファイルタイプで保存できるように、ファイル拡張子が含まれます。
+  
+  フォルダの場合、このプロパティは`null`になります。
+  </ParamField>
+
+  <ParamField body="effective_access" type="string">
+  例 `company`
+  
+  共有リンクの実際のアクセスレベル。許可されるアクセスレベルが会社の設定で制限されている場合は、`access`フィールドの値よりも低いアクセスレベルになることがあります。
+  
+  次の値のいずれか1つ: `open`,`company`,`collaborators`
+  </ParamField>
+
+  <ParamField body="effective_permission" type="string">
+  例 `can_download`
+  
+  この共有リンクの実際の権限。これらにより、共有リンクの権限と、管理者、所有者、任意の先祖項目 (フォルダなど) によって設定される項目の権限の組み合わせの制限が厳しくなります。
+  
+  次の値のいずれか1つ: `can_edit`,`can_download`,`can_preview`,`no_access`
+  </ParamField>
+
+  <ParamField body="is_password_enabled" type="boolean">
+  例 `true`
+  
+  共有リンクを通じて項目にアクセスする際にパスワードを要求するかどうかを定義します。
+  </ParamField>
+
+  <ParamField body="permissions" type="object">
+  このリンクを通じてユーザーが項目のプレビュー、編集、およびダウンロードを行うことを許可するかどうかを定義します。これらの権限は、共有リンクのみに適用され、その項目自体に適用される権限より優先されることはありません。
+  
+  <Expandable>
+    <ParamField body="can_download" type="boolean">
+    例 `true`
+    
+    共有リンクを通じて項目をダウンロードすることを許可するかどうかを定義します。フォルダの共有リンクの場合、この設定はフォルダ内のすべての項目にも適用されます。
+    
+    実際のアクセスレベルが`collaborators`ではなく、`open`または`company`に設定されている場合は、この値を`true`に設定できます。
+    </ParamField>
+  
+    <ParamField body="can_edit" type="boolean">
+    例 `false`
+    
+    共有リンクからの項目の編集を許可するかどうかを定義します。
+    
+    `can_download`が`true`で、項目のタイプが`file`の場合のみ、この値も`true`に設定できます。
+    </ParamField>
+  
+    <ParamField body="can_preview" type="boolean">
+    例 `true`
+    
+    共有リンクを通じて項目をプレビューすることを許可するかどうかを定義します。
+    
+    この値は常に`true`です。フォルダの共有リンクの場合、この設定はフォルダ内のすべての項目にも適用されます。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="preview_count" type="integer">
+  例 `3`
+  
+  この項目がプレビューされた回数。
+  </ParamField>
+
+  <ParamField body="unshared_at" type="string(date-time)">
+  例 `2018-04-13T13:53:23-07:00`
+  
+  このリンクが共有解除される日時。このフィールドを設定できるのは、有料アカウントを持つユーザーのみです。
+  </ParamField>
+
+  <ParamField body="url" type="string(url)">
+  例 `https://www.box.com/s/vspke7y05sb214wjokpk`
+  
+  Box上の項目にアクセスするために使用できるURL。
+  
+  このURLに移動すると、BoxのプレビューUIに項目が表示され、許可されている場合は、このUIからファイルをダウンロードできます。
+  
+  このURLは、この共有リンクに対してカスタムの`vanity_url`が 設定されている場合でも動作します。
+  </ParamField>
+
+  <ParamField body="vanity_name" type="string">
+  例 `my_url`
+  
+  `vanity_url`フィールドで使用される、共有リンクのカスタム名。
+  </ParamField>
+
+  <ParamField body="vanity_url" type="string(url)">
+  例 `https://acme.app.box.com/v/my_url/`
+  
+  Boxで項目をプレビューする目的にも使用できる「カスタムURL」。カスタムURLの作成と変更は、Boxウェブアプリケーションでのみ行えます。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="trashed_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルがごみ箱に移動された日時。
+</ParamField>
+
+<ParamField body="url" type="string">
+例 `https://www.example.com/example/1234`
+
+このウェブリンクが指すURL。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "web_link",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Example page",
+  "etag": "1",
+  "item_status": "active",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "name": "My Bookmark",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "path_collection": {
+    "entries": [
+      {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      }
+    ],
+    "total_count": 1
+  },
+  "purged_at": "2012-12-12T10:53:43-08:00",
+  "sequence_id": "3",
+  "shared_link": {
+    "access": "open",
+    "download_count": 3,
+    "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+    "effective_access": "company",
+    "effective_permission": "can_download",
+    "is_password_enabled": true,
+    "permissions": {
+      "can_download": true,
+      "can_edit": false,
+      "can_preview": true
+    },
+    "preview_count": 3,
+    "unshared_at": "2018-04-13T13:53:23-07:00",
+    "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+    "vanity_name": "my_url",
+    "vanity_url": "https://acme.app.box.com/v/my_url/"
+  },
+  "trashed_at": "2012-12-12T10:53:43-08:00",
+  "url": "https://www.example.com/example/1234"
+}
+```
+
+</ResponseExample>

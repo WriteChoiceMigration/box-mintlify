@@ -1,0 +1,82 @@
+---
+title: "ウェブリンク (Mini)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ウェブリンクとは、URLを指すオブジェクトです。これらのオブジェクトはBoxウェブアプリケーション内ではブックマークとも呼ばれます。
+
+ウェブリンクオブジェクトはファイルオブジェクトと同様に扱われ、通常のファイルに適用されるアクションの大部分もサポートしています。
+
+* [Standard](/reference/resources/web-link/)
+* [Mini](/reference/resources/web-link--mini/)
+* [Base](/reference/resources/web-link--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Mini**バリアントに含まれるフィールドは、このリソースが別のリソースのレスポンス内にネストされている場合に返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このウェブリンクの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `web_link`
+
+値は常に`web_link`になります。
+
+次の値に固定: `web_link`
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このウェブリンクのエンティティタグ。`If-Match`ヘッダーで使用します。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `My Bookmark`
+
+ウェブリンクの名前。
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+例 `3`
+
+この項目に適用された最新のUser Eventを表す数値の識別子。
+
+これを`GET /events`エンドポイントと組み合わせて使用すると、この識別子が読み取られる前に発生した可能性があるUser Eventを除外できます。
+
+たとえば、Box DriveなどのアプリケーションがAPIを介して項目を取得し、その項目の変更に関連するUser Eventの発生を監視する場合などがこれに該当します。User Eventの`sequence_id`が最初に取得されたリソースの`sequence_id`よりも小さいか同じである場合、アプリケーションはそのようなUser Eventをすべて無視します。
+</ParamField>
+
+<ParamField body="url" type="string">
+例 `https://www.example.com/example/1234`
+
+このウェブリンクが指すURL。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "web_link",
+  "etag": "1",
+  "name": "My Bookmark",
+  "sequence_id": "3",
+  "url": "https://www.example.com/example/1234"
+}
+```
+
+</ResponseExample>

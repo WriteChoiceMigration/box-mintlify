@@ -1,0 +1,1375 @@
+---
+title: "Enterprise configuration content and sharing"
+---
+
+API version 2025.0
+
+The enterprise configuration for the content and sharing category.
+
+<ParamField body="auto_delete_days" type="object">
+The number of days before auto delete.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="integer">
+  example: `1234`
+  
+  The value of the enterprise configuration as an integer.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="auto_delete_target" type="object">
+The selected option of types for applying auto delete.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="collaboration_expiration_days" type="object">
+The number of days before collaboration expiration.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="integer">
+  example: `1234`
+  
+  The value of the enterprise configuration as an integer.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="collaboration_expiration_target" type="object">
+The selected option of types for applying collaboration expiration.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="collaboration_permissions" type="object">
+The basic data included in each enterprise configuration response object.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="object">
+  The collaboration permissions.
+  
+  <Expandable>
+    <ParamField body="is_co_owner_role_enabled" type="boolean">
+    example: `true`
+    
+    The co-owner role is enabled for collaboration.
+    </ParamField>
+  
+    <ParamField body="is_editor_role_enabled" type="boolean">
+    example: `true`
+    
+    The editor role is enabled for collaboration.
+    </ParamField>
+  
+    <ParamField body="is_previewer_role_enabled" type="boolean">
+    example: `true`
+    
+    The previewer role is enabled for collaboration.
+    </ParamField>
+  
+    <ParamField body="is_previewer_uploader_role_enabled" type="boolean">
+    example: `true`
+    
+    The previewer uploader role is enabled for collaboration.
+    </ParamField>
+  
+    <ParamField body="is_uploader_role_enabled" type="boolean">
+    example: `true`
+    
+    The uploader role is enabled for collaboration.
+    </ParamField>
+  
+    <ParamField body="is_viewer_role_enabled" type="boolean">
+    example: `true`
+    
+    The viewer role is enabled for collaboration.
+    </ParamField>
+  
+    <ParamField body="is_viewer_uploader_role_enabled" type="boolean">
+    example: `true`
+    
+    The viewer uploader role is enabled for collaboration.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="collaboration_restrictions" type="object">
+The collaboration restrictions for the enterprise.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="stringarray">
+  example: `["internal"]`
+  
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="default_collaboration_role" type="object">
+The current default collaboration role.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="enterprise_feature_settings" type="objectarray">
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="object">
+  An enterprise feature setting.
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    example: `eyJlbnRlcnByaXNlSWQiOiIxMTExNDQyNzY3IiwiZmVhdHVyZUlkIjoiY2FudmFzIn0=`
+    
+    The identifier of the enterprise feature setting.
+    </ParamField>
+  
+    <ParamField body="allowlist" type="objectarray">
+    Enterprise feature setting is enabled for only this set of users and groups.
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      example: `12345`
+      
+      The identifier of the user or group.
+      </ParamField>
+    
+      <ParamField body="type" type="string">
+      example: `user`
+      
+      The type `user` or `group`.
+      
+      Value is one of `user`,`group`
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="can_configure" type="boolean">
+    example: `true`
+    
+    Whether the feature can be configured.
+    </ParamField>
+  
+    <ParamField body="denylist" type="objectarray">
+    Enterprise feature setting is enabled for everyone except this set of users and groups.
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      example: `12345`
+      
+      The identifier of the user or group.
+      </ParamField>
+    
+      <ParamField body="type" type="string">
+      example: `user`
+      
+      The type `user` or `group`.
+      
+      Value is one of `user`,`group`
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="feature" type="object">
+    The feature.
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      example: `canvas`
+      
+      The identifier of the feature.
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="is_configured" type="boolean">
+    example: `true`
+    
+    Whether the feature is configured.
+    </ParamField>
+  
+    <ParamField body="state" type="string">
+    example: `enabled`
+    
+    The state of the feature.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="external_collaboration_allowlist_users" type="object">
+The external collaboration allowlist users.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="objectarray">
+  
+  <Expandable>
+    <ParamField body="id" type="integer">
+    example: `1234`
+    
+    The ID of the user.
+    </ParamField>
+  
+    <ParamField body="email" type="string">
+    example: `johndoe@box.com`
+    
+    The email of the user.
+    </ParamField>
+  
+    <ParamField body="name" type="string">
+    example: `John Doe`
+    
+    The name of the user.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="external_collaboration_status" type="object">
+The external collaboration status.
+Possible values: `enable_external_collaboration`, `limit_collaboration_to_allowlisted_domains`, `limit_collaboration_to_users_within_enterprise`.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `enable_external_collaboration`
+  
+  The external collaboration status.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_auto_delete_enabled" type="object">
+Enables auto delete.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_auto_delete_expiration_modification_prevented" type="object">
+Prevents users from modifying auto delete expiration.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_cc_free_trial_active" type="object">
+Indicates if the enterprise is on a free trial.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_collaboration_expiration_enabled" type="object">
+Enables collaboration expiration.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_collaboration_expiration_modification_prevented" type="object">
+Prevents users from modifying collaboration expiration.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_collaboration_expiration_notification_enabled" type="object">
+Enables collaboration expiration notification.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_collaborator_invite_links_disabled" type="object">
+Disables users to invite collaborators using invite links.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_custom_domain_hidden_in_shared_link" type="object">
+Hides the custom domain in shared links.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_custom_settings_enabled" type="object">
+Enables custom settings.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_email_uploads_enabled" type="object">
+Enables email uploads.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_file_request_branding_default_enabled" type="object">
+Company brand color and logo defaults to Logo for use on Brand Color for File Requests.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_file_request_editors_allowed" type="object">
+Indicates if editors are allowed for file requests feature.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_file_request_login_required" type="object">
+Require uploaders to log in with a Box account for File Requests.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_forms_branding_default_enabled" type="object">
+Company brand color and logo defaults to Logo for use on Brand Color for Forms.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_forms_login_required" type="object">
+Require uploaders to log in with a Box account for Forms.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_invite_group_collaborator_disabled" type="object">
+Disables users to invite group collaborators.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_invite_privilege_restricted" type="object">
+Restrict invites to only admin, folder owners, and co-owners.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_open_custom_urls_disabled" type="object">
+Disables custom shared link URLs for public access.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_ownership_transfer_restricted" type="object">
+Prevents ownership transfer to external users.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_public_shared_links_expiration_enabled" type="object">
+Enables public shared links expiration.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_root_content_creation_restricted" type="object">
+Only admins can create and delete first-level folders, files, and bookmarks.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_shared_links_expiration_enabled" type="object">
+Enables shared links expiration.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_shared_links_expiration_notification_enabled" type="object">
+Enables shared links expiration notification.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_shared_links_expiration_notification_prevented" type="object">
+Prevents users from disabling shared links expiration notification.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_tag_creation_restricted" type="object">
+Only selected users can create tags.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_watermarking_enterprise_feature_enabled" type="object">
+Enables watermarking enterprise feature.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="boolean">
+  example: `true`
+  
+  The value of the enterprise configuration as a boolean.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="permanent_deletion_access" type="object">
+The selected option for who can delete items from the trash.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="permanent_deletion_allowlist_users" type="object">
+The allowlist users for permanently deleting items from the trash.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="objectarray">
+  
+  <Expandable>
+    <ParamField body="id" type="integer">
+    example: `1234`
+    
+    The ID of the user.
+    </ParamField>
+  
+    <ParamField body="email" type="string">
+    example: `johndoe@box.com`
+    
+    The email of the user.
+    </ParamField>
+  
+    <ParamField body="name" type="string">
+    example: `John Doe`
+    
+    The name of the user.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="public_shared_links_expiration_days" type="object">
+The expiration time for public shared links.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="integer">
+  example: `1234`
+  
+  The value of the enterprise configuration as an integer.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="shared_expiration_target" type="object">
+The selected option of types for applying shared link expiration.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="shared_link_access" type="object">
+The selected option for who has access to shared links.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="shared_link_company_definition" type="object">
+The definition of the company for shared links (such as `enterprise_id`, `users_with_email_domain`).
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="shared_link_default_access" type="object">
+The selected option for the access level of shared links.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="shared_link_default_permissions_selected" type="object">
+The permissions selected for shared links for each type.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="object">
+  The shared link permissions for the enterprise.
+  
+  <Expandable>
+    <ParamField body="default_notes_shared_link_type" type="string">
+    example: `settings_default_notes_shared_link_to_edit`
+    
+    The default notes shared link type.
+    </ParamField>
+  
+    <ParamField body="default_shared_link_type" type="string">
+    example: `settings_default_shared_link_preview`
+    
+    The default shared link type.
+    </ParamField>
+  
+    <ParamField body="notes_shared_link_option" type="string">
+    example: `settings_notes_option_to_edit`
+    
+    The selected option for notes shared links permissions.
+    </ParamField>
+  
+    <ParamField body="shared_links_option" type="string">
+    example: `settings_shared_link_preview`
+    
+    The selected option for shared links permissions.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="shared_links_expiration_days" type="object">
+The expiration time for shared links.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="integer">
+  example: `1234`
+  
+  The value of the enterprise configuration as an integer.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="shared_links_expiration_notification_days" type="object">
+The number of days before expiration to notify users.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="integer">
+  example: `1234`
+  
+  The value of the enterprise configuration as an integer.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="sharing_item_type" type="object">
+The selected option for the type of items that sharing is enable for.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="tag_creation_restriction" type="object">
+The selected option for tag creation restriction.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  example: `value of configuration`
+  
+  The value of the enterprise configuration as a string.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="trash_auto_clear_time" type="object">
+The time before items are permanently deleted from the trash in seconds.
+
+<Expandable>
+  <ParamField body="is_used" type="boolean">
+  example: `true`
+  
+  Indicates whether a configuration is used for a given enterprise.
+  </ParamField>
+
+  <ParamField body="value" type="integer">
+  example: `1234`
+  
+  The value of the enterprise configuration as an integer.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "auto_delete_days": {
+    "is_used": true,
+    "value": 1234
+  },
+  "auto_delete_target": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "collaboration_expiration_days": {
+    "is_used": true,
+    "value": 1234
+  },
+  "collaboration_expiration_target": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "collaboration_permissions": {
+    "is_used": true,
+    "value": {
+      "is_co_owner_role_enabled": true,
+      "is_editor_role_enabled": true,
+      "is_previewer_role_enabled": true,
+      "is_previewer_uploader_role_enabled": true,
+      "is_uploader_role_enabled": true,
+      "is_viewer_role_enabled": true,
+      "is_viewer_uploader_role_enabled": true
+    }
+  },
+  "collaboration_restrictions": {
+    "is_used": true,
+    "value": [
+      "internal"
+    ]
+  },
+  "default_collaboration_role": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "enterprise_feature_settings": [
+    {
+      "is_used": true,
+      "value": {
+        "allowlist": [
+          {
+            "id": "12345",
+            "type": "user"
+          }
+        ],
+        "can_configure": true,
+        "denylist": [
+          {
+            "id": "12345",
+            "type": "user"
+          }
+        ],
+        "feature": {
+          "id": "canvas"
+        },
+        "id": "eyJlbnRlcnByaXNlSWQiOiIxMTExNDQyNzY3IiwiZmVhdHVyZUlkIjoiY2FudmFzIn0=",
+        "is_configured": true,
+        "state": "enabled"
+      }
+    }
+  ],
+  "external_collaboration_allowlist_users": {
+    "is_used": true,
+    "value": [
+      {
+        "email": "johndoe@box.com",
+        "id": 1234,
+        "name": "John Doe"
+      }
+    ]
+  },
+  "external_collaboration_status": {
+    "is_used": true,
+    "value": "enable_external_collaboration"
+  },
+  "is_auto_delete_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_auto_delete_expiration_modification_prevented": {
+    "is_used": true,
+    "value": true
+  },
+  "is_cc_free_trial_active": {
+    "is_used": true,
+    "value": true
+  },
+  "is_collaboration_expiration_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_collaboration_expiration_modification_prevented": {
+    "is_used": true,
+    "value": true
+  },
+  "is_collaboration_expiration_notification_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_collaborator_invite_links_disabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_custom_domain_hidden_in_shared_link": {
+    "is_used": true,
+    "value": true
+  },
+  "is_custom_settings_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_email_uploads_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_file_request_branding_default_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_file_request_editors_allowed": {
+    "is_used": true,
+    "value": true
+  },
+  "is_file_request_login_required": {
+    "is_used": true,
+    "value": true
+  },
+  "is_forms_branding_default_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_forms_login_required": {
+    "is_used": true,
+    "value": true
+  },
+  "is_invite_group_collaborator_disabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_invite_privilege_restricted": {
+    "is_used": true,
+    "value": true
+  },
+  "is_open_custom_urls_disabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_ownership_transfer_restricted": {
+    "is_used": true,
+    "value": true
+  },
+  "is_public_shared_links_expiration_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_root_content_creation_restricted": {
+    "is_used": true,
+    "value": true
+  },
+  "is_shared_links_expiration_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_shared_links_expiration_notification_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "is_shared_links_expiration_notification_prevented": {
+    "is_used": true,
+    "value": true
+  },
+  "is_tag_creation_restricted": {
+    "is_used": true,
+    "value": true
+  },
+  "is_watermarking_enterprise_feature_enabled": {
+    "is_used": true,
+    "value": true
+  },
+  "permanent_deletion_access": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "permanent_deletion_allowlist_users": {
+    "is_used": true,
+    "value": [
+      {
+        "email": "johndoe@box.com",
+        "id": 1234,
+        "name": "John Doe"
+      }
+    ]
+  },
+  "public_shared_links_expiration_days": {
+    "is_used": true,
+    "value": 1234
+  },
+  "shared_expiration_target": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "shared_link_access": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "shared_link_company_definition": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "shared_link_default_access": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "shared_link_default_permissions_selected": {
+    "is_used": true,
+    "value": {
+      "default_notes_shared_link_type": "settings_default_notes_shared_link_to_edit",
+      "default_shared_link_type": "settings_default_shared_link_preview",
+      "notes_shared_link_option": "settings_notes_option_to_edit",
+      "shared_links_option": "settings_shared_link_preview"
+    }
+  },
+  "shared_links_expiration_days": {
+    "is_used": true,
+    "value": 1234
+  },
+  "shared_links_expiration_notification_days": {
+    "is_used": true,
+    "value": 1234
+  },
+  "sharing_item_type": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "tag_creation_restriction": {
+    "is_used": true,
+    "value": "value of configuration"
+  },
+  "trash_auto_clear_time": {
+    "is_used": true,
+    "value": 1234
+  }
+}
+```
+
+</ResponseExample>

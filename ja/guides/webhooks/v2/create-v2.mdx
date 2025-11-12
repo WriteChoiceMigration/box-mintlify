@@ -1,0 +1,211 @@
+---
+title: "Webhookの作成"
+rank: 2
+related_endpoints:
+  - post_webhooks
+related_guides:
+  - webhooks/triggers
+  - webhooks/v2
+  - webhooks/v2/delete-v2
+related_resources:
+  - webhook
+required_guides: []
+alias_paths:
+  - /webhooks/manage/for-file
+  - /webhooks/manage/for-folder
+category_id: webhooks
+subcategory_id: webhooks/v2
+is_index: false
+id: webhooks/v2/create-v2
+type: guide
+total_steps: 6
+sibling_id: webhooks/v2
+parent_id: webhooks/v2
+next_page_id: webhooks/v2/update-v2
+previous_page_id: webhooks/v2/list-v2
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/webhooks/v2/create-v2.md
+fullyTranslated: true
+---
+V2 Webhookは、特定のファイルまたはフォルダを監視でき、[開発者コンソール][console]でもAPIでも作成できます。
+
+## 開発者コンソール
+
+<Warning>
+
+V2 Webhookを作成できるのは、\[**Webhookを管理する**] というスコープが選択され、アプリケーションが承認されている場合のみです。[必須のアクセススコープ][1]と[承認][2]の詳細を参照してください。
+
+</Warning>
+
+Webhookを作成するには、以下の手順に従います。
+
+1. [開発者コンソール][console]で、目的のアプリケーションに移動します。
+2. \[**Webhook**] タブを選択します。
+3. \[**Webhookを作成**] ボタンをクリックします。
+4. ドロップダウンリストで \[**V2**] を選択します。
+5. フォームに入力します。
+6. \[**Webhookを作成**] ボタンをクリックして変更を保存します。
+
+### 必須フィールド
+
+| フィールド名   | 説明                                    | 必須 |
+| -------- | ------------------------------------- | -- |
+| URLアドレス  | Webhookによって通知されるURLアドレス。              | はい |
+| コンテンツタイプ | Webhookが構成されているコンテンツのタイプ (ファイル/フォルダ)。 | はい |
+| トリガー     | Webhookをアクティブ化するさまざまなトリガー。            | はい |
+
+## API
+
+<Warning>
+
+このAPIを使用するには、アプリケーションの \[**Webhookを管理する**] スコープが有効になっている必要があります。
+
+</Warning>
+
+ファイルにWebhookを追加するには、`file`の種類、ファイルのID、Webhook通知の送信先URL、および[トリガー][4]のリストを指定して[Webhookを作成][3]エンドポイントを呼び出します。
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/webhooks" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "target": {
+         "id": "21322",
+         "type": "file"
+       },
+       "address": "https://example.com/webhooks",
+       "triggers": [
+         "FILE.PREVIEWED"
+       ]
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.webhooks.createWebhook({
+  target: {
+    id: folder.id,
+    type: 'folder' as CreateWebhookRequestBodyTargetTypeField,
+  } satisfies CreateWebhookRequestBodyTargetField,
+  address: 'https://example.com/new-webhook',
+  triggers: ['FILE.UPLOADED' as CreateWebhookRequestBodyTriggersField],
+} satisfies CreateWebhookRequestBody);
+```
+
+```python Python v10
+client.webhooks.create_webhook(
+    CreateWebhookTarget(id=folder.id, type=CreateWebhookTargetTypeField.FOLDER),
+    "https://example.com/new-webhook",
+    [CreateWebhookTriggers.FILE_UPLOADED],
+)
+```
+
+```cs .NET v10
+await client.Webhooks.CreateWebhookAsync(requestBody: new CreateWebhookRequestBody(target: new CreateWebhookRequestBodyTargetField() { Id = folder.Id, Type = CreateWebhookRequestBodyTargetTypeField.Folder }, address: "https://example.com/new-webhook", triggers: Array.AsReadOnly(new [] {new StringEnum<CreateWebhookRequestBodyTriggersField>(CreateWebhookRequestBodyTriggersField.FileUploaded)})));
+```
+
+```swift Swift v10
+try await client.webhooks.createWebhook(requestBody: CreateWebhookRequestBody(target: CreateWebhookRequestBodyTargetField(id: folder.id, type: CreateWebhookRequestBodyTargetTypeField.folder), address: "https://example.com/new-webhook", triggers: [CreateWebhookRequestBodyTriggersField.fileUploaded]))
+```
+
+```java Java v10
+client.getWebhooks().createWebhook(new CreateWebhookRequestBody(new CreateWebhookRequestBodyTargetField.Builder().id(folder.getId()).type(CreateWebhookRequestBodyTargetTypeField.FOLDER).build(), "https://example.com/new-webhook", Arrays.asList(CreateWebhookRequestBodyTriggersField.FILE_UPLOADED)))
+```
+
+```java Java v5
+// Listen for preview events for a file
+BoxFile file = new BoxFile(api, id);
+BoxWebHook.Info webhookInfo = BoxWebHook.create(file, url, BoxWebHook.Trigger.FILE.PREVIEWED);
+```
+
+```python Python v4
+file = client.file(file_id='12345')
+webhook = client.create_webhook(file, ['FILE.PREVIEWED'], 'https://example.com')
+print(f'Webhook ID is {webhook.id} and the address is {webhook.address}')
+```
+
+```cs .NET v6
+var webhookParams = new BoxWebhookRequest()
+{
+    Target = new BoxRequestEntity()
+    {
+        Type = BoxType.file,
+        Id = "22222"
+    },
+    Triggers = new List<string>()
+    {
+        "FILE.PREVIEWED"
+    },
+    Address = "https://example.com/webhook"
+};
+BoxWebhook webhook = await client.WebhooksManager.CreateWebhookAsync(webhookParams);
+```
+
+```javascript Node v4
+// Attach a webhook that sends a notification to https://example.com/webhook when
+//   file 11111 is renamed or downloaded.
+client.webhooks.create(
+	'11111',
+	client.itemTypes.FILE,
+	'https://example.com/webhook',
+	[
+		client.webhooks.triggerTypes.FILE.RENAMED,
+		client.webhooks.triggerTypes.FILE.DOWNLOADED
+	])
+	.then(webhook => {
+		/* webhook -> {
+			id: '12345',
+			type: 'webhook',
+			target: { id: '11111', type: 'file' },
+			created_by: 
+			{ type: 'user',
+				id: '33333',
+				name: 'Example User',
+				login: 'user@example.com' },
+			created_at: '2016-05-09T17:41:27-07:00',
+			address: 'https://example.com/webhook',
+			triggers: [ 'FILE.RENAMED', 'FILE.UPLOADED' ] }
+		*/
+	});
+```
+
+</CodeGroup>
+
+フォルダにWebhookを追加するには、`folder`の種類、フォルダのID、Webhook通知の送信先URL、および[トリガー][4]のリストを指定して[Webhookを作成][3]エンドポイントを呼び出します。
+
+<Note>
+
+Webhookはカスケードで適用されるため、Webhookを親フォルダに設定すると、サブフォルダでも選択されたトリガーが監視されます。
+
+</Note>
+
+## 所有権
+
+コンテンツにアクセスできなくなることでWebhookの配信に生じる可能性のある問題を回避するために、[サービスアカウント][sa] (つまり削除されることのないユーザー) を使用してWebhookを作成することを強くお勧めします。
+
+ファイルやフォルダと同様、Webhookを所有するのはユーザーです。Webhookを所有するユーザーが削除されると、以前アクセスできていたすべてのファイルとフォルダにアクセスできなくなります。ユーザーのWebhookでは検証が失敗するようになりますが、Webhookサービスは引き続きイベントを送信し、再試行を要求します。
+
+## Webhookアドレス
+
+`address`パラメータで指定する通知URLは、Webhookの作成時に指定した有効なURLである必要があります。このURLは、いずれかのトリガーがアクティブになるたびに呼び出されます。
+
+通知URLは標準ポート`443`を使用する必要があり、Webhookペイロードの受信から30秒以内に`200`～`299`の範囲のHTTPステータスを返す必要があります。
+
+## Webhookトリガー
+
+トリガーのリストでは、Webhookによって発生するイベントを表す文字列を指定します。たとえば、ユーザーがファイルをアップロードしたときにWebhookをトリガーするには`FILE.UPLOADED`を使用します。
+
+使用可能なトリガーのリストは、[こちらのガイド][4]を参照してください。
+
+[1]: /ja/guides/applications
+
+[2]: /ja/guides/authorization
+
+[3]: /ja/reference/post_webhooks
+
+[4]: /ja/guides/webhooks/triggers
+
+[sa]: page!://platform/user-types/#service-account
+
+[console]: https://app.box.com/developers/console

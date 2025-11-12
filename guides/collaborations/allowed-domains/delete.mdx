@@ -1,0 +1,67 @@
+---
+title: "Remove a previously allowed domain for collaboration"
+rank: 3
+related_endpoints:
+  - delete_collaboration_whitelist_entries_id
+related_guides:
+  - collaborations
+  - collaborations/allowed-domains/list
+  - collaborations/allowed-domains/create
+related_pages: []
+required_guides: []
+related_resources: []
+alias_paths:
+  - /guides/collaboration-whitelists/delete-whitelist
+---
+Deleting a domain from the list of allowed collaboration domains will remove the
+ability for collaborations to be created between your enterprise and users in
+that domain.
+
+To remove a domain from the allowed list, supply the ID of the list entry to
+the delete request. This ID is returned when [allowing a new domain][create]
+or [listing the allowed domains in the enterprise][list];
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X DELETE "https://api.box.com/2.0/collaboration_whitelist_entries/213123" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.collaborationAllowlistEntries.deleteCollaborationWhitelistEntryById(
+  entry.id!,
+);
+```
+
+```python Python v10
+client.collaboration_allowlist_entries.delete_collaboration_whitelist_entry_by_id(
+    entry.id
+)
+```
+
+```cs .NET v10
+await client.CollaborationAllowlistEntries.DeleteCollaborationWhitelistEntryByIdAsync(collaborationWhitelistEntryId: NullableUtils.Unwrap(entry.Id));
+```
+
+```swift Swift v10
+try await client.collaborationAllowlistEntries.deleteCollaborationWhitelistEntryById(collaborationWhitelistEntryId: entry.id!)
+```
+
+```java Java v10
+client.getCollaborationAllowlistEntries().deleteCollaborationWhitelistEntryById(entry.getId())
+```
+
+```cs .NET v6
+string entryID = "11111";
+await client.CollaborationWhitelistManager.DeleteCollaborationWhitelistEntryAsync(entryID);
+```
+
+```javascript Node v4
+client.collaborationAllowlist.removeDomain('12345', callback);
+```
+
+</CodeGroup>
+
+[create]: /guides/collaborations/allowed-domains/create
+[list]: /guides/collaborations/allowed-domains/list

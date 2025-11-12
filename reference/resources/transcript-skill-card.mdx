@@ -1,0 +1,176 @@
+---
+title: "Transcript Skill Card."
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A Box Skill metadata card that adds a transcript to a file.
+
+<ParamField body="type" type="string">
+example: `skill_card`
+
+The value will always be `skill_card`.
+
+Value is always `skill_card`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2018-04-13T13:53:23-07:00`
+
+The optional date and time this card was created at.
+</ParamField>
+
+<ParamField body="duration" type="integer">
+example: `1000`
+
+An optional total duration in seconds.
+
+Used with a `skill_card_type` of `transcript` or
+`timeline`.
+</ParamField>
+
+<ParamField body="entries" type="objectarray">
+An list of entries for the card. This represents the individual entries of
+the transcription.
+
+<Expandable>
+  <ParamField body="appears" type="objectarray">
+  Defines when a transcribed bit of text appears. This only includes a
+  start time and no end time.
+  
+  <Expandable>
+    <ParamField body="start" type="integer">
+    example: `1`
+    
+    The time in seconds when an
+    entry should start appearing on a timeline.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="text" type="string">
+  example: `Hi, and welcome to this video...`
+  
+  The text of the entry. This would be the transcribed text assigned
+  to the entry on the timeline.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="invocation" type="object">
+The invocation of this service, used to track
+which instance of a service applied the metadata.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `transciption-service-123`
+  
+  A custom identifier that represent the instance of
+  the service that applied this metadata. For example,
+  if your `image-recognition-service` runs on multiple
+  nodes, this field can be used to identify the ID of
+  the node that was used to apply the metadata.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `skill_invocation`
+  
+  The value will always be `skill_invocation`.
+  
+  Value is always `skill_invocation`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="skill" type="object">
+The service that applied this metadata.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `transciption-service`
+  
+  A custom identifier that represent the service that
+  applied this metadata.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `service`
+  
+  The value will always be `service`.
+  
+  Value is always `service`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="skill_card_title" type="object">
+The title of the card.
+
+<Expandable>
+  <ParamField body="code" type="string">
+  example: `my_transcripts`
+  
+  An optional identifier for the title.
+  </ParamField>
+
+  <ParamField body="message" type="string">
+  example: `My Transcripts`
+  
+  The actual title to show in the UI.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="skill_card_type" type="string">
+example: `transcript`
+
+The value will always be `transcript`.
+
+Value is always `transcript`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "skill_card",
+  "created_at": "2018-04-13T13:53:23-07:00",
+  "duration": 1000,
+  "entries": [
+    {
+      "appears": [
+        {
+          "start": 1
+        }
+      ],
+      "text": "Hi, and welcome to this video..."
+    }
+  ],
+  "invocation": {
+    "id": "transciption-service-123",
+    "type": "skill_invocation"
+  },
+  "skill": {
+    "id": "transciption-service",
+    "type": "service"
+  },
+  "skill_card_title": {
+    "code": "my_transcripts",
+    "message": "My Transcripts"
+  },
+  "skill_card_type": "transcript"
+}
+```
+
+</ResponseExample>

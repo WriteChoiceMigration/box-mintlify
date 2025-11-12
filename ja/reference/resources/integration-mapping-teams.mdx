@@ -1,0 +1,128 @@
+---
+title: "Teams統合マッピング"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+統合マッピングオブジェクトのMicrosoft Teams固有のレプリゼンテーション。
+
+<ParamField body="id" type="string">
+例 `12345`
+
+フォルダマッピングの一意の識別子 (`integration_type`とともに複合キーの一部)。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `integration_mapping`
+
+マッピングタイプ。
+
+次の値に固定: `integration_mapping`
+</ParamField>
+
+<ParamField body="box_item" type="object">
+パートナーアプリのドメインのオブジェクト (`partner_item_id`で参照) のマッピング先であるBoxフォルダ。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `42037322`
+  
+  フォルダのID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `folder`
+  
+  値は常に`folder`になります。
+  
+  次の値に固定: `folder`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+統合マッピングオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="integration_type" type="string">
+例 `teams`
+
+マッピングが関連付けられているBoxパートナーアプリを示します。SlackとTeamsがサポートされています (`id`とともに複合キーの一部)。
+
+次の値に固定: `teams`
+</ParamField>
+
+<ParamField body="is_overridden_by_manual_mapping" type="boolean">
+例 `true`
+
+マッピングが (自動作成されたのではなく) チーム所有者によってチャネルのUIから手動で設定されているかどうかを示します。
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+統合マッピングオブジェクトが最後に変更された日時。
+</ParamField>
+
+<ParamField body="partner_item" type="object">
+例 `{"id":"19%3ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2","team_id":"hjgjgjg-bhhj-564a-b643-hghgj685u","tenant_id":"E1234567","type":"channel"}`
+
+Teams用にマッピングされた項目オブジェクト。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `19%ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2`
+  
+  (`type`で参照されるタイプの) マッピングされた項目のID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `channel`
+  
+  `id`で参照されるマッピングされた項目のタイプ。
+  
+  次の値のいずれか1つ: `channel`,`team`
+  </ParamField>
+
+  <ParamField body="tenant_id" type="string">
+  例 `abcd-defg-1235-7890`
+  
+  Microsoft Teamsに登録されているテナントのID。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "integration_mapping",
+  "box_item": {
+    "id": "42037322",
+    "type": "folder"
+  },
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "integration_type": "teams",
+  "is_overridden_by_manual_mapping": true,
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "partner_item": {
+    "id": "19%3ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2",
+    "type": "channel",
+    "team_id": "hjgjgjg-bhhj-564a-b643-hghgj685u",
+    "tenant_id": "E1234567"
+  }
+}
+```
+
+</ResponseExample>

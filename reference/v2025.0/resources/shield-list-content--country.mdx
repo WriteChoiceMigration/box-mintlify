@@ -1,0 +1,35 @@
+---
+title: "Shield List Content (Country)"
+---
+
+API version 2025.0
+
+Representation of content of a Shield List that contains countries data.
+
+<ParamField body="type" type="string">
+example: `country`
+
+The type of content in the shield list.
+
+Value is always `country`
+</ParamField>
+
+<ParamField body="country_codes" type="stringarray">
+example: `["US","PL"]`
+
+List of country codes values.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "country",
+  "country_codes": [
+    "US",
+    "PL"
+  ]
+}
+```
+
+</ResponseExample>

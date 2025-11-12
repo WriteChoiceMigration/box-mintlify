@@ -1,0 +1,105 @@
+---
+title: "Shield information barrier report"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A standard representation
+of a shield information barrier report object.
+
+* [Standard](/reference/resources/shield-information-barrier-report/)
+* [Base](/reference/resources/shield-information-barrier-report--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **standard** variant are generally
+returned when the resource is requested via its own API endpoints.
+For example, when retrieving a file by ID, it will return
+these fields unless the `fields` parameter has been specified.
+</Info>
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for the shield information barrier report.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `shield_information_barrier_report`
+
+The type of the shield information barrier report.
+
+Value is always `shield_information_barrier_report`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2020-06-26T18:44:45.869Z`
+
+ISO date time string when this
+shield information barrier report object was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Base)object">
+The user who created this shield information barrier report.
+</ParamField>
+
+<ParamField body="details" type="Shield information barrier report detailsobject">
+Indicates which folder the report
+file is located and any errors when generating the report.
+</ParamField>
+
+<ParamField body="shield_information_barrier" type="Shield information barrier referenceobject">
+A shield information barrier reference for requests and responses.
+</ParamField>
+
+<ParamField body="status" type="string">
+example: `pending`
+
+Status of the shield information report.
+
+Value is one of `pending`,`error`,`done`,`cancelled`
+</ParamField>
+
+<ParamField body="updated_at" type="string(date-time)">
+example: `2020-07-26T18:44:45.869Z`
+
+ISO date time string when this
+shield information barrier report was updated.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "shield_information_barrier_report",
+  "created_at": "2020-06-26T18:44:45.869Z",
+  "created_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "details": {
+    "details": {
+      "folder_id": "124235"
+    }
+  },
+  "shield_information_barrier": {
+    "shield_information_barrier": {
+      "id": "11446498",
+      "type": "shield_information_barrier"
+    }
+  },
+  "status": "pending",
+  "updated_at": "2020-07-26T18:44:45.869Z"
+}
+```
+
+</ResponseExample>

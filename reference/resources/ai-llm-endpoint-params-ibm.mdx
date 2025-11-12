@@ -1,0 +1,59 @@
+---
+title: "AI LLM endpoint params IBM"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+AI LLM endpoint params IBM object.
+
+<ParamField body="type" type="string">
+example: `ibm_params`
+
+The type of the AI LLM endpoint params object for IBM.
+This parameter is **required**.
+
+Value is always `ibm_params`
+</ParamField>
+
+<ParamField body="temperature" type="number">
+example: `0.5`
+
+What sampling temperature to use, between 0 and 1. Higher values like 0.8 will make the output more random,
+while lower values like 0.2 will make it more focused and deterministic.
+We generally recommend altering this or `top_p` but not both.
+</ParamField>
+
+<ParamField body="top_k" type="number">
+example: `1`
+
+`Top-K` changes how the model selects tokens for output. A low `top-K` means the next selected token is
+the most probable among all tokens in the model's vocabulary (also called greedy decoding),
+while a high `top-K` means that the next token is selected from among the three most probable tokens by using temperature.
+</ParamField>
+
+<ParamField body="top_p" type="number">
+example: `0.5`
+
+An alternative to sampling with temperature, called nucleus sampling, where the model considers the results
+of the tokens with `top_p` probability mass. So 0.1 means only the tokens comprising the top 10% probability
+mass are considered. We generally recommend altering this or temperature but not both.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "ibm_params",
+  "temperature": 0.5,
+  "top_k": 1,
+  "top_p": 0.5
+}
+```
+
+</ResponseExample>

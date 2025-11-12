@@ -1,0 +1,101 @@
+---
+title: "List User's Collections"
+rank: 1
+related_endpoints:
+  - get_collections
+related_guides: []
+required_guides: []
+related_resources:
+  - collection
+alias_paths: []
+---
+To list all collections for a user, call the [`GET
+/collections`](/reference/get_collections) API.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/collections" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.collections.getCollections();
+```
+
+```python Python v10
+client.collections.get_collections()
+```
+
+```cs .NET v10
+await client.Collections.GetCollectionsAsync();
+```
+
+```swift Swift v10
+try await client.collections.getCollections()
+```
+
+```java Java v5
+Iterable<BoxCollection.Info> collections = BoxCollection.getAllCollections(api);
+for (BoxCollection.Info collectionInfo : collections) {
+	// Do something with the collection.
+}
+```
+
+```python Python v4
+collections = client.collections()
+for collection in collections:
+    print(f'Collection "{collection.name}" has ID {collection.id}')
+```
+
+```cs .NET v6
+BoxCollection<BoxCollectionItem> collections = await client.CollectionsManager.GetCollectionsAsync();
+```
+
+```javascript Node v4
+client.collections.getAll()
+	.then(collections => {
+		/* collections -> { total_count: 1,
+			entries: 
+			[ { type: 'collection',
+				id: '11111',
+				name: 'Favorites',
+				collection_type: 'favorites' } ],
+			limit: 100,
+			offset: 0 }
+		*/
+	});
+```
+
+</CodeGroup>
+
+<Warning>
+  The only collection that is available via the API is the "Favorites"
+  collection. The ID of this collection is different for every
+  user.
+</Warning>
+
+## Favorites Collection
+
+The only collection that can items can currently be added and removed to via the
+API is the "Favorites" collection.
+
+The ID of the favorites collection is different for every user. To find the
+user's collection ID for their favorites, list all the user's collections and
+then find the collection with a `collection_type` of `favorites`.
+
+```json
+{
+  "entries": [
+    {
+      "collection_type": "favorites",
+      "id": "12345678",
+      "name": "Favorites",
+      "type": "collection"
+    }
+  ],
+  "limit": 100,
+  "offset": 0,
+  "total_count": 1
+}
+```

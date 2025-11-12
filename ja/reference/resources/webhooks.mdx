@@ -1,0 +1,57 @@
+---
+title: "Webhooks"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+Webhookのリスト。
+
+<ParamField body="entries" type="Webhook (Mini)array">
+Webhookのリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+例 `1000`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。最大値はAPIによって異なります。
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ParamField body="prev_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih`
+
+前の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "id": "11446498",
+      "target": {
+        "id": "1231232",
+        "type": "file"
+      },
+      "type": "webhook"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii",
+  "prev_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih"
+}
+```
+
+</ResponseExample>

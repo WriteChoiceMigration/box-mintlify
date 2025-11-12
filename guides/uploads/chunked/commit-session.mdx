@@ -1,0 +1,131 @@
+---
+title: "Commit Upload Session"
+rank: 5
+related_endpoints:
+  - post_files_upload_sessions_id_commit
+related_guides: []
+related_pages: []
+required_guides:
+  - uploads/chunked/create-session
+  - uploads/chunked/upload-part
+related_resources:
+  - upload_session
+  - upload_part
+alias_paths: []
+---
+The final step in a chunked upload is to commit the session.
+
+To commit a file upload session, call the
+[`POST /files/upload_sessions/:id/commit`][e_commit] with a list of uploaded
+parts to commit.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://upload.box.com/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/commit" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "digest: sha=fpRyg5eVQletdZqEKaFlqwBXJzM=" \
+     -H "content-type: application/json" \
+     -d '{
+       "parts": [
+         {
+           "part_id": "BFDF5379",
+           "offset": 0,
+           "size": 8388608,
+	     "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+         },
+		     {
+           "part_id": "E8A3ED8E",
+           "offset": 8388608,
+           "size": 1611392,
+	     "sha1": "234b65934ed521fcfe3424b7d814ab8ded5185dc"
+         }
+       ],
+       "attributes": {
+         "content_modified_at": "2017-04-08T00:58:08Z"
+       }
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.chunkedUploads.createFileUploadSessionCommit(
+  uploadSessionId,
+  { parts: parts } satisfies CreateFileUploadSessionCommitRequestBody,
+  { digest: digest } satisfies CreateFileUploadSessionCommitHeadersInput,
+);
+```
+
+```python Python v10
+client.chunked_uploads.create_file_upload_session_commit(
+    upload_session_id, parts, digest
+)
+```
+
+```cs .NET v10
+await client.ChunkedUploads.CreateFileUploadSessionCommitAsync(uploadSessionId: uploadSessionId, requestBody: new CreateFileUploadSessionCommitRequestBody(parts: parts), headers: new CreateFileUploadSessionCommitHeaders(digest: digest));
+```
+
+```swift Swift v10
+try await client.chunkedUploads.createFileUploadSessionCommit(uploadSessionId: uploadSessionId, requestBody: CreateFileUploadSessionCommitRequestBody(parts: parts), headers: CreateFileUploadSessionCommitHeaders(digest: digest))
+```
+
+```java Java v10
+client.getChunkedUploads().createFileUploadSessionCommit(uploadSessionId, new CreateFileUploadSessionCommitRequestBody(parts), new CreateFileUploadSessionCommitHeaders(digest))
+```
+
+```java Java v5
+//Creates the file hash
+byte[] digestBytes = digest.digest();
+//Base64 encoding of the hash
+String digestStr = Base64.encode(digestBytes);
+
+//Commit the upload session. If there is a failure, abort the commit.
+BoxFile.Info fileInfo = session.commit(digestStr, parts, null, null, null);
+```
+
+```python Python v4
+import hashlib
+
+sha1 = hashlib.sha1()
+# sha1 should have been updated with all the bytes of the file
+
+file_atributes = {
+    'description': 'A file uploaded via Chunked Upload',
+}
+
+upload_session = client.upload_session('11493C07ED3EABB6E59874D3A1EF3581')
+uploaded_file = upload_session.commit(sha1.digest(), file_atributes=file_atributes)
+print(f'Successfully uploaded file {uploaded_file.id} with description {uploaded_file.description}')
+```
+
+```javascript Node v4
+// Finalize upload session 93D9A837B45F
+client.files.commitUploadSession(
+	'93D9A837B45F',
+	fileHash.digest('base64'),
+	{description: 'A file I uploaded in chunks!'},
+	callback
+);
+```
+
+</CodeGroup>
+
+<Info>
+  Additionally, any file `attributes` can be passed along with the `parts` to
+  further add information to the file. See the [`POST /files/content`][e_file]
+  API for more details.
+</Info>
+
+## Response
+
+When successful, the API returns a HTTP `201 Created` status code with a
+[`File`][r_file] object.
+
+In some cases, creating the parts might not be ready yet and the API will return
+a `202 Accepted` status code instead. In this case the application should check
+the `retry-after` header and retry committing after the number of seconds
+specified.
+
+[e_commit]: /reference/post_files_upload_sessions_id_commit
+[e_file]: /reference/post_files_content
+[r_file]: r://file

@@ -1,0 +1,71 @@
+---
+title: "Box Hub Collaborations"
+---
+
+API version 2025.0
+
+A list of Box Hub collaborations.
+
+<ParamField body="entries" type="Box Hub Collaborationarray">
+A list of Box Hub collaborations.
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+example: `1000`
+
+The limit that was used for these entries. This will be the same as the
+`limit` query parameter unless that value exceeded the maximum value
+allowed. The maximum value varies by API.
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+example: `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+The marker for the start of the next page of results.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "acceptance_requirements_status": {
+        "strong_password_requirement": {
+          "enterprise_has_strong_password_required_for_external_users": true,
+          "user_has_strong_password": true
+        },
+        "terms_of_service_requirement": {
+          "is_accepted": true,
+          "terms_of_service": {
+            "id": "11446498",
+            "type": "terms_of_service"
+          }
+        },
+        "two_factor_authentication_requirement": {
+          "enterprise_has_two_factor_auth_enabled": true,
+          "user_has_two_factor_authentication_enabled": true
+        }
+      },
+      "accessible_by": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      },
+      "hub": {
+        "id": "12345",
+        "type": "hubs"
+      },
+      "id": "12345678",
+      "role": "editor",
+      "status": "accepted",
+      "type": "hub_collaboration"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii"
+}
+```
+
+</ResponseExample>

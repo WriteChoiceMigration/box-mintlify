@@ -1,0 +1,95 @@
+---
+title: "Folder Lock"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Folder locks define access restrictions placed by folder owners
+to prevent specific folders from being moved or deleted.
+
+<ParamField body="id" type="string">
+example: `12345678`
+
+The unique identifier for this folder lock.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `folder_lock`
+
+The object type, always `folder_lock`.
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2020-09-14T23:12:53Z`
+
+When the folder lock object was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Base)object">
+The user or group that created the lock.
+</ParamField>
+
+<ParamField body="folder" type="Folder (Mini)object">
+The folder that the lock applies to.
+</ParamField>
+
+<ParamField body="lock_type" type="string">
+example: `freeze`
+
+The lock type, always `freeze`.
+</ParamField>
+
+<ParamField body="locked_operations" type="object">
+The operations that have been locked. Currently the `move`
+and `delete` operations cannot be locked separately, and both need to be
+set to `true`.
+
+<Expandable>
+  <ParamField body="delete" type="boolean">
+  example: `true`
+  
+  Whether deleting the folder is restricted.
+  </ParamField>
+
+  <ParamField body="move" type="boolean">
+  example: `true`
+  
+  Whether moving the folder is restricted.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345678",
+  "type": "folder_lock",
+  "created_at": "2020-09-14T23:12:53Z",
+  "created_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "folder": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "lock_type": "freeze",
+  "locked_operations": {
+    "delete": true,
+    "move": true
+  }
+}
+```
+
+</ResponseExample>

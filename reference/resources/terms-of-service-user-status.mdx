@@ -1,0 +1,77 @@
+---
+title: "Terms of service user status"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The association between a Terms of Service and a user.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this terms of service user status.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `terms_of_service_user_status`
+
+The value will always be `terms_of_service_user_status`.
+
+Value is always `terms_of_service_user_status`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the legal item was created.
+</ParamField>
+
+<ParamField body="is_accepted" type="boolean">
+example: `true`
+
+If the user has accepted the terms of services.
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the legal item was modified.
+</ParamField>
+
+<ParamField body="tos" type="Terms of service (Base)object">
+The terms of service.
+</ParamField>
+
+<ParamField body="user" type="User (Mini)object">
+The user.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "terms_of_service_user_status",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "is_accepted": true,
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "tos": {
+    "id": "11446498",
+    "type": "terms_of_service"
+  },
+  "user": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  }
+}
+```
+
+</ResponseExample>

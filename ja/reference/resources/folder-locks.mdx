@@ -1,0 +1,63 @@
+---
+title: "フォルダロック"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+フォルダロックのリスト。
+
+<ParamField body="entries" type="フォルダロックarray">
+フォルダロックのリスト。
+</ParamField>
+
+<ParamField body="limit" type="string">
+例 `1000`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。最大値はAPIによって異なります。
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "created_at": "2020-09-14T23:12:53Z",
+      "created_by": {
+        "id": "11446498",
+        "type": "user"
+      },
+      "folder": {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      },
+      "id": "12345678",
+      "lock_type": "freeze",
+      "locked_operations": {
+        "delete": true,
+        "move": true
+      },
+      "type": "folder_lock"
+    }
+  ],
+  "limit": "1000",
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii"
+}
+```
+
+</ResponseExample>

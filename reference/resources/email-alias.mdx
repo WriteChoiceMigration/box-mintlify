@@ -1,0 +1,52 @@
+---
+title: "Email alias"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+An email alias for a user.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this object.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `email_alias`
+
+The value will always be `email_alias`.
+
+Value is always `email_alias`
+</ParamField>
+
+<ParamField body="email" type="string">
+example: `alias@example.com`
+
+The email address.
+</ParamField>
+
+<ParamField body="is_confirmed" type="boolean">
+example: `true`
+
+Whether the email address has been confirmed.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "email_alias",
+  "email": "alias@example.com",
+  "is_confirmed": true
+}
+```
+
+</ResponseExample>

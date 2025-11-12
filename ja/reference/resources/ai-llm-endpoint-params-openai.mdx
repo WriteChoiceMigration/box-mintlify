@@ -1,0 +1,66 @@
+---
+title: "AI LLMエンドポイントパラメータ (OpenAI)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+AI LLMエンドポイントパラメータ (OpenAI) オブジェクト。
+
+<ParamField body="type" type="string">
+例 `openai_params`
+
+OpenAI用のAI LLMエンドポイントパラメータオブジェクトのタイプ。このパラメータは**必須**です。
+
+次の値に固定: `openai_params`
+</ParamField>
+
+<ParamField body="frequency_penalty" type="number">
+例 `1.5`
+
+-2.0から2.0までの数値。正の値の場合は、新しいトークンがこれまでにテキストに出現した回数に基づいてそのトークンにペナルティを与え、モデルが同じ行をそのまま繰り返す可能性を低減させます。
+</ParamField>
+
+<ParamField body="presence_penalty" type="number">
+例 `1.5`
+
+-2.0から2.0までの数値。正の値の場合は、新しいトークンがこれまでにテキストに出現したかどうかに基づいてそのトークンにペナルティを与え、モデルが新しいトピックについて語る可能性を引き上げます。
+</ParamField>
+
+<ParamField body="stop" type="string">
+例 `<|im_end|>`
+
+APIがトークンをそれ以上生成するのを停止する、最大4つのシーケンス。
+</ParamField>
+
+<ParamField body="temperature" type="number">
+例 `0`
+
+使用するサンプリングtemperature (0～2の間)。0.8のような高い値を指定すると、出力がよりランダムになるのに対し、0.2のような低い値を指定すると、出力はより焦点を絞った、決定的なものになります。一般的には、この値と`top_p`の両方ではなく、いずれかを変更することをお勧めします。
+</ParamField>
+
+<ParamField body="top_p" type="number">
+例 `1`
+
+temperatureによるサンプリングの代替手段 (核サンプリングと呼ばれます)。この場合、モデルは`top_p`の確率質量を持つトークンの結果を考慮します。つまり、0.1の場合は、上位10%の確率質量で構成されるトークンのみが考慮されます。一般的には、この値とtemperatureの両方ではなく、いずれかを変更することをお勧めします。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "openai_params",
+  "frequency_penalty": 1.5,
+  "presence_penalty": 1.5,
+  "stop": "<|im_end|>",
+  "temperature": 0,
+  "top_p": 1
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,35 @@
+---
+title: "Shieldリストのコンテンツ (ドメイン)"
+---
+
+APIバージョン 2025.0
+
+ドメインのデータを含むShieldリストのコンテンツの表示。
+
+<ParamField body="type" type="string">
+例 `domain`
+
+Shieldリスト内のコンテンツのタイプ。
+
+次の値に固定: `domain`
+</ParamField>
+
+<ParamField body="domains" type="stringarray">
+例 `["box.com","example.com"]`
+
+ドメインのリスト。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "domain",
+  "domains": [
+    "box.com",
+    "example.com"
+  ]
+}
+```
+
+</ResponseExample>

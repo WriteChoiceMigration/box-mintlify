@@ -1,0 +1,42 @@
+---
+title: "Box Doc Genテンプレートタグ"
+---
+
+APIバージョン 2025.0
+
+Box Doc Genテンプレートタグオブジェクト。
+
+<ParamField body="json_paths" type="stringarray">
+例 `["products","products.name"]`
+
+パスのリスト。
+</ParamField>
+
+<ParamField body="tag_content" type="string">
+例 `{{item.name}}`
+
+タグの内容。
+</ParamField>
+
+<ParamField body="tag_type" type="string">
+例 `text`
+
+タグの種類。
+
+次の値のいずれか1つ: `text`,`arithmetic`,`conditional`,`for-loop`,`table-loop`,`image`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "json_paths": [
+    "products",
+    "products.name"
+  ],
+  "tag_content": "{{item.name}}",
+  "tag_type": "text"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,105 @@
+---
+title: "Tasks"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of tasks.
+
+<ParamField body="entries" type="Taskarray">
+A list of tasks.
+</ParamField>
+
+<ParamField body="total_count" type="integer(int64)">
+example: `5000`
+
+One greater than the offset of the last entry in the entire collection.
+The total number of entries in the collection may be less than
+`total_count`.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "action": "review",
+      "completion_rule": "all_assignees",
+      "created_at": "2012-12-12T10:53:43-08:00",
+      "created_by": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      },
+      "due_at": "2012-12-12T10:53:43-08:00",
+      "id": "11446498",
+      "is_completed": true,
+      "item": {
+        "etag": "1",
+        "id": "12345",
+        "type": "file",
+        "file_version": {
+          "id": "12345",
+          "type": "file_version",
+          "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+        },
+        "name": "Contract.pdf",
+        "sequence_id": "3",
+        "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+      },
+      "message": "Legal review",
+      "task_assignment_collection": {
+        "entries": [
+          {
+            "assigned_at": "2012-12-12T10:53:43-08:00",
+            "assigned_by": {
+              "id": "11446498",
+              "type": "user",
+              "login": "ceo@example.com",
+              "name": "Aaron Levie"
+            },
+            "assigned_to": {
+              "id": "11446498",
+              "type": "user",
+              "login": "ceo@example.com",
+              "name": "Aaron Levie"
+            },
+            "completed_at": "2012-12-12T10:53:43-08:00",
+            "id": "11446498",
+            "item": {
+              "etag": "1",
+              "id": "12345",
+              "type": "file",
+              "file_version": {
+                "id": "12345",
+                "type": "file_version",
+                "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+              },
+              "name": "Contract.pdf",
+              "sequence_id": "3",
+              "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+            },
+            "message": "Please review",
+            "reminded_at": "2012-12-12T10:53:43-08:00",
+            "resolution_state": "incomplete",
+            "type": "task_assignment"
+          }
+        ],
+        "total_count": 100
+      },
+      "type": "task"
+    }
+  ],
+  "total_count": 5000
+}
+```
+
+</ResponseExample>

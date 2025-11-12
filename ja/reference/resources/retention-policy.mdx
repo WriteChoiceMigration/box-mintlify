@@ -1,0 +1,189 @@
+---
+title: "リテンションポリシー"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+リテンションポリシーは、指定した期間にわたってコンテンツが完全に削除されるのを防止します。管理者はリテンションポリシーを作成して特定のフォルダ、メタデータテンプレート、または企業全体に割り当てることができます。この機能を使用するには、アプリケーション管理コンソールから、APIキーに対して [リテンションポリシーを管理する] スコープを有効にする必要があります。
+
+* [Standard](/reference/resources/retention-policy/)
+* [Mini](/reference/resources/retention-policy--mini/)
+* [Base](/reference/resources/retention-policy--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+リテンションポリシーを表す一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `retention_policy`
+
+値は常に`retention_policy`になります。
+
+次の値に固定: `retention_policy`
+</ParamField>
+
+<ParamField body="are_owners_notified" type="boolean">
+例 `false`
+
+リテンション期間が終了に近づいたときに、ポリシーが適用されている項目の所有者と共同所有者に通知するかどうかを決定します。
+</ParamField>
+
+<ParamField body="assignment_counts" type="object">
+項目タイプごとに、リテンションポリシーによる割り当て数をカウントします。
+
+<Expandable>
+  <ParamField body="enterprise" type="integer(int64)">
+  例 `1`
+  
+  このポリシーでの企業の割り当て数。最大値は1です。
+  </ParamField>
+
+  <ParamField body="folder" type="integer(int64)">
+  例 `1`
+  
+  このポリシーでのフォルダの割り当て数。
+  </ParamField>
+
+  <ParamField body="metadata_template" type="integer(int64)">
+  例 `1`
+  
+  このポリシーでのメタデータテンプレートの割り当て数。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="can_owner_extend_retention" type="boolean">
+例 `false`
+
+元のリテンション期間が終了に近づいたときに、ポリシーが適用されている項目の所有者がリテンションを延長できるかどうかを決定します。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+リテンションポリシーオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+リテンションポリシーを作成したユーザーをMini版のユーザーオブジェクトで表示。
+</ParamField>
+
+<ParamField body="custom_notification_recipients" type="ユーザー (Mini)array">
+リテンションポリシーの期間が終了に近づいたときに通知されるユーザーのリスト。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `Policy to retain all reports for at least one month`
+
+リテンションポリシーのテキストによる追加の説明。
+</ParamField>
+
+<ParamField body="disposition_action" type="string">
+例 `permanently_delete`
+
+リテンションポリシーの廃棄アクション。このアクションを`permanently_delete`に設定すると、ポリシーによって保持されているコンテンツが完全に削除されます。`remove_retention`に設定すると、コンテンツへのリテンションポリシーの適用が解除され、リテンションポリシーの有効期限が切れた後は、ユーザーがコンテンツを削除できるようになります。
+
+次の値のいずれか1つ: `permanently_delete`,`remove_retention`
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+リテンションポリシーオブジェクトが最後に変更された日時。
+</ParamField>
+
+<ParamField body="policy_name" type="string">
+例 `Some Policy Name`
+
+リテンションポリシーの名前。
+</ParamField>
+
+<ParamField body="policy_type" type="string">
+例 `finite`
+
+リテンションポリシーのタイプ。リテンションポリシーのタイプは、`finite` (コンテンツを保持する期間が事前にわかっている場合)、または`indefinite` (コンテンツを保持する期間が不明な場合) のいずれかになります。
+
+次の値のいずれか1つ: `finite`,`indefinite`
+</ParamField>
+
+<ParamField body="retention_length" type="string(int32)">
+例 `365`
+
+リテンションポリシーの期間。この値はリテンションポリシーがコンテンツに割り当てられた後、有効である日数を示します。ポリシーの`policy_type`が`indefinite`である場合は、`retention_length`も`indefinite`になります。
+</ParamField>
+
+<ParamField body="retention_type" type="string">
+例 `non_modifiable`
+
+以下のリテンションの種類を指定します。
+
+* `modifiable`: リテンションポリシーを変更できます。たとえば、フォルダの追加と削除、ポリシー期間の短縮と延長、または割り当ての削除を行うことができます。リテンションポリシーが規制目的に関連していない場合はこの種類を使用してください。
+* `non-modifiable`: フォルダの追加、期間の延長、ポリシーの撤回、廃棄アクションまたは通知設定の変更という限られた方法でしかリテンションポリシーを変更できません。割り当ての削除やポリシー期間の短縮など、その他の操作は実行できません。規制に関するリテンションポリシーを確実に遵守する場合はこの種類を使用してください。
+
+次の値のいずれか1つ: `modifiable`,`non_modifiable`
+</ParamField>
+
+<ParamField body="status" type="string">
+例 `active`
+
+リテンションポリシーのステータス。ポリシーのステータスは、管理者が明示的に撤回しない限り、`active`になります (撤回されたポリシーのステータスは`retired`になります)。一度廃止したポリシーを再度アクティブにすることはできません。
+
+次の値のいずれか1つ: `active`,`retired`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "retention_policy",
+  "are_owners_notified": false,
+  "assignment_counts": {
+    "enterprise": 1,
+    "folder": 1,
+    "metadata_template": 1
+  },
+  "can_owner_extend_retention": false,
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "custom_notification_recipients": [
+    {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie"
+    }
+  ],
+  "description": "Policy to retain all reports for at least one month",
+  "disposition_action": "permanently_delete",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "policy_name": "Some Policy Name",
+  "policy_type": "finite",
+  "retention_length": "365",
+  "retention_type": "non_modifiable",
+  "status": "active"
+}
+```
+
+</ResponseExample>

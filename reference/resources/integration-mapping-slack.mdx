@@ -1,0 +1,170 @@
+---
+title: "Integration mapping Slack"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A Slack specific representation of an integration
+mapping object.
+
+<ParamField body="id" type="string">
+example: `12345`
+
+A unique identifier of a folder mapping
+(part of a composite key together
+with `integration_type`).
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `integration_mapping`
+
+Mapping type.
+
+Value is always `integration_mapping`
+</ParamField>
+
+<ParamField body="box_item" type="Folder (Mini)object">
+The Box folder, to which the object from the
+partner app domain (referenced in `partner_item_id`) is mapped.
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the integration mapping object was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Integration Mappings)object">
+An object representing the user who
+created the integration mapping.
+</ParamField>
+
+<ParamField body="integration_type" type="string">
+example: `slack`
+
+Identifies the Box partner app,
+with which the mapping is associated.
+Currently only supports Slack.
+(part of the composite key together with `id`).
+
+Value is always `slack`
+</ParamField>
+
+<ParamField body="is_manually_created" type="boolean">
+example: `true`
+
+Identifies whether the mapping has
+been manually set
+(as opposed to being automatically created).
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the integration mapping object was last modified.
+</ParamField>
+
+<ParamField body="modified_by" type="User (Integration Mappings)object">
+The user who
+last modified the integration mapping.
+</ParamField>
+
+<ParamField body="options" type="object">
+The schema for an integration mapping options object for Slack type.
+
+<Expandable>
+  <ParamField body="is_access_management_disabled" type="boolean">
+  example: `true`
+  
+  Indicates whether or not channel member
+  access to the underlying box item
+  should be automatically managed.
+  Depending on type of channel, access is managed
+  through creating collaborations or shared links.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="partner_item" type="object">
+example: `{"id":"C12378991223","slack_org_id":"E1234567","type":"channel"}`
+
+Mapped item object for Slack.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `C12378991223`
+  
+  ID of the mapped item (of type referenced in `type`).
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `channel`
+  
+  Type of the mapped item referenced in `id`.
+  
+  Value is always `channel`
+  </ParamField>
+
+  <ParamField body="slack_org_id" type="string">
+  example: `E1234567`
+  
+  ID of the Slack org with which the item is associated. Use this parameter if Box for Slack is installed at the org level. Do not use `slack_workspace_id` at the same time.
+  </ParamField>
+
+  <ParamField body="slack_workspace_id" type="string">
+  example: `T12352314`
+  
+  ID of the Slack workspace with which the item is associated. Use this parameter if Box for Slack is installed at a workspace level. Do not use `slack_org_id` at the same time.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "integration_mapping",
+  "box_item": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "integration_type": "slack",
+  "is_manually_created": true,
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "options": {
+    "is_access_management_disabled": true
+  },
+  "partner_item": {
+    "id": "C12378991223",
+    "type": "channel",
+    "slack_org_id": "E1234567"
+  }
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,71 @@
+---
+title: "リテンションポリシー (Mini)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+他のリソース内にネストされたときに使用されるリテンションポリシーのMini版の表示。
+
+* [Standard](/reference/resources/retention-policy/)
+* [Mini](/reference/resources/retention-policy--mini/)
+* [Base](/reference/resources/retention-policy--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Mini**バリアントに含まれるフィールドは、このリソースが別のリソースのレスポンス内にネストされている場合に返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+リテンションポリシーを表す一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `retention_policy`
+
+値は常に`retention_policy`になります。
+
+次の値に固定: `retention_policy`
+</ParamField>
+
+<ParamField body="disposition_action" type="string">
+例 `permanently_delete`
+
+リテンションポリシーの廃棄アクション。このアクションを`permanently_delete`に設定すると、ポリシーによって保持されているコンテンツが完全に削除されます。`remove_retention`に設定すると、コンテンツへのリテンションポリシーの適用が解除され、リテンションポリシーの有効期限が切れた後は、ユーザーがコンテンツを削除できるようになります。
+
+次の値のいずれか1つ: `permanently_delete`,`remove_retention`
+</ParamField>
+
+<ParamField body="policy_name" type="string">
+例 `Some Policy Name`
+
+リテンションポリシーの名前。
+</ParamField>
+
+<ParamField body="retention_length" type="string(int32)">
+例 `365`
+
+リテンションポリシーの期間。この値はリテンションポリシーがコンテンツに割り当てられた後、有効である日数を示します。ポリシーの`policy_type`が`indefinite`である場合は、`retention_length`も`indefinite`になります。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "retention_policy",
+  "disposition_action": "permanently_delete",
+  "policy_name": "Some Policy Name",
+  "retention_length": "365"
+}
+```
+
+</ResponseExample>

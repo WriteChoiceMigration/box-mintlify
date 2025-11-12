@@ -1,0 +1,58 @@
+---
+title: "Box Doc Genテンプレート"
+---
+
+APIバージョン 2025.0
+
+Box Doc Genテンプレートオブジェクト。
+
+* [Standard](/reference/v2025.0/resources/docgen-template/)
+* [Base](/reference/v2025.0/resources/docgen-template--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="file" type="object">
+ドキュメントの生成元となるファイルを有効にします。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `42037322`
+  
+  オブジェクトのID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `file`
+  
+  値は常に`file`になります。
+  
+  次の値に固定: `file`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="file_name" type="string">
+例 `Official contract`
+
+テンプレートの名前。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "file": {
+    "id": "42037322",
+    "type": "file"
+  },
+  "file_name": "Official contract"
+}
+```
+
+</ResponseExample>

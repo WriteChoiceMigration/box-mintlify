@@ -1,0 +1,158 @@
+---
+title: "Box Hubコラボレーション"
+---
+
+APIバージョン 2025.0
+
+Box Hubコラボレーションオブジェクトは、特定のロールによって定義される権限を含んだBox Hubへのアクセス権限をユーザーまたはグループに付与します。
+
+<ParamField body="id" type="string">
+例 `12345678`
+
+このコラボレーションの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `hub_collaboration`
+
+値は常に`hub_collaboration`になります。
+
+次の値に固定: `hub_collaboration`
+</ParamField>
+
+<ParamField body="acceptance_requirements_status" type="object">
+
+<Expandable>
+  <ParamField body="strong_password_requirement" type="object">
+  
+  <Expandable>
+    <ParamField body="enterprise_has_strong_password_required_for_external_users" type="boolean">
+    例 `true`
+    
+    コンテンツを所有する企業が、コンテンツのコラボレーションに強力なパスワードを要求するかどうか、または外部コラボレータに対して漏えいが確認されたパスワードの検出を適用するかどうか。
+    </ParamField>
+  
+    <ParamField body="user_has_strong_password" type="boolean">
+    例 `true`
+    
+    ユーザーのアカウントに対して、強力なパスワードの要求と漏えいが確認されたパスワードの検出が設定されているかどうか。強力なパスワードが要求されていない場合、このフィールドは`null`になります。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="terms_of_service_requirement" type="object">
+  
+  <Expandable>
+    <ParamField body="is_accepted" type="boolean">
+    例 `true`
+    
+    サービス利用規約に同意済みかどうか。利用規約への同意が必要ない場合、このフィールドは`null`です。
+    </ParamField>
+  
+    <ParamField body="terms_of_service" type="object">
+    コラボレーションが承認される前に同意する必要があるサービス利用規約。利用規約への同意が必要ない場合、このフィールドは`null`です。
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      例 `11446498`
+      
+      このサービス利用規約の一意の識別子。
+      </ParamField>
+    
+      <ParamField body="type" type="string">
+      例 `terms_of_service`
+      
+      値は常に`terms_of_service`になります。
+      
+      次の値に固定: `terms_of_service`
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="two_factor_authentication_requirement" type="object">
+  
+  <Expandable>
+    <ParamField body="enterprise_has_two_factor_auth_enabled" type="boolean">
+    例 `true`
+    
+    このコンテンツを所有する会社が、このコンテンツでのコラボレーションを行うために2要素認証を有効にする必要があるかどうか。
+    </ParamField>
+  
+    <ParamField body="user_has_two_factor_authentication_enabled" type="boolean">
+    例 `true`
+    
+    ユーザーが2要素認証を有効にしているかどうか。2要素認証が必要ない場合、このフィールドは`null`です。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="accessible_by" type="objectobject">
+アクセス権限が付与されるユーザーまたはグループ。
+</ParamField>
+
+<ParamField body="hub" type="Box Hub (Base)object">
+最も基本的なBox HubのBase版の表示。
+</ParamField>
+
+<ParamField body="role" type="string">
+例 `editor`
+
+Box Hubに付与されるアクセスレベル。使用可能な値は`editor`、`viewer`、`co-owner`です。
+</ParamField>
+
+<ParamField body="status" type="string">
+例 `accepted`
+
+コラボレーション招待のステータス。ステータスが`pending`の場合、`login`と`name`は空の文字列を返します。
+
+次の値のいずれか1つ: `accepted`,`pending`,`rejected`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345678",
+  "type": "hub_collaboration",
+  "acceptance_requirements_status": {
+    "strong_password_requirement": {
+      "enterprise_has_strong_password_required_for_external_users": true,
+      "user_has_strong_password": true
+    },
+    "terms_of_service_requirement": {
+      "is_accepted": true,
+      "terms_of_service": {
+        "id": "11446498",
+        "type": "terms_of_service"
+      }
+    },
+    "two_factor_authentication_requirement": {
+      "enterprise_has_two_factor_auth_enabled": true,
+      "user_has_two_factor_authentication_enabled": true
+    }
+  },
+  "accessible_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "hub": {
+    "id": "12345",
+    "type": "hubs"
+  },
+  "role": "editor",
+  "status": "accepted"
+}
+```
+
+</ResponseExample>

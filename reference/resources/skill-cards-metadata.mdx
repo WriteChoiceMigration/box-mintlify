@@ -1,0 +1,110 @@
+---
+title: "Skills metadata instance"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The metadata assigned to a using for Box skills.
+
+<ParamField body="$canEdit" type="boolean">
+example: `true`
+
+Whether the user can edit this metadata.
+</ParamField>
+
+<ParamField body="$id" type="string(uuid)">
+example: `01234500-12f1-1234-aa12-b1d234cb567e`
+
+A UUID to identify the metadata object.
+</ParamField>
+
+<ParamField body="$parent" type="string">
+example: `folder_59449484661,`
+
+An ID for the parent folder.
+</ParamField>
+
+<ParamField body="$scope" type="string">
+example: `enterprise_27335`
+
+An ID for the scope in which this template
+has been applied.
+</ParamField>
+
+<ParamField body="$template" type="string">
+example: `properties`
+
+The name of the template.
+</ParamField>
+
+<ParamField body="$type" type="string">
+example: `properties-6bcba49f-ca6d-4d2a-a758-57fe6edf44d0`
+
+A unique identifier for the "type" of this instance. This is an internal
+system property and should not be used by a client application.
+</ParamField>
+
+<ParamField body="$typeVersion" type="integer">
+example: `2`
+
+The last-known version of the template of the object. This is an internal
+system property and should not be used by a client application.
+</ParamField>
+
+<ParamField body="$version" type="integer">
+example: `1`
+
+The version of the metadata object. Starts at 0 and increases every time
+a user-defined property is modified.
+</ParamField>
+
+<ParamField body="cards" type="object[Keyword Skill Card/Status Skill Card/Timeline Skill Card/Transcript Skill Card.]array">
+A list of Box Skill cards that have been applied to this file.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "$canEdit": true,
+  "$id": "01234500-12f1-1234-aa12-b1d234cb567e",
+  "$parent": "folder_59449484661,",
+  "$scope": "enterprise_27335",
+  "$template": "properties",
+  "$type": "properties-6bcba49f-ca6d-4d2a-a758-57fe6edf44d0",
+  "$typeVersion": 2,
+  "$version": 1,
+  "cards": [
+    {
+      "created_at": "2018-04-13T13:53:23-07:00",
+      "entries": [
+        {
+          "text": "keyword1"
+        }
+      ],
+      "invocation": {
+        "id": "image-recognition-service-123",
+        "type": "skill_invocation"
+      },
+      "skill": {
+        "id": "image-recognition-service",
+        "type": "service"
+      },
+      "skill_card_title": {
+        "code": "labels",
+        "message": "Labels"
+      },
+      "skill_card_type": "keyword",
+      "type": "skill_card"
+    }
+  ]
+}
+```
+
+</ResponseExample>

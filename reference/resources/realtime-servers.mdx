@@ -1,0 +1,43 @@
+---
+title: "Real-time servers"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of real-time servers that can
+be used for long-polling.
+
+<ParamField body="chunk_size" type="integer(int64)">
+example: `1`
+
+The number of items in this response.
+</ParamField>
+
+<ParamField body="entries" type="Real-time serverarray">
+A list of real-time servers.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "chunk_size": 1,
+  "entries": [
+    {
+      "max_retries": "10",
+      "retry_timeout": 610,
+      "ttl": "10",
+      "type": "realtime_server",
+      "url": "http://2.realtime.services.box.net/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all"
+    }
+  ]
+}
+```
+
+</ResponseExample>

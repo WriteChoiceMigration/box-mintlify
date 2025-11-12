@@ -1,0 +1,91 @@
+---
+title: "List Items in Collections"
+rank: 2
+related_endpoints:
+  - get_collections_id_items
+related_guides:
+  - api-calls/pagination/offset-based
+required_guides: []
+related_resources:
+  - file
+  - folder
+  - web_link
+alias_paths: []
+---
+To list all files, folders and web links in a folder call the [`GET
+/collections/:id/items`](/reference/get_collections_id_items) API.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/collections/926489/items" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.collections.getCollectionItems(favouriteCollection.id!);
+```
+
+```python Python v10
+client.collections.get_collection_items(favourite_collection.id)
+```
+
+```cs .NET v10
+await client.Collections.GetCollectionItemsAsync(collectionId: NullableUtils.Unwrap(favouriteCollection.Id));
+```
+
+```swift Swift v10
+try await client.collections.getCollectionItems(collectionId: favouriteCollection.id!)
+```
+
+```java Java v5
+BoxFolder folder = new BoxFolder(api, "id");
+for (BoxItem.Info itemInfo : folder) {
+    if (itemInfo instanceof BoxFile.Info) {
+        BoxFile.Info fileInfo = (BoxFile.Info) itemInfo;
+        // Do something with the file.
+    } else if (itemInfo instanceof BoxFolder.Info) {
+        BoxFolder.Info folderInfo = (BoxFolder.Info) itemInfo;
+        // Do something with the folder.
+    }
+}
+```
+
+```python Python v4
+items = client.collection(collection_id='12345').get_items()
+for item in items:
+    print(f'{item.type.capitalize()} "{item.name}" is in the collection')
+```
+
+```cs .NET v6
+BoxCollection<BoxItem> items = await client.CollectionsManager.GetCollectionItemsAsync(id: "11111");
+```
+
+```javascript Node v4
+client.collections.getItems('81934', {fields: 'name', limit: 2})
+	.then(items => {
+		/* items -> { total_count: 24,
+			entries: 
+			[ { type: 'folder',
+				id: '192429928',
+				sequence_id: '1',
+				etag: '1',
+				name: 'Stephen Curry Three Pointers' },
+				{ type: 'file',
+				id: '818853862',
+				sequence_id: '0',
+				etag: '0',
+				name: 'Warriors.jpg' } ],
+			offset: 0,
+			limit: 2 }
+		*/
+	});
+```
+
+</CodeGroup>
+
+<Warning>
+  The only collection that is available via the API is the "Favorites"
+  collection. The ID of this collection is [different for every
+  user](/guides/collections/list).
+</Warning>

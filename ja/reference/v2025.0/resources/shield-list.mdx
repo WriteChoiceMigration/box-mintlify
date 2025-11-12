@@ -1,0 +1,94 @@
+---
+title: "Shieldリスト"
+---
+
+APIバージョン 2025.0
+
+ShieldリストのStandard版の表示。
+
+<ParamField body="id" type="string">
+例 `90fb0e17-c332-40ed-b4f9-fa8908fbbb24`
+
+Shieldリストの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `shield_list`
+
+オブジェクトのタイプ。
+</ParamField>
+
+<ParamField body="content" type="Shieldリストのコンテンツ (国)/Shieldリストのコンテンツ (ドメイン)/Shieldリストのコンテンツ (メールアドレス)/Shieldリストのコンテンツ (統合)/Shieldリストのコンテンツ (IP)object">
+このShieldリストの要素のタイプを指定し、要素自体を含めます。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2025-01-13T15:31:01.896Z`
+
+このShieldリストが作成された日時を示すISO日時文字列。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `A list of things that are shielded`
+
+Shieldリストの説明。
+</ParamField>
+
+<ParamField body="enterprise" type="object">
+このリストが属している企業。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `1910967`
+  
+  この会社の一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `enterprise`
+  
+  値は常に`enterprise`になります。
+  
+  次の値に固定: `enterprise`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Shield List Name`
+
+Shieldリストの名前。
+</ParamField>
+
+<ParamField body="updated_at" type="string(date-time)">
+例 `2025-01-13T15:31:01.896Z`
+
+このShieldリストが更新された日時を示すISO日時文字列。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "90fb0e17-c332-40ed-b4f9-fa8908fbbb24",
+  "type": "shield_list",
+  "content": {
+    "type": "country",
+    "country_codes": [
+      "US",
+      "PL"
+    ]
+  },
+  "created_at": "2025-01-13T15:31:01.896Z",
+  "description": "A list of things that are shielded",
+  "enterprise": {
+    "id": "1910967",
+    "type": "enterprise"
+  },
+  "name": "Shield List Name",
+  "updated_at": "2025-01-13T15:31:01.896Z"
+}
+```
+
+</ResponseExample>

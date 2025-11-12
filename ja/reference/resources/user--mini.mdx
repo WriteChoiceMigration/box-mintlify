@@ -1,0 +1,63 @@
+---
+title: "ユーザー (Mini)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+他のリソース内にネストされたときに返される可能性があるユーザーのMini版の表示。
+
+* [Full](/reference/resources/user--full/)
+* [Standard](/reference/resources/user/)
+* [Mini](/reference/resources/user--mini/)
+* [Base](/reference/resources/user--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Mini**バリアントに含まれるフィールドは、このリソースが別のリソースのレスポンス内にネストされている場合に返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このユーザーの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `user`
+
+値は常に`user`になります。
+
+次の値に固定: `user`
+</ParamField>
+
+<ParamField body="login" type="string(email)">
+例 `ceo@example.com`
+
+このユーザーのプライマリメールアドレス。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Aaron Levie`
+
+このユーザーの表示名。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "user",
+  "login": "ceo@example.com",
+  "name": "Aaron Levie"
+}
+```
+
+</ResponseExample>

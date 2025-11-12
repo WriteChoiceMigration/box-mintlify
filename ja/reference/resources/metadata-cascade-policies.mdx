@@ -1,0 +1,63 @@
+---
+title: "メタデータカスケードポリシー"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+メタデータカスケードポリシーのリスト。
+
+<ParamField body="entries" type="メタデータカスケードポリシーarray">
+メタデータカスケードポリシーのリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+例 `1000`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。最大値はAPIによって異なります。
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ParamField body="prev_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih`
+
+前の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "id": "6fd4ff89-8fc1-42cf-8b29-1890dedd26d7",
+      "owner_enterprise": {
+        "id": "690678",
+        "type": "enterprise"
+      },
+      "parent": {
+        "id": "1234567",
+        "type": "folder"
+      },
+      "scope": "enterprise_123456",
+      "templateKey": "productInfo",
+      "type": "metadata_cascade_policy"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii",
+  "prev_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih"
+}
+```
+
+</ResponseExample>

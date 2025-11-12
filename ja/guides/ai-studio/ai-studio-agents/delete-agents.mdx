@@ -1,0 +1,66 @@
+---
+title: "AIエージェントの削除"
+rank: 5
+related_guides:
+  - authentication/tokens/developer-tokens/
+  - box-ai/ai-tutorials/ask-questions
+  - box-ai/ai-tutorials/default-agent-overrides
+  - box-ai/ai-tutorials/generate-text
+  - box-ai/ai-tutorials/extract-metadata-structured
+  - box-ai/ai-tutorials/extract-metadata
+category_id: ai-studio
+subcategory_id: ai-studio/ai-studio-agents
+is_index: false
+id: ai-studio/ai-studio-agents/delete-agents
+type: guide
+total_steps: 5
+sibling_id: ai-studio/ai-studio-agents
+parent_id: ai-studio/ai-studio-agents
+next_page_id: ''
+previous_page_id: ai-studio/ai-studio-agents/update-agents
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/ai-studio/ai-studio-agents/delete-agents.md
+fullyTranslated: true
+---
+`DELETE /2.0/ai_agents/{id}`エンドポイントを使用すると、IDに基づいてカスタムAIエージェントを削除できます。
+
+## リクエストの送信
+
+リクエストを送信するには、`DELETE /2.0/ai_agents/{id}`エンドポイントを使用します。
+
+<CodeGroup>
+
+```sh cURL
+curl -L DELETE "https://api.box.com/2.0/ai_agents/12345" \
+      -H 'Authorization: Bearer <ACCESS_TOKEN>'
+```
+
+```typescript Node/TypeScript v10
+await client.aiStudio.deleteAiAgentById(createdAgent.id);
+```
+
+```python Python v10
+client.ai_studio.delete_ai_agent_by_id(created_agent.id)
+```
+
+```cs .NET v10
+await client.AiStudio.DeleteAiAgentByIdAsync(agentId: createdAgent.Id);
+```
+
+```swift Swift v10
+try await client.aiStudio.deleteAiAgentById(agentId: createdAgent.id)
+```
+
+```java Java v10
+client.getAiStudio().deleteAiAgentById(createdAgent.getId())
+```
+
+</CodeGroup>
+
+### パラメータ
+
+コールを実行するには、以下のパラメータを渡す必要があります。必須のパラメータは**太字**で示されています。
+
+| パラメータ          | 説明             | 例      |
+| -------------- | -------------- | ------ |
+| **`agent_id`** | 削除するエージェントのID。 | `1234` |

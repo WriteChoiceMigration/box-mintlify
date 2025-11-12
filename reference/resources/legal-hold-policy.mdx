@@ -1,0 +1,180 @@
+---
+title: "Legal hold policy"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Legal Hold Policy information describes the basic
+characteristics of the Policy, such as name, description,
+and filter dates.
+
+* [Standard](/reference/resources/legal-hold-policy/)
+* [Mini](/reference/resources/legal-hold-policy--mini/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **standard** variant are generally
+returned when the resource is requested via its own API endpoints.
+For example, when retrieving a file by ID, it will return
+these fields unless the `fields` parameter has been specified.
+</Info>
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this legal hold policy.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `legal_hold_policy`
+
+The value will always be `legal_hold_policy`.
+
+Value is always `legal_hold_policy`
+</ParamField>
+
+<ParamField body="assignment_counts" type="object">
+Counts of assignments within this a legal hold policy by item type.
+
+<Expandable>
+  <ParamField body="file" type="integer(int64)">
+  example: `3`
+  
+  The number of files this policy is applied to.
+  </ParamField>
+
+  <ParamField body="file_version" type="integer(int64)">
+  example: `4`
+  
+  The number of file versions this policy is applied to.
+  </ParamField>
+
+  <ParamField body="folder" type="integer(int64)">
+  example: `2`
+  
+  The number of folders this policy is applied to.
+  </ParamField>
+
+  <ParamField body="user" type="integer(int64)">
+  example: `1`
+  
+  The number of users this policy is applied to.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the legal hold policy object was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Mini)object">
+The user who created the legal hold policy object.
+</ParamField>
+
+<ParamField body="deleted_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the policy release request was sent. (Because
+it can take time for a policy to fully delete, this
+isn't quite the same time that the policy is fully deleted).
+
+If `null`, the policy was not deleted.
+</ParamField>
+
+<ParamField body="description" type="string">
+example: `Postman created policy`
+
+Description of the legal hold policy. Optional
+property with a 500 character limit.
+</ParamField>
+
+<ParamField body="filter_ended_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+User-specified, optional date filter applies to
+Custodian assignments only.
+</ParamField>
+
+<ParamField body="filter_started_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+User-specified, optional date filter applies to
+Custodian assignments only.
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the legal hold policy object was modified.
+Does not update when assignments are added or removed.
+</ParamField>
+
+<ParamField body="policy_name" type="string">
+example: `Policy 4`
+
+Name of the legal hold policy.
+</ParamField>
+
+<ParamField body="release_notes" type="string">
+example: `Example`
+
+Optional notes about why the policy was created.
+</ParamField>
+
+<ParamField body="status" type="string">
+example: `active`
+
+Possible values:
+
+* 'active' - the policy is not in a transition state.
+* 'applying' - that the policy is in the process of
+  being applied.
+* 'releasing' - that the process is in the process
+  of being released.
+* 'released' - the policy is no longer active.
+
+Value is one of `active`,`applying`,`releasing`,`released`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "legal_hold_policy",
+  "assignment_counts": {
+    "file": 3,
+    "file_version": 4,
+    "folder": 2,
+    "user": 1
+  },
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "deleted_at": "2012-12-12T10:53:43-08:00",
+  "description": "Postman created policy",
+  "filter_ended_at": "2012-12-12T10:53:43-08:00",
+  "filter_started_at": "2012-12-12T10:53:43-08:00",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "policy_name": "Policy 4",
+  "release_notes": "Example",
+  "status": "active"
+}
+```
+
+</ResponseExample>

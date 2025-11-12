@@ -1,0 +1,41 @@
+---
+title: "Email aliases"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of email aliases.
+
+<ParamField body="entries" type="Email aliasarray">
+A list of email aliases.
+</ParamField>
+
+<ParamField body="total_count" type="integer(int64)">
+example: `5000`
+
+The number of email aliases.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "email": "alias@example.com",
+      "id": "11446498",
+      "is_confirmed": true,
+      "type": "email_alias"
+    }
+  ],
+  "total_count": 5000
+}
+```
+
+</ResponseExample>

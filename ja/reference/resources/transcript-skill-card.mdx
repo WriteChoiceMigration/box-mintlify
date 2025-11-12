@@ -1,0 +1,165 @@
+---
+title: "トランスクリプトスキルカード。"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ファイルにトランスクリプトを追加するBox Skillメタデータカード。
+
+<ParamField body="type" type="string">
+例 `skill_card`
+
+値は常に`skill_card`になります。
+
+次の値に固定: `skill_card`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2018-04-13T13:53:23-07:00`
+
+このカードの作成日時 (省略可)。
+</ParamField>
+
+<ParamField body="duration" type="integer">
+例 `1000`
+
+総持続時間 (秒) (省略可)。
+
+`skill_card_type`が`transcript`または`timeline`の場合に使用されます。
+</ParamField>
+
+<ParamField body="entries" type="objectarray">
+カードのエントリのリスト。これは、書き起こしの個々のエントリを表します。
+
+<Expandable>
+  <ParamField body="appears" type="objectarray">
+  書き起こしテキストが表示される時刻を定義します。これに含まれるのは開始時刻のみで、終了時刻は含まれません。
+  
+  <Expandable>
+    <ParamField body="start" type="integer">
+    例 `1`
+    
+    エントリがタイムライン上に表示され始める時間 (秒)。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="text" type="string">
+  例 `Hi, and welcome to this video...`
+  
+  エントリのテキスト。これは、タイムライン上のエントリに割り当てられた書き起こしテキストになります。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="invocation" type="object">
+このサービスの呼び出し。メタデータを適用したサービスのインスタンスを追跡するために使用されます。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `transciption-service-123`
+  
+  このメタデータを適用したサービスのインスタンスを表すカスタム識別子。たとえば、`image-recognition-service`が複数のノードで動作する場合、このフィールドを使用すると、メタデータの適用に使用されたノードのIDを識別できます。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `skill_invocation`
+  
+  値は常に`skill_invocation`になります。
+  
+  次の値に固定: `skill_invocation`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="skill" type="object">
+このメタデータを適用したサービス。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `transciption-service`
+  
+  このメタデータを適用したサービスを表すカスタム識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `service`
+  
+  値は常に`service`になります。
+  
+  次の値に固定: `service`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="skill_card_title" type="object">
+カードのタイトル。
+
+<Expandable>
+  <ParamField body="code" type="string">
+  例 `my_transcripts`
+  
+  タイトルの識別子 (省略可)。
+  </ParamField>
+
+  <ParamField body="message" type="string">
+  例 `My Transcripts`
+  
+  UI上で表示する実際のタイトル。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="skill_card_type" type="string">
+例 `transcript`
+
+値は常に`transcript`になります。
+
+次の値に固定: `transcript`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "skill_card",
+  "created_at": "2018-04-13T13:53:23-07:00",
+  "duration": 1000,
+  "entries": [
+    {
+      "appears": [
+        {
+          "start": 1
+        }
+      ],
+      "text": "Hi, and welcome to this video..."
+    }
+  ],
+  "invocation": {
+    "id": "transciption-service-123",
+    "type": "skill_invocation"
+  },
+  "skill": {
+    "id": "transciption-service",
+    "type": "service"
+  },
+  "skill_card_title": {
+    "code": "my_transcripts",
+    "message": "My Transcripts"
+  },
+  "skill_card_type": "transcript"
+}
+```
+
+</ResponseExample>

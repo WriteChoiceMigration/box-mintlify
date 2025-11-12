@@ -1,0 +1,61 @@
+---
+title: "メタデータインスタンス"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ファイルまたはフォルダに適用された、メタデータテンプレートのインスタンス。
+
+* [Full](/reference/resources/metadata--full/)
+* [Standard](/reference/resources/metadata/)
+* [Base](/reference/resources/metadata--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="$parent" type="string">
+例 `folder_59449484661,`
+
+このメタデータインスタンスが追加されている項目の識別子。これは、親の`type`と`id`を`{type}_{id}`という形式で組み合わせたものです。
+</ParamField>
+
+<ParamField body="$scope" type="string">
+例 `enterprise_27335`
+
+このテンプレートが適用されているスコープのID。これは、この会社で使用するために定義されたテンプレートの場合は`enterprise_{enterprise_id}`、Boxを使用するすべての会社が利用できる一般的なテンプレートの場合は`global`になります。
+</ParamField>
+
+<ParamField body="$template" type="string">
+例 `marketingCollateral`
+
+テンプレートの名前。
+</ParamField>
+
+<ParamField body="$version" type="integer">
+例 `1`
+
+メタデータインスタンスのバージョン。このバージョンは0から始まり、ユーザー定義プロパティが変更されるたびに増加します。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "$parent": "folder_59449484661,",
+  "$scope": "enterprise_27335",
+  "$template": "marketingCollateral",
+  "$version": 1
+}
+```
+
+</ResponseExample>

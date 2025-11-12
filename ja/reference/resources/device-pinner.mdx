@@ -1,0 +1,55 @@
+---
+title: "Device Pinner"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+デバイスピンを使用すると、どのデバイスでネイティブBoxアプリケーションの使用を許可するかを会社レベルで制御できます。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このデバイスピンの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `device_pinner`
+
+値は常に`device_pinner`になります。
+
+次の値に固定: `device_pinner`
+</ParamField>
+
+<ParamField body="owned_by" type="ユーザー (Mini)object">
+デバイスピンが属するユーザー。
+</ParamField>
+
+<ParamField body="product_name" type="string">
+例 `iPad`
+
+ピンが設定されているデバイスのタイプ。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "device_pinner",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "product_name": "iPad"
+}
+```
+
+</ResponseExample>

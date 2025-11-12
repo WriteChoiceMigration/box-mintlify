@@ -1,0 +1,103 @@
+---
+title: "Update a File Request"
+related_endpoints:
+  - put_file_requests_id
+related_guides:
+  - file-requests/copy
+  - file-requests/get
+required_guides: []
+related_resources:
+  - file_request
+---
+To update some of the basic details for an existing 
+file request, all you need is its unique ID.
+
+<CodeGroup>
+```sh cURL
+curl -i -X PUT "https://api.box.com/2.0/file_requests/42037322" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -d '{
+       "title": "Please upload required documents",
+       "description": "Please upload required documents",
+       "status": "active",
+       "is_email_required": true,
+       "is_description_required": false
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.fileRequests.updateFileRequestById(copiedFileRequest.id, {
+  title: 'updated title',
+  description: 'updated description',
+} satisfies FileRequestUpdateRequest);
+```
+
+```python Python v10
+client.file_requests.update_file_request_by_id(
+    copied_file_request.id, title="updated title", description="updated description"
+)
+```
+
+```csharp .NET v10
+await client.FileRequests.UpdateFileRequestByIdAsync(fileRequestId: copiedFileRequest.Id, requestBody: new FileRequestUpdateRequest() { Title = "updated title", Description = "updated description" });
+```
+
+```swift Swift v10
+try await client.fileRequests.updateFileRequestById(fileRequestId: copiedFileRequest.id, requestBody: FileRequestUpdateRequest(title: "updated title", description: "updated description"))
+```
+
+```java Java v10
+client.getFileRequests().updateFileRequestById(copiedFileRequest.getId(), new FileRequestUpdateRequest.Builder().title("updated title").description("updated description").build())
+```
+
+```java Java v5
+BoxFileRequest fileRequest = new BoxFileRequest(api, "id");
+BoxFileRequest.Info fileRequestInfo = fileRequest.new Info();
+fileRequestInfo.setDescription("Following documents are requested for your process");
+fileRequestInfo.setIsDescriptionRequired(true);
+fileRequestInfo.setStatus(BoxFileRequest.Status.ACTIVE);
+fileRequestInfo = fileRequest.updateInfo(fileRequestInfo);
+```
+
+```py Python v4
+from boxsdk.object.file_request import StatusState
+update_data = {
+    "description": 'Updated description', 
+    "is_email_required": True,
+    "status": StatusState.ACTIVE
+}
+file_request.update_info(data=update_data)
+```
+
+```csharp .NET v6
+var updateRequest = new BoxFileRequestUpdateRequest
+{
+    Description = "New file request description",
+    Status = BoxFileRequestStatus.inactive
+};
+
+BoxFileRequestObject fileRequest = await client.FileRequestsManager.UpdateFileRequestAsync("12345", updateRequest);
+```
+
+```js Node v4
+client.fileRequests.update(fileRequestId, {
+  title: 'Updated title'
+}).then((r: FileRequest) => {
+  // do something with the updated file request 
+  console.log(r)
+});
+```
+</CodeGroup>
+
+For more details on the different fields that can be updated when creating
+a template, please see the reference documentation for the
+[`POST /file-requests/:id/update`](/reference/put_file_requests_id) API.
+
+<Note>
+
+The ID of a file request can be determined by visiting the Box web
+app and inspecting the URL. Please 
+[check our guide](/guides/file-requests/template) on setting up a file
+request template to learn how to determine a file request ID.
+
+</Note>

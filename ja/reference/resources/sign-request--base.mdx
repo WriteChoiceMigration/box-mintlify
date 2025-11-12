@@ -1,0 +1,257 @@
+---
+title: "Box Signリクエストを作成する"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+Box Signリクエストオブジェクトを作成します。
+
+* [Standard](/reference/resources/sign-request/)
+* [Base](/reference/resources/sign-request--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="are_reminders_enabled" type="boolean">
+例 `true`
+
+3、8、13、18日目にドキュメントに署名するよう署名者に促します。リマインダは未署名の署名者にのみ送信されます。
+</ParamField>
+
+<ParamField body="are_text_signatures_enabled" type="boolean">
+例 `true`
+
+(テキストの) 入力で生成された署名の使用を無効にします。
+</ParamField>
+
+<ParamField body="days_valid" type="integer">
+例 `2`
+
+作成した署名リクエストが完了しなかった場合に自動的に期限切れになるまでの日数を設定します。デフォルトでは、署名リクエストに有効期限を適用しないため、署名リクエストは期限切れになりません。
+</ParamField>
+
+<ParamField body="declined_redirect_url" type="string">
+例 `https://declined-redirect.com`
+
+署名者がドキュメントへの署名を拒否した後にリダイレクトされるURI。
+</ParamField>
+
+<ParamField body="email_message" type="string">
+例 `Hello! Please sign the document below`
+
+署名リクエストメールに含めるメッセージ。このフィールドは、特定の文字のサニタイズによって消去されます。ただし、一部のHTMLタグは使用できます。また、このメッセージに含まれているリンクはメールではハイパーリンクに変換されます。このメッセージには、HTMLタグ`a`、`abbr`、`acronym`、`b`、`blockquote`、`code`、`em`、`i`、`ul`、`li`、`ol`、`strong`を含めることができます。HTMLに対するテキストの比率が大きすぎると、メールがスパムフィルタに入る可能性があることに注意してください。これらのタグにカスタムスタイルを適用することはできません。このフィールドを渡さない場合は、デフォルトのメッセージが使用されます。
+</ParamField>
+
+<ParamField body="email_subject" type="string">
+例 `Sign Request from Acme`
+
+署名リクエストメールの件名。これは、署名リクエストによって消去されます。このフィールドを渡さない場合は、デフォルトの件名が使用されます。
+</ParamField>
+
+<ParamField body="external_id" type="string">
+例 `123`
+
+これは、署名リクエストが関連する外部システムのIDを参照する際に使用できます。
+</ParamField>
+
+<ParamField body="external_system_name" type="string">
+例 `Box`
+
+署名ログで、`embed_url_external_id`が割り当てられている署名者の横に表示するシステム名 (省略可) として使用されます。
+</ParamField>
+
+<ParamField body="is_document_preparation_needed" type="boolean">
+例 `true`
+
+UIを使用してドキュメントの準備を完了するために送信者がレスポンスで`prepare_url`を受け取る必要があるかどうかを示します。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `name`
+
+署名リクエストの名前。
+</ParamField>
+
+<ParamField body="parent_folder" type="フォルダ (Mini)object">
+最終的な署名済みドキュメントと署名ログの保存先フォルダ。`ID`フィールドと`type`フィールドのみが必須です。ルートフォルダ (フォルダID `0`) は使用できず、nullにすることもできません。
+
+署名リクエストの作成時にこの値が渡されない場合は、デフォルトのフォルダを使用することになります。デフォルトのフォルダは、ペイロードの最初のソースファイルの親フォルダ (そのフォルダへのアップロード権限がある場合) または「My Sign Requests」という名前のフォルダになります。
+</ParamField>
+
+<ParamField body="prefill_tags" type="objectarray">
+署名に関連するタグがドキュメントのコンテンツに含まれている場合、この`prefill_tags`を使用してタグを事前入力できます。その際、タグの「id」を事前入力タグの`external_id`フィールドとして参照します。
+
+<Expandable>
+  <ParamField body="checkbox_value" type="boolean">
+  例 `true`
+  
+  チェックボックスの事前入力値。
+  </ParamField>
+
+  <ParamField body="date_value" type="string(date)">
+  例 `2021-04-26`
+  
+  日付の事前入力値。
+  </ParamField>
+
+  <ParamField body="document_tag_id" type="string">
+  例 `1234`
+  
+  これは、署名リクエストのファイルに含まれている特定のタグのIDを参照します。
+  </ParamField>
+
+  <ParamField body="text_value" type="string">
+  例 `text`
+  
+  テキストの事前入力値。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="redirect_url" type="string">
+例 `https://www.example.com`
+
+指定した場合、ドキュメントに署名された時点で、署名リクエストがこのURLにリダイレクトされます。
+</ParamField>
+
+<ParamField body="signature_color" type="string">
+例 `blue`
+
+署名に特定の色 (青、黒、または赤) を強制します。
+
+次の値のいずれか1つ: `blue`,`black`,`red`
+</ParamField>
+
+<ParamField body="signers" type="objectarray">
+署名リクエストの署名者の配列。許可されている署名者の最大数は35です。
+
+**注**: 一部の署名者が競合する[セグメント](/reference/resources/shield-information-barrier-segment-member/) (ユーザーグループ) に属している可能性もあります。これは、セキュリティポリシーにより、倫理的な競合につながる可能性のあるやり取りやコミュニケーションを防ぐためにユーザーがセグメントに割り当てられていることを意味します。このような場合、署名リクエストを送信しようとすると、エラーが発生します。
+
+セグメントと情報バリアの詳細については、[こちら](https://support.box.com/hc/en-us/articles/9920431507603-Understanding-Information-Barriers#h_01GFVJEHQA06N7XEZ4GCZ9GFAQ)を参照してください。
+
+<Expandable>
+  <ParamField body="declined_redirect_url" type="string">
+  例 `https://declined-example.com`
+  
+  署名者がドキュメントへの署名を拒否した後にリダイレクトされるURL。このURLを定義すると、特定の署名者で、デフォルトまたはグローバルのリダイレクトURL設定より優先されます。
+  </ParamField>
+
+  <ParamField body="email" type="string">
+  例 `example@gmail.com`
+  
+  署名者のメールアドレス。メールアドレスが含まれるように構成されているテンプレートを使用する場合を除き、署名リクエストを作成する際は署名者のメールアドレスが必須です。
+  </ParamField>
+
+  <ParamField body="embed_url_external_user_id" type="string">
+  例 `1234`
+  
+  埋め込みURLへのアクセス時に認証を担当する、外部アプリケーションの署名者のユーザーID。
+  </ParamField>
+
+  <ParamField body="is_in_person" type="boolean">
+  例 `true`
+  
+  送信者の埋め込みURLと組み合わせて使用されます。送信者が署名すると、その次の`in_person`署名者にリダイレクトされます。
+  </ParamField>
+
+  <ParamField body="login_required" type="boolean">
+  例 `true`
+  
+  trueに設定した場合、署名者はリクエストに署名する前にBoxアカウントにログインする必要があります。署名者に既存のアカウントがない場合は、無料のBoxアカウントを作成できます。
+  </ParamField>
+
+  <ParamField body="order" type="integer">
+  例 `2`
+  
+  署名者の順序。
+  </ParamField>
+
+  <ParamField body="password" type="string">
+  例 `SecretPassword123`
+  
+  設定した場合、署名者は、このパスワードを入力しないと、ドキュメントに署名できません。このフィールドは書き込み専用です。
+  </ParamField>
+
+  <ParamField body="redirect_url" type="string">
+  例 `https://example.com`
+  
+  署名者がドキュメントに署名した後にリダイレクトされるURL。このURLを定義すると、特定の署名者で、デフォルトまたはグローバルのリダイレクトURL設定より優先されます。拒否した場合のリダイレクトURLが指定されていない場合は、このURLが拒否の操作にも使用されます。
+  </ParamField>
+
+  <ParamField body="role" type="string">
+  例 `signer`
+  
+  署名リクエストに含まれる署名者のロールを定義します。`signer`はドキュメントに署名し、`approver`はドキュメントを承認する必要があります。最終的な署名済みドキュメントと署名ログを受け取るのは、`final_copy_reader`のみです。
+  
+  次の値のいずれか1つ: `signer`,`approver`,`final_copy_reader`
+  </ParamField>
+
+  <ParamField body="signer_group_id" type="string">
+  例 `cd4ff89-8fc1-42cf-8b29-1890dedd26d7`
+  
+  設定した場合、同じ値が設定されている署名者は、同じ入力および同じ署名者グループに割り当てられます。署名者グループはBoxグループではありません。これは、署名リクエストに属しているエンティティであり、この署名リクエスト内でのみ使用/アクセスできます。署名者グループには複数の署名者が含まれることが想定されています。指定された値が1人の署名者に対してのみ使用されている場合、この値は無視され、リクエストは、個別の署名者を対象としたものとして処理されます。指定できる値は任意の文字列で、同じグループに属している署名者を判別するためだけに使用できます。成功したレスポンスでは、同じ署名者グループ内の署名者ではなく、生成されたUUID値が示されます。
+  </ParamField>
+
+  <ParamField body="suppress_notifications" type="boolean">
+  例 `false`
+  
+  trueの場合、署名リクエストに関するメールは送信されません。
+  </ParamField>
+
+  <ParamField body="verification_phone_number" type="string">
+  例 `6314578901`
+  
+  設定した場合、2要素認証での署名者の認証にこの電話番号が使用されます。認証されると、署名者はドキュメントに署名できるようになります。`login_required`と組み合わせて選択することはできません。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="source_files" type="ファイル (Base)array">
+署名するドキュメントの作成元ファイルのリスト。現在は、10ファイルに制限されています。ファイルごとにIDフィールドとtypeフィールドのみが必要です。
+</ParamField>
+
+<ParamField body="template_id" type="string">
+例 `123075213-af2c8822-3ef2-4952-8557-52d69c2fe9cb`
+
+署名リクエストがテンプレートから作成された場合、このフィールドはそのテンプレートのIDを示します。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "are_reminders_enabled": true,
+  "are_text_signatures_enabled": true,
+  "days_valid": 2,
+  "declined_redirect_url": "https://declined-redirect.com",
+  "email_message": "Hello! Please sign the document below",
+  "email_subject": "Sign Request from Acme",
+  "external_id": "123",
+  "external_system_name": "Box",
+  "is_document_preparation_needed": true,
+  "name": "name",
+  "prefill_tags": [
+    {
+      "checkbox_value": true,
+      "date_value": "2021-04-26",
+      "document_tag_id": "1234",
+      "text_value": "text"
+    }
+  ],
+  "redirect_url": "https://www.example.com",
+  "template_id": "123075213-af2c8822-3ef2-4952-8557-52d69c2fe9cb"
+}
+```
+
+</ResponseExample>

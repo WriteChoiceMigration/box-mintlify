@@ -1,0 +1,65 @@
+---
+title: "Real-time server"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A real-time server that can be used for
+long polling user events.
+
+<ParamField body="type" type="string">
+example: `realtime_server`
+
+The value will always be `realtime_server`.
+</ParamField>
+
+<ParamField body="max_retries" type="string">
+example: `10`
+
+The maximum number of retries this server will
+allow before a new long poll should be started by
+getting a [new list of server](#options-events).
+</ParamField>
+
+<ParamField body="retry_timeout" type="integer">
+example: `610`
+
+The maximum number of seconds without a response
+after which you should retry the long poll connection.
+
+This helps to overcome network issues where the long
+poll looks to be working but no packages are coming
+through.
+</ParamField>
+
+<ParamField body="ttl" type="string">
+example: `10`
+
+The time in minutes for which this server is available.
+</ParamField>
+
+<ParamField body="url" type="string">
+example: `http://2.realtime.services.box.net/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all`
+
+The URL for the server.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "realtime_server",
+  "max_retries": "10",
+  "retry_timeout": 610,
+  "ttl": "10",
+  "url": "http://2.realtime.services.box.net/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all"
+}
+```
+
+</ResponseExample>

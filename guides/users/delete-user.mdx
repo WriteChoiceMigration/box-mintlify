@@ -1,0 +1,80 @@
+---
+title: "Delete User"
+rank: 6
+related_endpoints:
+  - delete_users_id
+related_guides:
+  - users/deprovision
+  - users/deprovision/transfer-folders
+related_pages: []
+required_guides: []
+related_resources: []
+alias_paths: []
+---
+The process for deleting both app and managed users is the same. To delete a
+user account, supply the user ID for the account that should be
+removed.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X DELETE "https://api.box.com/2.0/users/12345" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.users.deleteUserById(user.id);
+```
+
+```python Python v10
+client.users.delete_user_by_id(user.id)
+```
+
+```cs .NET v10
+await client.Users.DeleteUserByIdAsync(userId: user.Id);
+```
+
+```swift Swift v10
+try await client.users.deleteUserById(userId: user.id)
+```
+
+```java Java v10
+client.getUsers().deleteUserById(user.getId())
+```
+
+```java Java v5
+BoxUser user = new BoxUser(api, "0");
+user.delete(false, false);
+```
+
+```python Python v4
+user_id = '33333'
+client.user(user_id).delete(force=True)
+```
+
+```cs .NET v6
+await client.UsersManager.DeleteEnterpriseUserAsync("44444", notify: false, force: true);
+```
+
+```javascript Node v4
+// Delete the user even if they still have files in their account
+client.users.delete('123', {force: true})
+    .then(() => {
+        // deletion succeeded — no value returned
+    });
+```
+
+</CodeGroup>
+
+There are also two optional parameters that may be set when deleting a user
+account:
+
+* force: Whether the user should be deleted even if the account still has content in it.
+* notify: Whether the user will receive a notification that the account was deleted.
+
+<Note>
+  The delete user request will fail if the user account still has content in
+  it. To resolve this, either
+  [transfer all files or folders](/guides/users/deprovision/transfer-folders)
+  to another account or use the optional `force` parameter.
+</Note>

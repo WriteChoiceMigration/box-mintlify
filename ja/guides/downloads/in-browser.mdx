@@ -1,0 +1,63 @@
+---
+title: "ブラウザでのダウンロード"
+rank: 6
+related_endpoints:
+  - get_files_id_content
+related_guides:
+  - downloads/file
+  - uploads/direct/file
+required_guides: []
+related_resources: []
+alias_paths:
+  - /docs/download-all-files-from-a-folder-1
+category_id: downloads
+subcategory_id: null
+is_index: false
+id: downloads/in-browser
+type: guide
+total_steps: 7
+sibling_id: downloads
+parent_id: downloads
+next_page_id: downloads/zip-archive
+previous_page_id: downloads/folder
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/downloads/in-browser.md
+fullyTranslated: true
+---
+アプリケーションでは、ファイルをHTML要素としてページに埋め込む場合があります。たとえば、オーディオプレーヤーを使用する場合です。
+
+```html
+<audio controls>
+  <source src="..." type="audio/mp3">
+</audio>
+
+```
+
+この場合、通常の[ダウンロードURL][durl]を使用しても機能しません。`dl.boxcloud.com`ドメインでは[クロスオリジンリソース共有][cors]がサポートされていないためです。
+
+その代わり、アプリケーションでは次の形式を使用できます。
+
+```sh
+https://api.box.com/2.0/files/[FILE_ID]/content?access_token=[ACCESS_TOKEN]
+
+```
+
+<Warning>
+**CORS**
+
+これを機能させるために、アプリケーションでは、このファイルをホストするウェブサイトのドメインを[CORSの設定][cors]で許可されたドメインのリストに追加しておく必要があります。
+
+</Warning>
+
+<Warning>
+**トークンのダウンスコープ**
+
+この方法を使用すると、アクセストークンがエンドユーザーに公開され、エンドユーザーはこのトークンを使用すると、意図したより多くの操作を行うことができる可能性があります。そのため、状況に応じてこのトークンを[ダウンスコープ][downscoping]することをお勧めします。
+
+</Warning>
+
+[durl]: /ja/guides/downloads/get-url
+
+[cors]: /ja/guides/security/cors
+
+[downscoping]: /ja/guides/authentication/tokens/downscope

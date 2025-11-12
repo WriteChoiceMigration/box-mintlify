@@ -1,0 +1,403 @@
+---
+title: "Apply metadata to an item"
+related_endpoints:
+  - post_files_id_metadata_id_id
+  - post_folders_id_metadata_id_id
+related_resources:
+  - metadata
+  - metadata_template
+required_guides:
+  - metadata/templates/list
+related_guides:
+  - metadata/instances/list
+  - metadata/instances/update
+  - metadata/scopes
+---
+A metadata template can be applied to a file or folder using the item's `id`,
+the template's `templateKey` and `scope`, and a set of values for each field in
+the template.
+
+<Info>
+
+  Metadata [scopes][scopes] can be either `global` for templates available to
+  all enterprises, `enterprise` for templates available to the current
+  enterprise, or the `enterprise_:id` for templates belonging to an enterprise
+  whose ID is the `:id` value in the scope name.
+
+</Info>
+
+<Warning>
+
+You can assign up to 100 templates to specific file or folder.
+
+</Warning>
+
+## Apply metadata to a file
+
+To apply an instance of a metadata template to a file, call the
+[`POST /files/:file_id/metadata/:scope/:templateKey`][e_on_file] API endpoint
+with the file's `file_id`, the template's `scope` and `templateKey`,  and an
+optional set of values for each [field][fields] in the template.
+
+<CodeGroup>
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/files/12345/metadata/enterprise_27335/blueprintTemplate" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "audience": "internal",
+       "documentType": "Q1 plans",
+       "competitiveDocument": "no",
+       "status": "active",
+       "author": "Jones",
+       "currentState": "proposal"
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.fileMetadata.createFileMetadataById(
+  file.id,
+  'enterprise' as CreateFileMetadataByIdScope,
+  templateKey,
+  {
+    ['name']: 'John',
+    ['age']: 23,
+    ['birthDate']: '2001-01-03T02:20:50.520Z',
+    ['countryCode']: 'US',
+    ['sports']: ['basketball', 'tennis'],
+  },
+);
+```
+
+```python Python v10
+client.file_metadata.create_file_metadata_by_id(
+    file.id,
+    CreateFileMetadataByIdScope.ENTERPRISE,
+    template_key,
+    {
+        "name": "John",
+        "age": 23,
+        "birthDate": "2001-01-03T02:20:50.520Z",
+        "countryCode": "US",
+        "sports": ["basketball", "tennis"],
+    },
+)
+```
+
+```csharp .NET v10
+await client.FileMetadata.CreateFileMetadataByIdAsync(fileId: file.Id, scope: CreateFileMetadataByIdScope.Enterprise, templateKey: templateKey, requestBody: new Dictionary<string, object>() { { "name", "John" }, { "age", 23 }, { "birthDate", "2001-01-03T02:20:50.520Z" }, { "countryCode", "US" }, { "sports", Array.AsReadOnly(new [] {"basketball","tennis"}) } });
+```
+
+```swift Swift v10
+try await client.fileMetadata.createFileMetadataById(fileId: file.id, scope: CreateFileMetadataByIdScope.global, templateKey: "properties", requestBody: ["abc": "xyz"])
+```
+
+```java Java v10
+client.getFileMetadata().createFileMetadataById(file.getId(), CreateFileMetadataByIdScope.ENTERPRISE, templateKey, mapOf(entryOf("name", "John"), entryOf("age", 23), entryOf("birthDate", "2001-01-03T02:20:50.520Z"), entryOf("countryCode", "US"), entryOf("sports", Arrays.asList("basketball", "tennis"))))
+```
+
+```java Java v5
+// Add property "foo" with value "bar" to the default metadata properties
+BoxFile file = new BoxFile(api, "id");
+file.createMetadata(new Metadata().add("/foo", "bar"));
+```
+
+```py Python v4
+metadata = {
+    'foo': 'bar',
+    'baz': 'quux',
+}
+
+applied_metadata = client.file(file_id='11111').metadata().create(metadata)
+print(f'Applied metadata in instance ID {applied_metadata["$id"]}')
+```
+
+```csharp .NET v6
+var metadataValues = new Dictionary<string, object>()
+{
+    { "audience", "internal" },
+    { "documentType", "Q1 plans" },
+    { "competitiveDocument", "no" },
+    { "status", "active" },
+    { "author": "M. Jones" },
+    { "currentState": "proposal" }
+};
+Dictionary<string, object> metadata = await client.MetadataManager
+    .CreateFileMetadataAsync(fileId: "11111", metadataValues, "enterprise", "marketingCollateral");
+```
+
+```js Node v4
+var metadataValues = {
+ audience: "internal",
+ documentType: "Q1 plans",
+ competitiveDocument: "no",
+ status: "active",
+ author: "Jones",
+ currentState: "proposal"
+};
+client.files.addMetadata('11111', client.metadata.scopes.ENTERPRISE, "marketingCollateral", metadataValues)
+ .then(metadata => {
+  /* metadata -> {
+   audience: 'internal',
+   documentType: 'Q1 plans',
+   competitiveDocument: 'no',
+   status: 'active',
+   author: 'Jones',
+   currentState: 'proposal',
+   '$type': 'marketingCollateral-d086c908-2498-4d3e-8a1f-01e82bfc2abe',
+   '$parent': 'file_11111',
+   '$id': '2094c584-68e1-475c-a581-534a4609594e',
+   '$version': 0,
+   '$typeVersion': 0,
+   '$template': 'marketingCollateral',
+   '$scope': 'enterprise_12345' }
+  */
+ });
+```
+</CodeGroup>
+
+<Info>
+
+  To get the `scope` and `templateKey` for a template, either
+  [list all metadata templates][g_list_templates], or
+  [list all instances on an file][g_list_instances_item].
+
+</Info>
+
+<Warning>
+
+  ## Tuple already exists error
+
+  When there is already metadata applied to this file for the given metadata
+  template, a error is returned with the error code `tuple_already_exists`. In
+  this case, it this case the instance needs to be [updated
+  instead](/guides/metadata/instances/update).
+
+</Warning>
+
+## Apply metadata to a folder
+
+To apply an instance of a metadata template to a folder, call the
+[`POST /folders/:folder_id/metadata/:scope/:templateKey`][e_on_folder] API endpoint
+with the folder's `folder_id`, the template's `scope` and `templateKey`,  and an
+optional set of values for each [field][fields] in the template.
+
+<CodeGroup>
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/folders/4353455/metadata/enterprise_27335/blueprintTemplate" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "audience": "internal",
+       "documentType": "Q1 plans",
+       "competitiveDocument": "no",
+       "status": "active",
+       "author": "Jones",
+       "currentState": "proposal"
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.folderMetadata.createFolderMetadataById(
+  folder.id,
+  'enterprise' as CreateFolderMetadataByIdScope,
+  templateKey,
+  {
+    ['name']: 'John',
+    ['age']: 23,
+    ['birthDate']: '2001-01-03T02:20:50.520Z',
+    ['countryCode']: 'US',
+    ['sports']: ['basketball', 'tennis'],
+  },
+);
+```
+
+```python Python v10
+client.folder_metadata.create_folder_metadata_by_id(
+    folder.id,
+    CreateFolderMetadataByIdScope.ENTERPRISE,
+    template_key,
+    {
+        "name": "John",
+        "age": 23,
+        "birthDate": "2001-01-03T02:20:50.520Z",
+        "countryCode": "US",
+        "sports": ["basketball", "tennis"],
+    },
+)
+```
+
+```csharp .NET v10
+await client.FolderMetadata.CreateFolderMetadataByIdAsync(folderId: folder.Id, scope: CreateFolderMetadataByIdScope.Enterprise, templateKey: templateKey, requestBody: new Dictionary<string, object>() { { "name", "John" }, { "age", 23 }, { "birthDate", "2001-01-03T02:20:50.520Z" }, { "countryCode", "US" }, { "sports", Array.AsReadOnly(new [] {"basketball","tennis"}) } });
+```
+
+```swift Swift v10
+try await client.folderMetadata.createFolderMetadataById(folderId: folder.id, scope: CreateFolderMetadataByIdScope.global, templateKey: "properties", requestBody: ["abc": "xyz"])
+```
+
+```java Java v10
+client.getFolderMetadata().createFolderMetadataById(folder.getId(), CreateFolderMetadataByIdScope.ENTERPRISE, templateKey, mapOf(entryOf("name", "John"), entryOf("age", 23), entryOf("birthDate", "2001-01-03T02:20:50.520Z"), entryOf("countryCode", "US"), entryOf("sports", Arrays.asList("basketball", "tennis"))))
+```
+
+```java Java v5
+BoxFolder folder = new BoxFolder(api, "id");
+folder.createMetadata(new Metadata().add("/foo", "bar"));
+```
+
+```py Python v4
+metadata = {
+    'foo': 'bar',
+    'baz': 'quux',
+}
+
+applied_metadata = client.folder(folder_id='22222').metadata().create(metadata)
+print(f'Applied metadata in instance ID {applied_metadata["$id"]}')
+```
+
+```csharp .NET v6
+var metadataValues = new Dictionary<string, object>()
+{
+    { "audience", "internal" },
+    { "documentType", "Q1 plans" },
+    { "competitiveDocument", "no" },
+    { "status", "active" },
+    { "author": "M. Jones" },
+    { "currentState": "proposal" }
+};
+Dictionary<string, object> metadata = await client.MetadataManager
+    .CreateFolderMetadataAsync(folderId: "11111", metadataValues, "enterprise", "marketingCollateral");
+```
+
+```js Node v4
+var metadataValues = {
+ audience: "internal",
+ documentType: "Q1 plans",
+ competitiveDocument: "no",
+ status: "active",
+ author: "Jones",
+ currentState: "proposal"
+};
+client.folders.addMetadata('11111', client.metadata.scopes.ENTERPRISE, "marketingCollateral", metadataValues)
+ .then(metadata => {
+  /* metadata -> {
+   audience: 'internal',
+   documentType: 'Q1 plans',
+   competitiveDocument: 'no',
+   status: 'active',
+   author: 'Jones',
+   currentState: 'proposal',
+   '$type': 'marketingCollateral-d086c908-2498-4d3e-8a1f-01e82bfc2abe',
+   '$parent': 'folder_11111',
+   '$id': '2094c584-68e1-475c-a581-534a4609594e',
+   '$version': 0,
+   '$typeVersion': 0,
+   '$template': 'marketingCollateral',
+   '$scope': 'enterprise_12345' }
+  */
+ });
+```
+</CodeGroup>
+
+<Info>
+
+  To get the `scope` and `templateKey` for a template, either
+  [list all metadata templates][g_list_templates], or
+  [list all instances on an folder][g_list_instances_item].
+
+</Info>
+
+<Warning>
+
+  **Tuple already exists error**
+
+  When there is already metadata applied to this folder for the given metadata
+  template, a error is returned with the error code `tuple_already_exists`. In
+  this case, it this case the instance needs to be [updated
+  instead](/guides/metadata/instances/update).
+
+</Warning>
+
+## Request body
+
+The body of the request can contain a value for each [field][fields] in the
+template. To inspect what fields are present on a template, [inspect a
+metadata metadata template][g_get_metadata_template].
+
+For example, let's assume the following template.
+
+```json
+{
+  "id": "8120731a-41e4-11ea-b77f-2e728ce88125",
+  "type": "metadata_template",
+  "templateKey": "productInfo",
+  "scope": "enterprise_1234567",
+  "displayName": "Product Info",
+  "hidden": false,
+  "copyInstanceOnItemCopy": true,
+  "fields": [
+    {
+      "id": "feed71de-41e5-11ea-b77f-2e728ce88125",
+      "type": "string",
+      "key": "name",
+      "displayName": "Name",
+      "hidden": false
+    },
+    {
+      "id": "02b36bb6-41e6-11ea-b77f-2e728ce88125",
+      "type": "enum",
+      "key": "category",
+      "displayName": "Category",
+      "hidden": false,
+      "options": [
+        {
+          "id": "06a7bcc2-41e6-11ea-b77f-2e728ce88125",
+          "key": "SUVs"
+        },
+        {
+          "id": "0a50df02-41e6-11ea-b77f-2e728ce88125",
+          "key": "Saloons"
+        },
+        {
+          "id": "0e466be0-41e6-11ea-b77f-2e728ce88125",
+          "key": "Cabriolets"
+        }
+      ]
+    }
+  ]
+}
+```
+
+This template has 2 [template fields][fields], `name` and `category`. The `name`
+field is a regular text field, and the `category` is an enum.
+
+The request body to assign this template to a file or folder can include a value
+for any of the fields on the template. It is possible for the body to have no
+values for no fields.
+
+In this case, a valid example would be the following request body.
+
+```json
+{
+  "name": "Model 3",
+  "category": "SUVs"
+}
+```
+
+<Note>
+  One exception is a `global` scoped template with the key `properties` that can
+  be used to assign any data to a template. Using this template, any set of
+  key/value pairs can be assigned to a template.
+</Note>
+
+<Warning>
+  The `category` field in this example is an `enum` field and needs to be one of
+  the available options on the field.
+</Warning>
+
+[fields]: /guides/metadata/fields
+[scopes]: /guides/metadata/scopes
+[e_on_file]: /reference/post_files_id_metadata_id_id
+[e_on_folder]: /reference/post_folders_id_metadata_id_id
+[g_list_templates]: /guides/metadata/templates/list
+[g_list_instances_item]: /guides/metadata/instances/list
+[g_get_metadata_template]: /guides/metadata/templates/get

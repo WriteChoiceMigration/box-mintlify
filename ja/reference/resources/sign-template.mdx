@@ -1,0 +1,514 @@
+---
+title: "Box Signテンプレート"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+Box Signテンプレートオブジェクト。
+
+<ParamField body="id" type="string">
+例 `4206996024-14944f75-c34b-478a-95a1-264b1ff80d35`
+
+テンプレートの識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `sign-template`
+
+値は常に`sign-template`になります。
+
+次の値に固定: `sign-template`
+</ParamField>
+
+<ParamField body="additional_info" type="object">
+必須フィールドと編集不可フィールドに関する追加情報。
+
+<Expandable>
+  <ParamField body="non_editable" type="stringarray">
+  例 `["email_subject","name"]`
+  
+  編集不可フィールド。
+  </ParamField>
+
+  <ParamField body="required" type="object">
+  必須フィールド。
+  
+  <Expandable>
+    <ParamField body="signers" type="arrayarray">
+    例 `[["email"],["email"]]`
+    
+    必須の署名者フィールド。
+    
+    <Expandable>
+      <ParamField body="[]" type="stringarray">
+      例 `["email"]`
+      
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="are_email_settings_locked" type="boolean">
+例 `true`
+
+テンプレートのメール設定が編集可能かどうかを示します。
+</ParamField>
+
+<ParamField body="are_fields_locked" type="boolean">
+例 `false`
+
+テンプレートの入力フィールドが編集可能かどうかを示します。
+</ParamField>
+
+<ParamField body="are_files_locked" type="boolean">
+例 `true`
+
+テンプレートファイルが編集可能かどうかを示します。これには、テンプレートファイルの削除または名前変更が含まれます。
+</ParamField>
+
+<ParamField body="are_options_locked" type="boolean">
+例 `true`
+
+テンプレートドキュメントのオプション (ドキュメントの名前変更など) が編集可能かどうかを示します。
+</ParamField>
+
+<ParamField body="are_recipients_locked" type="boolean">
+例 `false`
+
+テンプレートの署名者が編集可能かどうかを示します。
+</ParamField>
+
+<ParamField body="custom_branding" type="object">
+通知および署名リクエストに適用されているカスタムブランド設定。
+
+<Expandable>
+  <ParamField body="branding_color" type="string">
+  例 `9E5E6F`
+  
+  カスタムブランド設定の色 (16進数)。
+  </ParamField>
+
+  <ParamField body="company_name" type="string">
+  例 `Corporation inc.`
+  
+  会社の名前。
+  </ParamField>
+
+  <ParamField body="email_footer_text" type="string">
+  例 `Contact email email@mail.com`
+  
+  メールフッターのコンテンツ。
+  </ParamField>
+
+  <ParamField body="logo_uri" type="string">
+  例 `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
+  AAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A
+  8AAQUBAScY42YAAAAASUVORK5CYII=`
+  
+  カスタムブランド設定のロゴURI (base64画像形式)。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="days_valid" type="integer">
+例 `2`
+
+作成した署名リクエストが完了しなかった場合に自動的に期限切れになるまでの日数を設定します。デフォルトでは、署名リクエストに有効期限を適用しないため、署名リクエストは期限切れになりません。
+</ParamField>
+
+<ParamField body="email_message" type="string">
+例 `Hello! Please sign the document below`
+
+署名リクエストメールに含めるメッセージ。このフィールドは、特定の文字のサニタイズによって消去されます。ただし、一部のHTMLタグは使用できます。また、このメッセージに含まれているリンクはメールではハイパーリンクに変換されます。このメッセージには、HTMLタグ`a`、`abbr`、`acronym`、`b`、`blockquote`、`code`、`em`、`i`、`ul`、`li`、`ol`、`strong`を含めることができます。HTMLに対するテキストの比率が大きすぎると、メールがスパムフィルタに入る可能性があることに注意してください。これらのタグにカスタムスタイルを適用することはできません。このフィールドを渡さない場合は、デフォルトのメッセージが使用されます。
+</ParamField>
+
+<ParamField body="email_subject" type="string">
+例 `Sign Request from Acme`
+
+署名リクエストメールの件名。これは、署名リクエストによって消去されます。このフィールドを渡さない場合は、デフォルトの件名が使用されます。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Official contract`
+
+テンプレートの名前。
+</ParamField>
+
+<ParamField body="parent_folder" type="フォルダ (Mini)object">
+最終的な署名済みドキュメントと署名ログの保存先フォルダ。`ID`フィールドと`type`フィールドのみが必要です。ルートフォルダ (フォルダID `0`) は使用できません。
+</ParamField>
+
+<ParamField body="ready_sign_link" type="object">
+Boxの署名リンク機能により、テンプレートから作成した署名リクエストへのリンクを作成できます。このリンクは、署名者が誰になるか不明な状態で公開フォーム (メール、ソーシャルメディアの投稿、ウェブページなど) に署名リクエストを投稿する場合に使用します。注: 署名リンク機能は、Enterprise Plusをご利用のお客様に限定されており、Box Verified Enterpriseでは利用できません。
+
+<Expandable>
+  <ParamField body="folder_id" type="string">
+  例 `12345`
+  
+  最終的な署名済みドキュメントと署名ログの保存先フォルダ。`ID`フィールドと`type`フィールドのみが必要です。ルートフォルダ (フォルダID `0`) は使用できません。
+  </ParamField>
+
+  <ParamField body="instructions" type="string">
+  例 `Hello! Please sign the document below`
+  
+  署名者全員に対する追加の指示。
+  </ParamField>
+
+  <ParamField body="is_active" type="boolean">
+  例 `false`
+  
+  署名リンクが有効になっているかどうか。
+  </ParamField>
+
+  <ParamField body="is_notification_disabled" type="boolean">
+  例 `true`
+  
+  署名者が署名したときの通知を無効にするかどうか。
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  例 `Official contract`
+  
+  リクエスト名。
+  </ParamField>
+
+  <ParamField body="url" type="string">
+  例 `"https://app.box.com/sign/
+  ready-sign-link/a1cdf2c7-fa81-4a67-8163-1e5f4dbe5178"`
+  
+  署名者に送信できるURL。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="signers" type="objectarray">
+テンプレートの署名者の配列。
+
+**注**: テンプレートで指定された一部の署名者が競合する[セグメント](/reference/resources/shield-information-barrier-segment-member/) (ユーザーグループ) に属している可能性もあります。これは、セキュリティポリシーにより、倫理的な競合につながる可能性のあるやり取りやコミュニケーションを防ぐためにユーザーがセグメントに割り当てられていることを意味します。このような場合、競合するセグメントに存在する署名者を含むテンプレートに基づいて署名リクエストを送信しようとすると、エラーが発生します。
+
+セグメントと情報バリアの詳細については、[こちら](https://support.box.com/hc/en-us/articles/9920431507603-Understanding-Information-Barriers#h_01GFVJEHQA06N7XEZ4GCZ9GFAQ)を参照してください。
+
+<Expandable>
+  <ParamField body="email" type="string">
+  例 `example@mail.com`
+  
+  署名者のメールアドレス。
+  </ParamField>
+
+  <ParamField body="inputs" type="objectarray">
+  
+  <Expandable>
+    <ParamField body="type" type="string">
+    例 `text`
+    
+    入力の種類。
+    
+    次の値のいずれか1つ: `signature`,`date`,`text`,`checkbox`,`attachment`,`radio`,`dropdown`
+    </ParamField>
+  
+    <ParamField body="checkbox_value" type="boolean">
+    例 `true`
+    
+    チェックボックスの事前入力値。
+    </ParamField>
+  
+    <ParamField body="content_type" type="string">
+    例 `text`
+    
+    入力のコンテンツタイプ。
+    
+    次の値のいずれか1つ: `signature`,`initial`,`stamp`,`date`,`checkbox`,`text`,`full_name`,`first_name`,`last_name`,`company`,`title`,`email`,`attachment`,`radio`,`dropdown`
+    </ParamField>
+  
+    <ParamField body="coordinates" type="object">
+    ページ上で入力が配置される場所。
+    
+    <Expandable>
+      <ParamField body="x" type="number">
+      例 `0.672258592471358`
+      
+      入力が配置されるページに対する相対的なx座標 (範囲は0～1)。
+      </ParamField>
+    
+      <ParamField body="y" type="number">
+      例 `0.18654283173599448`
+      
+      入力が配置されるページに対する相対的なy座標 (範囲は0～1)。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="date_value" type="string(date)">
+    例 `2021-04-26`
+    
+    日付の事前入力値。
+    </ParamField>
+  
+    <ParamField body="dimensions" type="object">
+    入力のサイズ。
+    
+    <Expandable>
+      <ParamField body="height" type="number">
+      例 `0.05311728090109673`
+      
+      入力が配置されるページに対する相対的な高さ (範囲は0～1)。
+      </ParamField>
+    
+      <ParamField body="width" type="number">
+      例 `0.2618657937806874`
+      
+      入力が配置されるページに対する相対的な幅 (範囲は0～1)。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="document_id" type="string">
+    例 `123075213-eb54b537-8b25-445e-87c1-5a1c67d8cbd7`
+    
+    ドキュメントの識別子。
+    </ParamField>
+  
+    <ParamField body="document_tag_id" type="string">
+    例 `1234`
+    
+    これは、署名リクエストのファイルに含まれている特定のタグのIDを参照します。
+    </ParamField>
+  
+    <ParamField body="dropdown_choices" type="stringarray">
+    例 `["Yes","No","Maybe"]`
+    
+    入力のタイプが`dropdown`の場合、この値には、ドロップダウンのすべてのオプションが設定されます。
+    </ParamField>
+  
+    <ParamField body="group_id" type="string">
+    例 `da317330-225a-4c72-89ad-0d6dcaaf4df6`
+    
+    入力のタイプが`radio`の場合、この識別子で収集するようにグループ化できます。
+    </ParamField>
+  
+    <ParamField body="is_required" type="boolean">
+    例 `true`
+    
+    入力が必要かどうか。
+    </ParamField>
+  
+    <ParamField body="label" type="string">
+    例 `Legal name`
+    
+    ラベルフィールドは、テキスト、添付、ラジオボタン、チェックボックスのタイプの入力に特に使用されます。
+    </ParamField>
+  
+    <ParamField body="page_index" type="integer">
+    例 `4`
+    
+    入力が配置されるページのインデックス。
+    </ParamField>
+  
+    <ParamField body="read_only" type="boolean">
+    例 `true`
+    
+    この入力が読み取り専用 (署名者による変更不可) として定義されているかどうか。
+    </ParamField>
+  
+    <ParamField body="text_value" type="string">
+    例 `text`
+    
+    テキストの事前入力値。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="is_in_person" type="boolean">
+  例 `true`
+  
+  署名者の埋め込みURLと組み合わせて使用されます。送信者が署名すると、その次の`in_person`署名者にリダイレクトされます。
+  </ParamField>
+
+  <ParamField body="is_password_required" type="boolean">
+  例 `true`
+  
+  メールアドレスが定義されている署名者に対してtrueの場合、テンプレートの作成時に指定されたパスワードがデフォルトで使用されます。メールアドレスが指定/定義されていない署名者に対してtrueの場合、作成者は、テンプレートの使用時にパスワードを指定する必要があります。
+  </ParamField>
+
+  <ParamField body="is_phone_number_required" type="boolean">
+  例 `true`
+  
+  メールアドレスが定義されている署名者に対してtrueの場合、テンプレートの作成時に指定された電話番号がデフォルトで使用されます。メールアドレスが指定/定義されていない署名者に対してtrueの場合、テンプレート作成者は、リクエストの作成時に電話番号を指定する必要があります。
+  </ParamField>
+
+  <ParamField body="label" type="string">
+  例 `Jane Doe`
+  
+  テンプレート作成者が署名者を区別するために設定した、署名者のプレースホルダラベル。
+  </ParamField>
+
+  <ParamField body="login_required" type="boolean">
+  例 `true`
+  
+  trueの場合、署名者は、ドキュメントにアクセスするためにログインする必要があります。
+  </ParamField>
+
+  <ParamField body="order" type="integer">
+  例 `2`
+  
+  署名者の順序。
+  </ParamField>
+
+  <ParamField body="public_id" type="string">
+  例 `RJZYYVPR`
+  
+  署名者の識別子。これは、テンプレート内で署名者を識別するために使用できます。
+  </ParamField>
+
+  <ParamField body="role" type="string">
+  例 `signer`
+  
+  署名リクエストに含まれる署名者の役割を定義します。役割が`signer`の場合はドキュメントの署名する必要があり、`approver`の場合はドキュメントを承認します。また、最終的な署名済みドキュメントと署名ログを受け取るのは、`final_copy_reader`役割のみです。
+  
+  次の値のいずれか1つ: `signer`,`approver`,`final_copy_reader`
+  </ParamField>
+
+  <ParamField body="signer_group_id" type="string">
+  例 `cd4ff89-8fc1-42cf-8b29-1890dedd26d7`
+  
+  指定した場合、この値は、同じ入力が割り当てられ、同じ署名者グループに属している署名者を指します。署名者グループはBoxグループではありません。これは、テンプレート自体に属しているエンティティであり、そのテンプレートから作成されたBox Signリクエスト内でのみ使用できます。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="source_files" type="ファイル (Mini)array">
+署名するドキュメントの作成元ファイルのリスト。ファイルごとにIDフィールドとtypeフィールドのみが必要です。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "4206996024-14944f75-c34b-478a-95a1-264b1ff80d35",
+  "type": "sign-template",
+  "additional_info": {
+    "non_editable": [
+      "email_subject",
+      "name"
+    ],
+    "required": {
+      "signers": [
+        [
+          "email"
+        ],
+        [
+          "email"
+        ]
+      ]
+    }
+  },
+  "are_email_settings_locked": true,
+  "are_fields_locked": false,
+  "are_files_locked": true,
+  "are_options_locked": true,
+  "are_recipients_locked": false,
+  "custom_branding": {
+    "branding_color": "9E5E6F",
+    "company_name": "Corporation inc.",
+    "email_footer_text": "Contact email email@mail.com",
+    "logo_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA\nAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A\n8AAQUBAScY42YAAAAASUVORK5CYII="
+  },
+  "days_valid": 2,
+  "email_message": "Hello! Please sign the document below",
+  "email_subject": "Sign Request from Acme",
+  "name": "Official contract",
+  "parent_folder": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "ready_sign_link": {
+    "folder_id": "12345",
+    "instructions": "Hello! Please sign the document below",
+    "is_active": false,
+    "is_notification_disabled": true,
+    "name": "Official contract",
+    "url": "\"https://app.box.com/sign/\nready-sign-link/a1cdf2c7-fa81-4a67-8163-1e5f4dbe5178\""
+  },
+  "signers": [
+    {
+      "email": "example@mail.com",
+      "inputs": [
+        {
+          "checkbox_value": true,
+          "date_value": "2021-04-26",
+          "document_tag_id": "1234",
+          "text_value": "text",
+          "content_type": "text",
+          "coordinates": {
+            "x": 0.672258592471358,
+            "y": 0.18654283173599448
+          },
+          "dimensions": {
+            "height": 0.05311728090109673,
+            "width": 0.2618657937806874
+          },
+          "document_id": "123075213-eb54b537-8b25-445e-87c1-5a1c67d8cbd7",
+          "dropdown_choices": [
+            "Yes",
+            "No",
+            "Maybe"
+          ],
+          "group_id": "da317330-225a-4c72-89ad-0d6dcaaf4df6",
+          "is_required": true,
+          "label": "Legal name",
+          "page_index": 4,
+          "read_only": true,
+          "type": "text"
+        }
+      ],
+      "is_in_person": true,
+      "is_password_required": true,
+      "is_phone_number_required": true,
+      "label": "Jane Doe",
+      "login_required": true,
+      "order": 2,
+      "public_id": "RJZYYVPR",
+      "role": "signer",
+      "signer_group_id": "cd4ff89-8fc1-42cf-8b29-1890dedd26d7"
+    }
+  ],
+  "source_files": [
+    {
+      "etag": "1",
+      "id": "12345",
+      "type": "file",
+      "file_version": {
+        "id": "12345",
+        "type": "file_version",
+        "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+      },
+      "name": "Contract.pdf",
+      "sequence_id": "3",
+      "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+    }
+  ]
+}
+```
+
+</ResponseExample>

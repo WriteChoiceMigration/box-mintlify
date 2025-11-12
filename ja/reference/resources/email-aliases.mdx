@@ -1,0 +1,41 @@
+---
+title: "メールエイリアス"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+メールエイリアスのリスト。
+
+<ParamField body="entries" type="メールエイリアスarray">
+メールエイリアスのリスト。
+</ParamField>
+
+<ParamField body="total_count" type="integer(int64)">
+例 `5000`
+
+メールエイリアスの数。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "email": "alias@example.com",
+      "id": "11446498",
+      "is_confirmed": true,
+      "type": "email_alias"
+    }
+  ],
+  "total_count": 5000
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,35 @@
+---
+title: "Shield List Content (Domain)"
+---
+
+API version 2025.0
+
+Representation of content of a Shield List that contains domains data.
+
+<ParamField body="type" type="string">
+example: `domain`
+
+The type of content in the shield list.
+
+Value is always `domain`
+</ParamField>
+
+<ParamField body="domains" type="stringarray">
+example: `["box.com","example.com"]`
+
+List of domain.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "domain",
+  "domains": [
+    "box.com",
+    "example.com"
+  ]
+}
+```
+
+</ResponseExample>

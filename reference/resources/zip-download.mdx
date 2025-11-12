@@ -1,0 +1,134 @@
+---
+title: "Zip download"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Represents a successful request to create a `zip` archive of a list of files
+and folders.
+
+<ParamField body="download_url" type="string">
+example: `https://dl.boxcloud.com/2.0/zip_downloads/Lu6fA9Ob-jyysp3AAvMF4AkLEwZwAYbL=tgj2zIC=eK9RvJnJbjJl9rNh2qBgHDpyOCAOhpM=vajg2mKq8Mdd/content`
+
+The URL that can be used to download the `zip` archive. A `Get` request to
+this URL will start streaming the items requested. By default, this URL
+is only valid for a few seconds, until the `expires_at` time, unless a
+download is started after which it is valid for the duration of the
+download.
+
+It is important to note that the domain and path of this URL might change
+between API calls, and therefore it's important to use this URL as-is.
+</ParamField>
+
+<ParamField body="expires_at" type="string(date-time)">
+example: `2019-08-29T23:59:00-07:00`
+
+The time and date when this archive will expire. After this time the
+`status_url` and `download_url` will return an error.
+
+By default, these URLs are only valid for a few seconds, unless a download
+is started after which the `download_url` is valid for the duration of the
+download, and the `status_url` is valid for 12 hours from the start of the
+download.
+</ParamField>
+
+<ParamField body="name_conflicts" type="arrayarray">
+A list of conflicts that occurred when trying to create the archive. This
+would occur when multiple items have been requested with the
+same name.
+
+To solve these conflicts, the API will automatically rename an item
+and return a mapping between the original item's name and its new
+name.
+
+For every conflict, both files will be renamed and therefore this list
+will always be a multiple of 2.
+
+<Expandable>
+  <ParamField body="[]" type="objectarray">
+  An individual conflict that occurred when trying to create the archive.
+  This includes an array of 2 objects, each containing the original name
+  and the renamed filename of a file or folder for which the names
+  conflicted.
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    example: `12345`
+    
+    The identifier of the item.
+    </ParamField>
+  
+    <ParamField body="type" type="string">
+    example: `file`
+    
+    The type of this item.
+    
+    Value is one of `file`,`folder`
+    </ParamField>
+  
+    <ParamField body="download_name" type="string">
+    example: `3aa6a7.pdf`
+    
+    The new name of this item as it will appear in the
+    downloaded `zip` archive.
+    </ParamField>
+  
+    <ParamField body="original_name" type="string">
+    example: `Report.pdf`
+    
+    Box Developer Documentation.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="status_url" type="string">
+example: `https://api.box.com/2.0/zip_downloads/Lu6fA9Ob-jyysp3AAvMF4AkLEwZwAYbL=tgj2zIC=eK9RvJnJbjJl9rNh2qBgHDpyOCAOhpM=vajg2mKq8Mdd/status`
+
+The URL that can be used to get the status of the `zip` archive being
+downloaded. A `Get` request to this URL will return the number of files
+in the archive as well as the number of items already downloaded or
+skipped. By default, this URL is only valid for a few seconds, until the
+`expires_at` time, unless a download is started after which the URL is
+valid for 12 hours from the start of the download.
+
+It is important to note that the domain and path of this URL might change
+between API calls, and therefore it's important to use this URL as-is.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "download_url": "https://dl.boxcloud.com/2.0/zip_downloads/29l00nfxDyHOt7RphI9zT_w==nDnZEDjY2S8iEWWCHEEiptFxwoWojjlibZjJ6geuE5xnXENDTPxzgbks_yY=/content",
+  "expires_at": "2020-07-22T11:26:08Z",
+  "name_conflicts": [
+    [
+      {
+        "download_name": "3aa6a7.pdf",
+        "id": "12345",
+        "original_name": "Report.pdf",
+        "type": "file"
+      },
+      {
+        "download_name": "5d53f2.pdf",
+        "id": "34325",
+        "original_name": "Report.pdf",
+        "type": "file"
+      }
+    ]
+  ],
+  "status_url": "https://api.box.com/2.0/zip_downloads/29l00nfxDyHOt7RphI9zT_w==nDnZEDjY2S8iEWWCHEEiptFxwoWojjlibZjJ6geuE5xnXENDTPxzgbks_yY=/status"
+}
+```
+
+</ResponseExample>

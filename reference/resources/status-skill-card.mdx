@@ -1,0 +1,155 @@
+---
+title: "Status Skill Card"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A Box Skill metadata card that puts a status message in the metadata sidebar.
+
+<ParamField body="type" type="string">
+example: `skill_card`
+
+The value will always be `skill_card`.
+
+Value is always `skill_card`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2018-04-13T13:53:23-07:00`
+
+The optional date and time this card was created at.
+</ParamField>
+
+<ParamField body="invocation" type="object">
+The invocation of this service, used to track
+which instance of a service applied the metadata.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `image-recognition-service-123`
+  
+  A custom identifier that represent the instance of
+  the service that applied this metadata. For example,
+  if your `image-recognition-service` runs on multiple
+  nodes, this field can be used to identify the ID of
+  the node that was used to apply the metadata.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `skill_invocation`
+  
+  The value will always be `skill_invocation`.
+  
+  Value is always `skill_invocation`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="skill" type="object">
+The service that applied this metadata.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `image-recognition-service`
+  
+  A custom identifier that represent the service that
+  applied this metadata.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `service`
+  
+  The value will always be `service`.
+  
+  Value is always `service`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="skill_card_title" type="object">
+The title of the card.
+
+<Expandable>
+  <ParamField body="code" type="string">
+  example: `status`
+  
+  An optional identifier for the title.
+  </ParamField>
+
+  <ParamField body="message" type="string">
+  example: `Status`
+  
+  The actual title to show in the UI.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="skill_card_type" type="string">
+example: `status`
+
+The value will always be `status`.
+
+Value is always `status`
+</ParamField>
+
+<ParamField body="status" type="object">
+Sets the status of the skill. This can be used to show a message to the user while the Skill is processing the data, or if it was not able to process the file.
+
+<Expandable>
+  <ParamField body="code" type="string">
+  example: `success`
+  
+  A code for the status of this Skill invocation. By
+  default each of these will have their own accompanied
+  messages. These can be adjusted by setting the `message`
+  value on this object.
+  
+  Value is one of `invoked`,`processing`,`success`,`transient_failure`,`permanent_failure`
+  </ParamField>
+
+  <ParamField body="message" type="string">
+  example: `We're preparing to process your file. Please hold on!`
+  
+  A custom message that can be provided with this status.
+  This will be shown in the web app to the end user.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "skill_card",
+  "created_at": "2018-04-13T13:53:23-07:00",
+  "invocation": {
+    "id": "image-recognition-service-123",
+    "type": "skill_invocation"
+  },
+  "skill": {
+    "id": "image-recognition-service",
+    "type": "service"
+  },
+  "skill_card_title": {
+    "code": "status",
+    "message": "Status"
+  },
+  "skill_card_type": "status",
+  "status": {
+    "code": "success",
+    "message": "We're preparing to process your file. Please hold on!"
+  }
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,70 @@
+---
+title: "Metadata filter"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A metadata template used to filter the search results.
+
+<ParamField body="filters" type="associative array">
+Specifies which fields on the template to filter the search
+results by. When more than one field is specified, the query
+performs a logical `AND` to ensure that the instance of the
+template matches each of the fields specified.
+
+<Expandable>
+  <ParamField body="<key>" type="string/number/string array/Metadata field filter (date range)/Metadata field filter (float range)">
+  example: `"online"`
+  
+  A value of metadata filter.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="scope" type="string">
+example: `enterprise`
+
+Specifies the scope of the template to filter search results by.
+
+This will be `enterprise_{enterprise_id}` for templates defined
+for use in this enterprise, and `global` for general templates
+that are available to all enterprises using Box.
+
+Value is one of `global`,`enterprise`,`enterprise_{enterprise_id}`
+</ParamField>
+
+<ParamField body="templateKey" type="string">
+example: `contract`
+
+The key of the template used to filter search results.
+
+In many cases the template key is automatically derived
+of its display name, for example `Contract Template` would
+become `contractTemplate`. In some cases the creator of the
+template will have provided its own template key.
+
+Please [list the templates for an enterprise](/reference/get-metadata-templates-enterprise/), or
+get all instances on a [file](/reference/get-files-id-metadata/) or [folder](/reference/get-folders-id-metadata/)
+to inspect a template's key.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "filters": {
+    "category": "online"
+  },
+  "scope": "enterprise",
+  "templateKey": "contract"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,70 @@
+---
+title: "Metadata instance (Base)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The base representation of a metadata instance.
+
+* [Full](/reference/resources/metadata--full/)
+* [Standard](/reference/resources/metadata/)
+* [Base](/reference/resources/metadata--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **base** variant represent
+the default fields that are always returned when using the `fields`
+query parameter, additional to the fields specified in the
+parameter.
+</Info>
+
+<ParamField body="$parent" type="string">
+example: `folder_59449484661,`
+
+The identifier of the item that this metadata instance
+has been attached to. This combines the `type` and the `id`
+of the parent in the form `{type}_{id}`.
+</ParamField>
+
+<ParamField body="$scope" type="string">
+example: `enterprise_27335`
+
+An ID for the scope in which this template
+has been applied. This will be `enterprise_{enterprise_id}` for templates
+defined for use in this enterprise, and `global` for general templates
+that are available to all enterprises using Box.
+</ParamField>
+
+<ParamField body="$template" type="string">
+example: `marketingCollateral`
+
+The name of the template.
+</ParamField>
+
+<ParamField body="$version" type="integer">
+example: `1`
+
+The version of the metadata instance. This version starts at 0 and
+increases every time a user-defined property is modified.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "$parent": "folder_59449484661,",
+  "$scope": "enterprise_27335",
+  "$template": "marketingCollateral",
+  "$version": 1
+}
+```
+
+</ResponseExample>

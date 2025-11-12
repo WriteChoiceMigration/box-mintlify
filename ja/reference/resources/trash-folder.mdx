@@ -1,0 +1,249 @@
+---
+title: "ごみ箱内のフォルダ"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ごみ箱内のフォルダを表します。
+
+<ParamField body="id" type="string">
+例 `123456789`
+
+フォルダを表す一意の識別子。
+
+フォルダIDを確認するには、ウェブアプリケーションでフォルダにアクセスして、URLからIDをコピーします。たとえば、URLが`https://*.app.box.com/folders/123`の場合、`folder_id`は`123`です。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `folder`
+
+値は常に`folder`になります。
+
+次の値に固定: `folder`
+</ParamField>
+
+<ParamField body="content_created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このフォルダが最初に作成された日時。
+</ParamField>
+
+<ParamField body="content_modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このフォルダが最後に更新された日時。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このフォルダが作成された日時。ルートフォルダやごみ箱フォルダなど、一部のフォルダの場合、この値は`null`になる場合があります。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+このフォルダを作成したユーザー。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `Legal contracts for the new ACME deal`
+
+このフォルダの説明 (省略可)。
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このフォルダのHTTP `etag`。これは変更が発生した場合 (またはしなかった場合) にフォルダに対して変更を行う目的でのみ、`If-Match`および`If-None-Match`ヘッダー内の一部のAPIエンドポイントで使用できます。
+</ParamField>
+
+<ParamField body="folder_upload_email" type="string">
+このフォルダのフォルダアップロード用メールアドレス。フォルダがごみ箱に移動された場合、アップロードは動作しなくなるため、これは`null`になります。
+</ParamField>
+
+<ParamField body="item_status" type="string">
+例 `trashed`
+
+この項目が削除されたかどうかを定義します。
+
+* `active` - 項目がごみ箱に移動されていない場合。
+* `trashed` - 項目がごみ箱に移動されているが、まだ削除されていない場合。
+* `deleted` - 項目がすでに完全に削除されている場合。
+
+次の値のいずれか1つ: `active`,`trashed`,`deleted`
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このフォルダが最後に更新された日時。ルートフォルダやごみ箱フォルダなど、一部のフォルダの場合、この値は`null`になる場合があります。
+</ParamField>
+
+<ParamField body="modified_by" type="ユーザー (Mini)object">
+このフォルダを最後に変更したユーザー。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Contracts`
+
+フォルダの名前。
+</ParamField>
+
+<ParamField body="owned_by" type="ユーザー (Mini)object">
+このフォルダを所有するユーザー。
+</ParamField>
+
+<ParamField body="parent" type="フォルダ (Mini)object">
+このフォルダが配置されているフォルダ (省略可)
+
+ルートフォルダやごみ箱フォルダなど、一部のフォルダの場合、この値は`null`になることがあります。
+</ParamField>
+
+<ParamField body="path_collection" type="object">
+ルートフォルダを起点にした、このファイルを含むフォルダツリー。
+
+<Expandable>
+  <ParamField body="entries" type="objectarray">
+  この項目のパスのコレクションのフォルダの配列。
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    例 `123456789`
+    
+    フォルダを表す一意の識別子。
+    </ParamField>
+  
+    <ParamField body="type" type="string">
+    例 `folder`
+    
+    値は常に`folder`になります。
+    
+    次の値に固定: `folder`
+    </ParamField>
+  
+    <ParamField body="etag" type="string">
+    ごみ箱フォルダの場合、このフィールドはnullです。
+    </ParamField>
+  
+    <ParamField body="name" type="string">
+    例 `Trash`
+    
+    ごみ箱フォルダの名前。
+    </ParamField>
+  
+    <ParamField body="sequence_id" type="string">
+    ごみ箱フォルダの場合、このフィールドはnullです。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="total_count" type="integer(int64)">
+  例 `1`
+  
+  このリスト内のフォルダの数。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="purged_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このフォルダがごみ箱から削除される予定日時。
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+例 `3`
+
+この項目に適用された最新のUser Eventを表す数値の識別子。
+
+これを`GET /events`エンドポイントと組み合わせて使用すると、この識別子が読み取られる前に発生した可能性があるUser Eventを除外できます。
+
+たとえば、Box DriveなどのアプリケーションがAPIを介して項目を取得し、その項目の変更に関連するUser Eventの発生を監視する場合などがこれに該当します。User Eventの`sequence_id`が最初に取得されたリソースの`sequence_id`よりも小さいか同じである場合、アプリケーションはそのようなUser Eventをすべて無視します。
+</ParamField>
+
+<ParamField body="shared_link" type="string">
+このフォルダの共有リンク。フォルダがごみ箱に移動された場合、このリンクはアクティブではなくなるため、これは`null`になります。
+</ParamField>
+
+<ParamField body="size" type="integer(int64)">
+例 `629644`
+
+フォルダサイズ (バイト単位)。
+
+この整数を解析する際には、値が非常に大きくなることがあるため注意が必要です。
+</ParamField>
+
+<ParamField body="trashed_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このフォルダがごみ箱に移動された日時。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "123456789",
+  "type": "folder",
+  "content_created_at": "2012-12-12T10:53:43-08:00",
+  "content_modified_at": "2012-12-12T10:53:43-08:00",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Legal contracts for the new ACME deal",
+  "etag": "1",
+  "folder_upload_email": "null",
+  "item_status": "trashed",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "name": "Contracts",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "path_collection": {
+    "entries": [
+      {
+        "etag": "null",
+        "id": "123456789",
+        "name": "Trash",
+        "sequence_id": "null",
+        "type": "folder"
+      }
+    ],
+    "total_count": 1
+  },
+  "purged_at": "2012-12-12T10:53:43-08:00",
+  "sequence_id": "3",
+  "shared_link": "null",
+  "size": 629644,
+  "trashed_at": "2012-12-12T10:53:43-08:00"
+}
+```
+
+</ResponseExample>

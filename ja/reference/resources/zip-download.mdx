@@ -1,0 +1,109 @@
+---
+title: "zipダウンロード"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ファイルやフォルダのリストの`zip`アーカイブを作成するリクエストが成功したことを表します。
+
+<ParamField body="download_url" type="string">
+例 `https://dl.boxcloud.com/2.0/zip_downloads/Lu6fA9Ob-jyysp3AAvMF4AkLEwZwAYbL=tgj2zIC=eK9RvJnJbjJl9rNh2qBgHDpyOCAOhpM=vajg2mKq8Mdd/content`
+
+`zip`アーカイブのダウンロードに使用できるURL。このURLに対する`Get`リクエストにより、リクエストされた項目のストリーミングが開始されます。デフォルトでは、このURLは、ダウンロードが開始されない限り、`expires_at`の時間までの数秒間だけ有効です。ダウンロードが開始されると、ダウンロードしている間は有効です。
+
+このURLのドメインとパスは、APIコール間で変更される可能性があるため、このURLをそのまま使用することが重要です。
+</ParamField>
+
+<ParamField body="expires_at" type="string(date-time)">
+例 `2019-08-29T23:59:00-07:00`
+
+このアーカイブの有効期限が切れる日時。この日時を経過すると、`status_url`と`download_url`によってエラーが返されます。
+
+デフォルトでは、このURLは、ダウンロードが開始されない限り、`download_url`の時間までの数秒間だけ有効です。ダウンロードが開始されると、ダウンロードしている間は有効です。また、`status_url`の有効期間は、ダウンロードを開始してから12時間です。
+</ParamField>
+
+<ParamField body="name_conflicts" type="arrayarray">
+アーカイブを作成しようとしたときに発生した競合のリスト。これは、複数の項目が同じ名前でリクエストされたときに発生します。
+
+これらの競合を解決するために、APIでは、自動的に項目の名前を変更し、項目の元の名前と新しい名前の間のマッピングを返します。
+
+競合ごとに、両方のファイル名が変更されるため、このリストは常に2の倍数になります。
+
+<Expandable>
+  <ParamField body="[]" type="objectarray">
+  アーカイブを作成しようとしたときに発生した個々の競合。これには、2個のオブジェクトからなる配列が含まれています。各オブジェクトには、名前が競合したファイルまたはフォルダの元の名前と変更後のファイル名が格納されています。
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    例 `12345`
+    
+    項目の識別子。
+    </ParamField>
+  
+    <ParamField body="type" type="string">
+    例 `file`
+    
+    この項目のタイプ。
+    
+    次の値のいずれか1つ: `file`,`folder`
+    </ParamField>
+  
+    <ParamField body="download_name" type="string">
+    例 `3aa6a7.pdf`
+    
+    ダウンロードされた`zip`アーカイブで表示される項目の新しい名前。
+    </ParamField>
+  
+    <ParamField body="original_name" type="string">
+    例 `Report.pdf`
+    
+    Box Developerドキュメント。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="status_url" type="string">
+例 `https://api.box.com/2.0/zip_downloads/Lu6fA9Ob-jyysp3AAvMF4AkLEwZwAYbL=tgj2zIC=eK9RvJnJbjJl9rNh2qBgHDpyOCAOhpM=vajg2mKq8Mdd/status`
+
+ダウンロード中の`zip`アーカイブのステータスを取得するために使用できるURL。このURLに対する`Get`リクエストにより、アーカイブ内のファイル数に加え、すでにダウンロードまたはスキップされた項目の数が返されます。デフォルトでは、このURLは、ダウンロードが開始されない限り、`expires_at`の時間までの数秒間だけ有効です。ダウンロードの開始後、このURLは12時間有効です。
+
+このURLのドメインとパスは、APIコール間で変更される可能性があるため、このURLをそのまま使用することが重要です。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "download_url": "https://dl.boxcloud.com/2.0/zip_downloads/29l00nfxDyHOt7RphI9zT_w==nDnZEDjY2S8iEWWCHEEiptFxwoWojjlibZjJ6geuE5xnXENDTPxzgbks_yY=/content",
+  "expires_at": "2020-07-22T11:26:08Z",
+  "name_conflicts": [
+    [
+      {
+        "download_name": "3aa6a7.pdf",
+        "id": "12345",
+        "original_name": "Report.pdf",
+        "type": "file"
+      },
+      {
+        "download_name": "5d53f2.pdf",
+        "id": "34325",
+        "original_name": "Report.pdf",
+        "type": "file"
+      }
+    ]
+  ],
+  "status_url": "https://api.box.com/2.0/zip_downloads/29l00nfxDyHOt7RphI9zT_w==nDnZEDjY2S8iEWWCHEEiptFxwoWojjlibZjJ6geuE5xnXENDTPxzgbks_yY=/status"
+}
+```
+
+</ResponseExample>

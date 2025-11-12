@@ -1,0 +1,254 @@
+---
+title: "List all metadata templates"
+sidebarTitle: 1. List all metadata templates
+type: quick-start
+hide_in_page_nav: true
+related_guides:
+  - metadata/scopes
+related_endpoints:
+  - get_metadata_templates_global
+  - get_metadata_templates_enterprise
+---
+import { ProgressBar } from '/snippets/progress-bar.jsx';
+
+<ProgressBar pages={[
+                          "guides/metadata/quick-start/list-all",
+                          "guides/metadata/quick-start/create-template",
+                          "guides/metadata/quick-start/create-instance",
+                          "guides/metadata/quick-start/update-instance",
+                          "guides/metadata/quick-start/update-template",
+                          "guides/metadata/quick-start/create-query",
+                          "guides/metadata/quick-start/next-steps"
+                        ]} />
+
+It's likely your enterprise already has a list of metadata templates that you
+can use right off-the-shelve without having to create your own.
+
+In general, metadata templates are either available to only your enterprise or
+to every enterprise using Box. The `scope` of a template defines if a template
+is available to everyone (`global`) or only to your enterprise (`enterprise`).
+
+<Card href="/guides/metadata/scopes" arrow title="Learn more about metadata scopes"/>
+
+## Listing templates
+
+A few [global templates](/reference/get_metadata_templates_global) are available to all
+customers.
+
+<CodeGroup>
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/metadata_templates/global" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.metadataTemplates.getGlobalMetadataTemplates();
+```
+
+```python Python v10
+client.metadata_templates.get_global_metadata_templates()
+```
+
+```csharp .NET v10
+await client.MetadataTemplates.GetGlobalMetadataTemplatesAsync();
+```
+
+```swift Swift v10
+try await client.metadataTemplates.getGlobalMetadataTemplates()
+```
+
+```java Java v10
+client.getMetadataTemplates().getGlobalMetadataTemplates()
+```
+
+```java Java v5
+Iterable<MetadataTemplate> templates = MetadataTemplate.getEnterpriseMetadataTemplates('global', api);
+for (MetadataTemplate templateInfo : templates) {
+    // Do something with the metadata template.
+}
+```
+
+```py Python v4
+templates = client.get_metadata_templates(scope='global)
+for template in templates:
+    print(f'Metadata template {template.templateKey} is in global scope')
+```
+
+```csharp .NET v6
+BoxEnterpriseMetadataTemplateCollection<BoxMetadataTemplate> templates = await client.MetadataManager
+    .GetEnterpriseMetadataAsync("global");
+```
+
+```js Node v4
+client.metadata.getTemplates('global')
+ .then(templates => {
+  // ...
+ });
+```
+</CodeGroup>
+
+Many of these templates are for Box's internal use, yet your application can use
+and apply these. More useful are templates [created by applications and admins
+within your enterprise](/reference/get_metadata_templates_enterprise) to hold data
+specific to your enterprise's needs.
+
+<CodeGroup>
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/metadata_templates/enterprise" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.metadataTemplates.getEnterpriseMetadataTemplates();
+```
+
+```python Python v10
+client.metadata_templates.get_enterprise_metadata_templates()
+```
+
+```csharp .NET v10
+await client.MetadataTemplates.GetEnterpriseMetadataTemplatesAsync();
+```
+
+```swift Swift v10
+try await client.metadataTemplates.getEnterpriseMetadataTemplates()
+```
+
+```java Java v10
+client.getMetadataTemplates().getEnterpriseMetadataTemplates()
+```
+
+```java Java v5
+Iterable<MetadataTemplate> templates = MetadataTemplate.getEnterpriseMetadataTemplates(api);
+for (MetadataTemplate templateInfo : templates) {
+    // Do something with the metadata template.
+}
+```
+
+```py Python v4
+templates = client.get_metadata_templates()
+for template in templates:
+    print(f'Metadata template {template.templateKey} is in enterprise scope')
+```
+
+```csharp .NET v6
+BoxEnterpriseMetadataTemplateCollection<BoxMetadataTemplate> templates = await client.MetadataManager
+    .GetEnterpriseMetadataAsync();
+```
+
+```js Node v4
+client.metadata.getTemplates('enterprise')
+ .then(templates => {
+  /* templates -> {
+   limit: 100,
+   entries: 
+   [ { templateKey: 'documentFlow',
+    scope: 'enterprise_12345',
+    displayName: 'Document Flow',
+    hidden: false,
+    fields: 
+     [ { type: 'string',
+      key: 'currentDocumentStage',
+      displayName: 'Current Document Stage',
+      hidden: false }
+     { type: 'string',
+      key: 'needsApprovalFrom',
+      displayName: 'Needs Approval From',
+      hidden: false },
+     { type: 'string',
+      key: 'nextDocumentStage',
+      displayName: 'Next Document Stage',
+      hidden: false }
+     { type: 'float',
+      key: 'maximumDaysAllowedInCurrentStage',
+      displayName: 'Maximum Days Allowed In Current Stage',
+      hidden: false }
+    { templateKey: 'marketingCollateral',
+    scope: 'enterprise_12345',
+    displayName: 'Marketing Collateral',
+    hidden: false,
+    fields: 
+     [ { type: 'string',
+      key: 'audience1',
+      displayName: 'Audience',
+      hidden: false },
+     { type: 'string',
+      key: 'previousState',
+      displayName: 'Previous State',
+      hidden: false } ] },
+    { templateKey: 'productInfo',
+    scope: 'enterprise_12345',
+    displayName: 'Product Info',
+    hidden: false,
+    fields: 
+     [ { type: 'float',
+      key: 'skuNumber',
+      displayName: 'SKU Number',
+      hidden: false },
+     { type: 'enum',
+      key: 'department',
+      displayName: 'Department',
+      hidden: false,
+      options: 
+      [ { key: 'Beauty' },
+      { key: 'Shoes' },
+      { key: 'Accessories' },
+      { key: 'Clothing' },
+      { key: 'Handbags' },
+      { key: 'Bedding' },
+      { key: 'Watches' } ] },
+     { type: 'date',
+      key: 'displayDate',
+      displayName: 'Display Date',
+      hidden: false } ] } ],
+   next_marker: null,
+   prev_marker: null }
+  */
+ });
+```
+</CodeGroup>
+
+## A metadata template
+
+A [metadata template][template] describes a set of key/value
+pairs that can be assigned to a file or folder.
+
+For example, a `customerInfo` template might hold data about a customer,
+having a field for the customer name as well as the customer's industry.
+
+```json
+{
+  "id": "100ac693-a468-4b37-9535-05984b804dc2",
+  "type": "metadata_template",
+  "templateKey": "customerInfo",
+  "scope": "enterprise_12345",
+  "displayName": "Customer Info",
+  "hidden": false,
+  "copyInstanceOnItemCopy": false,
+  "fields": [
+    {
+      "id": "5c6a5906-003b-4654-9deb-472583fc2930",
+      "type": "string",
+      "key": "name",
+      "displayName": "Name",
+      "hidden": false
+    },
+    {
+      "id": "cf3eb5b8-52ef-456c-b175-44354a27e289",
+      "type": "enum",
+      "key": "industry",
+      "displayName": "Industry",
+      "options": [
+        {"key": "Technology"},
+        {"key": "Healthcare"},
+        {"key": "Legal"}
+      ],
+      "hidden": false
+    }
+  ]
+}
+```
+
+<Next>I've listed the templates available to me</Next>
+
+[template]: /guides/metadata/templates

@@ -1,0 +1,60 @@
+---
+title: "Upload part"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+アップロードセッションチャンクのレプリゼンテーション。
+
+* [Standard](/reference/resources/upload-part/)
+* [Mini](/reference/resources/upload-part--mini/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="offset" type="integer(int64)">
+例 `16777216`
+
+ファイル内のチャンクのオフセット (バイト数)。ファイル内のチャンクの位置の下限です。
+</ParamField>
+
+<ParamField body="part_id" type="string">
+例 `6F2D3486`
+
+チャンクの一意のID。
+</ParamField>
+
+<ParamField body="sha1" type="string">
+例 `134b65991ed521fcfe4724b7d814ab8ded5185dc`
+
+チャンクのSHA1ハッシュ。
+</ParamField>
+
+<ParamField body="size" type="integer(int64)">
+例 `3222784`
+
+チャンクのサイズ (バイト単位)。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "offset": 16777216,
+  "part_id": "6F2D3486",
+  "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+  "size": 3222784
+}
+```
+
+</ResponseExample>

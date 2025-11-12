@@ -1,0 +1,60 @@
+---
+title: "Collection"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ファイルやフォルダなどの項目のコレクション。
+
+現時点で利用可能なコレクションは、`favorites`コレクションのみです。
+
+コレクションのコンテンツは、フォルダのコンテンツと同じ方法で調べることができます。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このコレクションの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `collection`
+
+値は常に`collection`になります。
+
+次の値に固定: `collection`
+</ParamField>
+
+<ParamField body="collection_type" type="string">
+例 `favorites`
+
+コレクションのタイプ。これは、コレクションの視覚効果を適切に決定するために使用されます。
+
+次の値に固定: `favorites`
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Favorites`
+
+コレクションの名前。
+
+次の値に固定: `Favorites`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "collection",
+  "collection_type": "favorites",
+  "name": "Favorites"
+}
+```
+
+</ResponseExample>

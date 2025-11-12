@@ -1,0 +1,230 @@
+---
+title: "Box Doc Genジョブ (Full)"
+---
+
+APIバージョン 2025.0
+
+Box Doc GenジョブのFull版の表示。
+
+* [Full](/reference/v2025.0/resources/docgen-job--full/)
+* [Standard](/reference/v2025.0/resources/docgen-job/)
+* [Base](/reference/v2025.0/resources/docgen-job--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Full**バリアントに含まれるフィールドは、`fields`パラメータをサポートするAPIエンドポイントによって返すことができます。たとえば、IDでファイルを取得するときに、`fields`リクエストパラメータを`id,type`に設定すると、これらのフィールドのみがAPIレスポンスで返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+Box Doc Genジョブを表す一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `docgen_job`
+
+値は常に`docgen_job`になります。
+
+次の値に固定: `docgen_job`
+</ParamField>
+
+<ParamField body="batch" type="Box Doc Genのバッチ (Base)object">
+ジョブが属しているBox Doc Genのバッチ。
+</ParamField>
+
+<ParamField body="created_at" type="string">
+例 `2022-05-11T10:56:11-07:00`
+
+ジョブの作成時刻。
+</ParamField>
+
+<ParamField body="created_by" type="object">
+ジョブを作成したユーザー。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `11446498`
+  
+  このユーザーの一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `user`
+  
+  値は常に`user`になります。
+  
+  次の値に固定: `user`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="enterprise" type="object">
+企業のID。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `1910967`
+  
+  この会社の一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `enterprise`
+  
+  値は常に`enterprise`になります。
+  
+  次の値に固定: `enterprise`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="output_file" type="object">
+ジョブの出力ファイル。このプロパティは、ジョブが完了するまで`null`となります。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `42037322`
+  
+  オブジェクトのID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `file`
+  
+  値は常に`file`になります。
+  
+  次の値に固定: `file`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="output_file_version" type="object">
+出力ファイルのファイルバージョン。このプロパティは、ジョブが完了するまで`null`となります。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `12345`
+  
+  ファイルバージョンを表す一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `file_version`
+  
+  値は常に`file_version`になります。
+  
+  次の値に固定: `file_version`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="output_type" type="string">
+例 `docx`
+
+生成されたファイルの種類。
+</ParamField>
+
+<ParamField body="source" type="string">
+例 `api`
+
+リクエストのソース。
+</ParamField>
+
+<ParamField body="status" type="string">
+例 `completed`
+
+ジョブのステータス。
+
+次の値のいずれか1つ: `submitted`,`completed`,`failed`,`completed_with_error`,`pending`
+</ParamField>
+
+<ParamField body="template_file" type="object">
+ジョブで使用されたBox Doc Genテンプレート。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `42037322`
+  
+  オブジェクトのID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `file`
+  
+  値は常に`file`になります。
+  
+  次の値に固定: `file`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="template_file_version" type="object">
+テンプレートのファイルバージョン。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `12345`
+  
+  ファイルバージョンを表す一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `file_version`
+  
+  値は常に`file_version`になります。
+  
+  次の値に固定: `file_version`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "docgen_job",
+  "batch": {
+    "id": "12345",
+    "type": "docgen_batch"
+  },
+  "created_at": "2022-05-11T10:56:11-07:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "enterprise": {
+    "id": "1910967",
+    "type": "enterprise"
+  },
+  "output_file": {
+    "id": "42037322",
+    "type": "file"
+  },
+  "output_file_version": {
+    "id": "12345",
+    "type": "file_version"
+  },
+  "output_type": "docx",
+  "source": "api",
+  "status": "completed",
+  "template_file": {
+    "id": "42037322",
+    "type": "file"
+  },
+  "template_file_version": {
+    "id": "12345",
+    "type": "file_version"
+  }
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,507 @@
+---
+title: "AIエージェントの機能 (質問リクエスト)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+クエリの処理に使用するAIエージェント。
+
+<ParamField body="type" type="string">
+例 `ai_agent_ask`
+
+クエリの処理に使用されるAIエージェントのタイプ。
+
+次の値に固定: `ai_agent_ask`
+</ParamField>
+
+<ParamField body="access_state" type="string">
+例 `enabled`
+
+AIエージェントの機能の状態。使用可能な値は`enabled`、`disabled`です。
+</ParamField>
+
+<ParamField body="basic_image" type="object">
+基本テキストの処理に使用されるAIエージェントプロセッサ。
+
+<Expandable>
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  例 `false`
+  
+  システムメッセージにカスタム指示のプレースホルダが含まれる場合はtrue、それ以外の場合はfalse。
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLMエンドポイントパラメータ (AWS)/AI LLMエンドポイントパラメータ (Google)/AI LLMエンドポイントパラメータ (IBM)/AI LLMエンドポイントパラメータ (OpenAI)object">
+  モデル固有のLLMエンドポイントのパラメータ。
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  例 `azure__openai__gpt_4o_mini`
+  
+  基本テキストに対するAIエージェントで使用されるモデル。特定のモデル値については、[利用可能なモデルのリスト](/guides/box-ai/supported-models/)を参照してください。
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  例 `8400`
+  
+  完了に必要なトークンの数。
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  例 `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  プロンプトテンプレートには、リクエストのコンテキスト情報とユーザープロンプトが含まれます。`prompt_template`パラメータを渡す場合、`{user_question}`および`{content}`の入力を**含める必要があります**。`{current_date}`は、用途に応じて省略できます。
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  例 `You are a helpful travel assistant specialized in budget travel`
+  
+  LLMが、その役割と実行するべき内容を「理解」するのを支援するためのシステムメッセージ。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="basic_image_multi" type="object">
+基本テキストの処理に使用されるAIエージェントプロセッサ。
+
+<Expandable>
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  例 `false`
+  
+  システムメッセージにカスタム指示のプレースホルダが含まれる場合はtrue、それ以外の場合はfalse。
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLMエンドポイントパラメータ (AWS)/AI LLMエンドポイントパラメータ (Google)/AI LLMエンドポイントパラメータ (IBM)/AI LLMエンドポイントパラメータ (OpenAI)object">
+  モデル固有のLLMエンドポイントのパラメータ。
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  例 `azure__openai__gpt_4o_mini`
+  
+  基本テキストに対するAIエージェントで使用されるモデル。特定のモデル値については、[利用可能なモデルのリスト](/guides/box-ai/supported-models/)を参照してください。
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  例 `8400`
+  
+  完了に必要なトークンの数。
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  例 `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  プロンプトテンプレートには、リクエストのコンテキスト情報とユーザープロンプトが含まれます。`prompt_template`パラメータを渡す場合、`{user_question}`および`{content}`の入力を**含める必要があります**。`{current_date}`は、用途に応じて省略できます。
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  例 `You are a helpful travel assistant specialized in budget travel`
+  
+  LLMが、その役割と実行するべき内容を「理解」するのを支援するためのシステムメッセージ。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="basic_text" type="object">
+基本テキストの処理に使用されるAIエージェントプロセッサ。
+
+<Expandable>
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  例 `false`
+  
+  システムメッセージにカスタム指示のプレースホルダが含まれる場合はtrue、それ以外の場合はfalse。
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLMエンドポイントパラメータ (AWS)/AI LLMエンドポイントパラメータ (Google)/AI LLMエンドポイントパラメータ (IBM)/AI LLMエンドポイントパラメータ (OpenAI)object">
+  モデル固有のLLMエンドポイントのパラメータ。
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  例 `azure__openai__gpt_4o_mini`
+  
+  基本テキストに対するAIエージェントで使用されるモデル。特定のモデル値については、[利用可能なモデルのリスト](/guides/box-ai/supported-models/)を参照してください。
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  例 `8400`
+  
+  完了に必要なトークンの数。
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  例 `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  プロンプトテンプレートには、リクエストのコンテキスト情報とユーザープロンプトが含まれます。`prompt_template`パラメータを渡す場合、`{user_question}`および`{content}`の入力を**含める必要があります**。`{current_date}`は、用途に応じて省略できます。
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  例 `You are a helpful travel assistant specialized in budget travel`
+  
+  LLMが、その役割と実行するべき内容を「理解」するのを支援するためのシステムメッセージ。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="basic_text_multi" type="object">
+基本テキストの処理に使用されるAIエージェントプロセッサ。
+
+<Expandable>
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  例 `false`
+  
+  システムメッセージにカスタム指示のプレースホルダが含まれる場合はtrue、それ以外の場合はfalse。
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLMエンドポイントパラメータ (AWS)/AI LLMエンドポイントパラメータ (Google)/AI LLMエンドポイントパラメータ (IBM)/AI LLMエンドポイントパラメータ (OpenAI)object">
+  モデル固有のLLMエンドポイントのパラメータ。
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  例 `azure__openai__gpt_4o_mini`
+  
+  基本テキストに対するAIエージェントで使用されるモデル。特定のモデル値については、[利用可能なモデルのリスト](/guides/box-ai/supported-models/)を参照してください。
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  例 `8400`
+  
+  完了に必要なトークンの数。
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  例 `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  プロンプトテンプレートには、リクエストのコンテキスト情報とユーザープロンプトが含まれます。`prompt_template`パラメータを渡す場合、`{user_question}`および`{content}`の入力を**含める必要があります**。`{current_date}`は、用途に応じて省略できます。
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  例 `You are a helpful travel assistant specialized in budget travel`
+  
+  LLMが、その役割と実行するべき内容を「理解」するのを支援するためのシステムメッセージ。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="custom_instructions" type="string">
+例 `This is a custom instruction`
+
+AIエージェントに対するカスタム指示。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `This is ASK Agent`
+
+AIエージェントの説明。
+</ParamField>
+
+<ParamField body="long_text" type="object">
+長いテキストの処理に使用されるAIエージェントプロセッサ。
+
+<Expandable>
+  <ParamField body="embeddings" type="object">
+  
+  <Expandable>
+    <ParamField body="model" type="string">
+    例 `azure__openai__text_embedding_ada_002`
+    
+    埋め込みを計算するためのAIエージェントに使用されるモデル。
+    </ParamField>
+  
+    <ParamField body="strategy" type="object">
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      例 `basic`
+      
+      埋め込みを計算するためのAIエージェントに使用される戦略。
+      </ParamField>
+    
+      <ParamField body="num_tokens_per_chunk" type="integer">
+      例 `64`
+      
+      チャンクごとのトークンの数。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  例 `false`
+  
+  システムメッセージにカスタム指示のプレースホルダが含まれる場合はtrue、それ以外の場合はfalse。
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLMエンドポイントパラメータ (AWS)/AI LLMエンドポイントパラメータ (Google)/AI LLMエンドポイントパラメータ (IBM)/AI LLMエンドポイントパラメータ (OpenAI)object">
+  モデル固有のLLMエンドポイントのパラメータ。
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  例 `azure__openai__gpt_4o_mini`
+  
+  基本テキストに対するAIエージェントで使用されるモデル。特定のモデル値については、[利用可能なモデルのリスト](/guides/box-ai/supported-models/)を参照してください。
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  例 `8400`
+  
+  完了に必要なトークンの数。
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  例 `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  プロンプトテンプレートには、リクエストのコンテキスト情報とユーザープロンプトが含まれます。`prompt_template`パラメータを渡す場合、`{user_question}`および`{content}`の入力を**含める必要があります**。`{current_date}`は、用途に応じて省略できます。
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  例 `You are a helpful travel assistant specialized in budget travel`
+  
+  LLMが、その役割と実行するべき内容を「理解」するのを支援するためのシステムメッセージ。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="long_text_multi" type="object">
+長いテキストの処理に使用されるAIエージェントプロセッサ。
+
+<Expandable>
+  <ParamField body="embeddings" type="object">
+  
+  <Expandable>
+    <ParamField body="model" type="string">
+    例 `azure__openai__text_embedding_ada_002`
+    
+    埋め込みを計算するためのAIエージェントに使用されるモデル。
+    </ParamField>
+  
+    <ParamField body="strategy" type="object">
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      例 `basic`
+      
+      埋め込みを計算するためのAIエージェントに使用される戦略。
+      </ParamField>
+    
+      <ParamField body="num_tokens_per_chunk" type="integer">
+      例 `64`
+      
+      チャンクごとのトークンの数。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  例 `false`
+  
+  システムメッセージにカスタム指示のプレースホルダが含まれる場合はtrue、それ以外の場合はfalse。
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLMエンドポイントパラメータ (AWS)/AI LLMエンドポイントパラメータ (Google)/AI LLMエンドポイントパラメータ (IBM)/AI LLMエンドポイントパラメータ (OpenAI)object">
+  モデル固有のLLMエンドポイントのパラメータ。
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  例 `azure__openai__gpt_4o_mini`
+  
+  基本テキストに対するAIエージェントで使用されるモデル。特定のモデル値については、[利用可能なモデルのリスト](/guides/box-ai/supported-models/)を参照してください。
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  例 `8400`
+  
+  完了に必要なトークンの数。
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  例 `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  プロンプトテンプレートには、リクエストのコンテキスト情報とユーザープロンプトが含まれます。`prompt_template`パラメータを渡す場合、`{user_question}`および`{content}`の入力を**含める必要があります**。`{current_date}`は、用途に応じて省略できます。
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  例 `You are a helpful travel assistant specialized in budget travel`
+  
+  LLMが、その役割と実行するべき内容を「理解」するのを支援するためのシステムメッセージ。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="spreadsheet" type="object">
+スプレッドシートや表形式データの処理に使用されるAIエージェントツール。
+
+<Expandable>
+  <ParamField body="llm_endpoint_params" type="AI LLMエンドポイントパラメータ (AWS)/AI LLMエンドポイントパラメータ (Google)/AI LLMエンドポイントパラメータ (IBM)/AI LLMエンドポイントパラメータ (OpenAI)object">
+  モデル固有のLLMエンドポイントのパラメータ。
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  例 `azure__openai__gpt_4o_mini`
+  
+  スプレッドシートに対するAIエージェントで使用されるモデル。特定のモデル値については、[利用可能なモデルのリスト](/guides/box-ai/supported-models/)を参照してください。
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  例 `8400`
+  
+  完了に必要なトークンの数。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="suggested_questions" type="stringarray">
+例 `["What is in this file?","What are the main highlights of this document?"]`
+
+AIエージェントに対する質問の候補。nullの場合、質問の候補が生成されます。空の場合は、質問の候補が表示されません。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "ai_agent_ask",
+  "access_state": "enabled",
+  "basic_image": {
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel"
+  },
+  "basic_image_multi": {
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel"
+  },
+  "basic_text": {
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel"
+  },
+  "basic_text_multi": {
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel"
+  },
+  "custom_instructions": "This is a custom instruction",
+  "description": "This is ASK Agent",
+  "long_text": {
+    "embeddings": {
+      "model": "azure__openai__text_embedding_ada_002",
+      "strategy": {
+        "id": "basic",
+        "num_tokens_per_chunk": 64
+      }
+    },
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel"
+  },
+  "long_text_multi": {
+    "embeddings": {
+      "model": "azure__openai__text_embedding_ada_002",
+      "strategy": {
+        "id": "basic",
+        "num_tokens_per_chunk": 64
+      }
+    },
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel"
+  },
+  "spreadsheet": {
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400
+  },
+  "suggested_questions": [
+    "What is in this file?",
+    "What are the main highlights of this document?"
+  ]
+}
+```
+
+</ResponseExample>

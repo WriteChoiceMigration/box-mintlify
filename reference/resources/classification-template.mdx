@@ -1,0 +1,186 @@
+---
+title: "Classification Template"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A metadata template that holds the security classifications
+defined by an enterprise.
+
+<ParamField body="id" type="string">
+example: `58063d82-4128-7b43-bba9-92f706befcdf`
+
+The ID of the classification template.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `metadata_template`
+
+The value will always be `metadata_template`.
+
+Value is always `metadata_template`
+</ParamField>
+
+<ParamField body="copyInstanceOnItemCopy" type="boolean">
+example: `true`
+
+Determines if
+classifications are
+copied along when the file or folder is
+copied.
+</ParamField>
+
+<ParamField body="displayName" type="string">
+example: `Classification`
+
+The name of this template as shown in web and mobile interfaces.
+
+Value is always `Classification`
+</ParamField>
+
+<ParamField body="fields" type="objectarray">
+A list of fields for this classification template. This includes
+only one field, the `Box__Security__Classification__Key`, which defines
+the different classifications available in this enterprise.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `822227e0-47a5-921b-88a8-494760b2e6d2`
+  
+  The unique ID of the field.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `enum`
+  
+  The array item type.
+  
+  Value is always `enum`
+  </ParamField>
+
+  <ParamField body="displayName" type="string">
+  example: `Classification`
+  
+  The value will always be `Classification`.
+  
+  Value is always `Classification`
+  </ParamField>
+
+  <ParamField body="hidden" type="boolean">
+  example: `false`
+  
+  Classifications are always visible to web and mobile users.
+  </ParamField>
+
+  <ParamField body="key" type="string">
+  example: `Box__Security__Classification__Key`
+  
+  Defines classifications
+  available in the enterprise.
+  
+  Value is always `Box__Security__Classification__Key`
+  </ParamField>
+
+  <ParamField body="options" type="objectarray">
+  A list of classifications available in this enterprise.
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    example: `46aea176-3483-4431-856c-6b5b13d1cc50`
+    
+    The unique ID of this classification.
+    </ParamField>
+  
+    <ParamField body="key" type="string">
+    example: `Sensitive`
+    
+    The display name and key for this classification.
+    </ParamField>
+  
+    <ParamField body="staticConfig" type="object">
+    Additional information about the classification.
+    
+    <Expandable>
+      <ParamField body="classification" type="object">
+      Additional information about the classification.
+      
+      This is not an exclusive list of properties, and
+      more object fields might be returned. These fields
+      are used for internal Box Shield and Box Governance
+      purposes and no additional value must be derived from
+      these fields.
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="hidden" type="boolean">
+example: `false`
+
+Determines if the
+template is always available in web and mobile interfaces.
+</ParamField>
+
+<ParamField body="scope" type="string">
+example: `enterprise_123456`
+
+The scope of the classification template. This is in the format
+`enterprise_{id}` where the `id` is the enterprise ID.
+</ParamField>
+
+<ParamField body="templateKey" type="string">
+example: `securityClassification-6VMVochwUWo`
+
+The value will always be `securityClassification-6VMVochwUWo`.
+
+Value is always `securityClassification-6VMVochwUWo`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "58063d82-4128-7b43-bba9-92f706befcdf",
+  "type": "metadata_template",
+  "copyInstanceOnItemCopy": true,
+  "displayName": "Classification",
+  "fields": [
+    {
+      "displayName": "Classification",
+      "hidden": false,
+      "id": "822227e0-47a5-921b-88a8-494760b2e6d2",
+      "key": "Box__Security__Classification__Key",
+      "options": [
+        {
+          "id": "46aea176-3483-4431-856c-6b5b13d1cc50",
+          "key": "Sensitive",
+          "staticConfig": {
+            "classification": {
+              "classificationDefinition": "Sensitive information",
+              "colorID": 4
+            }
+          }
+        }
+      ],
+      "type": "enum"
+    }
+  ],
+  "hidden": false,
+  "scope": "enterprise_123456",
+  "templateKey": "securityClassification-6VMVochwUWo"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,925 @@
+---
+title: "Folder (Full)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A full representation of a folder, as can be returned from any
+folder API endpoints by default.
+
+* [Full](/reference/resources/folder--full/)
+* [Standard](/reference/resources/folder/)
+* [Mini](/reference/resources/folder--mini/)
+* [Base](/reference/resources/folder--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **full** variant can be returned
+by API endpoints that support the `fields` parameter. For example,
+by defining the `fields` request parameter as
+`id,type` when requesting a file by ID, only those fields will
+be returned in the API response.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a folder.
+
+The ID for any folder can be determined
+by visiting a folder in the web application
+and copying the ID from the URL. For example,
+for the URL `https://*.app.box.com/folders/123`
+the `folder_id` is `123`.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `folder`
+
+The value will always be `folder`.
+
+Value is always `folder`
+</ParamField>
+
+<ParamField body="allowed_invitee_roles" type="stringarray">
+example: `["editor"]`
+
+A list of the types of roles that user can be invited at
+when sharing this folder.
+</ParamField>
+
+<ParamField body="allowed_shared_link_access_levels" type="stringarray">
+example: `["open"]`
+
+A list of access levels that are available
+for this folder.
+
+For some folders, like the root folder, this will always
+be an empty list as sharing is not allowed at that level.
+</ParamField>
+
+<ParamField body="can_non_owners_invite" type="boolean">
+example: `true`
+
+Specifies if users who are not the owner
+of the folder can invite new collaborators to the folder.
+</ParamField>
+
+<ParamField body="can_non_owners_view_collaborators" type="boolean">
+example: `true`
+
+Specifies if collaborators who are not owners
+of this folder are restricted from viewing other
+collaborations on this folder.
+
+It also restricts non-owners from inviting new
+collaborators.
+</ParamField>
+
+<ParamField body="classification" type="object">
+Details about the classification applied to this folder.
+
+<Expandable>
+  <ParamField body="color" type="string">
+  example: `#FF0000`
+  
+  The color that is used to display the
+  classification label in a user-interface. Colors are defined by the admin
+  or co-admin who created the classification in the Box web app.
+  </ParamField>
+
+  <ParamField body="definition" type="string">
+  example: `Content that should not be shared outside the company.`
+  
+  An explanation of the meaning of this classification.
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  example: `Top Secret`
+  
+  The name of the classification.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="content_created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The date and time at which this folder was originally
+created.
+</ParamField>
+
+<ParamField body="content_modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The date and time at which this folder was last updated.
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The date and time when the folder was created. This value may
+be `null` for some folders such as the root folder or the trash
+folder.
+</ParamField>
+
+<ParamField body="created_by" type="User (Mini)object">
+The user who created this folder.
+</ParamField>
+
+<ParamField body="description" type="string">
+example: `Legal contracts for the new ACME deal`
+
+The optional description of this folder.
+</ParamField>
+
+<ParamField body="etag" type="string">
+example: `1`
+
+The HTTP `etag` of this folder. This can be used within some API
+endpoints in the `If-Match` and `If-None-Match` headers to only
+perform changes on the folder if (no) changes have happened.
+</ParamField>
+
+<ParamField body="folder_upload_email" type="object">
+The `folder_upload_email` parameter is not `null` if one of the following options is **true**:
+
+* The **Allow uploads to this folder via email** and the **Only allow email uploads from collaborators in this folder** are [enabled for a folder in the Admin Console](https://support.box.com/hc/en-us/articles/360043697534-Upload-to-Box-Through-Email), and the user has at least **Upload** permissions granted.
+* The **Allow uploads to this folder via email** setting is enabled for a folder in the Admin Console, and the **Only allow email uploads from collaborators in this folder** setting is deactivated (unchecked).
+
+If the conditions are not met, the parameter will have the following value: `folder_upload_email: null`.
+
+<Expandable>
+  <ParamField body="access" type="string">
+  example: `open`
+  
+  When this parameter has been set, users can email files
+  to the email address that has been automatically
+  created for this folder.
+  
+  To create an email address, set this property either when
+  creating or updating the folder.
+  
+  When set to `collaborators`, only emails from registered email
+  addresses for collaborators will be accepted. This includes
+  any email aliases a user might have registered.
+  
+  When set to `open` it will accept emails from any email
+  address.
+  
+  Value is one of `open`,`collaborators`
+  </ParamField>
+
+  <ParamField body="email" type="string(email)">
+  example: `upload.Contracts.asd7asd@u.box.com`
+  
+  The optional upload email address for this folder.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="has_collaborations" type="boolean">
+example: `true`
+
+Specifies if this folder has any other collaborators.
+</ParamField>
+
+<ParamField body="is_accessible_via_shared_link" type="boolean">
+example: `true`
+
+Specifies if the folder can be accessed
+with the direct shared link or a shared link
+to a parent folder.
+</ParamField>
+
+<ParamField body="is_associated_with_app_item" type="boolean">
+example: `true`
+
+This field will return true if the folder or any ancestor of the
+folder is associated with at least one app item. Note that this will
+return true even if the context user does not have access to the
+app item(s) associated with the folder.
+</ParamField>
+
+<ParamField body="is_collaboration_restricted_to_enterprise" type="boolean">
+example: `true`
+
+Specifies if new invites to this folder are restricted to users
+within the enterprise. This does not affect existing
+collaborations.
+</ParamField>
+
+<ParamField body="is_externally_owned" type="boolean">
+example: `true`
+
+Specifies if this folder is owned by a user outside of the
+authenticated enterprise.
+</ParamField>
+
+<ParamField body="item_collection" type="Itemsobject">
+A page of the items that are in the folder.
+
+This field can only be requested when querying a folder's
+information, not when querying a folder's items.
+</ParamField>
+
+<ParamField body="item_status" type="string">
+example: `active`
+
+Defines if this item has been deleted or not.
+
+* `active` when the item has is not in the trash
+* `trashed` when the item has been moved to the trash but not deleted
+* `deleted` when the item has been permanently deleted.
+
+Value is one of `active`,`trashed`,`deleted`
+</ParamField>
+
+<ParamField body="metadata" type="associative array">
+An object containing the metadata instances that have been
+attached to this folder.
+
+Each metadata instance is uniquely identified by its `scope` and
+`templateKey`. There can only be one instance of any metadata
+template attached to each folder. Each metadata instance is nested
+within an object with the `templateKey` as the key, which again
+itself is nested in an object with the `scope` as the key.
+
+<Expandable>
+  <ParamField body="<key>" type="associative array">
+  A list of metadata instances, nested within key-value pairs of their `scope`
+  and `templateKey`.
+  
+  <Expandable>
+    <ParamField body="<key>" type="Metadata instance (Full)">
+    An instance of a metadata template, which has been applied to a file or
+    folder.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The date and time when the folder was last updated. This value may
+be `null` for some folders such as the root folder or the trash
+folder.
+</ParamField>
+
+<ParamField body="modified_by" type="User (Mini)object">
+The user who last modified this folder.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Contracts`
+
+The name of the folder.
+</ParamField>
+
+<ParamField body="owned_by" type="User (Mini)object">
+The user who owns this folder.
+</ParamField>
+
+<ParamField body="parent" type="Folder (Mini)object">
+The optional folder that this folder is located within.
+
+This value may be `null` for some folders such as the
+root folder or the trash folder.
+</ParamField>
+
+<ParamField body="path_collection" type="object">
+The tree of folders that this folder is contained in,
+starting at the root.
+
+<Expandable>
+  <ParamField body="entries" type="Folder (Mini)array">
+  The parent folders for this item.
+  </ParamField>
+
+  <ParamField body="total_count" type="integer(int64)">
+  example: `1`
+  
+  The number of folders in this list.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="permissions" type="object">
+Describes the permissions that the current user has
+for this folder.
+
+<Expandable>
+  <ParamField body="can_delete" type="boolean">
+  example: `true`
+  
+  Specifies if the current user can delete this item.
+  </ParamField>
+
+  <ParamField body="can_download" type="boolean">
+  example: `true`
+  
+  Specifies if the current user can download this item.
+  </ParamField>
+
+  <ParamField body="can_invite_collaborator" type="boolean">
+  example: `true`
+  
+  Specifies if the current user can invite new
+  users to collaborate on this item, and if the user can
+  update the role of a user already collaborated on this
+  item.
+  </ParamField>
+
+  <ParamField body="can_rename" type="boolean">
+  example: `true`
+  
+  Specifies if the user can rename this item.
+  </ParamField>
+
+  <ParamField body="can_set_share_access" type="boolean">
+  example: `true`
+  
+  Specifies if the user can change the access level of an
+  existing shared link on this item.
+  </ParamField>
+
+  <ParamField body="can_share" type="boolean">
+  example: `true`
+  
+  Specifies if the user can create a shared link for this item.
+  </ParamField>
+
+  <ParamField body="can_upload" type="boolean">
+  example: `true`
+  
+  Specifies if the user can upload into this folder.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="purged_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The time at which this folder is expected to be purged
+from the trash.
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+example: `3`
+
+A numeric identifier that represents the most recent user event
+that has been applied to this item.
+
+This can be used in combination with the `GET /events`-endpoint
+to filter out user events that would have occurred before this
+identifier was read.
+
+An example would be where a Box Drive-like application
+would fetch an item via the API, and then listen to incoming
+user events for changes to the item. The application would
+ignore any user events where the `sequence_id` in the event
+is smaller than or equal to the `sequence_id` in the originally
+fetched resource.
+</ParamField>
+
+<ParamField body="shared_link" type="object">
+The shared link for this folder. This will be
+`null` if no shared link has been created for this
+folder.
+
+<Expandable>
+  <ParamField body="access" type="string">
+  example: `open`
+  
+  The access level for this shared link.
+  
+  * `open` - provides access to this item to anyone with this link
+  * `company` - only provides access to this item to people the same company
+  * `collaborators` - only provides access to this item to people who are
+    collaborators on this item
+  
+  If this field is omitted when creating the shared link, the access level
+  will be set to the default access level specified by the enterprise admin.
+  
+  Value is one of `open`,`company`,`collaborators`
+  </ParamField>
+
+  <ParamField body="download_count" type="integer">
+  example: `3`
+  
+  The number of times this item has been downloaded.
+  </ParamField>
+
+  <ParamField body="download_url" type="string(url)">
+  example: `https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg`
+  
+  A URL that can be used to download the file. This URL can be used in
+  a browser to download the file. This URL includes the file
+  extension so that the file will be saved with the right file type.
+  
+  This property will be `null` for folders.
+  </ParamField>
+
+  <ParamField body="effective_access" type="string">
+  example: `company`
+  
+  The effective access level for the shared link. This can be a more
+  restrictive access level than the value in the `access` field when the
+  enterprise settings restrict the allowed access levels.
+  
+  Value is one of `open`,`company`,`collaborators`
+  </ParamField>
+
+  <ParamField body="effective_permission" type="string">
+  example: `can_download`
+  
+  The effective permissions for this shared link.
+  These result in the more restrictive combination of
+  the share link permissions and the item permissions set
+  by the administrator, the owner, and any ancestor item
+  such as a folder.
+  
+  Value is one of `can_edit`,`can_download`,`can_preview`,`no_access`
+  </ParamField>
+
+  <ParamField body="is_password_enabled" type="boolean">
+  example: `true`
+  
+  Defines if the shared link requires a password to access the item.
+  </ParamField>
+
+  <ParamField body="permissions" type="object">
+  Defines if this link allows a user to preview, edit, and download an item.
+  These permissions refer to the shared link only and
+  do not supersede permissions applied to the item itself.
+  
+  <Expandable>
+    <ParamField body="can_download" type="boolean">
+    example: `true`
+    
+    Defines if the shared link allows for the item to be downloaded. For
+    shared links on folders, this also applies to any items in the folder.
+    
+    This value can be set to `true` when the effective access level is
+    set to `open` or `company`, not `collaborators`.
+    </ParamField>
+  
+    <ParamField body="can_edit" type="boolean">
+    example: `false`
+    
+    Defines if the shared link allows for the item to be edited.
+    
+    This value can only be `true` if `can_download` is also `true` and if
+    the item has a type of `file`.
+    </ParamField>
+  
+    <ParamField body="can_preview" type="boolean">
+    example: `true`
+    
+    Defines if the shared link allows for the item to be previewed.
+    
+    This value is always `true`. For shared links on folders this also
+    applies to any items in the folder.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="preview_count" type="integer">
+  example: `3`
+  
+  The number of times this item has been previewed.
+  </ParamField>
+
+  <ParamField body="unshared_at" type="string(date-time)">
+  example: `2018-04-13T13:53:23-07:00`
+  
+  The date and time when this link will be unshared. This field can only be
+  set by users with paid accounts.
+  </ParamField>
+
+  <ParamField body="url" type="string(url)">
+  example: `https://www.box.com/s/vspke7y05sb214wjokpk`
+  
+  The URL that can be used to access the item on Box.
+  
+  This URL will display the item in Box's preview UI where the file
+  can be downloaded if allowed.
+  
+  This URL will continue to work even when a custom `vanity_url`
+  has been set for this shared link.
+  </ParamField>
+
+  <ParamField body="vanity_name" type="string">
+  example: `my_url`
+  
+  The custom name of a shared link, as used in the `vanity_url` field.
+  </ParamField>
+
+  <ParamField body="vanity_url" type="string(url)">
+  example: `https://acme.app.box.com/v/my_url/`
+  
+  The "Custom URL" that can also be used to preview the item on Box. Custom
+  URLs can only be created or modified in the Box Web application.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="size" type="integer(int64)">
+example: `629644`
+
+The folder size in bytes.
+
+Be careful parsing this integer as its
+value can get very large.
+</ParamField>
+
+<ParamField body="sync_state" type="string">
+example: `synced`
+
+Specifies whether a folder should be synced to a
+user's device or not. This is used by Box Sync
+(discontinued) and is not used by Box Drive.
+
+Value is one of `synced`,`not_synced`,`partially_synced`
+</ParamField>
+
+<ParamField body="tags" type="stringarray">
+example: `["approved"]`
+
+The tags for this item. These tags are shown in
+the Box web app and mobile apps next to an item.
+
+To add or remove a tag, retrieve the item's current tags,
+modify them, and then update this field.
+
+There is a limit of 100 tags per item, and 10,000
+unique tags per enterprise.
+</ParamField>
+
+<ParamField body="trashed_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The time at which this folder was put in the trash.
+</ParamField>
+
+<ParamField body="watermark_info" type="object">
+Details about the watermark applied to this folder.
+
+<Expandable>
+  <ParamField body="is_watermarked" type="boolean">
+  example: `true`
+  
+  Specifies if this item has a watermark applied.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "folder",
+  "allowed_invitee_roles": [
+    "editor"
+  ],
+  "allowed_shared_link_access_levels": [
+    "open"
+  ],
+  "can_non_owners_invite": true,
+  "can_non_owners_view_collaborators": true,
+  "classification": {
+    "color": "#FF0000",
+    "definition": "Content that should not be shared outside the company.",
+    "name": "Top Secret"
+  },
+  "content_created_at": "2012-12-12T10:53:43-08:00",
+  "content_modified_at": "2012-12-12T10:53:43-08:00",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Legal contracts for the new ACME deal",
+  "etag": "1",
+  "folder_upload_email": {
+    "access": "open",
+    "email": "upload.Contracts.asd7asd@u.box.com"
+  },
+  "has_collaborations": true,
+  "is_accessible_via_shared_link": true,
+  "is_associated_with_app_item": true,
+  "is_collaboration_restricted_to_enterprise": true,
+  "is_externally_owned": true,
+  "item_collection": {
+    "entries": [
+      {
+        "etag": "1",
+        "id": "12345",
+        "type": "file",
+        "file_version": {
+          "id": "12345",
+          "type": "file_version",
+          "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+        },
+        "name": "Contract.pdf",
+        "sequence_id": "3",
+        "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37",
+        "content_created_at": "2012-12-12T10:53:43-08:00",
+        "content_modified_at": "2012-12-12T10:53:43-08:00",
+        "created_at": "2012-12-12T10:53:43-08:00",
+        "created_by": {
+          "id": "11446498",
+          "type": "user",
+          "login": "ceo@example.com",
+          "name": "Aaron Levie"
+        },
+        "description": "Contract for Q1 renewal",
+        "item_status": "active",
+        "modified_at": "2012-12-12T10:53:43-08:00",
+        "modified_by": {
+          "id": "11446498",
+          "type": "user",
+          "login": "ceo@example.com",
+          "name": "Aaron Levie"
+        },
+        "owned_by": {
+          "id": "11446498",
+          "type": "user",
+          "login": "ceo@example.com",
+          "name": "Aaron Levie"
+        },
+        "parent": {
+          "etag": "1",
+          "id": "12345",
+          "type": "folder",
+          "name": "Contracts",
+          "sequence_id": "3"
+        },
+        "path_collection": {
+          "entries": [
+            {
+              "etag": "1",
+              "id": "12345",
+              "type": "folder",
+              "name": "Contracts",
+              "sequence_id": "3"
+            }
+          ],
+          "total_count": 1
+        },
+        "purged_at": "2012-12-12T10:53:43-08:00",
+        "shared_link": {
+          "access": "open",
+          "download_count": 3,
+          "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+          "effective_access": "company",
+          "effective_permission": "can_download",
+          "is_password_enabled": true,
+          "permissions": {
+            "can_download": true,
+            "can_edit": false,
+            "can_preview": true
+          },
+          "preview_count": 3,
+          "unshared_at": "2018-04-13T13:53:23-07:00",
+          "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+          "vanity_name": "my_url",
+          "vanity_url": "https://acme.app.box.com/v/my_url/"
+        },
+        "size": 629644,
+        "trashed_at": "2012-12-12T10:53:43-08:00",
+        "allowed_invitee_roles": [
+          "editor"
+        ],
+        "classification": {
+          "color": "#FF0000",
+          "definition": "Content that should not be shared outside the company.",
+          "name": "Top Secret"
+        },
+        "comment_count": 10,
+        "disposition_at": "2012-12-12T10:53:43-08:00",
+        "expires_at": "2012-12-12T10:53:43-08:00",
+        "expiring_embed_link": {
+          "access_token": "c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ",
+          "expires_in": 3600,
+          "restricted_to": [
+            {
+              "object": {
+                "etag": "1",
+                "id": "12345",
+                "type": "folder",
+                "name": "Contracts",
+                "sequence_id": "3"
+              },
+              "scope": "item_download"
+            }
+          ],
+          "token_type": "bearer",
+          "url": "https://cloud.app.box.com/preview/expiring_embed/..."
+        },
+        "extension": "pdf",
+        "has_collaborations": true,
+        "is_accessible_via_shared_link": true,
+        "is_associated_with_app_item": true,
+        "is_externally_owned": true,
+        "is_package": true,
+        "lock": {
+          "app_type": "office_wopiplus",
+          "created_at": "2012-12-12T10:53:43-08:00",
+          "created_by": {
+            "id": "11446498",
+            "type": "user",
+            "login": "ceo@example.com",
+            "name": "Aaron Levie"
+          },
+          "expired_at": "2012-12-12T10:53:43-08:00",
+          "id": "11446498",
+          "is_download_prevented": true,
+          "type": "lock"
+        },
+        "metadata": {
+          "enterprise_27335": {
+            "marketingCollateral": {
+              "$canEdit": true,
+              "$id": "01234500-12f1-1234-aa12-b1d234cb567e",
+              "$parent": "folder_59449484661",
+              "$scope": "enterprise_27335",
+              "$template": "marketingCollateral",
+              "$type": "properties-6bcba49f-ca6d-4d2a-a758-57fe6edf44d0",
+              "$typeVersion": 2,
+              "$version": 1
+            }
+          }
+        },
+        "permissions": {
+          "can_delete": true,
+          "can_download": true,
+          "can_invite_collaborator": true,
+          "can_rename": true,
+          "can_set_share_access": true,
+          "can_share": true,
+          "can_annotate": true,
+          "can_comment": true,
+          "can_preview": true,
+          "can_upload": true,
+          "can_view_annotations_all": true,
+          "can_view_annotations_self": true
+        },
+        "representations": {
+          "entries": [
+            {
+              "content": {
+                "url_template": "https://dl.boxcloud.com/api/2.0/internal_files/123/versions/345/representations/png_paged_2048x2048/content/{+asset_path}?watermark_content=4567"
+              },
+              "info": {
+                "url": "https://api.box.com/2.0/internal_files/123/versions/345/representations/png_paged_2048x2048"
+              },
+              "properties": {
+                "dimensions": "2048x2048",
+                "paged": "true",
+                "thumb": "true"
+              },
+              "representation": "png",
+              "status": {
+                "state": "success"
+              }
+            }
+          ]
+        },
+        "shared_link_permission_options": [
+          "can_preview"
+        ],
+        "tags": [
+          "approved"
+        ],
+        "uploader_display_name": "Ellis Wiggins",
+        "version_number": "1",
+        "watermark_info": {
+          "is_watermarked": true
+        }
+      }
+    ],
+    "limit": 1000,
+    "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii",
+    "offset": 2000,
+    "order": [
+      {
+        "by": "type",
+        "direction": "ASC"
+      }
+    ],
+    "prev_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih",
+    "total_count": 5000
+  },
+  "item_status": "active",
+  "metadata": {
+    "enterprise_27335": {
+      "marketingCollateral": {
+        "$canEdit": true,
+        "$id": "01234500-12f1-1234-aa12-b1d234cb567e",
+        "$parent": "folder_59449484661",
+        "$scope": "enterprise_27335",
+        "$template": "marketingCollateral",
+        "$type": "properties-6bcba49f-ca6d-4d2a-a758-57fe6edf44d0",
+        "$typeVersion": 2,
+        "$version": 1
+      }
+    }
+  },
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "name": "Contracts",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "path_collection": {
+    "entries": [
+      {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      }
+    ],
+    "total_count": 1
+  },
+  "permissions": {
+    "can_delete": true,
+    "can_download": true,
+    "can_invite_collaborator": true,
+    "can_rename": true,
+    "can_set_share_access": true,
+    "can_share": true,
+    "can_upload": true
+  },
+  "purged_at": "2012-12-12T10:53:43-08:00",
+  "sequence_id": "3",
+  "shared_link": {
+    "access": "open",
+    "download_count": 3,
+    "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+    "effective_access": "company",
+    "effective_permission": "can_download",
+    "is_password_enabled": true,
+    "permissions": {
+      "can_download": true,
+      "can_edit": false,
+      "can_preview": true
+    },
+    "preview_count": 3,
+    "unshared_at": "2018-04-13T13:53:23-07:00",
+    "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+    "vanity_name": "my_url",
+    "vanity_url": "https://acme.app.box.com/v/my_url/"
+  },
+  "size": 629644,
+  "sync_state": "synced",
+  "tags": [
+    "approved"
+  ],
+  "trashed_at": "2012-12-12T10:53:43-08:00",
+  "watermark_info": {
+    "is_watermarked": true
+  }
+}
+```
+
+</ResponseExample>

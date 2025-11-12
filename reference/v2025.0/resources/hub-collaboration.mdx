@@ -1,0 +1,172 @@
+---
+title: "Box Hub Collaboration"
+---
+
+API version 2025.0
+
+A Box Hub collaboration object grants a user or group access
+to a Box Hub with permissions defined by a specific role.
+
+<ParamField body="id" type="string">
+example: `12345678`
+
+The unique identifier for this collaboration.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `hub_collaboration`
+
+The value will always be `hub_collaboration`.
+
+Value is always `hub_collaboration`
+</ParamField>
+
+<ParamField body="acceptance_requirements_status" type="object">
+
+<Expandable>
+  <ParamField body="strong_password_requirement" type="object">
+  
+  <Expandable>
+    <ParamField body="enterprise_has_strong_password_required_for_external_users" type="boolean">
+    example: `true`
+    
+    Whether or not the enterprise that owns the content requires
+    a strong password to collaborate on the content, or enforces
+    an exposed password detection for the external collaborators.
+    </ParamField>
+  
+    <ParamField body="user_has_strong_password" type="boolean">
+    example: `true`
+    
+    Whether or not the user has a strong and not exposed password set
+    for their account. The field is `null` when a strong password is
+    not required.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="terms_of_service_requirement" type="object">
+  
+  <Expandable>
+    <ParamField body="is_accepted" type="boolean">
+    example: `true`
+    
+    Whether or not the terms of service have been accepted. The
+    field is `null` when there is no terms of service required.
+    </ParamField>
+  
+    <ParamField body="terms_of_service" type="object">
+    The terms of service that must be accepted before the
+    collaboration can be accepted. The field is `null` when
+    there is no terms of service required.
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      example: `11446498`
+      
+      The unique identifier for this terms of service.
+      </ParamField>
+    
+      <ParamField body="type" type="string">
+      example: `terms_of_service`
+      
+      The value will always be `terms_of_service`.
+      
+      Value is always `terms_of_service`
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="two_factor_authentication_requirement" type="object">
+  
+  <Expandable>
+    <ParamField body="enterprise_has_two_factor_auth_enabled" type="boolean">
+    example: `true`
+    
+    Whether or not the enterprise that owns the content requires
+    two-factor authentication to be enabled in order to
+    collaborate on the content.
+    </ParamField>
+  
+    <ParamField body="user_has_two_factor_authentication_enabled" type="boolean">
+    example: `true`
+    
+    Whether or not the user has two-factor authentication
+    enabled. The field is `null` when two-factor
+    authentication is not required.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="accessible_by" type="objectobject">
+The user or group that is granted access.
+</ParamField>
+
+<ParamField body="hub" type="Box Hub (Base)object">
+The bare basic representation of a Box Hub.
+</ParamField>
+
+<ParamField body="role" type="string">
+example: `editor`
+
+The level of access granted to a Box Hub.
+Possible values are `editor`, `viewer`, and `co-owner`.
+</ParamField>
+
+<ParamField body="status" type="string">
+example: `accepted`
+
+The status of the collaboration invitation. If the status
+is `pending`, `login` and `name` return an empty string.
+
+Value is one of `accepted`,`pending`,`rejected`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345678",
+  "type": "hub_collaboration",
+  "acceptance_requirements_status": {
+    "strong_password_requirement": {
+      "enterprise_has_strong_password_required_for_external_users": true,
+      "user_has_strong_password": true
+    },
+    "terms_of_service_requirement": {
+      "is_accepted": true,
+      "terms_of_service": {
+        "id": "11446498",
+        "type": "terms_of_service"
+      }
+    },
+    "two_factor_authentication_requirement": {
+      "enterprise_has_two_factor_auth_enabled": true,
+      "user_has_two_factor_authentication_enabled": true
+    }
+  },
+  "accessible_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "hub": {
+    "id": "12345",
+    "type": "hubs"
+  },
+  "role": "editor",
+  "status": "accepted"
+}
+```
+
+</ResponseExample>

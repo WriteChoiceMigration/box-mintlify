@@ -1,0 +1,35 @@
+---
+title: "Shieldリストのコンテンツ (メールアドレス)"
+---
+
+APIバージョン 2025.0
+
+メールアドレスのデータを含むShieldリストのコンテンツの表示。
+
+<ParamField body="type" type="string">
+例 `email`
+
+Shieldリスト内のコンテンツのタイプ。
+
+次の値に固定: `email`
+</ParamField>
+
+<ParamField body="email_addresses" type="stringarray">
+例 `["example1@box.com","example2@gmail.com"]`
+
+メールアドレスのリスト。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "email",
+  "email_addresses": [
+    "example1@box.com",
+    "example2@gmail.com"
+  ]
+}
+```
+
+</ResponseExample>

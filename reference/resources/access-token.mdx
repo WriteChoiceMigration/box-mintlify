@@ -1,0 +1,96 @@
+---
+title: "Access token"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A token that can be used to make authenticated API calls.
+
+<ParamField body="access_token" type="string(token)">
+example: `c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ`
+
+The requested access token.
+</ParamField>
+
+<ParamField body="expires_in" type="integer(int64)">
+example: `3600`
+
+The time in seconds by which this token will expire.
+</ParamField>
+
+<ParamField body="issued_token_type" type="string(urn)">
+example: `urn:ietf:params:oauth:token-type:access_token`
+
+The type of downscoped access token returned. This is only
+returned if an access token has been downscoped.
+
+Value is always `urn:ietf:params:oauth:token-type:access_token`
+</ParamField>
+
+<ParamField body="refresh_token" type="string(token)">
+example: `c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ`
+
+The refresh token for this access token, which can be used
+to request a new access token when the current one expires.
+</ParamField>
+
+<ParamField body="restricted_to" type="objectarray">
+The permissions that this access token permits,
+providing a list of resources (files, folders, etc)
+and the scopes permitted for each of those resources.
+
+<Expandable>
+  <ParamField body="object" type="File (Mini)/Folder (Mini)object">
+  The file or folder resource.
+  </ParamField>
+
+  <ParamField body="scope" type="string">
+  example: `item_download`
+  
+  The scopes for the resource access.
+  
+  Value is one of `annotation_edit`,`annotation_view_all`,`annotation_view_self`,`base_explorer`,`base_picker`,`base_preview`,`base_upload`,`item_delete`,`item_download`,`item_preview`,`item_rename`,`item_share`,`item_upload`,`item_read`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="token_type" type="string">
+example: `bearer`
+
+The type of access token returned.
+
+Value is always `bearer`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "access_token": "c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ",
+  "expires_in": 3600,
+  "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+  "refresh_token": "c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ",
+  "restricted_to": [
+    {
+      "object": {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      },
+      "scope": "item_download"
+    }
+  ],
+  "token_type": "bearer"
+}
+```
+
+</ResponseExample>

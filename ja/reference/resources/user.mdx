@@ -1,0 +1,173 @@
+---
+title: "User"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+任意のユーザーAPIエンドポイントからデフォルトで返されるユーザーのStandard版の表示。
+
+* [Full](/reference/resources/user--full/)
+* [Standard](/reference/resources/user/)
+* [Mini](/reference/resources/user--mini/)
+* [Base](/reference/resources/user--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このユーザーの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `user`
+
+値は常に`user`になります。
+
+次の値に固定: `user`
+</ParamField>
+
+<ParamField body="address" type="string">
+例 `900 Jefferson Ave, Redwood City, CA 94063`
+
+ユーザーの住所。
+</ParamField>
+
+<ParamField body="avatar_url" type="string">
+例 `https://www.box.com/api/avatar/large/181216415`
+
+ユーザーのアバター画像のURL。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+ユーザーオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="job_title" type="string">
+例 `CEO`
+
+ユーザーの役職。
+</ParamField>
+
+<ParamField body="language" type="string">
+例 `en`
+
+修正版の[ISO 639-1](/guides/api-calls/language-codes/)形式で表されるユーザーの言語。
+</ParamField>
+
+<ParamField body="login" type="string(email)">
+例 `ceo@example.com`
+
+このユーザーのプライマリメールアドレス。
+</ParamField>
+
+<ParamField body="max_upload_size" type="integer(int64)">
+例 `2147483648`
+
+ユーザーが所有できる個々のファイルの最大サイズ (バイト単位)。
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+ユーザーオブジェクトが最後に変更された日時。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Aaron Levie`
+
+このユーザーの表示名。
+</ParamField>
+
+<ParamField body="notification_email" type="object">
+通知メールが送信される代替の通知用メールアドレス。確認されると、通知メールはプライマリメールアドレスではなくこのメールアドレスに送信されます。
+
+<Expandable>
+  <ParamField body="email" type="string">
+  例 `notifications@example.com`
+  
+  通知を送付するメールアドレス。
+  </ParamField>
+
+  <ParamField body="is_confirmed" type="boolean">
+  例 `true`
+  
+  このメールアドレスが確認されたかどうかを指定します。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="phone" type="string">
+例 `6509241374`
+
+ユーザーの電話番号。
+</ParamField>
+
+<ParamField body="space_amount" type="integer(int64)">
+例 `11345156112`
+
+ユーザーが利用可能な容量の合計 (バイト数)。
+</ParamField>
+
+<ParamField body="space_used" type="integer(int64)">
+例 `1237009912`
+
+ユーザーが現在使用している容量。
+</ParamField>
+
+<ParamField body="status" type="string">
+例 `active`
+
+ユーザーのアカウントのステータス。
+
+次の値のいずれか1つ: `active`,`inactive`,`cannot_delete_edit`,`cannot_delete_edit_upload`
+</ParamField>
+
+<ParamField body="timezone" type="string(timezone)">
+例 `Africa/Bujumbura`
+
+ユーザーのタイムゾーン。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "user",
+  "address": "900 Jefferson Ave, Redwood City, CA 94063",
+  "avatar_url": "https://www.box.com/api/avatar/large/181216415",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "job_title": "CEO",
+  "language": "en",
+  "login": "ceo@example.com",
+  "max_upload_size": 2147483648,
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "name": "Aaron Levie",
+  "notification_email": {
+    "email": "notifications@example.com",
+    "is_confirmed": true
+  },
+  "phone": "6509241374",
+  "space_amount": 11345156112,
+  "space_used": 1237009912,
+  "status": "active",
+  "timezone": "Africa/Bujumbura"
+}
+```
+
+</ResponseExample>

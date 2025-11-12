@@ -1,0 +1,102 @@
+---
+title: "すべてのリーガルホールドポリシーのリストの取得"
+rank: 1
+related_endpoints:
+  - get_legal_hold_policies
+related_guides:
+  - legal-holds/get
+related_resources:
+  - legal_hold_policies
+required_guides: []
+alias_paths: []
+category_id: legal-holds
+subcategory_id: null
+is_index: false
+id: legal-holds/list
+type: guide
+total_steps: 2
+sibling_id: legal-holds
+parent_id: legal-holds
+next_page_id: legal-holds/get
+previous_page_id: ''
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/legal-holds/list.md
+fullyTranslated: true
+---
+会社内に作成されたすべてのリーガルホールドポリシーのリストを取得するには、[`GET /legal_hold_policies`][legal_holds] APIエンドポイントを呼び出します。
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/legal_hold_policies" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.legalHoldPolicies.getLegalHoldPolicies();
+```
+
+```python Python v10
+client.legal_hold_policies.get_legal_hold_policies()
+```
+
+```cs .NET v10
+await client.LegalHoldPolicies.GetLegalHoldPoliciesAsync();
+```
+
+```swift Swift v10
+try await client.legalHoldPolicies.getLegalHoldPolicies()
+```
+
+```java Java v10
+client.getLegalHoldPolicies().getLegalHoldPolicies()
+```
+
+```java Java v5
+Iterable<BoxLegalHoldPolicy.Info> policies = BoxLegalHoldPolicy.getAll(api);
+for (BoxLegalHoldPolicy.Info policyInfo : policies) {
+    // Do something with the legal hold policy.
+}
+```
+
+```python Python v4
+policies = client.get_legal_hold_policies()
+for policy in policies:
+    print(f'Legal Hold Policy "{policy.name}" has ID {policy.id}')
+```
+
+```cs .NET v6
+BoxCollectionMarkerBased<BoxLegalHoldPolicy> policies = await client.LegalHoldPoliciesManager
+    .GetListLegalHoldPoliciesAsync();
+```
+
+```javascript Node v4
+client.legalHoldPolicies.getAll({policy_name: 'Important'})
+	.then(policies => {
+		/* policies -> {
+			entries: 
+			[ { type: 'legal_hold_policy',
+				id: '11111',
+				policy_name: 'Important Policy 1' },
+				{ type: 'legal_hold_policy',
+				id: '22222',
+				policy_name: 'Important Policy 2' } ],
+			limit: 100,
+			order: [ { by: 'policy_name', direction: 'ASC' } ] }
+		*/
+	});
+```
+
+</CodeGroup>
+
+## 必須のスコープ
+
+{/* i18n-enable localize-links */}
+
+リーガルホールドAPIのいずれかを使用する前に、アプリケーションでは適切なスコープを有効にしておく必要があります。詳細については、[必須のスコープ][scopes]を参照してください。
+
+{/* i18n-disable localize-links */}
+
+[legal_holds]: /ja/reference/get_legal_hold_policies
+
+[scopes]: /ja/guides/legal-holds#required-scopes

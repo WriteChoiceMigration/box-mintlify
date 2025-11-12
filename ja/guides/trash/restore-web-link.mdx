@@ -1,0 +1,60 @@
+---
+title: "ウェブリンクの復元"
+rank: 10
+related_endpoints:
+  - post_web_links_id
+related_guides:
+  - trash/permanently-delete-web-link
+required_guides: []
+related_resources:
+  - web-link
+category_id: trash
+subcategory_id: null
+is_index: false
+id: trash/restore-web-link
+type: guide
+total_steps: 6
+sibling_id: trash
+parent_id: trash
+next_page_id: trash/permanently-delete-web-link
+previous_page_id: trash/permanently-delete-folder
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/trash/restore-web-link.md
+fullyTranslated: true
+---
+ごみ箱に移動されたが削除されていないウェブリンクを復元するには、`/web_links/:web_link_id`エンドポイントに`POST`リクエストを送信します。これにより、ウェブリンクがまだ使用可能であれば元の親フォルダに戻されます。オプションとして`parent`フォルダを指定することもできます。
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/web_links/12345" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.trashedWebLinks.restoreWeblinkFromTrash(weblink.id);
+```
+
+```python Python v10
+client.trashed_web_links.restore_weblink_from_trash(weblink.id)
+```
+
+```cs .NET v10
+await client.TrashedWebLinks.RestoreWeblinkFromTrashAsync(webLinkId: weblink.Id);
+```
+
+```swift Swift v10
+try await client.trashedWebLinks.restoreWeblinkFromTrash(webLinkId: weblink.id)
+```
+
+```java Java v10
+client.getTrashedWebLinks().restoreWeblinkFromTrash(weblink.getId())
+```
+
+```python Python v4
+web_link_to_restore = client.web_link(web_link_id='33333')
+restored_web_link = client.trash().restore_item(web_link_to_restore)
+print(f'Web link ID is {restored_web_link.id} and name is {restored_web_link.name}')
+```
+
+</CodeGroup>

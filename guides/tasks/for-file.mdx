@@ -1,0 +1,75 @@
+---
+title: "Lists all tasks for a file"
+related_endpoints:
+  - get_files_id_tasks
+related_guides:
+  - tasks/create
+  - tasks/get
+related_resources:
+  - file
+  - task
+---
+To list all of the tasks for a specific file, call the 
+[`GET /files/:id/tasks`](/reference/get_files_id_tasks) with the `id` of the file.
+
+<CodeGroup>
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/files/12345/tasks" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.tasks.getFileTasks(file.id);
+```
+
+```python Python v10
+client.tasks.get_file_tasks(file.id)
+```
+
+```csharp .NET v10
+await client.Tasks.GetFileTasksAsync(fileId: file.Id);
+```
+
+```swift Swift v10
+try await client.tasks.getFileTasks(fileId: file.id)
+```
+
+```java Java v10
+client.getTasks().getFileTasks(file.getId())
+```
+
+```java Java v5
+BoxFile file = new BoxFile(api, "id");
+List<BoxTask.Info> tasks = file.getTasks();
+```
+
+```py Python v4
+tasks = client.file(file_id='11111').get_tasks()
+for task in tasks:
+    print(f'Task ID is {task.id} and the type is {task.type}')
+```
+
+```csharp .NET v6
+BoxCollection<BoxTask> tasks = await client.FilesManager.FilesManager.GetFileTasks("11111");
+```
+
+```js Node v4
+client.files.getTasks('11111')
+ .then(tasks => {
+  /* tasks -> {
+   total_count: 1,
+   entries: 
+   [ { type: 'task',
+    id: '22222',
+    item: 
+     { type: 'file',
+     id: '11111',
+     sequence_id: '6',
+     etag: '6',
+     sha1: '81cc829fb8366fcfc108aa6c5a9bde01a6a10c16',
+     name: 'box-logo.png' },
+    due_at: null } ] }
+  */
+ });
+```
+</CodeGroup>

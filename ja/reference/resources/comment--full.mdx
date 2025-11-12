@@ -1,0 +1,116 @@
+---
+title: "コメント (Full)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+コメントとは、ファイルに関して作成されるメッセージです。コメントは単独で作成することも、他のコメントへの返答として作成することもできます。
+
+* [Full](/reference/resources/comment--full/)
+* [Standard](/reference/resources/comment/)
+* [Base](/reference/resources/comment--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Full**バリアントに含まれるフィールドは、`fields`パラメータをサポートするAPIエンドポイントによって返すことができます。たとえば、IDでファイルを取得するときに、`fields`リクエストパラメータを`id,type`に設定すると、これらのフィールドのみがAPIレスポンスで返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このコメントの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `comment`
+
+値は常に`comment`になります。
+
+次の値に固定: `comment`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このコメントが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+コメント作成者をMini版のユーザーオブジェクトで表示。
+</ParamField>
+
+<ParamField body="is_reply_comment" type="boolean">
+例 `true`
+
+このコメントが他のコメントへの返信かどうか。
+</ParamField>
+
+<ParamField body="item" type="object">
+このコメントが追加されたファイル。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `11446498`
+  
+  このオブジェクトの一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `file`
+  
+  このオブジェクトのタイプ。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="message" type="string">
+例 `@Aaron Levie these tigers are cool!`
+
+ユーザーが入力したコメントのテキスト。
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このコメントが最後に変更された日時。
+</ParamField>
+
+<ParamField body="tagged_message" type="string">
+例 `@[1234567:Aaron Levie] these tigers are cool!`
+
+@メンションを含むコメントテキストを表す文字列。@メンションの形式は@[id:username] で、`id`はユーザーのBox ID、`username`はユーザーの表示名になります。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "comment",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "is_reply_comment": true,
+  "item": {
+    "id": "11446498",
+    "type": "file"
+  },
+  "message": "@Aaron Levie these tigers are cool!",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "tagged_message": "@[1234567:Aaron Levie] these tigers are cool!"
+}
+```
+
+</ResponseExample>

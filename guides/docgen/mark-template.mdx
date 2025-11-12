@@ -1,0 +1,122 @@
+---
+title: "Mark file as Box Doc Gen template"
+rank: 2
+related_guides:
+  - docgen/docgen-getting-started
+  - docgen/docgen-templates
+  - docgen/generate-document
+related_endpoints:
+  - post_docgen_batches_v2025.0
+  - post_docgen_templates_v2025.0
+---
+You can mark an existing document as a Box Doc Gen template and use it to generate documents.
+
+## Before you start
+
+Before you start using Box Doc Gen API, follow the steps listed in the [get started with Box Doc Gen][docgen-prerequisites] guide to create a platform app and a Box Doc Gen template.
+
+## Send a request
+
+To send a request containing your question,
+use the `POST /2.0/docgen_templates` endpoint and
+provide the mandatory parameters.
+
+### Parameters
+
+To make a call you need to pass the following parameters.
+Mandatory parameters are in **bold**.
+
+| Parameter    |Description         | Example                     |
+| ------------ | ------ | --- |
+| **`file.id`** | ID of the file to be marked as the Box Doc Gen template. | `12345678` |
+| **`file.type`** | The type of provided input. The value is always **`file`**. | `file` |
+
+## Use cases
+
+### Mark a file as Box Doc Gen template
+
+The following sample show you how to mark a file to ensure it is recognized as a Box Doc Gen template.
+
+<Note>
+The file must be in `.docx` format.
+</Note>
+
+<CodeGroup>
+
+```sh cURL
+curl -L 'https://api.box.com/2.0/docgen_templates' \
+     -H 'box-version: 2025.0' \
+     -H 'Authorization: Bearer <ACCESS_TOKEN>' \
+     -H 'Content-Type: application/json' \
+     -D '{
+        "file": {
+            "id": "12345678",
+            "type": "file"
+        }
+}'
+```
+
+```typescript Node/TypeScript v10
+await client.docgenTemplate.createDocgenTemplateV2025R0({
+  file: new FileReferenceV2025R0({ id: file.id }),
+} satisfies DocGenTemplateCreateRequestV2025R0);
+```
+
+```python Python v10
+client.docgen_template.create_docgen_template_v2025_r0(FileReferenceV2025R0(id=file.id))
+```
+
+```cs .NET v10
+await client.DocgenTemplate.CreateDocgenTemplateV2025R0Async(requestBody: new DocGenTemplateCreateRequestV2025R0(file: new FileReferenceV2025R0(id: file.Id)));
+```
+
+```swift Swift v10
+try await client.docgenTemplate.createDocgenTemplateV2025R0(requestBody: DocGenTemplateCreateRequestV2025R0(file: FileReferenceV2025R0(id: file.id)))
+```
+
+```java Java v10
+client.getDocgenTemplate().createDocgenTemplateV2025R0(new DocGenTemplateCreateRequestV2025R0(new FileReferenceV2025R0(file.getId())))
+```
+
+</CodeGroup>
+
+### Remove Box Doc Gen template marking from a file
+
+To make sure a file is no longer marked as a Box Doc Gen template,
+use the `DELETE 2.0/docgen_templates/:template_id` request.
+
+<CodeGroup>
+
+```sh cURL
+curl -L -X DELETE 'https://api.box.com/2.0/docgen_templates/12345678' \
+     -H 'box-version: 2025.0' \
+     -H 'Authorization: Bearer <ACCESS_TOKEN>'
+```
+
+```typescript Node/TypeScript v10
+await client.docgenTemplate.deleteDocgenTemplateByIdV2025R0(
+  createdDocgenTemplate.file!.id,
+);
+```
+
+```python Python v10
+client.docgen_template.delete_docgen_template_by_id_v2025_r0(
+    created_docgen_template.file.id
+)
+```
+
+```cs .NET v10
+await client.DocgenTemplate.DeleteDocgenTemplateByIdV2025R0Async(templateId: NullableUtils.Unwrap(createdDocgenTemplate.File).Id);
+```
+
+```swift Swift v10
+try await client.docgenTemplate.deleteDocgenTemplateByIdV2025R0(templateId: createdDocgenTemplate.file!.id)
+```
+
+```java Java v10
+client.getDocgenTemplate().deleteDocgenTemplateByIdV2025R0(createdDocgenTemplate.getFile().getId())
+```
+
+</CodeGroup>
+
+[docgen-prerequisites]: /guides/docgen/docgen-getting-started

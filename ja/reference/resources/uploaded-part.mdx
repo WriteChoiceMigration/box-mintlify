@@ -1,0 +1,32 @@
+---
+title: "アップロードされたパーツ"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+いくつかのエンドポイントで返されるように、アップロードセッションの一部としてアップロードされたファイルのチャンク。
+
+<ParamField body="part" type="Upload partobject">
+アップロードセッションチャンクのレプリゼンテーション。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "part": {
+    "offset": 16777216,
+    "part_id": "6F2D3486",
+    "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+    "size": 3222784
+  }
+}
+```
+
+</ResponseExample>

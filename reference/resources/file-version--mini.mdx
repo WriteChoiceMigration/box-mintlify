@@ -1,0 +1,60 @@
+---
+title: "File version (Mini)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A mini representation of a file version, used when
+nested within another resource.
+
+* [Full](/reference/resources/file-version--full/)
+* [Standard](/reference/resources/file-version/)
+* [Mini](/reference/resources/file-version--mini/)
+* [Base](/reference/resources/file-version--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **mini** variant are generally
+returned when the resource is nested within the response for
+another resource.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a file version.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `file_version`
+
+The value will always be `file_version`.
+
+Value is always `file_version`
+</ParamField>
+
+<ParamField body="sha1" type="string">
+example: `134b65991ed521fcfe4724b7d814ab8ded5185dc`
+
+The SHA1 hash of this version of the file.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "file_version",
+  "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+}
+```
+
+</ResponseExample>

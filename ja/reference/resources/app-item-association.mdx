@@ -1,0 +1,56 @@
+---
+title: "アプリ項目の関連付け"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+アプリ項目の関連付けは、ファイルやフォルダとアプリ項目の関連付けを表します。フォルダとアプリ項目の関連付けは、そのフォルダのすべての子孫にカスケードされます。
+
+<ParamField body="id" type="string">
+例 `12345678`
+
+このアプリ項目の関連付けの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `app_item_association`
+
+値は常に`app_item_association`になります。
+
+次の値に固定: `app_item_association`
+</ParamField>
+
+<ParamField body="app_item" type="アプリ項目object">
+ファイルまたはフォルダに関連付けられているアプリ項目。
+</ParamField>
+
+<ParamField body="item" type="ファイル (Base)/フォルダ (Base)/ウェブリンク (Base)object">
+アプリ項目に関連付けられているファイル、フォルダ、またはウェブリンク。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345678",
+  "type": "app_item_association",
+  "app_item": {
+    "id": "12345678",
+    "type": "app_item",
+    "application_type": "hubs"
+  },
+  "item": {
+    "id": "12345",
+    "type": "file",
+    "etag": "1"
+  }
+}
+```
+
+</ResponseExample>

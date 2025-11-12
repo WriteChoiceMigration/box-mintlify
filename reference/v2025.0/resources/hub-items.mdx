@@ -1,0 +1,43 @@
+---
+title: "Box Hub Items"
+---
+
+API version 2025.0
+
+A list of Box Hub items.
+
+<ParamField body="entries" type="Box Hub Itemarray">
+A list of Box Hub items.
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+example: `1000`
+
+The limit that was used for these entries. This will be the same as the
+`limit` query parameter unless that value exceeded the maximum value
+allowed. The maximum value varies by API.
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+example: `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+The marker for the start of the next page of results.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "id": "12345678",
+      "name": "My File",
+      "type": "file"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii"
+}
+```
+
+</ResponseExample>

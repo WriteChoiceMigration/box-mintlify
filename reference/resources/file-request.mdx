@@ -1,0 +1,185 @@
+---
+title: "File Request"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A standard representation of a file request, as returned
+from any file request API endpoints by default.
+
+<ParamField body="id" type="string">
+example: `42037322`
+
+The unique identifier for this file request.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `file_request`
+
+The value will always be `file_request`.
+
+Value is always `file_request`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2020-09-28T10:53:43-08:00`
+
+The date and time when the file request was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Mini)object">
+The user who created this file request.
+</ParamField>
+
+<ParamField body="description" type="string">
+example: `Following documents are requested for your process`
+
+The optional description of this file request. This is
+shown in the Box UI to users uploading files.
+
+This defaults to description of the file request that was
+copied to create this file request.
+</ParamField>
+
+<ParamField body="etag" type="string">
+example: `1`
+
+The HTTP `etag` of this file. This can be used in combination with
+the `If-Match` header when updating a file request. By providing that
+header, a change will only be performed on the file request if the `etag`
+on the file request still matches the `etag` provided in the `If-Match`
+header.
+</ParamField>
+
+<ParamField body="expires_at" type="string(date-time)">
+example: `2020-09-28T10:53:43-08:00`
+
+The date after which a file request will no longer accept new
+submissions.
+
+After this date, the `status` will automatically be set to
+`inactive`.
+</ParamField>
+
+<ParamField body="folder" type="Folder (Mini)object">
+The folder that this file request is associated with.
+
+Files submitted through the file request form will be
+uploaded to this folder.
+</ParamField>
+
+<ParamField body="is_description_required" type="boolean">
+example: `true`
+
+Whether a file request submitter is required to provide
+a description of the files they are submitting.
+
+When this setting is set to true, the Box UI will show
+a description field on the file request form.
+
+This defaults to setting of file request that was
+copied to create this file request.
+</ParamField>
+
+<ParamField body="is_email_required" type="boolean">
+example: `true`
+
+Whether a file request submitter is required to provide
+their email address.
+
+When this setting is set to true, the Box UI will show
+an email field on the file request form.
+
+This defaults to setting of file request that was
+copied to create this file request.
+</ParamField>
+
+<ParamField body="status" type="string">
+example: `active`
+
+The status of the file request. This defaults
+to `active`.
+
+When the status is set to `inactive`, the file request
+will no longer accept new submissions, and any visitor
+to the file request URL will receive a `HTTP 404` status
+code.
+
+This defaults to status of file request that was
+copied to create this file request.
+
+Value is one of `active`,`inactive`
+</ParamField>
+
+<ParamField body="title" type="string">
+example: `Please upload documents`
+
+The title of file request. This is shown
+in the Box UI to users uploading files.
+
+This defaults to title of the file request that was
+copied to create this file request.
+</ParamField>
+
+<ParamField body="updated_at" type="string(date-time)">
+example: `2020-09-28T10:53:43-08:00`
+
+The date and time when the file request was last updated.
+</ParamField>
+
+<ParamField body="updated_by" type="User (Mini)object">
+The user who last modified this file request.
+</ParamField>
+
+<ParamField body="url" type="string">
+example: `/f/19e57f40ace247278a8e3d336678c64a`
+
+The generated URL for this file request. This URL can be shared
+with users to let them upload files to the associated folder.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "42037322",
+  "type": "file_request",
+  "created_at": "2020-09-28T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Following documents are requested for your process",
+  "etag": "1",
+  "expires_at": "2020-09-28T10:53:43-08:00",
+  "folder": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "is_description_required": true,
+  "is_email_required": true,
+  "status": "active",
+  "title": "Please upload documents",
+  "updated_at": "2020-09-28T10:53:43-08:00",
+  "updated_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "url": "/f/19e57f40ace247278a8e3d336678c64a"
+}
+```
+
+</ResponseExample>

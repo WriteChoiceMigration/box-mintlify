@@ -1,0 +1,52 @@
+---
+title: "AI LLMエンドポイントパラメータ (Google)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+AI LLMエンドポイントパラメータ (Google) オブジェクト。
+
+<ParamField body="type" type="string">
+例 `google_params`
+
+Google用のAI LLMエンドポイントパラメータオブジェクトのタイプ。このパラメータは**必須**です。
+
+次の値に固定: `google_params`
+</ParamField>
+
+<ParamField body="temperature" type="number">
+例 `0`
+
+temperatureはレスポンス生成時のサンプリングに使用されます。レスポンス生成は`top-P`と`top-K`が適用された場合に発生します。temperatureは、トークン選択におけるランダム性の程度を制御します。
+</ParamField>
+
+<ParamField body="top_k" type="number">
+例 `1`
+
+`Top-K`では、モデルが出力用にトークンを選択する方法を変更します。`top-K`が小さい場合、次に選択されるトークンは、モデルの語彙に含まれるすべてのトークンの中で最も確率の高いものであることになります (グリーディデコードとも呼ばれます)。`top-K`が大きい場合は、temperatureを使用して、最も確率が高い上位3つのトークンから次のトークンが選択されることになります。
+</ParamField>
+
+<ParamField body="top_p" type="number">
+例 `1`
+
+`Top-P`では、モデルが出力用にトークンを選択する方法を変更します。トークンは、確率の合計が`top-P`値に等しくなるまで、確率の高いもの (`top-K`を参照) から低いものへと選択されます。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "google_params",
+  "temperature": 0,
+  "top_k": 1,
+  "top_p": 1
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,37 @@
+---
+title: "統合の種類"
+rank: 1
+related_endpoints: []
+related_guides:
+  - applications
+  - applications/app-types/select
+required_guides: []
+related_resources: []
+alias_paths: []
+category_id: applications
+subcategory_id: applications/web-app-integrations
+is_index: false
+id: applications/web-app-integrations/types
+type: guide
+total_steps: 3
+sibling_id: applications/web-app-integrations
+parent_id: applications/web-app-integrations
+next_page_id: applications/web-app-integrations/user-experience
+previous_page_id: ''
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/applications/web-app-integrations/types.md
+fullyTranslated: true
+---
+現在、Boxではポップアップ統合を提供しています。
+
+## ポップアップ統合
+
+ポップアップ統合の場合、Boxによってパネルが開き、統合用に構成されたアプリケーションのコールバックURLが読み込まれます。アプリケーションでは、ポップアップに統合のための独自のユーザーインターフェースが表示されます。
+
+統合は、このリクエストとともに有効期間の短い承認コードを受信します。この承認コードを使用すると、Box APIに接続し、コードをアクセストークンに交換してから、BoxへのAPIコールを実行できます。
+
+<Warning>
+
+ポップアップパネルでは、HTMLの`<iframe>`タグを使用し、埋め込みコンテンツを表示します。Boxのコンテンツのセキュリティを保護するには、コールバックURLでSSLを使用する必要があります。また、コールバックURLからのレスポンスには、ランダムな文字列値に設定された`X-Frame-Options`ヘッダーを含める必要があります。
+
+</Warning>

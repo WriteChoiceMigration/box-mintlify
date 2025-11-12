@@ -1,0 +1,65 @@
+---
+title: "Zip download status"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The status of a `zip` archive being downloaded.
+
+<ParamField body="downloaded_file_count" type="integer">
+example: `10`
+
+The number of files that have already been downloaded.
+</ParamField>
+
+<ParamField body="skipped_file_count" type="integer">
+example: `5`
+
+The number of files that have been skipped as they could not be
+downloaded. In many cases this is due to permission issues that have
+surfaced between the creation of the request for the archive and the
+archive being downloaded.
+</ParamField>
+
+<ParamField body="skipped_folder_count" type="integer">
+example: `5`
+
+The number of folders that have been skipped as they could not be
+downloaded. In many cases this is due to permission issues that have
+surfaced between the creation of the request for the archive and the
+archive being downloaded.
+</ParamField>
+
+<ParamField body="state" type="string">
+example: `succeeded`
+
+The state of the archive being downloaded.
+
+Value is one of `in_progress`,`failed`,`succeeded`
+</ParamField>
+
+<ParamField body="total_file_count" type="integer">
+example: `20`
+
+The total number of files in the archive.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "downloaded_file_count": 10,
+  "skipped_file_count": 5,
+  "skipped_folder_count": 5,
+  "state": "succeeded",
+  "total_file_count": 20
+}
+```
+
+</ResponseExample>

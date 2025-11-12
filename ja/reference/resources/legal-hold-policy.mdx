@@ -1,0 +1,167 @@
+---
+title: "リーガルホールドポリシー"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+リーガルホールドポリシー情報には、名前、説明、フィルタ日付など、ポリシーの基本的な特性が記載されています。
+
+* [Standard](/reference/resources/legal-hold-policy/)
+* [Mini](/reference/resources/legal-hold-policy--mini/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このリーガルホールドポリシーの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `legal_hold_policy`
+
+値は常に`legal_hold_policy`になります。
+
+次の値に固定: `legal_hold_policy`
+</ParamField>
+
+<ParamField body="assignment_counts" type="object">
+このリーガルホールド内の項目タイプごとの割り当て数。
+
+<Expandable>
+  <ParamField body="file" type="integer(int64)">
+  例 `3`
+  
+  このポリシーが適用されるファイルの数。
+  </ParamField>
+
+  <ParamField body="file_version" type="integer(int64)">
+  例 `4`
+  
+  このポリシーが適用されるファイルバージョンの数。
+  </ParamField>
+
+  <ParamField body="folder" type="integer(int64)">
+  例 `2`
+  
+  このポリシーが適用されるフォルダの数。
+  </ParamField>
+
+  <ParamField body="user" type="integer(int64)">
+  例 `1`
+  
+  このポリシーが適用されるユーザーの数。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+リーガルホールドポリシーオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+リーガルホールドポリシーオブジェクトを作成したユーザー。
+</ParamField>
+
+<ParamField body="deleted_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+ポリシー解除リクエストが送信された日時 (ポリシーが完全に削除されるまでに時間がかかる場合があるため、この日時はポリシーが完全に削除された日時と一致しない場合があります)。
+
+`null`の場合、ポリシーは削除されていません。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `Postman created policy`
+
+リーガルホールドポリシーの説明。これは省略可能なプロパティで、最大500文字まで入力できます。
+</ParamField>
+
+<ParamField body="filter_ended_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+カストディアン割り当てのみに適用されるユーザー指定の日付フィルタ (省略可)。
+</ParamField>
+
+<ParamField body="filter_started_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+カストディアン割り当てのみに適用されるユーザー指定の日付フィルタ (省略可)。
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+リーガルホールドポリシーオブジェクトが変更された日時。割り当てが追加または削除されたときには更新されません。
+</ParamField>
+
+<ParamField body="policy_name" type="string">
+例 `Policy 4`
+
+リーガルホールドポリシーの名前。
+</ParamField>
+
+<ParamField body="release_notes" type="string">
+例 `Example`
+
+ポリシーが作成された理由に関するメモ (省略可)。
+</ParamField>
+
+<ParamField body="status" type="string">
+例 `active`
+
+使用可能な値:
+
+* 「active」 - ポリシーは遷移中の状態ではありません。
+* 「applying」 - ポリシーの適用中です。
+* 「releasing」 - 解除処理を行っています。
+* 「released」 - ポリシーは非アクティブになりました。
+
+次の値のいずれか1つ: `active`,`applying`,`releasing`,`released`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "legal_hold_policy",
+  "assignment_counts": {
+    "file": 3,
+    "file_version": 4,
+    "folder": 2,
+    "user": 1
+  },
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "deleted_at": "2012-12-12T10:53:43-08:00",
+  "description": "Postman created policy",
+  "filter_ended_at": "2012-12-12T10:53:43-08:00",
+  "filter_started_at": "2012-12-12T10:53:43-08:00",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "policy_name": "Policy 4",
+  "release_notes": "Example",
+  "status": "active"
+}
+```
+
+</ResponseExample>

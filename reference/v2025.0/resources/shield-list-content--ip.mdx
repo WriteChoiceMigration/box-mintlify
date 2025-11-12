@@ -1,0 +1,35 @@
+---
+title: "Shield List Content (IP)"
+---
+
+API version 2025.0
+
+Representation of content of a Shield List that contains ip addresses data.
+
+<ParamField body="type" type="string">
+example: `ip`
+
+The type of content in the shield list.
+
+Value is always `ip`
+</ParamField>
+
+<ParamField body="ip_addresses" type="stringarray">
+example: `["127.0.0.1","80.12.12.12/24"]`
+
+List of ip addresses and CIDRs.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "ip",
+  "ip_addresses": [
+    "127.0.0.1",
+    "80.12.12.12/24"
+  ]
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,211 @@
+---
+title: "Upload File Version"
+rank: 2
+related_endpoints:
+  - options_files_id_content
+  - post_files_id_content
+related_guides: []
+related_pages: []
+required_guides:
+  - uploads/check
+related_resources: []
+alias_paths: []
+---
+To upload a new version of a file to Box via direct upload, make an API call to
+the [`POST /files/:id/content`][upload] API with the content of the file, the
+desired file name, and the folder ID.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://upload.box.com/api/2.0/files/12345/content" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: multipart/form-data" \
+     -F attributes='{"name":"Contract.pdf", "parent":{"id":"11446498"}}' \
+     -F file=@<FILE_NAME>
+```
+
+```typescript Node/TypeScript v10
+await client.uploads.uploadFileVersion(file.id, {
+  attributes: {
+    name: file.name!,
+  } satisfies UploadFileVersionRequestBodyAttributesField,
+  file: generateByteStream(20),
+} satisfies UploadFileVersionRequestBody);
+```
+
+```python Python v10
+client.uploads.upload_file_version(
+    uploaded_file.id,
+    UploadFileVersionAttributes(name=new_file_version_name),
+    new_file_content_stream,
+)
+```
+
+```cs .NET v10
+await client.Uploads.UploadFileVersionAsync(fileId: uploadedFile.Id, requestBody: new UploadFileVersionRequestBody(attributes: new UploadFileVersionRequestBodyAttributesField(name: newFileVersionName), file: newFileContentStream));
+```
+
+```java Java v10
+client.getUploads().uploadFileVersion(uploadedFile.getId(), new UploadFileVersionRequestBody(new UploadFileVersionRequestBodyAttributesField(newFileVersionName), newFileContentStream))
+```
+
+```java Java v5
+BoxFile file = new BoxFile(api, "id");
+FileInputStream stream = new FileInputStream("My File.txt");
+file.uploadNewVersion(stream);
+```
+
+```python Python v4
+file_id = '11111'
+file_path = '/path/to/file.pdf'
+
+updated_file = client.file(file_id).update_contents(file_path)
+print(f'File "{updated_file.name}" has been updated')
+```
+
+```cs .NET v6
+using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+{
+    BoxFile file = await client.FilesManager
+        .UploadNewVersionAsync("File v2.pdf", "11111", fileStream);
+}
+```
+
+```javascript Node v4
+var fs = require('fs');
+var stream = fs.createReadStream('/path/to/file.pdf');
+client.files.uploadNewFileVersion('11111', stream)
+	.then(file => {
+        /* file -> {
+            total_count: 1,
+            entries: 
+            [ { type: 'file',
+                id: '11111',
+                file_version: 
+                    { type: 'file_version',
+                    id: '22222',
+                    sha1: '0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33' },
+                sequence_id: '0',
+                etag: '0',
+                sha1: '0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33',
+                name: 'My File.pdf',
+                description: '',
+                size: 68431,
+                path_collection: 
+                    { total_count: 1,
+                    entries: 
+                    [ { type: 'folder',
+                        id: '0',
+                        sequence_id: null,
+                        etag: null,
+                        name: 'All Files' } ] },
+                created_at: '2017-05-16T15:18:02-07:00',
+                modified_at: '2017-05-16T15:18:02-07:00',
+                trashed_at: null,
+                purged_at: null,
+                content_created_at: '2017-05-16T15:18:02-07:00',
+                content_modified_at: '2017-05-16T15:18:02-07:00',
+                created_by: 
+                    { type: 'user',
+                    id: '33333',
+                    name: 'Test User',
+                    login: 'test@example.com' },
+                modified_by: 
+                    { type: 'user',
+                    id: '33333',
+                    name: 'Test User',
+                    login: 'test@example.com' },
+                owned_by: 
+                    { type: 'user',
+                    id: '33333',
+                    name: 'Test User',
+                    login: 'test@example.com' },
+                shared_link: null,
+                parent: 
+                    { type: 'folder',
+                    id: '0',
+                    sequence_id: null,
+                    etag: null,
+                    name: 'All Files' }
+                item_status: 'active' } ] }
+        */
+    })
+```
+
+</CodeGroup>
+
+<Info>
+  **Preflight check**
+
+  To prevent wasting time and bandwidth uploading a file that is going to be
+  rejected it is recommended to perform a [pre-flight check][preflight] before
+  uploading the file.
+</Info>
+
+## Request Format
+
+The request body of this API uses a content type of `multipart/form-data`. This
+is used to transmit two parts, namely the file attributes and the file's actual
+content.
+
+The first part is called `attributes` and contains a JSON object with
+information about the file, including the name of the file and the `id` of the
+parent folder.
+
+The following is an example a `test.txt` being uploaded to the root folder of
+the user.
+
+```sh
+POST /api/2.0/files/123/content HTTP/1.1
+Host: upload.box.com
+Authorization: Bearer [ACCESS_TOKEN]
+content-length: 343
+content-type: multipart/form-data; boundary=------------------------9fd09388d840fef1
+
+--------------------------9fd09388d840fef1
+content-disposition: form-data; name="attributes"
+
+{"name":"test.txt", "parent":{"id":"0"}}
+--------------------------9fd09388d840fef1
+content-disposition: form-data; name="file"; filename="test.txt"
+content-type: text/plain
+
+Test file text.
+
+--------------------------9fd09388d840fef1--
+```
+
+<Warning>
+  The `attributes` JSON part of the multi-part body must come before the `file`
+  part of the multipart form data. When out of order, the API will return a HTTP
+  `400` status code with an error code of `metadata_after_file_contents`.
+</Warning>
+
+## Options
+
+To learn more about all the parameters available when uploading files, head over
+to the [reference documentation for this API call][upload]. These parameters
+include a `content-md5` that can be set to ensure a file is not corrupted in
+transit, and the ability to explicitly specify the file creation time at a
+different time than the upload time.
+
+For file versions an additional [`if-match` header][consistency] can be passed
+along to prevent overwriting a file that has already been updated since the
+application last inspected the content.
+
+## Restrictions
+
+Direct uploads are limited to a maximum file size of 50MB. For larger files,
+please use the [chunked upload APIs][chunked].
+
+Upload limits are dictated by the type of account of the authenticated user.
+More information can be found [in our community article on this topic][fsizes].
+
+[preflight]: /guides/uploads/check
+[chunked]: /guides/uploads/chunked
+[upload]: /reference/post_files_id_content
+[consistency]: /guides/api-calls/ensure-consistency
+{/* i18n-enable localize-links */}
+[fsizes]: https://support.box.com/hc/en-us/articles/360043697314-Understand-the-Maximum-File-Size-You-Can-Upload-to-Box
+{/* i18n-disable localize-links */}

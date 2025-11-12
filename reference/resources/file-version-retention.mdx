@@ -1,0 +1,104 @@
+---
+title: "File version retention"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A retention policy blocks permanent deletion of content
+for a specified amount of time. Admins can apply policies to
+specified folders, or an entire enterprise. A file version retention
+is a record for a retained file version. To use this feature,
+you must have the manage retention policies scope enabled for your
+API key in your application management console.
+
+**Note**:
+File retention API is now **deprecated**.
+To get information about files and file versions under retention,
+see [files under retention](/reference/get-retention-policy-assignments-id-files-under-retention/) or [file versions under retention](/reference/get-retention-policy-assignments-id-file-versions-under-retention/) endpoints.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this file version retention.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `file_version_retention`
+
+The value will always be `file_version_retention`.
+
+Value is always `file_version_retention`
+</ParamField>
+
+<ParamField body="applied_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When this file version retention object was
+created.
+</ParamField>
+
+<ParamField body="disposition_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the retention expires on this file
+version retention.
+</ParamField>
+
+<ParamField body="file" type="File (Mini)object">
+The file this file version retention was applied to.
+</ParamField>
+
+<ParamField body="file_version" type="File version (Mini)object">
+The file version this file version retention was
+applied to.
+</ParamField>
+
+<ParamField body="winning_retention_policy" type="Retention policy (Mini)object">
+The winning retention policy applied to this file
+version retention. A file version can have multiple
+retention policies applied.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "file_version_retention",
+  "applied_at": "2012-12-12T10:53:43-08:00",
+  "disposition_at": "2012-12-12T10:53:43-08:00",
+  "file": {
+    "id": "12345",
+    "type": "file",
+    "etag": "1",
+    "file_version": {
+      "id": "12345",
+      "type": "file_version",
+      "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+    },
+    "name": "Contract.pdf",
+    "sequence_id": "3",
+    "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+  },
+  "file_version": {
+    "id": "12345",
+    "type": "file_version",
+    "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+  },
+  "winning_retention_policy": {
+    "id": "12345",
+    "type": "retention_policy",
+    "disposition_action": "permanently_delete",
+    "policy_name": "Some Policy Name",
+    "retention_length": "365"
+  }
+}
+```
+
+</ResponseExample>

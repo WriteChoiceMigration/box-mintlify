@@ -1,0 +1,157 @@
+---
+title: "メタデータテンプレート"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ファイルやフォルダに適用可能なメタデータのテンプレート。
+
+<ParamField body="id" type="string">
+例 `58063d82-4128-7b43-bba9-92f706befcdf`
+
+メタデータテンプレートのID。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `metadata_template`
+
+値は常に`metadata_template`になります。
+
+次の値に固定: `metadata_template`
+</ParamField>
+
+<ParamField body="copyInstanceOnItemCopy" type="boolean">
+例 `true`
+
+ファイルまたはフォルダのコピー時にメタデータを含めるかどうか。
+</ParamField>
+
+<ParamField body="displayName" type="string">
+例 `Product Info`
+
+テンプレートの表示名。Boxウェブアプリとモバイルアプリに表示されます。
+</ParamField>
+
+<ParamField body="fields" type="objectarray">
+テンプレートに含まれるテンプレートフィールドの順序付きリスト。各フィールドは、通常のテキストフィールド、日付フィールド、数値フィールド、単一または複数選択リストのいずれかになります。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `822227e0-47a5-921b-88a8-494760b2e6d2`
+  
+  メタデータテンプレートフィールドの一意のID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `string`
+  
+  フィールドのタイプ。基本のフィールドは、テキストを表す`string`フィールド、数値を表す`float`フィールド、およびユーザーに日時選択機能を表示するための`date`フィールドです。
+  
+  さらに、メタデータテンプレートは、基本の項目リストを表す`enum`フィールドのほか、ユーザーが複数の値を選択できる同様の項目リストを表す `multiSelect`フィールドをサポートしています。
+  
+  **注**: `integer`値は非推奨です。レスポンスにはまだ存在していても、POSTリクエストでは使用できません。
+  
+  次の値のいずれか1つ: `string`,`float`,`date`,`enum`,`multiSelect`,`integer`
+  </ParamField>
+
+  <ParamField body="description" type="string">
+  例 `The category`
+  
+  フィールドの説明。ユーザーには表示されません。
+  </ParamField>
+
+  <ParamField body="displayName" type="string">
+  例 `Category`
+  
+  ウェブアプリおよびモバイルアプリでユーザーに表示されるフィールドの表示名。
+  </ParamField>
+
+  <ParamField body="hidden" type="boolean">
+  例 `true`
+  
+  このフィールドをUI上でユーザーに対して非表示にし、代わりにAPIを介してのみ設定できるようにするかどうか。
+  </ParamField>
+
+  <ParamField body="key" type="string">
+  例 `category`
+  
+  フィールドの一意の識別子。この識別子は、そのフィールドが属するテンプレート内で一意である必要があります。
+  </ParamField>
+
+  <ParamField body="options" type="objectarray">
+  このフィールドのオプションのリスト。`enum`および`multiSelect`フィールドタイプと組み合わせて使用します。
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    例 `45dc2849-a4a7-40a9-a751-4a699a589190`
+    
+    オプションの内部的な一意の識別子。
+    </ParamField>
+  
+    <ParamField body="key" type="string">
+    例 `Category 1`
+    
+    オプションのテキスト値。オプションの表示名と、テンプレートの更新時に使用される内部キーの両方を表します。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="hidden" type="boolean">
+例 `true`
+
+このテンプレートをBoxウェブアプリのUIに表示するか、APIを介した使用のみを目的とするかを定義します。
+</ParamField>
+
+<ParamField body="scope" type="string">
+例 `enterprise_123456`
+
+メタデータテンプレートのスコープは、`global`または`enterprise_*`のいずれかになります。`global`スコープは、Boxを使用するすべての会社が利用できるテンプレートに使用されます。`enterprise_*`スコープは、特定の会社内で作成されたテンプレートを表します (`*`はその会社のID)。
+</ParamField>
+
+<ParamField body="templateKey" type="string">
+例 `^[a-zA-Z_][-a-zA-Z0-9_]*$`
+
+テンプレートの一意の識別子。この識別子は、メタデータテンプレートが適用される会社の`scope`全体で一意ですが、会社を越えて一意であるとは限りません。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "58063d82-4128-7b43-bba9-92f706befcdf",
+  "type": "metadata_template",
+  "copyInstanceOnItemCopy": true,
+  "displayName": "Product Info",
+  "fields": [
+    {
+      "description": "The category",
+      "displayName": "Category",
+      "hidden": true,
+      "key": "category",
+      "options": [
+        {
+          "key": "Category 1",
+          "id": "45dc2849-a4a7-40a9-a751-4a699a589190"
+        }
+      ],
+      "type": "string",
+      "id": "822227e0-47a5-921b-88a8-494760b2e6d2"
+    }
+  ],
+  "hidden": true,
+  "scope": "enterprise_123456",
+  "templateKey": "productInfo"
+}
+```
+
+</ResponseExample>

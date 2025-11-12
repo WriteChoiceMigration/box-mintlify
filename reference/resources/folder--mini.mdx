@@ -1,0 +1,94 @@
+---
+title: "Folder (Mini)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A mini representation of a file version, used when
+nested under another resource.
+
+* [Full](/reference/resources/folder--full/)
+* [Standard](/reference/resources/folder/)
+* [Mini](/reference/resources/folder--mini/)
+* [Base](/reference/resources/folder--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **mini** variant are generally
+returned when the resource is nested within the response for
+another resource.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a folder.
+
+The ID for any folder can be determined
+by visiting a folder in the web application
+and copying the ID from the URL. For example,
+for the URL `https://*.app.box.com/folders/123`
+the `folder_id` is `123`.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `folder`
+
+The value will always be `folder`.
+
+Value is always `folder`
+</ParamField>
+
+<ParamField body="etag" type="string">
+example: `1`
+
+The HTTP `etag` of this folder. This can be used within some API
+endpoints in the `If-Match` and `If-None-Match` headers to only
+perform changes on the folder if (no) changes have happened.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Contracts`
+
+The name of the folder.
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+example: `3`
+
+A numeric identifier that represents the most recent user event
+that has been applied to this item.
+
+This can be used in combination with the `GET /events`-endpoint
+to filter out user events that would have occurred before this
+identifier was read.
+
+An example would be where a Box Drive-like application
+would fetch an item via the API, and then listen to incoming
+user events for changes to the item. The application would
+ignore any user events where the `sequence_id` in the event
+is smaller than or equal to the `sequence_id` in the originally
+fetched resource.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "folder",
+  "etag": "1",
+  "name": "Contracts",
+  "sequence_id": "3"
+}
+```
+
+</ResponseExample>

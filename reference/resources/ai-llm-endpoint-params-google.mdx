@@ -1,0 +1,55 @@
+---
+title: "AI LLM endpoint params Google"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+AI LLM endpoint params Google object.
+
+<ParamField body="type" type="string">
+example: `google_params`
+
+The type of the AI LLM endpoint params object for Google.
+This parameter is **required**.
+
+Value is always `google_params`
+</ParamField>
+
+<ParamField body="temperature" type="number">
+example: `0`
+
+The temperature is used for sampling during response generation, which occurs when `top-P` and `top-K` are applied. Temperature controls the degree of randomness in the token selection.
+</ParamField>
+
+<ParamField body="top_k" type="number">
+example: `1`
+
+`Top-K` changes how the model selects tokens for output. A low `top-K` means the next selected token is
+the most probable among all tokens in the model's vocabulary (also called greedy decoding),
+while a high `top-K` means that the next token is selected from among the three most probable tokens by using temperature.
+</ParamField>
+
+<ParamField body="top_p" type="number">
+example: `1`
+
+`Top-P` changes how the model selects tokens for output. Tokens are selected from the most (see `top-K`) to least probable until the sum of their probabilities equals the `top-P` value.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "google_params",
+  "temperature": 0,
+  "top_k": 1,
+  "top_p": 1
+}
+```
+
+</ResponseExample>

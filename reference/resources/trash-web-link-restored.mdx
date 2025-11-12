@@ -1,0 +1,203 @@
+---
+title: "Trashed Web Link (Restored)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Represents a web link restored from the trash.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this web link.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `web_link`
+
+The value will always be `web_link`.
+
+Value is always `web_link`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When this file was created on Box’s servers.
+</ParamField>
+
+<ParamField body="created_by" type="User (Mini)object">
+The user who created this web link.
+</ParamField>
+
+<ParamField body="description" type="string">
+example: `Example page`
+
+The description accompanying the web link. This is
+visible within the Box web application.
+</ParamField>
+
+<ParamField body="etag" type="string">
+example: `1`
+
+The entity tag of this web link. Used with `If-Match`
+headers.
+</ParamField>
+
+<ParamField body="item_status" type="string">
+example: `trashed`
+
+Whether this item is deleted or not. Values include `active`,
+`trashed` if the file has been moved to the trash, and `deleted` if
+the file has been permanently deleted.
+
+Value is one of `active`,`trashed`,`deleted`
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When this file was last updated on the Box
+servers.
+</ParamField>
+
+<ParamField body="modified_by" type="User (Mini)object">
+The user who last modified this web link.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `My Bookmark`
+
+The name of the web link.
+</ParamField>
+
+<ParamField body="owned_by" type="User (Mini)object">
+The user who owns this web link.
+</ParamField>
+
+<ParamField body="parent" type="Folder (Mini)object">
+The parent object the web link belongs to.
+</ParamField>
+
+<ParamField body="path_collection" type="object">
+The tree of folders that this web link is contained in,
+starting at the root.
+
+<Expandable>
+  <ParamField body="entries" type="Folder (Mini)array">
+  The parent folders for this item.
+  </ParamField>
+
+  <ParamField body="total_count" type="integer(int64)">
+  example: `1`
+  
+  The number of folders in this list.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="purged_at" type="string">
+The time at which this bookmark will be permanently
+deleted - becomes `null` after restore.
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+example: `3`
+
+A numeric identifier that represents the most recent user event
+that has been applied to this item.
+
+This can be used in combination with the `GET /events`-endpoint
+to filter out user events that would have occurred before this
+identifier was read.
+
+An example would be where a Box Drive-like application
+would fetch an item via the API, and then listen to incoming
+user events for changes to the item. The application would
+ignore any user events where the `sequence_id` in the event
+is smaller than or equal to the `sequence_id` in the originally
+fetched resource.
+</ParamField>
+
+<ParamField body="shared_link" type="string">
+The shared link for this bookmark. This will
+be `null` if a bookmark had been trashed, even though the original shared
+link does become active again.
+</ParamField>
+
+<ParamField body="trashed_at" type="string">
+The time at which this bookmark was put in the
+trash - becomes `null` after restore.
+</ParamField>
+
+<ParamField body="url" type="string">
+example: `https://www.example.com/example/1234`
+
+The URL this web link points to.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "web_link",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Example page",
+  "etag": "1",
+  "item_status": "trashed",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "name": "My Bookmark",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "path_collection": {
+    "entries": [
+      {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      }
+    ],
+    "total_count": 1
+  },
+  "purged_at": "null",
+  "sequence_id": "3",
+  "shared_link": "null",
+  "trashed_at": "null",
+  "url": "https://www.example.com/example/1234"
+}
+```
+
+</ResponseExample>

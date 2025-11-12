@@ -1,0 +1,170 @@
+---
+title: "Box Doc Gen job"
+---
+
+API version 2025.0
+
+A standard representation of a Box Doc Gen job.
+
+* [Full](/reference/v2025.0/resources/docgen-job--full/)
+* [Standard](/reference/v2025.0/resources/docgen-job/)
+* [Base](/reference/v2025.0/resources/docgen-job--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **standard** variant are generally
+returned when the resource is requested via its own API endpoints.
+For example, when retrieving a file by ID, it will return
+these fields unless the `fields` parameter has been specified.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a Box Doc Gen job.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `docgen_job`
+
+The value will always be `docgen_job`.
+
+Value is always `docgen_job`
+</ParamField>
+
+<ParamField body="batch" type="Box Doc Gen batch (Base)object">
+Box Doc Gen batch that the job belongs to.
+</ParamField>
+
+<ParamField body="output_file" type="object">
+The output file of the job. This property is `null` until the job is completed.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `42037322`
+  
+  ID of the object.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `file`
+  
+  The value will always be `file`.
+  
+  Value is always `file`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="output_file_version" type="object">
+File version of the output file. This property is `null` until the job is completed.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `12345`
+  
+  The unique identifier that represent a file version.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `file_version`
+  
+  The value will always be `file_version`.
+  
+  Value is always `file_version`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="output_type" type="string">
+example: `docx`
+
+Type of the generated file.
+</ParamField>
+
+<ParamField body="status" type="string">
+example: `completed`
+
+Status of the job.
+
+Value is one of `submitted`,`completed`,`failed`,`completed_with_error`,`pending`
+</ParamField>
+
+<ParamField body="template_file" type="object">
+Box Doc Gen template used in the job.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `42037322`
+  
+  ID of the object.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `file`
+  
+  The value will always be `file`.
+  
+  Value is always `file`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="template_file_version" type="object">
+File version of a template.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `12345`
+  
+  The unique identifier that represent a file version.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `file_version`
+  
+  The value will always be `file_version`.
+  
+  Value is always `file_version`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "docgen_job",
+  "batch": {
+    "id": "12345",
+    "type": "docgen_batch"
+  },
+  "output_file": {
+    "id": "42037322",
+    "type": "file"
+  },
+  "output_file_version": {
+    "id": "12345",
+    "type": "file_version"
+  },
+  "output_type": "docx",
+  "status": "completed",
+  "template_file": {
+    "id": "42037322",
+    "type": "file"
+  },
+  "template_file_version": {
+    "id": "12345",
+    "type": "file_version"
+  }
+}
+```
+
+</ResponseExample>

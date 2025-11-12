@@ -1,0 +1,43 @@
+---
+title: "Metadata field filter (date range)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Specifies which `date` field on the template to filter the search
+results by, specifying a range of dates that can match.
+
+<ParamField body="gt" type="string(date-time)">
+example: `2016-08-01T00:00:00Z`
+
+Specifies the (inclusive) lower bound for the metadata field
+value. The value of a field must be greater than (`gt`) or
+equal to this value for the search query to match this
+template.
+</ParamField>
+
+<ParamField body="lt" type="string(date-time)">
+example: `2017-08-01T00:00:00Z`
+
+Specifies the (inclusive) upper bound for the metadata field
+value. The value of a field must be lower than (`lt`) or
+equal to this value for the search query to match this
+template.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "gt": "2016-08-01T00:00:00Z",
+  "lt": "2017-08-01T00:00:00Z"
+}
+```
+
+</ResponseExample>

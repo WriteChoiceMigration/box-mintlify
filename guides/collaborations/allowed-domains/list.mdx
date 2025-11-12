@@ -1,0 +1,57 @@
+---
+title: "List allowed domains for collaboration"
+rank: 2
+related_endpoints:
+  - get_collaboration_whitelist_entries
+related_guides:
+  - collaborations
+  - collaborations/allowed-domains/delete
+related_pages: []
+required_guides: []
+related_resources: []
+alias_paths:
+  - /guides/collaboration-whitelists/list-whitelists
+---
+Listing the domains that are allowed for collaboration will return all domains
+that permit collaborations to be created with the current enterprise.
+
+There are no required parameters for the request, but `limit` and `market`
+parameters may optionally be set to limit and page through the full result set.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/collaboration_whitelist_entries" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.collaborationAllowlistEntries.getCollaborationWhitelistEntries();
+```
+
+```python Python v10
+client.collaboration_allowlist_entries.get_collaboration_whitelist_entries()
+```
+
+```cs .NET v10
+await client.CollaborationAllowlistEntries.GetCollaborationWhitelistEntriesAsync();
+```
+
+```swift Swift v10
+try await client.collaborationAllowlistEntries.getCollaborationWhitelistEntries()
+```
+
+```java Java v10
+client.getCollaborationAllowlistEntries().getCollaborationWhitelistEntries()
+```
+
+```cs .NET v6
+BoxCollectionMarkerBased<BoxCollaborationWhitelistEntry> whitelistedDomains = await client.CollaborationWhitelistManager
+    .GetAllCollaborationWhitelistEntriesAsync();
+```
+
+```javascript Node v4
+client.collaborationAllowlist.getAllAllowlistedDomains(callback);
+```
+
+</CodeGroup>

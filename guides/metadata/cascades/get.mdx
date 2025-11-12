@@ -1,0 +1,90 @@
+---
+title: "Get a metadata cascade policy"
+related_endpoints:
+  - get_metadata_cascade_policies_id
+related_guides:
+  - metadata/cascades/list
+  - metadata/cascades/create
+related_resources:
+  - metadata_cascade_policy
+---
+Information for a metadata cascade policy can be retrieved by calling the
+[`GET /metadata_cascade_policies/:id`][e_get] API endpoint with the
+`id` of the policy.
+
+<CodeGroup>
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/metadata_cascade_policies/324324" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.metadataCascadePolicies.getMetadataCascadePolicyById(
+  cascadePolicyId,
+);
+```
+
+```python Python v10
+client.metadata_cascade_policies.get_metadata_cascade_policy_by_id(cascade_policy_id)
+```
+
+```csharp .NET v10
+await client.MetadataCascadePolicies.GetMetadataCascadePolicyByIdAsync(metadataCascadePolicyId: cascadePolicyId);
+```
+
+```swift Swift v10
+try await client.metadataCascadePolicies.getMetadataCascadePolicyById(metadataCascadePolicyId: cascadePolicyId)
+```
+
+```java Java v10
+client.getMetadataCascadePolicies().getMetadataCascadePolicyById(cascadePolicyId)
+```
+
+```java Java v5
+String cascadePolicyID = "1234";
+BoxMetadataCascadePolicy metadataCascadePolicy = new BoxMetadataCascadePolicy(api, cascadePolicyID);
+BoxMetadataCascadePolicy.Info metadataCascadePolicyInfo = metadataCascadePolicy.getInfo();
+```
+
+```py Python v4
+cascade_policy = client.metadata_cascade_policy('84113349-794d-445c-b93c-d8481b223434').get()
+print(f'Cascade policy applies to a template owned by enterprise {cascade_policy.owner_enterprise.id}')
+```
+
+```csharp .NET v6
+BoxMetadataCascadePolicy retrievedCascadePolicy = await client.MetadataCascadePolicyManager
+    .GetCascadePolicyAsync("12345", IEnumerable<string> fields = null);
+```
+
+```js Node v4
+var policyID = '84113349-794d-445c-b93c-d8481b223434';
+client.metadata.getCascadePolicy(policyID)
+ .then(cascadePolicy => {
+  /* cascadePolicy -> {
+   id: '84113349-794d-445c-b93c-d8481b223434',
+   type: 'metadata_cascade_policy',
+   owner_enterprise: {
+    type: 'enterprise',
+    id: '11111'
+   },
+   parent: {
+    type: 'folder',
+    id: '22222'
+   },
+   scope: 'enterprise_11111',
+   templateKey: 'testTemplate'
+  }
+  */
+ });
+```
+</CodeGroup>
+
+<Info>
+
+  To get the `id` of the policy,
+  [list all policies][g_list_policies] for the folder.
+
+</Info>
+
+[e_get]: /reference/get_metadata_cascade_policies_id
+[g_list_policies]: /guides/metadata/cascades/list

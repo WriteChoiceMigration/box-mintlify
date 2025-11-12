@@ -1,0 +1,87 @@
+---
+title: "Create teams integration mapping request"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A request to create a Teams Integration Mapping object.
+
+<ParamField body="box_item" type="object">
+The Box folder, to which the object from the
+partner app domain (referenced in `partner_item_id`) is mapped.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `42037322`
+  
+  ID of the folder.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `folder`
+  
+  The value will always be `folder`.
+  
+  Value is always `folder`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="partner_item" type="object">
+The schema for an integration mapping mapped item object for type Teams.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `19%ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2`
+  
+  ID of the mapped item (of type referenced in `type`).
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `channel`
+  
+  Type of the mapped item referenced in `id`.
+  
+  Value is one of `channel`,`team`
+  </ParamField>
+
+  <ParamField body="team_id" type="string">
+  example: `hjgjgjg-bhhj-564a-b643-hghgj685u`
+  
+  ID of the team that is registered with Microsoft Teams.
+  </ParamField>
+
+  <ParamField body="tenant_id" type="string">
+  example: `abcd-defg-1235-7890`
+  
+  ID of the tenant that is registered with Microsoft Teams.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "box_item": {
+    "id": "42037322",
+    "type": "folder"
+  },
+  "partner_item": {
+    "id": "19%ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2",
+    "type": "channel",
+    "team_id": "hjgjgjg-bhhj-564a-b643-hghgj685u",
+    "tenant_id": "abcd-defg-1235-7890"
+  }
+}
+```
+
+</ResponseExample>

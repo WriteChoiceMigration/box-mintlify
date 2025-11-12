@@ -1,0 +1,45 @@
+---
+title: "Shield List Content (Integration)"
+---
+
+API version 2025.0
+
+Representation of content of a Shield List that contains integrations data.
+
+<ParamField body="type" type="string">
+example: `integration`
+
+The type of content in the shield list.
+
+Value is always `integration`
+</ParamField>
+
+<ParamField body="integrations" type="objectarray">
+example: `1`
+
+List of integration.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `505e40b5-5d04-446a-9268-72a0ccc13669`
+  
+  The ID of the integration.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "integration",
+  "integrations": [
+    {
+      "id": "505e40b5-5d04-446a-9268-72a0ccc13669"
+    }
+  ]
+}
+```
+
+</ResponseExample>

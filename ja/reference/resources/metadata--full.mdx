@@ -1,0 +1,88 @@
+---
+title: "メタデータインスタンス (Full)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ファイルまたはフォルダに適用された、メタデータテンプレートのインスタンス。
+
+* [Full](/reference/resources/metadata--full/)
+* [Standard](/reference/resources/metadata/)
+* [Base](/reference/resources/metadata--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Full**バリアントに含まれるフィールドは、`fields`パラメータをサポートするAPIエンドポイントによって返すことができます。たとえば、IDでファイルを取得するときに、`fields`リクエストパラメータを`id,type`に設定すると、これらのフィールドのみがAPIレスポンスで返されます。
+</Info>
+
+<ParamField body="$canEdit" type="boolean">
+例 `true`
+
+このメタデータインスタンスをユーザーが編集できるかどうか。
+</ParamField>
+
+<ParamField body="$id" type="string(uuid)">
+例 `01234500-12f1-1234-aa12-b1d234cb567e`
+
+メタデータインスタンスを識別するためのUUID。
+</ParamField>
+
+<ParamField body="$parent" type="string">
+例 `folder_59449484661,`
+
+このメタデータインスタンスが追加されている項目の識別子。これは、親の`type`と`id`を`{type}_{id}`という形式で組み合わせたものです。
+</ParamField>
+
+<ParamField body="$scope" type="string">
+例 `enterprise_27335`
+
+このテンプレートが適用されているスコープのID。これは、この会社で使用するために定義されたテンプレートの場合は`enterprise_{enterprise_id}`、Boxを使用するすべての会社が利用できる一般的なテンプレートの場合は`global`になります。
+</ParamField>
+
+<ParamField body="$template" type="string">
+例 `marketingCollateral`
+
+テンプレートの名前。
+</ParamField>
+
+<ParamField body="$type" type="string">
+例 `properties-6bcba49f-ca6d-4d2a-a758-57fe6edf44d0`
+
+このインスタンスの「タイプ」に対応する一意の識別子。これは内部システムプロパティであるため、クライアントアプリケーションでは使用しないでください。
+</ParamField>
+
+<ParamField body="$typeVersion" type="integer">
+例 `2`
+
+オブジェクトテンプレートの既知の最新バージョン。これは内部システムプロパティであるため、クライアントアプリケーションでは使用しないでください。
+</ParamField>
+
+<ParamField body="$version" type="integer">
+例 `1`
+
+メタデータインスタンスのバージョン。このバージョンは0から始まり、ユーザー定義プロパティが変更されるたびに増加します。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "$canEdit": true,
+  "$id": "01234500-12f1-1234-aa12-b1d234cb567e",
+  "$parent": "folder_59449484661,",
+  "$scope": "enterprise_27335",
+  "$template": "marketingCollateral",
+  "$type": "properties-6bcba49f-ca6d-4d2a-a758-57fe6edf44d0",
+  "$typeVersion": 2,
+  "$version": 1
+}
+```
+
+</ResponseExample>

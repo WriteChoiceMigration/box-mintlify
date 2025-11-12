@@ -1,0 +1,59 @@
+---
+title: "リアルタイムサーバー"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+Long polling User Eventに使用できるリアルタイムサーバー。
+
+<ParamField body="type" type="string">
+例 `realtime_server`
+
+値は常に`realtime_server`になります。
+</ParamField>
+
+<ParamField body="max_retries" type="string">
+例 `10`
+
+このサーバーが[サーバーの新しいリスト](#options-events)を取得して新しいLong pollingを開始するまでに実行可能な再試行回数の上限。
+</ParamField>
+
+<ParamField body="retry_timeout" type="integer">
+例 `610`
+
+Long polling接続を再試行するまでのレスポンスがない時間の最大秒数。
+
+これは、Long pollingが機能しているようではあるものの、パッケージが届かない場合に、ネットワーク関連の問題を解決するのに役立ちます。
+</ParamField>
+
+<ParamField body="ttl" type="string">
+例 `10`
+
+このサーバーが利用可能な時間 (分)。
+</ParamField>
+
+<ParamField body="url" type="string">
+例 `http://2.realtime.services.box.net/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all`
+
+サーバーのURL。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "realtime_server",
+  "max_retries": "10",
+  "retry_timeout": 610,
+  "ttl": "10",
+  "url": "http://2.realtime.services.box.net/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all"
+}
+```
+
+</ResponseExample>

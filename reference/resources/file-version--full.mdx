@@ -1,0 +1,164 @@
+---
+title: "File version (Full)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A full representation of a file version, as can be returned from any
+file version API endpoints by default.
+
+* [Full](/reference/resources/file-version--full/)
+* [Standard](/reference/resources/file-version/)
+* [Mini](/reference/resources/file-version--mini/)
+* [Base](/reference/resources/file-version--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **full** variant can be returned
+by API endpoints that support the `fields` parameter. For example,
+by defining the `fields` request parameter as
+`id,type` when requesting a file by ID, only those fields will
+be returned in the API response.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a file version.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `file_version`
+
+The value will always be `file_version`.
+
+Value is always `file_version`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the file version object was created.
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the file version object was last updated.
+</ParamField>
+
+<ParamField body="modified_by" type="User (Mini)object">
+The user who last updated the file version.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `tigers.jpeg`
+
+The name of the file version.
+</ParamField>
+
+<ParamField body="purged_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the file version object will be permanently deleted.
+</ParamField>
+
+<ParamField body="restored_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the file version was restored from the trash.
+</ParamField>
+
+<ParamField body="restored_by" type="User (Mini)object">
+The user who restored the file version from the trash.
+</ParamField>
+
+<ParamField body="sha1" type="string">
+example: `134b65991ed521fcfe4724b7d814ab8ded5185dc`
+
+The SHA1 hash of this version of the file.
+</ParamField>
+
+<ParamField body="size" type="integer(int64)">
+example: `629644`
+
+Size of the file version in bytes.
+</ParamField>
+
+<ParamField body="trashed_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the file version object was trashed.
+</ParamField>
+
+<ParamField body="trashed_by" type="User (Mini)object">
+The user who trashed the file version.
+</ParamField>
+
+<ParamField body="uploader_display_name" type="string">
+example: `Ellis Wiggins`
+
+The display name of the user that uploaded the file. In most cases this is the
+name of the user logged in at the time of the upload.
+
+If the file was uploaded using a File Request form that requires the user to
+provide an email address, this field is populated with that email address. If
+an email address was not required in the File Request form, this field is set
+to return a value of `File Request`.
+
+In all other anonymous cases where no email was provided this field
+will default to a value of `Someone`.
+</ParamField>
+
+<ParamField body="version_number" type="string">
+example: `1`
+
+The version number of this file version.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "file_version",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "name": "tigers.jpeg",
+  "purged_at": "2012-12-12T10:53:43-08:00",
+  "restored_at": "2012-12-12T10:53:43-08:00",
+  "restored_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+  "size": 629644,
+  "trashed_at": "2012-12-12T10:53:43-08:00",
+  "trashed_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "uploader_display_name": "Ellis Wiggins",
+  "version_number": "1"
+}
+```
+
+</ResponseExample>

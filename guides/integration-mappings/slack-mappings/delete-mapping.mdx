@@ -1,0 +1,54 @@
+---
+title: "Delete Slack Integration Mapping"
+rank: 6
+related_endpoints:
+related_guides:
+required_guides:
+related_resources: []
+alias_paths: []
+---
+The `DELETE integration_mappings/slack/:integration_mapping_id`
+call removes the mapping between the channel and the folder. 
+A new mapping and a new folder in the default folder structure will
+be created when the next file is uploaded to the channel.
+Deleting the mapping does not delete the Box folder, or the Slack channel.
+
+<CodeGroup>
+
+```sh cURL
+curl -X -L DELETE "https://api.box.com/2.0/integration_mappings/slack/512521" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"  \
+     -d ''
+```
+
+```typescript Node/TypeScript v10
+await userClient.integrationMappings.deleteSlackIntegrationMappingById(
+  slackIntegrationMapping.id,
+);
+```
+
+```python Python v10
+user_client.integration_mappings.delete_slack_integration_mapping_by_id(
+    slack_integration_mapping.id
+)
+```
+
+```cs .NET v10
+await userClient.IntegrationMappings.DeleteSlackIntegrationMappingByIdAsync(integrationMappingId: slackIntegrationMapping.Id);
+```
+
+```swift Swift v10
+try await userClient.integrationMappings.deleteSlackIntegrationMappingById(integrationMappingId: slackIntegrationMapping.id)
+```
+
+```java Java v10
+userClient.getIntegrationMappings().deleteSlackIntegrationMappingById(slackIntegrationMapping.getId())
+```
+
+```javascript Node v4
+await client.integrationMappings.deleteSlackIntegrationMappingById({
+	integration_mapping_id: 123456
+});
+```
+
+</CodeGroup>

@@ -1,0 +1,49 @@
+---
+title: "グループ (Base)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+グループのBase版の表示。
+
+* [Full](/reference/resources/group--full/)
+* [Standard](/reference/resources/group/)
+* [Mini](/reference/resources/group--mini/)
+* [Base](/reference/resources/group--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このオブジェクトの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `group`
+
+値は常に`group`になります。
+
+次の値に固定: `group`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "group"
+}
+```
+
+</ResponseExample>

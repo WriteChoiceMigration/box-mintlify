@@ -1,0 +1,85 @@
+---
+title: "メタデータテンプレートの削除"
+related_endpoints:
+  - delete_metadata_templates_id_id_schema
+related_guides:
+  - metadata/scopes
+  - metadata/templates/create
+related_resources:
+  - metadata_template
+required_guides:
+  - metadata/scopes
+category_id: metadata
+subcategory_id: metadata/2-templates
+is_index: false
+id: metadata/templates/delete
+rank: 6
+type: guide
+total_steps: 5
+sibling_id: metadata/templates
+parent_id: metadata/templates
+next_page_id: ''
+previous_page_id: metadata/templates/update
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/metadata/2-templates/6-delete.md
+fullyTranslated: true
+---
+メタデータテンプレートを削除するには、[`DELETE
+/metadata_templates/enterprise/:templateKey/schema`][endpoint] APIを呼び出します。
+
+<CodeGroup>
+```sh cURL
+curl -i -X DELETE "https://api.box.com/2.0/metadata_templates/enterprise/blueprintTemplate/schema" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.metadataTemplates.deleteMetadataTemplate(
+  'enterprise' as DeleteMetadataTemplateScope,
+  template.templateKey!,
+);
+```
+
+```python Python v10
+client.metadata_templates.delete_metadata_template(
+    DeleteMetadataTemplateScope.ENTERPRISE, template.template_key
+)
+```
+
+```csharp .NET v10
+await client.MetadataTemplates.DeleteMetadataTemplateAsync(scope: DeleteMetadataTemplateScope.Enterprise, templateKey: NullableUtils.Unwrap(template.TemplateKey));
+```
+
+```swift Swift v10
+try await client.metadataTemplates.deleteMetadataTemplate(scope: DeleteMetadataTemplateScope.enterprise, templateKey: template.templateKey!)
+```
+
+```java Java v10
+client.getMetadataTemplates().deleteMetadataTemplate(DeleteMetadataTemplateScope.ENTERPRISE, template.getTemplateKey())
+```
+
+```java Java v5
+MetadataTemplate.deleteMetadataTemplate(api, "enterprise", "templateName");
+```
+
+```py Python v4
+client.metadata_template('enterprise', 'employeeRecord').delete()
+```
+
+```js Node v4
+client.metadata.deleteTemplate('enterprise', 'testtemplate', callback);
+```
+</CodeGroup>
+
+このAPIは、テンプレートが正常に削除された場合に、レスポンスの本文がない`204 No Content` APIレスポンスを返します。また、すべてのファイルおよびフォルダからすべてのテンプレートインスタンスを削除します。
+
+削除できるのは、`enterprise`スコープ内に作成されたテンプレートのみです。
+
+<Warning>
+**管理者権限が必須**
+
+メタデータテンプレートの削除は、管理者権限を持つユーザーに制限されています。つまり、管理者、または管理者から**会社のメタデータテンプレートを作成、編集する**権限が付与されている共同管理者だけがウェブアプリまたはAPIを使用してテンプレートを管理できます。
+
+</Warning>
+
+[endpoint]: /ja/reference/delete_metadata_templates_id_id_schema

@@ -1,0 +1,42 @@
+---
+title: "Box Doc Gen template tag"
+---
+
+API version 2025.0
+
+A Box Doc Gen template tag object.
+
+<ParamField body="json_paths" type="stringarray">
+example: `["products","products.name"]`
+
+List of the paths.
+</ParamField>
+
+<ParamField body="tag_content" type="string">
+example: `{{item.name}}`
+
+The content of the tag.
+</ParamField>
+
+<ParamField body="tag_type" type="string">
+example: `text`
+
+Type of the tag.
+
+Value is one of `text`,`arithmetic`,`conditional`,`for-loop`,`table-loop`,`image`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "json_paths": [
+    "products",
+    "products.name"
+  ],
+  "tag_content": "{{item.name}}",
+  "tag_type": "text"
+}
+```
+
+</ResponseExample>

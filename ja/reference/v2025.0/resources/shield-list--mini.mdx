@@ -1,0 +1,54 @@
+---
+title: "Shieldリスト (Mini)"
+---
+
+APIバージョン 2025.0
+
+ShieldリストのMini版の表示。
+
+<ParamField body="id" type="string">
+例 `12345678-1234-1234-1234-123456789012`
+
+このリストの一意のグローバル識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `shield_list`
+
+オブジェクトのタイプ。
+
+次の値に固定: `shield_list`
+</ParamField>
+
+<ParamField body="content" type="object">
+
+<Expandable>
+  <ParamField body="type" type="string">
+  例 `country_code`
+  
+  Shieldリスト内のコンテンツのタイプ。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `My Shield List`
+
+Shieldリストの名前。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345678-1234-1234-1234-123456789012",
+  "type": "shield_list",
+  "content": {
+    "type": "country_code"
+  },
+  "name": "My Shield List"
+}
+```
+
+</ResponseExample>

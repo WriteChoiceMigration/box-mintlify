@@ -1,0 +1,56 @@
+---
+title: "ファイルバージョン (Mini)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+他のリソース内にネストされたときに使用されるファイルバージョンのMini版の表示。
+
+* [Full](/reference/resources/file-version--full/)
+* [Standard](/reference/resources/file-version/)
+* [Mini](/reference/resources/file-version--mini/)
+* [Base](/reference/resources/file-version--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Mini**バリアントに含まれるフィールドは、このリソースが別のリソースのレスポンス内にネストされている場合に返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+ファイルバージョンを表す一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `file_version`
+
+値は常に`file_version`になります。
+
+次の値に固定: `file_version`
+</ParamField>
+
+<ParamField body="sha1" type="string">
+例 `134b65991ed521fcfe4724b7d814ab8ded5185dc`
+
+ファイルの現在のバージョンのSHA1ハッシュ。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "file_version",
+  "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+}
+```
+
+</ResponseExample>

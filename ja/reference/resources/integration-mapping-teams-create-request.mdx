@@ -1,0 +1,86 @@
+---
+title: "Teams統合マッピングリクエストを作成"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+Teams統合マッピングオブジェクトを作成するリクエスト。
+
+<ParamField body="box_item" type="object">
+パートナーアプリのドメインのオブジェクト (`partner_item_id`で参照) のマッピング先であるBoxフォルダ。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `42037322`
+  
+  フォルダのID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `folder`
+  
+  値は常に`folder`になります。
+  
+  次の値に固定: `folder`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="partner_item" type="object">
+Teamsタイプの統合マッピングのマッピングされた項目オブジェクトのスキーマ。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `19%ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2`
+  
+  (`type`で参照されるタイプの) マッピングされた項目のID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `channel`
+  
+  `id`で参照されるマッピングされた項目のタイプ。
+  
+  次の値のいずれか1つ: `channel`,`team`
+  </ParamField>
+
+  <ParamField body="team_id" type="string">
+  例 `hjgjgjg-bhhj-564a-b643-hghgj685u`
+  
+  Microsoft Teamsに登録されているチームのID。
+  </ParamField>
+
+  <ParamField body="tenant_id" type="string">
+  例 `abcd-defg-1235-7890`
+  
+  Microsoft Teamsに登録されているテナントのID。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "box_item": {
+    "id": "42037322",
+    "type": "folder"
+  },
+  "partner_item": {
+    "id": "19%ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2",
+    "type": "channel",
+    "team_id": "hjgjgjg-bhhj-564a-b643-hghgj685u",
+    "tenant_id": "abcd-defg-1235-7890"
+  }
+}
+```
+
+</ResponseExample>

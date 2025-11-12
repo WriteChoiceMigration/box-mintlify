@@ -1,0 +1,67 @@
+---
+title: "Revoke a Token"
+rank: 7
+related_endpoints:
+  - post_oauth2_revoke
+related_resources: []
+related_guides: []
+required_guides:
+  - authentication/tokens
+alias_paths:
+---
+An Access Token can be revoked at any time by either sending the Access Token or
+Refresh Token the [`POST
+/oauth2/revoke`](endpoint://post-oauth2-revoke) endpoint.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/oauth2/revoke" \
+     -H "content-type: application/x-www-form-urlencoded" \
+     -d "client_id=[CLIENT_ID]" \
+     -d "client_secret=[CLIENT_SECRET]" \
+     -d "token=[ACCESS_TOKEN]"
+```
+
+```typescript Node/TypeScript v10
+await auth.revokeTokens();
+// client's tokens have been revoked
+```
+
+```python Python v10
+client.auth.revoke_token()
+```
+
+```cs .NET v10
+await auth.RevokeTokenAsync();
+```
+
+```swift Swift v10
+try await auth.revokeToken()
+```
+
+```java Java v10
+auth.revokeToken();
+// client's tokens have been revoked
+```
+
+```python Python v4
+oauth.revoke()
+```
+
+```javascript Node v4
+client.revokeTokens("<TOKEN>")
+	.then(() => {
+		// the client's access token have been revoked
+	});
+```
+
+</CodeGroup>
+
+<Info>
+  **Usage in SDKs**
+
+  All of the Box SDKs support manually revoking the current Access Token
+  associated with the client. To revoke a specific token, first initialize a new
+  SDK with that token and then call the relevant revoke method.
+</Info>

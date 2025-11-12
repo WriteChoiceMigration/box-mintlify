@@ -1,0 +1,69 @@
+---
+title: "Storage policy assignment"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The assignment of a storage policy to a user or enterprise.
+
+<ParamField body="id" type="string">
+example: `ZW50ZXJwcmlzZV8xMjM0NTY3ODkw`
+
+The unique identifier for a storage policy assignment.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `storage_policy_assignment`
+
+The value will always be `storage_policy_assignment`.
+
+Value is always `storage_policy_assignment`
+</ParamField>
+
+<ParamField body="assigned_to" type="object">
+The enterprise or use the policy is assigned to.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `11446498`
+  
+  The unique identifier for this object.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `file`
+  
+  The type for this object.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="storage_policy" type="Storage policy (Mini)object">
+The assigned storage policy.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "ZW50ZXJwcmlzZV8xMjM0NTY3ODkw",
+  "type": "storage_policy_assignment",
+  "assigned_to": {
+    "id": "11446498",
+    "type": "file"
+  },
+  "storage_policy": {
+    "id": "11446498",
+    "type": "storage_policy"
+  }
+}
+```
+
+</ResponseExample>

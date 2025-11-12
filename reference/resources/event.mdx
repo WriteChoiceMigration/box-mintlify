@@ -1,0 +1,125 @@
+---
+title: "Event"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The description of an event that happened within Box.
+
+<ParamField body="type" type="string">
+example: `event`
+
+The value will always be `event`.
+</ParamField>
+
+<ParamField body="additional_details" type="associative array">
+This object provides additional information about the event if available.
+
+This can include how a user performed an event as well as additional
+information to correlate an event to external KeySafe logs. Not all events
+have an `additional_details` object. This object is only available in the
+Enterprise Events.
+
+<Expandable>
+  <ParamField body="<key>" type="object">
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2022-12-12T10:53:43-08:00`
+
+When the event object was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Mini)object">
+The user that performed the action represented by the event.
+Some events may be performed by users not logged into Box.
+In that case, not all attributes of the object are populated and the
+event is attributed to a unknown user (`user_id = 2`).
+</ParamField>
+
+<ParamField body="event_id" type="string">
+example: `f82c3ba03e41f7e8a7608363cc6c0390183c3f83`
+
+The ID of the event object. You can use this to detect duplicate events.
+</ParamField>
+
+<ParamField body="event_type" type="string">
+example: `FILE_MARKED_MALICIOUS`
+
+The event type that triggered this event.
+
+Value is one of `ACCESS_GRANTED`,`ACCESS_REVOKED`,`ADD_DEVICE_ASSOCIATION`,`ADD_LOGIN_ACTIVITY_DEVICE`,`ADMIN_LOGIN`,`APPLICATION_CREATED`,`APPLICATION_PUBLIC_KEY_ADDED`,`APPLICATION_PUBLIC_KEY_DELETED`,`CHANGE_ADMIN_ROLE`,`CHANGE_FOLDER_PERMISSION`,`COLLABORATION_ACCEPT`,`COLLABORATION_EXPIRATION`,`COLLABORATION_INVITE`,`COLLABORATION_REMOVE`,`COLLABORATION_ROLE_CHANGE`,`COLLAB_ADD_COLLABORATOR`,`COLLAB_INVITE_COLLABORATOR`,`COLLAB_REMOVE_COLLABORATOR`,`COLLAB_ROLE_CHANGE`,`COMMENT_CREATE`,`COMMENT_DELETE`,`CONTENT_ACCESS`,`CONTENT_WORKFLOW_ABNORMAL_DOWNLOAD_ACTIVITY`,`CONTENT_WORKFLOW_AUTOMATION_ADD`,`CONTENT_WORKFLOW_AUTOMATION_DELETE`,`CONTENT_WORKFLOW_POLICY_ADD`,`CONTENT_WORKFLOW_SHARING_POLICY_VIOLATION`,`CONTENT_WORKFLOW_UPLOAD_POLICY_VIOLATION`,`COPY`,`DATA_RETENTION_CREATE_RETENTION`,`DATA_RETENTION_REMOVE_RETENTION`,`DELETE`,`DELETE_USER`,`DEVICE_TRUST_CHECK_FAILED`,`DOWNLOAD`,`EDIT`,`EDIT_USER`,`EDR_CROWDSTRIKE_DEVICE_DETECTED`,`EDR_CROWDSTRIKE_NO_BOX_TOOLS`,`EDR_CROWDSTRIKE_BOX_TOOLS_OUTDATED`,`EDR_CROWDSTRIKE_DRIVE_OUTDATED`,`EDR_CROWDSTRIKE_ACCESS_ALLOWED_NO_CROWDSTRIKE_DEVICE`,`EDR_CROWDSTRIKE_ACCESS_REVOKED`,`EMAIL_ALIAS_CONFIRM`,`EMAIL_ALIAS_REMOVE`,`ENABLE_TWO_FACTOR_AUTH`,`ENTERPRISE_APP_AUTHORIZATION_UPDATE`,`FAILED_LOGIN`,`FILE_MARKED_MALICIOUS`,`FILE_WATERMARKED_DOWNLOAD`,`GROUP_ADD_ITEM`,`GROUP_ADD_USER`,`GROUP_CREATION`,`GROUP_DELETION`,`GROUP_EDITED`,`GROUP_REMOVE_ITEM`,`GROUP_REMOVE_USER`,`ITEM_COPY`,`ITEM_CREATE`,`ITEM_DOWNLOAD`,`ITEM_EMAIL_SEND`,`ITEM_MAKE_CURRENT_VERSION`,`ITEM_MODIFY`,`ITEM_MOVE`,`ITEM_OPEN`,`ITEM_PREVIEW`,`ITEM_RENAME`,`ITEM_SHARED`,`ITEM_SHARED_CREATE`,`ITEM_SHARED_UNSHARE`,`ITEM_SHARED_UPDATE`,`ITEM_SYNC`,`ITEM_TRASH`,`ITEM_UNDELETE_VIA_TRASH`,`ITEM_UNSYNC`,`ITEM_UPLOAD`,`LEGAL_HOLD_ASSIGNMENT_CREATE`,`LEGAL_HOLD_ASSIGNMENT_DELETE`,`LEGAL_HOLD_POLICY_CREATE`,`LEGAL_HOLD_POLICY_DELETE`,`LEGAL_HOLD_POLICY_UPDATE`,`LOCK`,`LOCK_CREATE`,`LOCK_DESTROY`,`LOGIN`,`MASTER_INVITE_ACCEPT`,`MASTER_INVITE_REJECT`,`METADATA_INSTANCE_CREATE`,`METADATA_INSTANCE_DELETE`,`METADATA_INSTANCE_UPDATE`,`METADATA_TEMPLATE_CREATE`,`METADATA_TEMPLATE_DELETE`,`METADATA_TEMPLATE_UPDATE`,`MOVE`,`NEW_USER`,`PREVIEW`,`REMOVE_DEVICE_ASSOCIATION`,`REMOVE_LOGIN_ACTIVITY_DEVICE`,`RENAME`,`RETENTION_POLICY_ASSIGNMENT_ADD`,`SHARE`,`SHARED_LINK_SEND`,`SHARE_EXPIRATION`,`SHIELD_ALERT`,`SHIELD_EXTERNAL_COLLAB_ACCESS_BLOCKED`,`SHIELD_EXTERNAL_COLLAB_ACCESS_BLOCKED_MISSING_JUSTIFICATION`,`SHIELD_EXTERNAL_COLLAB_INVITE_BLOCKED`,`SHIELD_EXTERNAL_COLLAB_INVITE_BLOCKED_MISSING_JUSTIFICATION`,`SHIELD_JUSTIFICATION_APPROVAL`,`SHIELD_SHARED_LINK_ACCESS_BLOCKED`,`SHIELD_SHARED_LINK_STATUS_RESTRICTED_ON_CREATE`,`SHIELD_SHARED_LINK_STATUS_RESTRICTED_ON_UPDATE`,`SIGN_DOCUMENT_ASSIGNED`,`SIGN_DOCUMENT_CANCELLED`,`SIGN_DOCUMENT_COMPLETED`,`SIGN_DOCUMENT_CONVERTED`,`SIGN_DOCUMENT_CREATED`,`SIGN_DOCUMENT_DECLINED`,`SIGN_DOCUMENT_EXPIRED`,`SIGN_DOCUMENT_SIGNED`,`SIGN_DOCUMENT_VIEWED_BY_SIGNED`,`SIGNER_DOWNLOADED`,`SIGNER_FORWARDED`,`STORAGE_EXPIRATION`,`TAG_ITEM_CREATE`,`TASK_ASSIGNMENT_CREATE`,`TASK_ASSIGNMENT_DELETE`,`TASK_ASSIGNMENT_UPDATE`,`TASK_CREATE`,`TASK_UPDATE`,`TERMS_OF_SERVICE_ACCEPT`,`TERMS_OF_SERVICE_REJECT`,`UNDELETE`,`UNLOCK`,`UNSHARE`,`UPDATE_COLLABORATION_EXPIRATION`,`UPDATE_SHARE_EXPIRATION`,`UPLOAD`,`USER_AUTHENTICATE_OAUTH2_ACCESS_TOKEN_CREATE`,`WATERMARK_LABEL_CREATE`,`WATERMARK_LABEL_DELETE`
+</ParamField>
+
+<ParamField body="recorded_at" type="string(date-time)">
+example: `2022-12-12T10:54:43-08:00`
+
+When the event object was recorded in database.
+</ParamField>
+
+<ParamField body="session_id" type="string">
+example: `70090280850c8d2a1933c1`
+
+The session of the user that performed the action. Not all events will
+populate this attribute.
+</ParamField>
+
+<ParamField body="source" type="AppItem event source/Event source/File/Folder/Generic source/Userobject">
+The resource that triggered this event. For more information,
+check out the guide on event triggers.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "event",
+  "additional_details": {
+    "key": "value"
+  },
+  "created_at": "2022-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "event_id": "f82c3ba03e41f7e8a7608363cc6c0390183c3f83",
+  "event_type": "FILE_MARKED_MALICIOUS",
+  "recorded_at": "2022-12-12T10:54:43-08:00",
+  "session_id": "70090280850c8d2a1933c1",
+  "source": {
+    "id": "11446498",
+    "type": "user",
+    "address": "900 Jefferson Ave, Redwood City, CA 94063",
+    "avatar_url": "https://www.box.com/api/avatar/large/181216415",
+    "created_at": "2012-12-12T10:53:43-08:00",
+    "job_title": "CEO",
+    "language": "en",
+    "login": "ceo@example.com",
+    "max_upload_size": 2147483648,
+    "modified_at": "2012-12-12T10:53:43-08:00",
+    "name": "Aaron Levie",
+    "notification_email": {
+      "email": "notifications@example.com",
+      "is_confirmed": true
+    },
+    "phone": "6509241374",
+    "space_amount": 11345156112,
+    "space_used": 1237009912,
+    "status": "active",
+    "timezone": "Africa/Bujumbura"
+  }
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,125 @@
+---
+title: "Upload session"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+An upload session for chunk uploading a file.
+
+<ParamField body="id" type="string">
+example: `F971964745A5CD0C001BBE4E58196BFD`
+
+The unique identifier for this session.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `upload_session`
+
+The value will always be `upload_session`.
+
+Value is always `upload_session`
+</ParamField>
+
+<ParamField body="num_parts_processed" type="integer(int32)">
+example: `455`
+
+The number of parts that have been uploaded and processed
+by the server. This starts at `0`.
+
+When committing a file files, inspecting this property can
+provide insight if all parts have been uploaded correctly.
+</ParamField>
+
+<ParamField body="part_size" type="integer(int64)">
+example: `1024`
+
+The size in bytes that must be used for all parts of of the
+upload.
+
+Only the last part is allowed to be of a smaller size.
+</ParamField>
+
+<ParamField body="session_endpoints" type="object">
+A list of endpoints for this session.
+
+<Expandable>
+  <ParamField body="abort" type="string">
+  example: `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD`
+  
+  The URL for used to abort the session.
+  </ParamField>
+
+  <ParamField body="commit" type="string">
+  example: `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/commit`
+  
+  The URL used to commit the file.
+  </ParamField>
+
+  <ParamField body="list_parts" type="string">
+  example: `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/parts`
+  
+  The URL users to list all parts.
+  </ParamField>
+
+  <ParamField body="log_event" type="string">
+  example: `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/log`
+  
+  The URL used to get the upload log from.
+  </ParamField>
+
+  <ParamField body="status" type="string">
+  example: `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD`
+  
+  The URL used to get the status of the upload.
+  </ParamField>
+
+  <ParamField body="upload_part" type="string">
+  example: `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD`
+  
+  The URL to upload parts to.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="session_expires_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The date and time when this session expires.
+</ParamField>
+
+<ParamField body="total_parts" type="integer(int32)">
+example: `1000`
+
+The total number of parts expected in this upload session,
+as determined by the file size and part size.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "F971964745A5CD0C001BBE4E58196BFD",
+  "type": "upload_session",
+  "num_parts_processed": 455,
+  "part_size": 1024,
+  "session_endpoints": {
+    "abort": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD",
+    "commit": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/commit",
+    "list_parts": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/parts",
+    "log_event": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/log",
+    "status": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD",
+    "upload_part": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD"
+  },
+  "session_expires_at": "2012-12-12T10:53:43-08:00",
+  "total_parts": 1000
+}
+```
+
+</ResponseExample>

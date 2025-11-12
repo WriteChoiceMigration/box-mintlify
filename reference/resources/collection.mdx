@@ -1,0 +1,65 @@
+---
+title: "Collection"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A collection of items, including files and folders.
+
+Currently, the only collection available
+is the `favorites` collection.
+
+The contents of a collection can be explored in a
+similar way to which the contents of a folder is
+explored.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this collection.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `collection`
+
+The value will always be `collection`.
+
+Value is always `collection`
+</ParamField>
+
+<ParamField body="collection_type" type="string">
+example: `favorites`
+
+The type of the collection. This is used to
+determine the proper visual treatment for
+collections.
+
+Value is always `favorites`
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Favorites`
+
+The name of the collection.
+
+Value is always `Favorites`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "collection",
+  "collection_type": "favorites",
+  "name": "Favorites"
+}
+```
+
+</ResponseExample>

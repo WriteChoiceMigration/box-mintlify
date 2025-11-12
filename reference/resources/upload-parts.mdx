@@ -1,0 +1,98 @@
+---
+title: "Upload parts"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of uploaded chunks for an upload
+session.
+
+<ParamField body="entries" type="Upload partarray">
+A list of uploaded chunks for an upload
+session.
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+example: `1000`
+
+The limit that was used for these entries. This will be the same as the
+`limit` query parameter unless that value exceeded the maximum value
+allowed. The maximum value varies by API.
+</ParamField>
+
+<ParamField body="offset" type="integer(int64)">
+example: `2000`
+
+The 0-based offset of the first entry in this set. This will be the same
+as the `offset` query parameter.
+
+This field is only returned for calls that use offset-based pagination.
+For marker-based paginated APIs, this field will be omitted.
+</ParamField>
+
+<ParamField body="order" type="objectarray">
+The order by which items are returned.
+
+This field is only returned for calls that use offset-based pagination.
+For marker-based paginated APIs, this field will be omitted.
+
+<Expandable>
+  <ParamField body="by" type="string">
+  example: `type`
+  
+  The field to order by.
+  </ParamField>
+
+  <ParamField body="direction" type="string">
+  example: `ASC`
+  
+  The direction to order by, either ascending or descending.
+  
+  Value is one of `ASC`,`DESC`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="total_count" type="integer(int64)">
+example: `5000`
+
+One greater than the offset of the last entry in the entire collection.
+The total number of entries in the collection may be less than
+`total_count`.
+
+This field is only returned for calls that use offset-based pagination.
+For marker-based paginated APIs, this field will be omitted.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "offset": 16777216,
+      "part_id": "6F2D3486",
+      "size": 3222784,
+      "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+    }
+  ],
+  "limit": 1000,
+  "offset": 2000,
+  "order": [
+    {
+      "by": "type",
+      "direction": "ASC"
+    }
+  ],
+  "total_count": 5000
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,164 @@
+---
+title: "Task"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A task allows for file-centric workflows within Box. Users can
+create tasks on files and assign them to other users for them to complete the
+tasks.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this task.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `task`
+
+The value will always be `task`.
+
+Value is always `task`
+</ParamField>
+
+<ParamField body="action" type="string">
+example: `review`
+
+The type of task the task assignee will be prompted to
+perform.
+
+Value is one of `review`,`complete`
+</ParamField>
+
+<ParamField body="completion_rule" type="string">
+example: `all_assignees`
+
+Defines which assignees need to complete this task before the task
+is considered completed.
+
+* `all_assignees` requires all assignees to review or
+  approve the task in order for it to be considered completed.
+* `any_assignee` accepts any one assignee to review or
+  approve the task in order for it to be considered completed.
+
+Value is one of `all_assignees`,`any_assignee`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the task object was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Mini)object">
+The user who created the task.
+</ParamField>
+
+<ParamField body="due_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the task is due.
+</ParamField>
+
+<ParamField body="is_completed" type="boolean">
+example: `true`
+
+Whether the task has been completed.
+</ParamField>
+
+<ParamField body="item" type="File (Mini)object">
+The file associated with the task.
+</ParamField>
+
+<ParamField body="message" type="string">
+example: `Legal review`
+
+A message that will be included with the task.
+</ParamField>
+
+<ParamField body="task_assignment_collection" type="Task assignmentsobject">
+A collection of task assignment objects
+associated with the task.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "task",
+  "action": "review",
+  "completion_rule": "all_assignees",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "due_at": "2012-12-12T10:53:43-08:00",
+  "is_completed": true,
+  "item": {
+    "id": "12345",
+    "type": "file",
+    "etag": "1",
+    "file_version": {
+      "id": "12345",
+      "type": "file_version",
+      "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+    },
+    "name": "Contract.pdf",
+    "sequence_id": "3",
+    "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+  },
+  "message": "Legal review",
+  "task_assignment_collection": {
+    "entries": [
+      {
+        "assigned_at": "2012-12-12T10:53:43-08:00",
+        "assigned_by": {
+          "id": "11446498",
+          "type": "user",
+          "login": "ceo@example.com",
+          "name": "Aaron Levie"
+        },
+        "assigned_to": {
+          "id": "11446498",
+          "type": "user",
+          "login": "ceo@example.com",
+          "name": "Aaron Levie"
+        },
+        "completed_at": "2012-12-12T10:53:43-08:00",
+        "id": "11446498",
+        "item": {
+          "etag": "1",
+          "id": "12345",
+          "type": "file",
+          "file_version": {
+            "id": "12345",
+            "type": "file_version",
+            "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+          },
+          "name": "Contract.pdf",
+          "sequence_id": "3",
+          "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+        },
+        "message": "Please review",
+        "reminded_at": "2012-12-12T10:53:43-08:00",
+        "resolution_state": "incomplete",
+        "type": "task_assignment"
+      }
+    ],
+    "total_count": 100
+  }
+}
+```
+
+</ResponseExample>

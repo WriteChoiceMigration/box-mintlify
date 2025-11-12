@@ -1,0 +1,58 @@
+---
+title: "ファイル (Base)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+最も基本的なファイルのBase版の表示。`fields`クエリパラメータを使用すると、最小限の数のフィールドが返されます。
+
+* [Full](/reference/resources/file--full/)
+* [Standard](/reference/resources/file/)
+* [Mini](/reference/resources/file--mini/)
+* [Base](/reference/resources/file--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+ファイルを表す一意の識別子。
+
+ファイルIDを確認するには、ウェブアプリケーションでファイルにアクセスして、URLからIDをコピーします。たとえば、URLが`https://*.app.box.com/files/123`の場合、`file_id`は`123`です。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `file`
+
+値は常に`file`になります。
+
+次の値に固定: `file`
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このファイルのHTTP `etag`。これは変更が発生した場合 (またはしなかった場合) にファイルに対して変更を行う目的でのみ、`If-Match`および`If-None-Match`ヘッダー内の一部のAPIエンドポイントで使用できます。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "file",
+  "etag": "1"
+}
+```
+
+</ResponseExample>

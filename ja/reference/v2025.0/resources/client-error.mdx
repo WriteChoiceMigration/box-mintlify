@@ -1,0 +1,71 @@
+---
+title: "クライアントエラー"
+---
+
+APIバージョン 2025.0
+
+一般的なエラー。
+
+<ParamField body="type" type="string">
+例 `error`
+
+値は常に`error`になります。
+
+次の値に固定: `error`
+</ParamField>
+
+<ParamField body="code" type="string">
+例 `item_name_invalid`
+
+Box固有のエラーコード。
+
+次の値のいずれか1つ: `created`,`accepted`,`no_content`,`redirect`,`not_modified`,`bad_request`,`unauthorized`,`forbidden`,`not_found`,`method_not_allowed`,`conflict`,`precondition_failed`,`too_many_requests`,`internal_server_error`,`unavailable`,`item_name_invalid`,`insufficient_scope`
+</ParamField>
+
+<ParamField body="context_info" type="object">
+例 `{"message":"Something went wrong"}`
+
+このエラーに関する追加コンテキストを含む自由形式のオブジェクト。使用できるフィールドは、エンドポイントごとに定義されています。`message`は唯一の例です。
+</ParamField>
+
+<ParamField body="help_url" type="string">
+例 `https://developer.box.com/guides/api-calls/permissions-and-errors/common-errors/`
+
+このエラーの原因に関する詳細情報にリンクされたURL。
+</ParamField>
+
+<ParamField body="message" type="string">
+例 `Method Not Allowed`
+
+エラーについての短い説明メッセージ。
+</ParamField>
+
+<ParamField body="request_id" type="string">
+例 `abcdef123456`
+
+Boxサポートに連絡するときに使用できる、このレスポンスの一意の識別子。
+</ParamField>
+
+<ParamField body="status" type="integer(int32)">
+例 `400`
+
+レスポンスのHTTPステータス。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "error",
+  "code": "item_name_invalid",
+  "context_info": {
+    "message": "Something went wrong"
+  },
+  "help_url": "https://developer.box.com/guides/api-calls/permissions-and-errors/common-errors/",
+  "message": "Method Not Allowed",
+  "request_id": "abcdef123456",
+  "status": 400
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,104 @@
+---
+title: "AI response"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+AI response.
+
+* [Full](/reference/resources/ai-response--full/)
+* [Standard](/reference/resources/ai-response/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **standard** variant are generally
+returned when the resource is requested via its own API endpoints.
+For example, when retrieving a file by ID, it will return
+these fields unless the `fields` parameter has been specified.
+</Info>
+
+<ParamField body="ai_agent_info" type="object">
+The information on the models and processors used in the request.
+
+<Expandable>
+  <ParamField body="models" type="objectarray">
+  The models used for the request.
+  
+  <Expandable>
+    <ParamField body="name" type="string">
+    example: `azure__openai__text_embedding_ada_002`
+    
+    The name of the model used for the request.
+    </ParamField>
+  
+    <ParamField body="provider" type="string">
+    example: `azure`
+    
+    The provider that owns the model used for the request.
+    </ParamField>
+  
+    <ParamField body="supported_purpose" type="string">
+    example: `embedding`
+    
+    The supported purpose utilized by the model used for the request.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="processor" type="string">
+  example: `basic_text`
+  
+  The processor used for the request.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="answer" type="string">
+example: `Public APIs are important because of key and important reasons.`
+
+The answer provided by the LLM.
+</ParamField>
+
+<ParamField body="completion_reason" type="string">
+example: `done`
+
+The reason the response finishes.
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The ISO date formatted timestamp of when the answer to the prompt was created.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "ai_agent_info": {
+    "models": [
+      {
+        "name": "azure__openai__text_embedding_ada_002",
+        "provider": "azure",
+        "supported_purpose": "embedding"
+      }
+    ],
+    "processor": "basic_text"
+  },
+  "answer": "Public APIs are important because of key and important reasons.",
+  "completion_reason": "done",
+  "created_at": "2012-12-12T10:53:43-08:00"
+}
+```
+
+</ResponseExample>

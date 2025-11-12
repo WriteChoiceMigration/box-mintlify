@@ -1,0 +1,82 @@
+---
+title: "Events"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of event objects.
+
+<ParamField body="chunk_size" type="integer(int64)">
+example: `2`
+
+The number of events returned in this response.
+</ParamField>
+
+<ParamField body="entries" type="Eventarray">
+A list of events.
+</ParamField>
+
+<ParamField body="next_stream_position" type="string/integer (int64)">
+example: `"1152922976252290886"`
+
+The stream position of the start of the next page (chunk)
+of events.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "chunk_size": 2,
+  "entries": [
+    {
+      "additional_details": {
+        "key": "value"
+      },
+      "created_at": "2022-12-12T10:53:43-08:00",
+      "created_by": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      },
+      "event_id": "f82c3ba03e41f7e8a7608363cc6c0390183c3f83",
+      "event_type": "FILE_MARKED_MALICIOUS",
+      "recorded_at": "2022-12-12T10:54:43-08:00",
+      "session_id": "70090280850c8d2a1933c1",
+      "source": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie",
+        "address": "900 Jefferson Ave, Redwood City, CA 94063",
+        "avatar_url": "https://www.box.com/api/avatar/large/181216415",
+        "created_at": "2012-12-12T10:53:43-08:00",
+        "job_title": "CEO",
+        "language": "en",
+        "max_upload_size": 2147483648,
+        "modified_at": "2012-12-12T10:53:43-08:00",
+        "notification_email": {
+          "email": "notifications@example.com",
+          "is_confirmed": true
+        },
+        "phone": "6509241374",
+        "space_amount": 11345156112,
+        "space_used": 1237009912,
+        "status": "active",
+        "timezone": "Africa/Bujumbura"
+      },
+      "type": "event"
+    }
+  ],
+  "next_stream_position": 1152922976252290800
+}
+```
+
+</ResponseExample>

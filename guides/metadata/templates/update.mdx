@@ -1,0 +1,338 @@
+---
+title: "Update a metadata template"
+related_endpoints:
+  - put_metadata_templates_id_id_schema
+related_guides:
+  - metadata/templates/create
+required_guides:
+  - metadata/scopes
+  - metadata/templates/create
+related_resources:
+  - metadata_template
+---
+Updating a metadata template can be achieved by passing an array of operations
+to the [`PUT /metadata_templates/:scope/:templateKey/schema`][endpoint] API.
+
+<CodeGroup>
+```sh cURL
+curl -i -X PUT "https://api.box.com/2.0/metadata_templates/enterprise/blueprintTemplate/schema" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json-patch+json" \
+     -d '[
+       {
+         "op": "editField",
+         "fieldKey": "category",
+         "data": {
+           "displayName": "Customer Group"
+         }
+       }
+     ]'
+```
+
+```typescript Node/TypeScript v10
+await client.metadataTemplates.updateMetadataTemplate(
+  'enterprise' as UpdateMetadataTemplateScope,
+  templateKey,
+  [
+    {
+      op: 'addField' as UpdateMetadataTemplateRequestBodyOpField,
+      fieldKey: 'newfieldname',
+      data: { ['type']: 'string', ['displayName']: 'newFieldName' },
+    } satisfies UpdateMetadataTemplateRequestBody,
+  ],
+);
+```
+
+```python Python v10
+client.metadata_templates.update_metadata_template(
+    UpdateMetadataTemplateScope.ENTERPRISE,
+    template_key,
+    [
+        UpdateMetadataTemplateRequestBody(
+            op=UpdateMetadataTemplateRequestBodyOpField.ADDFIELD,
+            field_key="newfieldname",
+            data={"type": "string", "displayName": "newFieldName"},
+        )
+    ],
+)
+```
+
+```csharp .NET v10
+await client.MetadataTemplates.UpdateMetadataTemplateAsync(scope: UpdateMetadataTemplateScope.Enterprise, templateKey: templateKey, requestBody: Array.AsReadOnly(new [] {new UpdateMetadataTemplateRequestBody(op: UpdateMetadataTemplateRequestBodyOpField.AddField) { FieldKey = "newfieldname", Data = new Dictionary<string, object>() { { "type", "string" }, { "displayName", "newFieldName" } } }}));
+```
+
+```swift Swift v10
+try await client.metadataTemplates.updateMetadataTemplate(scope: UpdateMetadataTemplateScope.enterprise, templateKey: templateKey, requestBody: [UpdateMetadataTemplateRequestBody(op: UpdateMetadataTemplateRequestBodyOpField.addField, fieldKey: "newfieldname", data: ["type": "string", "displayName": "newFieldName"])])
+```
+
+```java Java v10
+client.getMetadataTemplates().updateMetadataTemplate(UpdateMetadataTemplateScope.ENTERPRISE, templateKey, Arrays.asList(new UpdateMetadataTemplateRequestBody.Builder(UpdateMetadataTemplateRequestBodyOpField.ADDFIELD).data(mapOf(entryOf("type", "string"), entryOf("displayName", "newFieldName"))).fieldKey("newfieldname").build()))
+```
+
+```java Java v5
+List<MetadataTemplate.FieldOperation> updates = new ArrayList<MetadataTemplate.FieldOperation>();
+
+String addCategoryFieldJSON = "{\"op\":\"addField\","\"data\":{"
+    + "\"displayName\":\"Category\",\"key\":\"category\",\"hidden\":false,\"type\":\"string\"}}";
+updates.add(new MetadataTemplate.FieldOperation(addCategoryFieldJSON));
+
+String changeTemplateNameJSON = "{\"op\":\"editTemplate\",\"data\":{"
+    + "\"displayName\":\"My Metadata\"}}";
+updates.add(new MetadataTemplate.FieldOperation(changeTemplateNameJSON));
+
+MetadataTemplate.updateMetadataTemplate(api, "enterprise", "myData", updates);
+```
+
+```py Python v4
+template = client.metadata_template('enterprise', 'employeeRecord')
+updates = template.start_update()
+updates.add_enum_option('state', 'WI')
+updates.edit_template({'hidden': False})
+updates.edit_template({'copyInstanceOnItemCopy': False})
+updated_template = template.update_info(updates=updates)
+```
+
+```csharp .NET v6
+var updates = new List<BoxMetadataTemplateUpdate>()
+{
+    new BoxMetadataTemplateUpdate()
+    {
+        Op = MetadataTemplateUpdateOp.addEnumOption,
+        FieldKey = "fy",
+        Data = new {
+            key = "FY20"
+        }
+    },
+    new BoxMetadataTemplateUpdate()
+    {
+        Op = MetadataTemplateUpdateOp.editTemplate,
+        Data = new {
+            hidden = false
+        }
+    }
+};
+BoxMetadataTemplate updatedTemplate = await client.MetadataManager
+    .UpdateMetadataTemplate(updates, "enterprise", "marketingCollateral");
+```
+
+```js Node v4
+// Add a new option to the Fiscal Year field, and un-hide the template
+var operations = [
+ {
+  op: 'addEnumOption',
+  fieldKey: 'fy',
+  data: { key: 'FY20' }
+ },
+ {
+  op: 'editTemplate',
+  data: { hidden: false }
+ }
+];
+client.metadata.updateTemplate('enterprise', 'vcontract', operations)
+ .then(template => {
+  /* template -> {
+   templateKey: 'vcontract',
+   scope: 'enterprise_12345',
+   displayName: 'Vendor Contract',
+   hidden: false,
+   fields: 
+   [ { type: 'date',
+    key: 'signed',
+    displayName: 'Date Signed',
+    hidden: false },
+    { type: 'string',
+    key: 'vendor',
+    displayName: 'Vendor',
+    hidden: false },
+    { type: 'enum',
+    key: 'fy',
+    displayName: 'Fiscal Year',
+    options: 
+     [ { key: 'FY17' },
+     { key: 'FY18' },
+     { key: 'FY19' },
+     { key: 'FY20' } ],
+    hidden: false } ] }
+  */
+ });
+```
+</CodeGroup>
+
+<Warning>
+  **Admin permissions required**
+
+  Updating metadata templates is restricted to users with admin permission. This
+  means that only admins, or co-admins who have been granted rights to **Create
+  and edit metadata templates for your company** by the admin can use the web
+  app or the API to manage templates.
+</Warning>
+
+## Operations
+
+Updates to metadata templates are performed through **operations** rather than
+directly changing the template itself. This method allows us to update any
+existing metadata instances that are already applied to files and folders.
+
+## Template operations
+
+Template operations update a template's details or fields. These operations are
+generally safe as they are applied to any template instance without much impact.
+
+### Edit a template
+
+The operation `editTemplate` allows for editing any of the base properties of
+the template, like the `displayName`, `copyInstanceOnItemCopy` and more.
+
+| Parameter |                                                 |
+|-----------|-------------------------------------------------|
+| `data`    | An object representing the properties to change |
+
+```json
+[
+  {
+    "op": "editTemplate",
+    "data": {
+      "displayName": "Client",
+      "copyInstanceOnItemCopy": true
+    }
+  }
+]
+```
+
+This will update the template to have a new display name of Client.
+
+<Warning>
+  This will affect existing instances of this template.
+</Warning>
+
+### Add a field to a template
+
+The operation `addField` adds a field to a template.
+
+| Parameter |                                     |
+|-----------|-------------------------------------|
+| `data`    | An object representing field to add |
+
+```json
+[
+  {
+    "op": "addField",
+    "data": {
+      "displayName": "Category",
+      "key": "category",
+      "hidden": false,
+      "type": "string"
+    }
+  }
+]
+```
+
+This will add a new non-hidden string field with a `displayName` and `key` of
+**category**.
+
+<Warning>
+  This will affect existing instances of this template.
+</Warning>
+
+### Reorder fields
+
+The operation `reorderFields` reorders the list of fields in a template to match
+the requested field list.
+
+| Parameter   |                                                   |
+|-------------|---------------------------------------------------|
+| `fieldKeys` | The new list of field keys in the requested order |
+
+```json
+{
+  "op": "reorderFields",
+  "fieldKeys": ["field2", "field1", "field3"]
+}
+```
+
+This will reorder the fields for the template to have `field2` first, followed
+by `field1`, then `field3`.
+
+<Warning>
+  This will affect existing instances of this template. It will reorder the
+  fields, yet keep the values of the fields intact.
+</Warning>
+
+## Field operations
+
+Field operations transform the schema of a template. The following is a list of
+operations that can be used in this API and can potentially change the data of
+any previously assigned templates.
+
+These changes will be logged as template changes but not as file changes.
+
+### Edit a field
+
+The operation `editField` edits any number of the base properties of a
+field like the `displayName`, `description`, `key`, and `hidden` state.
+
+| Parameter  |                                                                |
+|------------|----------------------------------------------------------------|
+| `data`     | An object representing the new properties to set for the field |
+| `fieldKey` | The key of the field to be edited                              |
+
+```json
+{
+  "op": "editField",
+  "fieldKey": "category",
+  "data": {
+    "displayName": "Customer Group"
+  }
+}
+```
+
+This will update the field `category` to have a new display name of
+**Customer Group**. If the key is changed, existing values of the specified
+field are migrated to the new key. The search index will be updated, yet it may
+take time depending on how many files are affected by the change.
+
+<Warning>
+  This may affect existing instances of this template.
+</Warning>
+
+### Remove a field
+
+The operation `removeField` removes a field from a template.
+
+| Parameter  |                                                  |
+|------------|--------------------------------------------------|
+| `fieldKey` | The key of the field to remove from the template |
+
+```json
+{
+  "op": "removeField",
+  "fieldKey": "brand"
+}
+```
+
+This will remove the field `brand` from the template as well as all instances of
+the template. The search index will be updated, yet it may take time depending on
+how many files are affected by the change.
+
+<Warning>
+  This will affect existing instances of this template.
+</Warning>
+
+## Field Option Operations
+
+Both the [`enum`](/guides/metadata/fields/enum) and
+[`multiSelect`](/guides/metadata/fields/multi-select) metadata field types support
+some additional operations to change the options of the fields.
+
+| Operation                                                                       |                                                 |
+|---------------------------------------------------------------------------------|-------------------------------------------------|
+| [`addEnumOption`](/guides/metadata/fields/enum#add-an-option)                       | Adds an option to an `enum` field               |
+| [`editEnumOption`](/guides/metadata/fields/enum#edit-an-option)                     | Edits an `enum` field option                    |
+| [`reorderEnumOptions`](/guides/metadata/fields/enum#reorder-options)                | Re-orders the options on an `enum` field        |
+| [`removeEnumOption`](/guides/metadata/fields/enum#remove-an-option)                 | Removes an `enum` field option                 |
+| [`addMultiSelectOption`](/guides/metadata/fields/multi-select#add-an-option)        | Adds an option to a `multiSelect` field        |
+| [`editMultiSelectOption`](/guides/metadata/fields/multi-select#edit-an-option)      | Edits a `multiSelect` field option             |
+| [`reorderMultiSelectOptions`](/guides/metadata/fields/multi-select#reorder-options) | Re-orders the options on a `multiSelect` field |
+| [`removeMultiSelectOption`](/guides/metadata/fields/multi-select#remove-an-option)  | Removes a `multiSelect` field option          |
+
+[endpoint]: /reference/put_metadata_templates_id_id_schema

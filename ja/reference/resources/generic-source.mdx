@@ -1,0 +1,37 @@
+---
+title: "汎用的なソース"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+汎用的なイベントソースタイプ。
+
+<ParamField body="<key>" type="object">
+汎用的なイベントソースオブジェクトの定義。パラメータのセットは、オブジェクトタイプによって異なります。たとえば、Box Shieldのイベントソースでは、以下のパラメータのセットが使用されます。
+
+```
+{
+"barrier_id": 123456,
+"barrier_status": "ENABLED",
+"barrier_segments": [
+  {
+      "name": "8",
+      "member_count": 1
+    },
+  {
+      "name": "9",
+      "member_count": 1
+           }
+       ]
+}   
+
+```.
+
+```
+</ParamField>

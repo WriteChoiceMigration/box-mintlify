@@ -1,0 +1,916 @@
+---
+title: "ファイル (Full)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+任意のファイルAPIエンドポイントからデフォルトで返される可能性があるファイルのFull版の表示。
+
+* [Full](/reference/resources/file--full/)
+* [Standard](/reference/resources/file/)
+* [Mini](/reference/resources/file--mini/)
+* [Base](/reference/resources/file--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Full**バリアントに含まれるフィールドは、`fields`パラメータをサポートするAPIエンドポイントによって返すことができます。たとえば、IDでファイルを取得するときに、`fields`リクエストパラメータを`id,type`に設定すると、これらのフィールドのみがAPIレスポンスで返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+ファイルを表す一意の識別子。
+
+ファイルIDを確認するには、ウェブアプリケーションでファイルにアクセスして、URLからIDをコピーします。たとえば、URLが`https://*.app.box.com/files/123`の場合、`file_id`は`123`です。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `file`
+
+値は常に`file`になります。
+
+次の値に固定: `file`
+</ParamField>
+
+<ParamField body="allowed_invitee_roles" type="stringarray">
+例 `["editor"]`
+
+このファイルを共有するときに招待できるユーザーの役割タイプのリスト。
+</ParamField>
+
+<ParamField body="classification" type="object">
+このファイルに適用された分類に関する詳細
+
+<Expandable>
+  <ParamField body="color" type="string">
+  例 `#FF0000`
+  
+  ユーザーインターフェースでの分類ラベルの表示に使用される色。色は、Boxウェブアプリで分類を作成した管理者または共同管理者によって定義されます。
+  </ParamField>
+
+  <ParamField body="definition" type="string">
+  例 `Content that should not be shared outside the company.`
+  
+  この分類の意味の説明。
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  例 `Top Secret`
+  
+  分類の名前。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="comment_count" type="integer">
+例 `10`
+
+このファイルに関するコメントの数。
+</ParamField>
+
+<ParamField body="content_created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルが最初に作成された日時。この日時はファイルがBoxにアップロードされた時点よりも前になる場合があります。
+</ParamField>
+
+<ParamField body="content_modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルが最後に更新された日時。この日時はファイルがBoxにアップロードされた時点よりも前になる場合があります。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+Box上でこのファイルが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+このファイルを作成したユーザー。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `Contract for Q1 renewal`
+
+このファイルの説明 (省略可)。説明が255文字を超える場合は、最初の255文字がファイルの説明として設定され、残りは無視されます。
+</ParamField>
+
+<ParamField body="disposition_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+特定のファイルのリテンションの有効期限のタイムスタンプ。
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このファイルのHTTP `etag`。これは変更が発生した場合 (またはしなかった場合) にファイルに対して変更を行う目的でのみ、`If-Match`および`If-None-Match`ヘッダー内の一部のAPIエンドポイントで使用できます。
+</ParamField>
+
+<ParamField body="expires_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+ファイルが自動的に削除される日時。
+</ParamField>
+
+<ParamField body="expiring_embed_link" type="object">
+このフィールドをリクエストすると、`iframe`に埋め込まれたプレビューセッション用の有効期限付きBox Embed URLが作成されます。
+
+このURLは60秒後に有効期限切れとなり、セッションはその60分後に有効期限切れとなります。
+
+一部のファイルタイプは、これらの埋め込みURLでサポートされていません。Box Embedはモバイルブラウザ向けに最適化されていないため、モバイルデバイス用に設計されたウェブエクスペリエンスでは使用しないでください。多くのUI Element (**ダウンロード**オプションや**印刷**オプションなど) はモバイルブラウザに表示されない可能性があります。
+
+<Expandable>
+  <ParamField body="access_token" type="string(token)">
+  例 `c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ`
+  
+  リクエストされたアクセストークン。
+  </ParamField>
+
+  <ParamField body="expires_in" type="integer(int64)">
+  例 `3600`
+  
+  このトークンが期限切れになるまでの秒数。
+  </ParamField>
+
+  <ParamField body="restricted_to" type="objectarray">
+  このアクセストークンで許可される権限を返します。これにより、リソース (ファイルやフォルダなど) のリストと、各リソースで許可されるスコープが提供されます。
+  
+  <Expandable>
+    <ParamField body="object" type="ファイル (Mini)/フォルダ (Mini)object">
+    ファイルまたはフォルダのリソース。
+    </ParamField>
+  
+    <ParamField body="scope" type="string">
+    例 `item_download`
+    
+    リソースへのアクセスのスコープ。
+    
+    次の値のいずれか1つ: `annotation_edit`,`annotation_view_all`,`annotation_view_self`,`base_explorer`,`base_picker`,`base_preview`,`base_upload`,`item_delete`,`item_download`,`item_preview`,`item_rename`,`item_share`,`item_upload`,`item_read`
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="token_type" type="string">
+  例 `bearer`
+  
+  返されるアクセストークンのタイプ。
+  
+  次の値に固定: `bearer`
+  </ParamField>
+
+  <ParamField body="url" type="string(url)">
+  例 `https://cloud.app.box.com/preview/expiring_embed/...`
+  
+  このファイルの実際の有効期限付き埋め込みURL。このオブジェクトで指定されたファイルIDとアクセストークンから作成されます。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="extension" type="string">
+例 `pdf`
+
+このファイルのファイル拡張子 (省略可) を示します。デフォルトでは、空の文字列に設定されます。
+</ParamField>
+
+<ParamField body="file_version" type="ファイルバージョン (Mini)object">
+ファイルの現在のバージョンに関する情報。
+</ParamField>
+
+<ParamField body="has_collaborations" type="boolean">
+例 `true`
+
+このファイルに他のコラボレータが存在するかどうかを指定します。
+</ParamField>
+
+<ParamField body="is_accessible_via_shared_link" type="boolean">
+例 `true`
+
+直接共有リンクまたは親フォルダへの共有リンクを使用してファイルにアクセスできるかどうかを指定します。
+</ParamField>
+
+<ParamField body="is_associated_with_app_item" type="boolean">
+例 `true`
+
+ファイルまたはファイルの先祖が1つ以上のアプリ項目に関連付けられている場合、このフィールドはtrueを返します。コンテキストユーザーがそのファイルに関連付けられたアプリ項目にアクセスできない場合でもtrueが返されることに注意してください。
+</ParamField>
+
+<ParamField body="is_externally_owned" type="boolean">
+例 `true`
+
+このファイルが認証済みの会社以外のユーザーによって所有されているかどうかを指定します。
+</ParamField>
+
+<ParamField body="is_package" type="boolean">
+例 `true`
+
+ファイルがパッケージかどうかを示します。パッケージはMacアプリケーションで一般的に使用され、iWorkファイルを含めることができます。
+</ParamField>
+
+<ParamField body="item_status" type="string">
+例 `active`
+
+この項目が削除されたかどうかを定義します。
+
+* `active` - 項目がごみ箱に移動されていない場合。
+* `trashed` - 項目がごみ箱に移動されているが、まだ削除されていない場合。
+* `deleted` - 項目がすでに完全に削除されている場合。
+
+次の値のいずれか1つ: `active`,`trashed`,`deleted`
+</ParamField>
+
+<ParamField body="lock" type="object">
+このファイルで保持されているロック。ロックが存在しない場合は`null`になるか、過去のタイムスタンプになります。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `11446498`
+  
+  このロックの一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `lock`
+  
+  値は常に`lock`になります。
+  
+  次の値に固定: `lock`
+  </ParamField>
+
+  <ParamField body="app_type" type="string">
+  例 `office_wopiplus`
+  
+  ロックを管理しているのがユーザーではなくアプリケーションの場合、このフィールドは、ロックを保持しているアプリケーションの種類を示します。これはオープンな列挙型で、今後、値の追加により拡張される可能性があります。
+  
+  次の値のいずれか1つ: `gsuite`,`office_wopi`,`office_wopiplus`,`other`
+  </ParamField>
+
+  <ParamField body="created_at" type="string(date-time)">
+  例 `2012-12-12T10:53:43-08:00`
+  
+  このロックが作成された日時。
+  </ParamField>
+
+  <ParamField body="created_by" type="ユーザー (Mini)object">
+  ロックを作成したユーザー。
+  </ParamField>
+
+  <ParamField body="expired_at" type="string(date-time)">
+  例 `2012-12-12T10:53:43-08:00`
+  
+  このロックが期限切れになる日時。過去の日時になる場合もあります。
+  </ParamField>
+
+  <ParamField body="is_download_prevented" type="boolean">
+  例 `true`
+  
+  ロック中でもファイルのダウンロードを許可するかどうか。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="metadata" type="associative array">
+このファイルに追加されたメタデータインスタンスを含むオブジェクト。
+
+各メタデータインスタンスは、その`scope`と`templateKey`によって一意に識別されます。各ファイルに追加されるメタデータテンプレートのインスタンスは1つだけです。各メタデータインスタンスは、キーとして`templateKey`が指定されているオブジェクト内にネストされ、さらにそのオブジェクト自体もキーとして`scope`が指定されているオブジェクト内にネストされます。
+
+<Expandable>
+  <ParamField body="<key>" type="associative array">
+  `scope`および`templateKey`のキー/値ペア内にネストされている、メタデータインスタンスのリスト。
+  
+  <Expandable>
+    <ParamField body="<key>" type="メタデータインスタンス (Full)">
+    ファイルまたはフォルダに適用された、メタデータテンプレートのインスタンス。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+Boxでこのファイルが最後に更新された日時。
+</ParamField>
+
+<ParamField body="modified_by" type="ユーザー (Mini)object">
+このファイルを最後に変更したユーザー。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Contract.pdf`
+
+ファイルの名前。
+</ParamField>
+
+<ParamField body="owned_by" type="ユーザー (Mini)object">
+このファイルを所有するユーザー。
+</ParamField>
+
+<ParamField body="parent" type="フォルダ (Mini)object">
+このフォルダが配置されているフォルダ。ルートフォルダやごみ箱フォルダなど、一部のフォルダの場合、この値は`null`になる可能性があります。
+</ParamField>
+
+<ParamField body="path_collection" type="object">
+ルートフォルダを起点にした、このファイルを含むフォルダツリー。
+
+<Expandable>
+  <ParamField body="entries" type="フォルダ (Mini)array">
+  この項目の親フォルダ。
+  </ParamField>
+
+  <ParamField body="total_count" type="integer(int64)">
+  例 `1`
+  
+  このリスト内のフォルダの数。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="permissions" type="object">
+このファイルに対して現在のユーザーが持っている権限について説明します。
+
+<Expandable>
+  <ParamField body="can_annotate" type="boolean">
+  例 `true`
+  
+  ユーザーがこのファイルに注釈を付けられるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_comment" type="boolean">
+  例 `true`
+  
+  ユーザーがこのファイルにコメントを追加できるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_delete" type="boolean">
+  例 `true`
+  
+  現在のユーザーがこの項目を削除できるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_download" type="boolean">
+  例 `true`
+  
+  現在のユーザーがこの項目をダウンロードできるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_invite_collaborator" type="boolean">
+  例 `true`
+  
+  現在のユーザーがこの項目でのコラボレーションに新しいユーザーを招待できるかどうかと、この項目ですでにコラボレーションしているユーザーのロールを更新できるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_preview" type="boolean">
+  例 `true`
+  
+  ユーザーがこのファイルをプレビューできるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_rename" type="boolean">
+  例 `true`
+  
+  ユーザーがこの項目の名前を変更できるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_set_share_access" type="boolean">
+  例 `true`
+  
+  ユーザーがこの項目の既存の共有リンクのアクセスレベルを変更できるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_share" type="boolean">
+  例 `true`
+  
+  ユーザーがこの項目の共有リンクを作成できるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_upload" type="boolean">
+  例 `true`
+  
+  ユーザーがこのファイルの新しいバージョンをアップロードできるかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_view_annotations_all" type="boolean">
+  例 `true`
+  
+  ユーザーに対してこのファイルに付けられたすべての注釈を表示するかどうかを指定します。
+  </ParamField>
+
+  <ParamField body="can_view_annotations_self" type="boolean">
+  例 `true`
+  
+  ユーザーに対して自分がファイルに付けた注釈を表示するかどうかを指定します。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="purged_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルがごみ箱から削除される予定日時。
+</ParamField>
+
+<ParamField body="representations" type="object">
+アプリケーション内でファイルのプレースホルダを表示するために使用できるレプリゼンテーションのリスト。デフォルトでは、すべてのレプリゼンテーションが返されるため、`x-rep-hints`ヘッダーを使用して目的のレプリゼンテーションをさらにカスタマイズすることをお勧めします。
+
+<Expandable>
+  <ParamField body="entries" type="objectarray">
+  ファイルのリスト。
+  
+  <Expandable>
+    <ParamField body="content" type="object">
+    レプリゼンテーションを実際に取得するために使用できるURLを含むオブジェクト。
+    
+    <Expandable>
+      <ParamField body="url_template" type="string">
+      例 `https://dl.boxcloud.com/api/2.0/internal_files/123/versions/345/representations/png_paged_2048x2048/content/{+asset_path}?watermark_content=4567`
+      
+      レプリゼンテーションを取得するために使用できるダウンロードURL。このエンドポイントに対しては必ず認証済みAPIコールを行ってください。
+      
+      このURLはテンプレートであるため、`{+asset_path}`を実際のパスに置き換える必要があります。通常、ページ付けが行われていないレプリゼンテーションの場合は、空の文字列に置き換えることができます。
+      
+      ページ割りされたレプリゼンテーションの場合は、`1.pdf`など、リクエストするページにファイル拡張子を付けた文字列で`{+asset_path}`を置き換えます。
+      
+      ダウンロードURLをリクエストする際には、以下の追加クエリパラメータを渡すことができます。
+      
+      * `set_content_disposition_type` - 配置タイプとして`inline`または`attachment`のいずれかを指定してAPIレスポンスの`Content-Disposition`ヘッダーを設定します。このパラメータを指定しない場合、レスポンスに`Content-Disposition`ヘッダーは含まれません。
+      * `set_content_disposition_filename` - `Content-Disposition`ヘッダーで使用するレプリゼンテーションのファイル名をアプリケーションで定義できます。定義しない場合は、Boxのソースファイル名から派生したファイル名とレプリゼンテーション拡張子の組み合わせがファイル名になります。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="info" type="object">
+    このレプリゼンテーションの詳細を取得するために使用できるURLを含むオブジェクト。
+    
+    <Expandable>
+      <ParamField body="url" type="string">
+      例 `https://api.box.com/2.0/internal_files/123/versions/345/representations/png_paged_2048x2048`
+      
+      このファイルレプリゼンテーションの詳細を取得するために使用できるAPI URL。このエンドポイントに対しては必ず認証済みAPIコールを行ってください。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="properties" type="object">
+    このプレゼンテーションのサイズとタイプを含むオブジェクト。
+    
+    <Expandable>
+      <ParamField body="dimensions" type="string(<width>x<height>)">
+      例 `2048x2048`
+      
+      このレプリゼンテーションの幅と高さ。
+      </ParamField>
+    
+      <ParamField body="paged" type="string">
+      例 `true`
+      
+      レプリゼンテーションが複数のページで構成されているかどうかを示します。
+      </ParamField>
+    
+      <ParamField body="thumb" type="string">
+      例 `true`
+      
+      そのレプリゼンテーションをファイルのサムネイルとして使用できるかどうかを示します。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="representation" type="string">
+    例 `png`
+    
+    返されたレプリゼンテーションのファイルタイプを示します。
+    </ParamField>
+  
+    <ParamField body="status" type="object">
+    このレプリゼンテーションのステータスを含むオブジェクト。
+    
+    <Expandable>
+      <ParamField body="state" type="string">
+      例 `success`
+      
+      レプリゼンテーションのステータス。
+      
+      * `success`はそのレプリゼンテーションが表示可能な状態であることを示します。
+      * `viewable`は視聴可能な動画であることを示します。
+      * `pending`はそのレプリゼンテーションがこれから生成されることを示します。ステータスを再確認するにはこのエンドポイントを再試行します。
+      * `none`はリクエストされたときにレプリゼンテーションが再作成されることを示します。この生成をトリガーするには、`info`オブジェクトで定義されたURLをリクエストします。
+      
+      次の値のいずれか1つ: `success`,`viewable`,`pending`,`none`
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+例 `3`
+
+この項目に適用された最新のUser Eventを表す数値の識別子。
+
+これを`GET /events`エンドポイントと組み合わせて使用すると、この識別子が読み取られる前に発生した可能性があるUser Eventを除外できます。
+
+たとえば、Box DriveなどのアプリケーションがAPIを介して項目を取得し、その項目の変更に関連するUser Eventの発生を監視する場合などがこれに該当します。User Eventの`sequence_id`が最初に取得されたリソースの`sequence_id`よりも小さいか同じである場合、アプリケーションはそのようなUser Eventをすべて無視します。
+</ParamField>
+
+<ParamField body="sha1" type="string(digest)">
+例 `85136C79CBF9FE36BB9D05D0639C70C265C18D37`
+
+ファイルのSHA1ハッシュ。Box上のファイルとローカルファイルの内容を比較する目的に使用できます。
+</ParamField>
+
+<ParamField body="shared_link" type="object">
+このファイルの共有リンク。このファイルに対してまだ共有リンクが作成されていない場合、この値は`null`になります。
+
+<Expandable>
+  <ParamField body="access" type="string">
+  例 `open`
+  
+  この共有リンクのアクセスレベル
+  
+  * `open` - このリンクを知っている全員にこの項目へのアクセスを許可します
+  * `company` - 同じ会社のユーザーにのみこの項目へのアクセスを許可します
+  * `collaborators` - この項目のコラボレータとなっているユーザーに対してのみこの項目へのアクセスを許可します
+  
+  共有リンクの作成時にこのフィールドを省略した場合は、Enterprise管理者によって指定されたデフォルトのアクセスレベルに設定されます。
+  
+  次の値のいずれか1つ: `open`,`company`,`collaborators`
+  </ParamField>
+
+  <ParamField body="download_count" type="integer">
+  例 `3`
+  
+  この項目がダウンロードされた回数。
+  </ParamField>
+
+  <ParamField body="download_url" type="string(url)">
+  例 `https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg`
+  
+  ファイルをダウンロードするために使用できるURL。このURLをブラウザで使用すると、ファイルをダウンロードできます。このURLには、ファイルを正しいファイルタイプで保存できるように、ファイル拡張子が含まれます。
+  
+  フォルダの場合、このプロパティは`null`になります。
+  </ParamField>
+
+  <ParamField body="effective_access" type="string">
+  例 `company`
+  
+  共有リンクの実際のアクセスレベル。許可されるアクセスレベルが会社の設定で制限されている場合は、`access`フィールドの値よりも低いアクセスレベルになることがあります。
+  
+  次の値のいずれか1つ: `open`,`company`,`collaborators`
+  </ParamField>
+
+  <ParamField body="effective_permission" type="string">
+  例 `can_download`
+  
+  この共有リンクの実際の権限。これらにより、共有リンクの権限と、管理者、所有者、任意の先祖項目 (フォルダなど) によって設定される項目の権限の組み合わせの制限が厳しくなります。
+  
+  次の値のいずれか1つ: `can_edit`,`can_download`,`can_preview`,`no_access`
+  </ParamField>
+
+  <ParamField body="is_password_enabled" type="boolean">
+  例 `true`
+  
+  共有リンクを通じて項目にアクセスする際にパスワードを要求するかどうかを定義します。
+  </ParamField>
+
+  <ParamField body="permissions" type="object">
+  このリンクを通じてユーザーが項目のプレビュー、編集、およびダウンロードを行うことを許可するかどうかを定義します。これらの権限は、共有リンクのみに適用され、その項目自体に適用される権限より優先されることはありません。
+  
+  <Expandable>
+    <ParamField body="can_download" type="boolean">
+    例 `true`
+    
+    共有リンクを通じて項目をダウンロードすることを許可するかどうかを定義します。フォルダの共有リンクの場合、この設定はフォルダ内のすべての項目にも適用されます。
+    
+    実際のアクセスレベルが`collaborators`ではなく、`open`または`company`に設定されている場合は、この値を`true`に設定できます。
+    </ParamField>
+  
+    <ParamField body="can_edit" type="boolean">
+    例 `false`
+    
+    共有リンクからの項目の編集を許可するかどうかを定義します。
+    
+    `can_download`が`true`で、項目のタイプが`file`の場合のみ、この値も`true`に設定できます。
+    </ParamField>
+  
+    <ParamField body="can_preview" type="boolean">
+    例 `true`
+    
+    共有リンクを通じて項目をプレビューすることを許可するかどうかを定義します。
+    
+    この値は常に`true`です。フォルダの共有リンクの場合、この設定はフォルダ内のすべての項目にも適用されます。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="preview_count" type="integer">
+  例 `3`
+  
+  この項目がプレビューされた回数。
+  </ParamField>
+
+  <ParamField body="unshared_at" type="string(date-time)">
+  例 `2018-04-13T13:53:23-07:00`
+  
+  このリンクが共有解除される日時。このフィールドを設定できるのは、有料アカウントを持つユーザーのみです。
+  </ParamField>
+
+  <ParamField body="url" type="string(url)">
+  例 `https://www.box.com/s/vspke7y05sb214wjokpk`
+  
+  Box上の項目にアクセスするために使用できるURL。
+  
+  このURLに移動すると、BoxのプレビューUIに項目が表示され、許可されている場合は、このUIからファイルをダウンロードできます。
+  
+  このURLは、この共有リンクに対してカスタムの`vanity_url`が 設定されている場合でも動作します。
+  </ParamField>
+
+  <ParamField body="vanity_name" type="string">
+  例 `my_url`
+  
+  `vanity_url`フィールドで使用される、共有リンクのカスタム名。
+  </ParamField>
+
+  <ParamField body="vanity_url" type="string(url)">
+  例 `https://acme.app.box.com/v/my_url/`
+  
+  Boxで項目をプレビューする目的にも使用できる「カスタムURL」。カスタムURLの作成と変更は、Boxウェブアプリケーションでのみ行えます。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="shared_link_permission_options" type="stringarray">
+例 `["can_preview"]`
+
+このファイルを共有するときに招待できるユーザーの役割タイプのリスト。
+</ParamField>
+
+<ParamField body="size" type="integer">
+例 `629644`
+
+ファイルサイズ (バイト単位)。この整数を解析する際には、非常に大きな数値となって整数オーバーフローになる可能性があるため、注意が必要です。
+</ParamField>
+
+<ParamField body="tags" type="stringarray">
+例 `["approved"]`
+
+この項目のタグ。これらのタグはBoxウェブアプリおよびモバイルアプリで項目の横に表示されます。
+
+タグを追加または削除するには、項目の現在のタグを取得して変更してから、このフィールドを更新します。
+
+タグの数は、1項目あたり100個までに制限され、一意のタグは会社あたり10,000個までに制限されます。
+</ParamField>
+
+<ParamField body="trashed_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルがごみ箱に移動された日時。
+</ParamField>
+
+<ParamField body="uploader_display_name" type="string">
+例 `Ellis Wiggins`
+
+ファイルをアップロードしたユーザーの表示名。ほとんどの場合、これはアップロード時点でログインしているユーザーの名前です。
+
+このファイルのアップロードに、ユーザーに対してメールアドレスの入力を要求するファイルリクエストフォームが使用された場合、このフィールドにはそのメールアドレスが設定されます。メールアドレスがファイルリクエストフォームで要求されなかった場合、このフィールドは、`File Request`という値を返すように設定されます。
+
+メールアドレスが指定されなかったその他すべての匿名のケースでは、このフィールドの値がデフォルトで`Someone`になります。
+</ParamField>
+
+<ParamField body="version_number" type="string">
+例 `1`
+
+このファイルのバージョン番号。
+</ParamField>
+
+<ParamField body="watermark_info" type="object">
+このファイルに適用された電子すかしに関する詳細。
+
+<Expandable>
+  <ParamField body="is_watermarked" type="boolean">
+  例 `true`
+  
+  この項目に電子すかしが適用されているかどうかを指定します。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "file",
+  "allowed_invitee_roles": [
+    "editor"
+  ],
+  "classification": {
+    "color": "#FF0000",
+    "definition": "Content that should not be shared outside the company.",
+    "name": "Top Secret"
+  },
+  "comment_count": 10,
+  "content_created_at": "2012-12-12T10:53:43-08:00",
+  "content_modified_at": "2012-12-12T10:53:43-08:00",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Contract for Q1 renewal",
+  "disposition_at": "2012-12-12T10:53:43-08:00",
+  "etag": "1",
+  "expires_at": "2012-12-12T10:53:43-08:00",
+  "expiring_embed_link": {
+    "access_token": "c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ",
+    "expires_in": 3600,
+    "restricted_to": [
+      {
+        "object": {
+          "etag": "1",
+          "id": "12345",
+          "type": "folder",
+          "name": "Contracts",
+          "sequence_id": "3"
+        },
+        "scope": "item_download"
+      }
+    ],
+    "token_type": "bearer",
+    "url": "https://cloud.app.box.com/preview/expiring_embed/..."
+  },
+  "extension": "pdf",
+  "file_version": {
+    "id": "12345",
+    "type": "file_version",
+    "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+  },
+  "has_collaborations": true,
+  "is_accessible_via_shared_link": true,
+  "is_associated_with_app_item": true,
+  "is_externally_owned": true,
+  "is_package": true,
+  "item_status": "active",
+  "lock": {
+    "id": "11446498",
+    "type": "lock",
+    "app_type": "office_wopiplus",
+    "created_at": "2012-12-12T10:53:43-08:00",
+    "created_by": {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie"
+    },
+    "expired_at": "2012-12-12T10:53:43-08:00",
+    "is_download_prevented": true
+  },
+  "metadata": {
+    "enterprise_27335": {
+      "marketingCollateral": {
+        "$canEdit": true,
+        "$id": "01234500-12f1-1234-aa12-b1d234cb567e",
+        "$parent": "folder_59449484661",
+        "$scope": "enterprise_27335",
+        "$template": "marketingCollateral",
+        "$type": "properties-6bcba49f-ca6d-4d2a-a758-57fe6edf44d0",
+        "$typeVersion": 2,
+        "$version": 1
+      }
+    }
+  },
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "name": "Contract.pdf",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "path_collection": {
+    "entries": [
+      {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      }
+    ],
+    "total_count": 1
+  },
+  "permissions": {
+    "can_annotate": true,
+    "can_comment": true,
+    "can_delete": true,
+    "can_download": true,
+    "can_invite_collaborator": true,
+    "can_preview": true,
+    "can_rename": true,
+    "can_set_share_access": true,
+    "can_share": true,
+    "can_upload": true,
+    "can_view_annotations_all": true,
+    "can_view_annotations_self": true
+  },
+  "purged_at": "2012-12-12T10:53:43-08:00",
+  "representations": {
+    "entries": [
+      {
+        "content": {
+          "url_template": "https://dl.boxcloud.com/api/2.0/internal_files/123/versions/345/representations/png_paged_2048x2048/content/{+asset_path}?watermark_content=4567"
+        },
+        "info": {
+          "url": "https://api.box.com/2.0/internal_files/123/versions/345/representations/png_paged_2048x2048"
+        },
+        "properties": {
+          "dimensions": "2048x2048",
+          "paged": "true",
+          "thumb": "true"
+        },
+        "representation": "png",
+        "status": {
+          "state": "success"
+        }
+      }
+    ]
+  },
+  "sequence_id": "3",
+  "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37",
+  "shared_link": {
+    "access": "open",
+    "download_count": 3,
+    "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+    "effective_access": "company",
+    "effective_permission": "can_download",
+    "is_password_enabled": true,
+    "permissions": {
+      "can_download": true,
+      "can_edit": false,
+      "can_preview": true
+    },
+    "preview_count": 3,
+    "unshared_at": "2018-04-13T13:53:23-07:00",
+    "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+    "vanity_name": "my_url",
+    "vanity_url": "https://acme.app.box.com/v/my_url/"
+  },
+  "shared_link_permission_options": [
+    "can_preview"
+  ],
+  "size": 629644,
+  "tags": [
+    "approved"
+  ],
+  "trashed_at": "2012-12-12T10:53:43-08:00",
+  "uploader_display_name": "Ellis Wiggins",
+  "version_number": "1",
+  "watermark_info": {
+    "is_watermarked": true
+  }
+}
+```
+
+</ResponseExample>

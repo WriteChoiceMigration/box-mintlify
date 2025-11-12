@@ -1,0 +1,49 @@
+---
+title: "Archives"
+---
+
+API version 2025.0
+
+A list of archives.
+
+<ParamField body="entries" type="Archivearray">
+A list in which each entry represents an archive object.
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+example: `1000`
+
+The limit that was used for these entries. This will be the same as the
+`limit` query parameter unless that value exceeded the maximum value
+allowed. The maximum value varies by API.
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+example: `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+The marker for the start of the next page of results.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "description": "This is an archive for important documents.",
+      "id": "12345",
+      "name": "Archive",
+      "owned_by": {
+        "id": "12345",
+        "type": "user"
+      },
+      "size": 123456789,
+      "type": "archive"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii"
+}
+```
+
+</ResponseExample>

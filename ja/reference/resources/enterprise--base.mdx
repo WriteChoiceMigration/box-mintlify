@@ -1,0 +1,49 @@
+---
+title: "企業 (Base)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+他のリソース内にネストされたときに使用される企業のMini版の表示。
+
+* [Full](/reference/resources/enterprise--full/)
+* [Standard](/reference/resources/enterprise/)
+* [Mini](/reference/resources/enterprise--mini/)
+* [Base](/reference/resources/enterprise--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `1910967`
+
+この会社の一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `enterprise`
+
+値は常に`enterprise`になります。
+
+次の値に固定: `enterprise`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "1910967",
+  "type": "enterprise"
+}
+```
+
+</ResponseExample>

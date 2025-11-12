@@ -1,0 +1,41 @@
+---
+title: "メタデータインスタンス"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ファイルまたはフォルダに適用されているメタデータインスタンスのリスト。
+
+<ParamField body="entries" type="メタデータインスタンスarray">
+このファイルまたはフォルダに適用されるメタデータインスタンスのリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer">
+例 `100`
+
+結果の現在のページに使用された制限。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "$parent": "folder_59449484661,",
+      "$scope": "enterprise_27335",
+      "$template": "marketingCollateral",
+      "$version": 1
+    }
+  ],
+  "limit": 100
+}
+```
+
+</ResponseExample>

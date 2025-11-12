@@ -1,0 +1,69 @@
+---
+title: "タスク割り当て"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+タスク割り当てのリスト。
+
+<ParamField body="entries" type="タスク割り当てarray">
+タスク割り当てのリスト。
+</ParamField>
+
+<ParamField body="total_count" type="integer(int64)">
+例 `100`
+
+このコレクション内の項目の合計数。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "assigned_at": "2012-12-12T10:53:43-08:00",
+      "assigned_by": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      },
+      "assigned_to": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      },
+      "completed_at": "2012-12-12T10:53:43-08:00",
+      "id": "11446498",
+      "item": {
+        "etag": "1",
+        "id": "12345",
+        "type": "file",
+        "file_version": {
+          "id": "12345",
+          "type": "file_version",
+          "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+        },
+        "name": "Contract.pdf",
+        "sequence_id": "3",
+        "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+      },
+      "message": "Please review",
+      "reminded_at": "2012-12-12T10:53:43-08:00",
+      "resolution_state": "incomplete",
+      "type": "task_assignment"
+    }
+  ],
+  "total_count": 100
+}
+```
+
+</ResponseExample>

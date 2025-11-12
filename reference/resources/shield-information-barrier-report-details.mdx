@@ -1,0 +1,38 @@
+---
+title: "Shield information barrier report details"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Indicates which folder the report
+file is located and any errors when generating the report.
+
+<ParamField body="details" type="object">
+
+<Expandable>
+  <ParamField body="folder_id" type="string">
+  example: `124235`
+  
+  Folder ID for locating this report.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "details": {
+    "folder_id": "124235"
+  }
+}
+```
+
+</ResponseExample>

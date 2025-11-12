@@ -1,0 +1,49 @@
+---
+title: "リーガルホールドポリシー割り当て (Base)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+リーガルホールド割り当ては、ユーザー、フォルダ、ファイル、またはファイルバージョンにリーガルホールドポリシーを割り当てる目的に使用されます。
+
+リーガルホールド割り当てを作成すると、その割り当ての「apply-to」エンティティに属するファイルバージョンにホールドが適用されます。
+
+* [Standard](/reference/resources/legal-hold-policy-assignment/)
+* [Base](/reference/resources/legal-hold-policy-assignment--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このリーガルホールド割り当ての一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `legal_hold_policy_assignment`
+
+値は常に`legal_hold_policy_assignment`になります。
+
+次の値に固定: `legal_hold_policy_assignment`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "legal_hold_policy_assignment"
+}
+```
+
+</ResponseExample>

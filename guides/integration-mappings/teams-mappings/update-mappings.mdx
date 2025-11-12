@@ -1,0 +1,50 @@
+---
+title: "Update Teams integration mappings"
+rank: 4
+related_endpoints:
+related_guides:
+required_guides: []
+related_resources: []
+alias_paths: []
+---
+Use the `PUT integration_mappings_teams_id` call to update the
+existing mapping of the target Box folder.
+
+<CodeGroup>
+
+```sh cURL
+curl -X -L PUT "https://api.box.com/2.0/integration_mappings/teams/12345" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"  \
+     -H 'content-type: application/json'  \
+```
+
+```typescript Node/TypeScript v10
+await userClient.integrationMappings.updateTeamsIntegrationMappingById(
+  integrationMappingId,
+  {
+    requestBody: {
+      boxItem: new FolderReference({ id: '1234567' }),
+    } satisfies UpdateTeamsIntegrationMappingByIdRequestBody,
+  } satisfies UpdateTeamsIntegrationMappingByIdOptionalsInput,
+);
+```
+
+```python Python v10
+user_client.integration_mappings.update_teams_integration_mapping_by_id(
+    integration_mapping_id, box_item=FolderReference(id="1234567")
+)
+```
+
+```cs .NET v10
+await userClient.IntegrationMappings.UpdateTeamsIntegrationMappingByIdAsync(integrationMappingId: integrationMappingId, requestBody: new UpdateTeamsIntegrationMappingByIdRequestBody() { BoxItem = new FolderReference(id: "1234567") });
+```
+
+```swift Swift v10
+try await userClient.integrationMappings.updateTeamsIntegrationMappingById(integrationMappingId: integrationMappingId, requestBody: UpdateTeamsIntegrationMappingByIdRequestBody(boxItem: FolderReference(id: "1234567")))
+```
+
+```java Java v10
+userClient.getIntegrationMappings().updateTeamsIntegrationMappingById(integrationMappingId, new UpdateTeamsIntegrationMappingByIdRequestBody.Builder().boxItem(new FolderReference("1234567")).build())
+```
+
+</CodeGroup>

@@ -1,0 +1,84 @@
+---
+title: "Device pinners"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of device pins.
+
+<ParamField body="entries" type="Device pinnerarray">
+A list of device pins.
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+example: `200`
+
+The limit that was used for these entries. This will be the same as the
+`limit` query parameter unless that value exceeded the maximum value
+allowed.
+</ParamField>
+
+<ParamField body="next_marker" type="integer(int64)">
+example: `3000`
+
+The marker for the start of the next page of results.
+</ParamField>
+
+<ParamField body="order" type="objectarray">
+The order by which items are returned.
+
+<Expandable>
+  <ParamField body="by" type="string">
+  example: `id`
+  
+  The field that is ordered by.
+  
+  Value is always `id`
+  </ParamField>
+
+  <ParamField body="direction" type="string">
+  example: `asc`
+  
+  The direction to order by, either ascending or descending.
+  
+  Value is one of `asc`,`desc`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "id": "11446498",
+      "owned_by": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      },
+      "product_name": "iPad",
+      "type": "device_pinner"
+    }
+  ],
+  "limit": 200,
+  "next_marker": 3000,
+  "order": [
+    {
+      "by": "id",
+      "direction": "asc"
+    }
+  ]
+}
+```
+
+</ResponseExample>

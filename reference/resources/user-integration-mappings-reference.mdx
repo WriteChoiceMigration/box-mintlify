@@ -1,0 +1,68 @@
+---
+title: "User (Integration Mappings)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A user representation for integration mappings
+API purposes. Fields name and login are not required.
+
+* [Full](/reference/resources/user-integration-mappings-reference--full/)
+* [Standard](/reference/resources/user-integration-mappings-reference/)
+* [Mini](/reference/resources/user-integration-mappings-reference--mini/)
+* [Base](/reference/resources/user-integration-mappings-reference--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **base** variant represent
+the default fields that are always returned when using the `fields`
+query parameter, additional to the fields specified in the
+parameter.
+</Info>
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this user.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `user`
+
+The value will always be `user`.
+
+Value is always `user`
+</ParamField>
+
+<ParamField body="login" type="string(email)">
+example: `ceo@example.com`
+
+The primary email address of this user.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Aaron Levie`
+
+The display name of this user.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "user",
+  "login": "ceo@example.com",
+  "name": "Aaron Levie"
+}
+```
+
+</ResponseExample>

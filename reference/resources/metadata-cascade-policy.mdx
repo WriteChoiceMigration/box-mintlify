@@ -1,0 +1,117 @@
+---
+title: "Metadata cascade policy"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A metadata cascade policy automatically applies a metadata template instance
+to all the files and folders within the targeted folder.
+
+<ParamField body="id" type="string">
+example: `6fd4ff89-8fc1-42cf-8b29-1890dedd26d7`
+
+The ID of the metadata cascade policy object.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `metadata_cascade_policy`
+
+The value will always be `metadata_cascade_policy`.
+
+Value is always `metadata_cascade_policy`
+</ParamField>
+
+<ParamField body="owner_enterprise" type="object">
+The enterprise that owns this policy.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `690678`
+  
+  The ID of the enterprise that owns the policy.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `enterprise`
+  
+  The value will always be `enterprise`.
+  
+  Value is always `enterprise`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="parent" type="object">
+Represent the folder the policy is applied to.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `1234567`
+  
+  The ID of the folder the policy is applied to.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `folder`
+  
+  The value will always be `folder`.
+  
+  Value is always `folder`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="scope" type="string">
+example: `enterprise_123456`
+
+The scope of the metadata cascade policy can either be `global` or
+`enterprise_*`. The `global` scope is used for policies that are
+available to any Box enterprise. The `enterprise_*` scope represents
+policies that have been created within a specific enterprise, where `*`
+will be the ID of that enterprise.
+</ParamField>
+
+<ParamField body="templateKey" type="string">
+example: `productInfo`
+
+The key of the template that is cascaded down to the folder's
+children.
+
+In many cases the template key is automatically derived
+of its display name, for example `Contract Template` would
+become `contractTemplate`. In some cases the creator of the
+template will have provided its own template key.
+
+Please [list the templates for an enterprise](/reference/get-metadata-templates-enterprise/), or
+get all instances on a [file](/reference/get-files-id-metadata/) or [folder](/reference/get-folders-id-metadata/)
+to inspect a template's key.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "6fd4ff89-8fc1-42cf-8b29-1890dedd26d7",
+  "type": "metadata_cascade_policy",
+  "owner_enterprise": {
+    "id": "690678",
+    "type": "enterprise"
+  },
+  "parent": {
+    "id": "1234567",
+    "type": "folder"
+  },
+  "scope": "enterprise_123456",
+  "templateKey": "productInfo"
+}
+```
+
+</ResponseExample>

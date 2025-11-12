@@ -1,0 +1,66 @@
+---
+title: "Teams統合マッピングの更新"
+rank: 4
+related_endpoints:
+  - put_integration_mappings_teams_id
+related_guides:
+  - integration-mappings/teams-mappings/list-mappings
+  - integration-mappings/teams-mappings/create-mappings
+  - integration-mappings/teams-mappings/delete-mappings
+required_guides: []
+related_resources: []
+alias_paths: []
+category_id: integration-mappings
+subcategory_id: integration-mappings/teams-mappings
+is_index: false
+id: integration-mappings/teams-mappings/update-mappings
+type: guide
+total_steps: 4
+sibling_id: integration-mappings/teams-mappings
+parent_id: integration-mappings/teams-mappings
+next_page_id: integration-mappings/teams-mappings/delete-mappings
+previous_page_id: integration-mappings/teams-mappings/create-mappings
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/integration-mappings/teams-mappings/update-mappings.md
+fullyTranslated: true
+---
+`PUT integration_mappings_teams_id`呼び出しを使用して、ターゲットのBoxフォルダの既存のマッピングを更新します。
+
+<CodeGroup>
+
+```sh cURL
+curl -X -L PUT "https://api.box.com/2.0/integration_mappings/teams/12345" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"  \
+     -H 'content-type: application/json'  \
+```
+
+```typescript Node/TypeScript v10
+await userClient.integrationMappings.updateTeamsIntegrationMappingById(
+  integrationMappingId,
+  {
+    requestBody: {
+      boxItem: new FolderReference({ id: '1234567' }),
+    } satisfies UpdateTeamsIntegrationMappingByIdRequestBody,
+  } satisfies UpdateTeamsIntegrationMappingByIdOptionalsInput,
+);
+```
+
+```python Python v10
+user_client.integration_mappings.update_teams_integration_mapping_by_id(
+    integration_mapping_id, box_item=FolderReference(id="1234567")
+)
+```
+
+```cs .NET v10
+await userClient.IntegrationMappings.UpdateTeamsIntegrationMappingByIdAsync(integrationMappingId: integrationMappingId, requestBody: new UpdateTeamsIntegrationMappingByIdRequestBody() { BoxItem = new FolderReference(id: "1234567") });
+```
+
+```swift Swift v10
+try await userClient.integrationMappings.updateTeamsIntegrationMappingById(integrationMappingId: integrationMappingId, requestBody: UpdateTeamsIntegrationMappingByIdRequestBody(boxItem: FolderReference(id: "1234567")))
+```
+
+```java Java v10
+userClient.getIntegrationMappings().updateTeamsIntegrationMappingById(integrationMappingId, new UpdateTeamsIntegrationMappingByIdRequestBody.Builder().boxItem(new FolderReference("1234567")).build())
+```
+
+</CodeGroup>

@@ -1,0 +1,157 @@
+---
+title: "Box Signテンプレート"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+任意のBox Sign APIエンドポイントからデフォルトで返されるテンプレートのリスト。
+
+<ParamField body="entries" type="Box Signテンプレートarray">
+テンプレートのリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+例 `1000`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。最大値はAPIによって異なります。
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ParamField body="prev_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih`
+
+前の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "additional_info": {
+        "non_editable": [
+          "email_subject",
+          "name"
+        ],
+        "required": {
+          "signers": [
+            [
+              "email"
+            ],
+            [
+              "email"
+            ]
+          ]
+        }
+      },
+      "are_email_settings_locked": true,
+      "are_fields_locked": false,
+      "are_files_locked": true,
+      "are_options_locked": true,
+      "are_recipients_locked": false,
+      "custom_branding": {
+        "branding_color": "9E5E6F",
+        "company_name": "Corporation inc.",
+        "email_footer_text": "Contact email email@mail.com",
+        "logo_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA\nAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A\n8AAQUBAScY42YAAAAASUVORK5CYII="
+      },
+      "days_valid": 2,
+      "email_message": "Hello! Please sign the document below",
+      "email_subject": "Sign Request from Acme",
+      "id": "4206996024-14944f75-c34b-478a-95a1-264b1ff80d35",
+      "name": "Official contract",
+      "parent_folder": {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      },
+      "ready_sign_link": {
+        "folder_id": "12345",
+        "instructions": "Hello! Please sign the document below",
+        "is_active": false,
+        "is_notification_disabled": true,
+        "name": "Official contract",
+        "url": "\"https://app.box.com/sign/\nready-sign-link/a1cdf2c7-fa81-4a67-8163-1e5f4dbe5178\""
+      },
+      "signers": [
+        {
+          "email": "example@mail.com",
+          "inputs": [
+            {
+              "checkbox_value": true,
+              "date_value": "2021-04-26",
+              "document_tag_id": "1234",
+              "text_value": "text",
+              "content_type": "text",
+              "coordinates": {
+                "x": 0.672258592471358,
+                "y": 0.18654283173599448
+              },
+              "dimensions": {
+                "height": 0.05311728090109673,
+                "width": 0.2618657937806874
+              },
+              "document_id": "123075213-eb54b537-8b25-445e-87c1-5a1c67d8cbd7",
+              "dropdown_choices": [
+                "Yes",
+                "No",
+                "Maybe"
+              ],
+              "group_id": "da317330-225a-4c72-89ad-0d6dcaaf4df6",
+              "is_required": true,
+              "label": "Legal name",
+              "page_index": 4,
+              "read_only": true,
+              "type": "text"
+            }
+          ],
+          "is_in_person": true,
+          "is_password_required": true,
+          "is_phone_number_required": true,
+          "label": "Jane Doe",
+          "login_required": true,
+          "order": 2,
+          "public_id": "RJZYYVPR",
+          "role": "signer",
+          "signer_group_id": "cd4ff89-8fc1-42cf-8b29-1890dedd26d7"
+        }
+      ],
+      "source_files": [
+        {
+          "etag": "1",
+          "id": "12345",
+          "type": "file",
+          "file_version": {
+            "id": "12345",
+            "type": "file_version",
+            "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+          },
+          "name": "Contract.pdf",
+          "sequence_id": "3",
+          "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+        }
+      ],
+      "type": "sign-template"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii",
+  "prev_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih"
+}
+```
+
+</ResponseExample>

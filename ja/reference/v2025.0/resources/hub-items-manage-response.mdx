@@ -1,0 +1,56 @@
+---
+title: "Box Hubの項目の管理のレスポンス"
+---
+
+APIバージョン 2025.0
+
+Box Hubの項目の管理操作のステータスを表すレスポンスのスキーマ。
+
+<ParamField body="operations" type="objectarray">
+Box Hubの項目に対して実行された操作のリスト。
+
+<Expandable>
+  <ParamField body="action" type="string">
+  例 `add`
+  
+  項目に対して実行された操作。
+  </ParamField>
+
+  <ParamField body="error" type="string">
+  例 `Item not found`
+  
+  操作が失敗した場合のエラーメッセージ。
+  </ParamField>
+
+  <ParamField body="item" type="objectobject">
+  Box Hubに追加できる項目への参照。
+  </ParamField>
+
+  <ParamField body="status" type="integer">
+  例 `200`
+  
+  操作のHTTPステータスコード。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "operations": [
+    {
+      "action": "add",
+      "error": "Item not found",
+      "item": {
+        "id": "42037322",
+        "type": "file"
+      },
+      "status": 200
+    }
+  ]
+}
+```
+
+</ResponseExample>

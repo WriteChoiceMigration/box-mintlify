@@ -1,0 +1,112 @@
+---
+title: "ユーザーのコレクションのリストの取得"
+rank: 1
+related_endpoints:
+  - get_collections
+related_guides: []
+required_guides: []
+related_resources:
+  - collection
+alias_paths: []
+category_id: collections
+subcategory_id: null
+is_index: false
+id: collections/list
+type: guide
+total_steps: 4
+sibling_id: collections
+parent_id: collections
+next_page_id: collections/list-items
+previous_page_id: ''
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/collections/list.md
+fullyTranslated: true
+---
+ユーザーのすべてのコレクションのリストを取得するには、[`GET
+/collections`](/ja/reference/get_collections) APIを呼び出します。
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/collections" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.collections.getCollections();
+```
+
+```python Python v10
+client.collections.get_collections()
+```
+
+```cs .NET v10
+await client.Collections.GetCollectionsAsync();
+```
+
+```swift Swift v10
+try await client.collections.getCollections()
+```
+
+```java Java v5
+Iterable<BoxCollection.Info> collections = BoxCollection.getAllCollections(api);
+for (BoxCollection.Info collectionInfo : collections) {
+	// Do something with the collection.
+}
+```
+
+```python Python v4
+collections = client.collections()
+for collection in collections:
+    print(f'Collection "{collection.name}" has ID {collection.id}')
+```
+
+```cs .NET v6
+BoxCollection<BoxCollectionItem> collections = await client.CollectionsManager.GetCollectionsAsync();
+```
+
+```javascript Node v4
+client.collections.getAll()
+	.then(collections => {
+		/* collections -> { total_count: 1,
+			entries: 
+			[ { type: 'collection',
+				id: '11111',
+				name: 'Favorites',
+				collection_type: 'favorites' } ],
+			limit: 100,
+			offset: 0 }
+		*/
+	});
+```
+
+</CodeGroup>
+
+<Warning>
+
+APIを介して使用できるコレクションは「お気に入り」コレクションのみです。このコレクションのIDはユーザーごとに異なります。
+
+</Warning>
+
+## お気に入りコレクション
+
+現在APIを介して項目を追加および削除できるコレクションは「お気に入り」コレクションのみです。
+
+お気に入りコレクションのIDはユーザーごとに異なります。ユーザーのお気に入りのコレクションIDを確認するには、ユーザーの全コレクションのリストを取得し、`collection_type`が`favorites`のコレクションを探します。
+
+```json
+{
+  "entries": [
+    {
+      "collection_type": "favorites",
+      "id": "12345678",
+      "name": "Favorites",
+      "type": "collection"
+    }
+  ],
+  "limit": 100,
+  "offset": 0,
+  "total_count": 1
+}
+
+```

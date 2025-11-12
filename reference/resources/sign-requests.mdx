@@ -1,0 +1,157 @@
+---
+title: "Box Sign requests"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A standard representation of a signature request, as returned from any Box Sign
+API endpoints by default.
+
+<ParamField body="entries" type="Box Sign requestarray">
+A list of Box Sign requests.
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+example: `1000`
+
+The limit that was used for these entries. This will be the same as the
+`limit` query parameter unless that value exceeded the maximum value
+allowed. The maximum value varies by API.
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+example: `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+The marker for the start of the next page of results.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "are_reminders_enabled": true,
+      "are_text_signatures_enabled": true,
+      "days_valid": 2,
+      "declined_redirect_url": "https://declined-redirect.com",
+      "email_message": "Hello! Please sign the document below",
+      "email_subject": "Sign Request from Acme",
+      "external_id": "123",
+      "external_system_name": "Box",
+      "is_document_preparation_needed": true,
+      "name": "name",
+      "prefill_tags": [
+        {
+          "checkbox_value": true,
+          "date_value": "2021-04-26",
+          "document_tag_id": "1234",
+          "text_value": "text"
+        }
+      ],
+      "redirect_url": "https://www.example.com",
+      "template_id": "123075213-af2c8822-3ef2-4952-8557-52d69c2fe9cb",
+      "auto_expire_at": "2021-04-26T08:12:13.982Z",
+      "collaborator_level": "owner",
+      "id": "12345",
+      "parent_folder": {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      },
+      "prepare_url": "https://prepareurl.com",
+      "sender_email": "sender@box.com",
+      "sender_id": 12345,
+      "sign_files": {
+        "files": [
+          {
+            "etag": "1",
+            "id": "12345",
+            "type": "file",
+            "file_version": {
+              "id": "12345",
+              "type": "file_version",
+              "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+            },
+            "name": "Contract.pdf",
+            "sequence_id": "3",
+            "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+          }
+        ],
+        "is_ready_for_download": true
+      },
+      "signature_color": "blue",
+      "signers": [
+        {
+          "declined_redirect_url": "https://declined-example.com",
+          "email": "example@gmail.com",
+          "embed_url_external_user_id": "1234",
+          "is_in_person": true,
+          "login_required": true,
+          "order": 2,
+          "password": "SecretPassword123",
+          "redirect_url": "https://example.com",
+          "role": "signer",
+          "signer_group_id": "cd4ff89-8fc1-42cf-8b29-1890dedd26d7",
+          "suppress_notifications": false,
+          "verification_phone_number": "6314578901",
+          "embed_url": "https://example.com",
+          "has_viewed_document": true,
+          "iframeable_embed_url": "https://app.box.com/embed/sign/document/gfhr4222-a331-494b-808b-79bc7f3992a3/f14d7098-a331-494b-808b-79bc7f3992a4",
+          "inputs": [
+            {
+              "checkbox_value": true,
+              "date_value": "2021-04-26",
+              "document_tag_id": "1234",
+              "text_value": "text",
+              "content_type": "signature",
+              "page_index": 4,
+              "read_only": true,
+              "type": "text"
+            }
+          ],
+          "signer_decision": {
+            "additional_info": "Requesting changes before signing.",
+            "finalized_at": "2021-04-26T08:12:13.982Z",
+            "type": "signed"
+          }
+        }
+      ],
+      "signing_log": {
+        "etag": "1",
+        "id": "12345",
+        "type": "file",
+        "file_version": {
+          "id": "12345",
+          "type": "file_version",
+          "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+        },
+        "name": "Contract.pdf",
+        "sequence_id": "3",
+        "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+      },
+      "source_files": [
+        {
+          "etag": "1",
+          "id": "12345",
+          "type": "file"
+        }
+      ],
+      "status": "converting",
+      "type": "sign-request"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii"
+}
+```
+
+</ResponseExample>

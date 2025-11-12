@@ -1,0 +1,45 @@
+---
+title: "外部ユーザー削除ジョブ送信のレスポンス"
+---
+
+APIバージョン 2025.0
+
+各外部ユーザー削除リクエストの結果を含む複数のステータスのレスポンス。
+
+<ParamField body="entries" type="objectarray">
+各外部ユーザー削除リクエストの結果の配列。
+
+<Expandable>
+  <ParamField body="detail" type="string">
+  削除リクエストのステータスの詳細。このプロパティは、削除リクエストが失敗した場合にのみ存在します。
+  </ParamField>
+
+  <ParamField body="status" type="integer">
+  例 `202`
+  
+  特定のユーザーの削除リクエストのHTTPステータスコード。
+  </ParamField>
+
+  <ParamField body="user_id" type="string">
+  例 `12345`
+  
+  外部ユーザーのID。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "status": 202,
+      "user_id": "12345"
+    }
+  ]
+}
+```
+
+</ResponseExample>

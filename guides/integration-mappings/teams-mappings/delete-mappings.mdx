@@ -1,0 +1,48 @@
+---
+title: "Delete Teams integration mappings"
+rank: 5
+related_endpoints:
+related_guides:
+required_guides: []
+related_resources: []
+alias_paths: []
+---
+The `DELETE integration_mappings_teams_id` call removes the mapping between
+the channel and the folder. 
+A new mapping and a new folder in the default folder structure will be created
+when the next file is uploaded to the channel.
+Deleting the mapping does not delete the Box folder or the Teams channel.
+
+<CodeGroup>
+
+```sh cURL
+curl -X -L DELETE "https://api.box.com/2.0/integration_mappings/teams/342423" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"  \
+     -d ''
+```
+
+```typescript Node/TypeScript v10
+await userClient.integrationMappings.deleteTeamsIntegrationMappingById(
+  integrationMappingId,
+);
+```
+
+```python Python v10
+user_client.integration_mappings.delete_teams_integration_mapping_by_id(
+    integration_mapping_id
+)
+```
+
+```cs .NET v10
+await userClient.IntegrationMappings.DeleteTeamsIntegrationMappingByIdAsync(integrationMappingId: integrationMappingId);
+```
+
+```swift Swift v10
+try await userClient.integrationMappings.deleteTeamsIntegrationMappingById(integrationMappingId: integrationMappingId)
+```
+
+```java Java v10
+userClient.getIntegrationMappings().deleteTeamsIntegrationMappingById(integrationMappingId)
+```
+
+</CodeGroup>

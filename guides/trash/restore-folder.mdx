@@ -1,0 +1,143 @@
+---
+title: "Restore Folder"
+rank: 5
+related_endpoints:
+  - post_folders_id
+  - delete_folders_id
+related_guides:
+  - trash/permanently-delete-folder
+required_guides: []
+related_resources:
+  - folders
+---
+To restore a folder that has been moved to the trash, but has not yet been
+purged, make a `POST` request to the `/folders/:folder_id` endpoint. This will
+place the folder in the original parent folder if it is still available, or you
+optionally can specify a `parent` folder.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/folders/4353455" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.trashedFolders.restoreFolderFromTrash(folder.id);
+```
+
+```python Python v10
+client.trashed_folders.restore_folder_from_trash(folder.id)
+```
+
+```cs .NET v10
+await client.TrashedFolders.RestoreFolderFromTrashAsync(folderId: folder.Id);
+```
+
+```swift Swift v10
+try await client.trashedFolders.restoreFolderFromTrash(folderId: folder.id)
+```
+
+```java Java v10
+client.getTrashedFolders().restoreFolderFromTrash(folder.getId())
+```
+
+```java Java v5
+String folderID = "125367";
+String newName = "My Documents ORIGINAL";
+String newParentID = "98765";
+
+BoxTrash trash = new BoxTrash(api);
+// Avoid conflicts at the original location
+trash.restoreFolder(folderID, newName, newParentID);
+```
+
+```python Python v4
+folder_to_restore = client.folder(folder_id='22222')
+restored_folder = client.trash().restore_item(folder_to_restore)
+print(f'Folder ID is {restored_folder.id} and name is {restored_folder.name}')
+```
+
+```cs .NET v6
+var requestParams = new BoxFolderRequest()
+{
+    Name = "Name in case of conflict",
+    Parent = new BoxRequestEntity()
+    {
+        // Folder will be placed in this parent folder if original location no longer exists
+        Id = "12345" 
+    }
+};
+BoxFolder restoredFolder = await client.FoldersManager.RestoreTrashedFolderAsync(requestParams);
+```
+
+```javascript Node v4
+client.folders.restoreFromTrash(
+	'22222',
+	{
+		// New name in case of conflict
+		name: 'New Name',
+		// Folder will be placed in this parent folder if the original parent no longer exists
+		parent_id: '0'
+	})
+	.then(restoredFolder => {
+		/* trashedFolder -> {
+			type: 'folder',
+			id: '22222',
+			sequence_id: '1',
+			etag: '1',
+			name: 'Old Files',
+			created_at: '2013-05-06T22:37:30-07:00',
+			modified_at: '2013-05-06T22:39:08-07:00',
+			description: '',
+			size: 18482,
+			path_collection: 
+			{ total_count: 1,
+				entries: 
+				[ { type: 'folder',
+					id: '0',
+					sequence_id: null,
+					etag: null,
+					name: 'All Files' } ] },
+			created_by: 
+			{ type: 'user',
+				id: '33333',
+				name: 'Example User',
+				login: 'user@example.com' },
+			modified_by: 
+			{ type: 'user',
+				id: '33333',
+				name: 'Example User',
+				login: 'user@example.com' },
+			trashed_at: null,
+			purged_at: null,
+			content_created_at: '2013-05-06T22:37:30-07:00',
+			content_modified_at: '2013-05-06T22:39:08-07:00',
+			owned_by: 
+			{ type: 'user',
+				id: '33333',
+				name: 'Example User',
+				login: 'user@example.com' },
+			shared_link: null,
+			folder_upload_email: null,
+			parent: 
+			{ type: 'folder',
+				id: '0',
+				sequence_id: null,
+				etag: null,
+				name: 'All Files' },
+			item_status: 'active' }
+		*/
+	});
+```
+
+</CodeGroup>
+
+<Warning>
+  During a folder restoration operation, part of the file tree will be locked,
+  such as the source folder for the request and all of its descendants, as
+  well as the destination folder.
+
+  During the restoration of the folder, no other move, copy, delete, or
+  restore operation can be performed on the locked folders.
+</Warning>

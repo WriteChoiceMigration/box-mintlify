@@ -1,0 +1,55 @@
+---
+title: "ストレージポリシー"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ストレージゾーンを示すストレージポリシーオブジェクト。
+
+* [Standard](/reference/resources/storage-policy/)
+* [Mini](/reference/resources/storage-policy--mini/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このストレージポリシーの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `storage_policy`
+
+値は常に`storage_policy`になります。
+
+次の値に固定: `storage_policy`
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Montreal / Dublin`
+
+地域のわかりやすい名前。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "storage_policy",
+  "name": "Montreal / Dublin"
+}
+```
+
+</ResponseExample>

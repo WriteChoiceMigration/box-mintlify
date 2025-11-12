@@ -1,0 +1,64 @@
+---
+title: "Files under retention"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of files under retention.
+
+<ParamField body="entries" type="File (Mini)array">
+A list of files.
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+example: `1000`
+
+The limit that was used for these entries. This will be the same as the
+`limit` query parameter unless that value exceeded the maximum value
+allowed. The maximum value varies by API.
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+example: `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+The marker for the start of the next page of results.
+</ParamField>
+
+<ParamField body="prev_marker" type="string">
+example: `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih`
+
+The marker for the start of the previous page of results.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "etag": "1",
+      "id": "12345",
+      "type": "file",
+      "file_version": {
+        "id": "12345",
+        "type": "file_version",
+        "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+      },
+      "name": "Contract.pdf",
+      "sequence_id": "3",
+      "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii",
+  "prev_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih"
+}
+```
+
+</ResponseExample>

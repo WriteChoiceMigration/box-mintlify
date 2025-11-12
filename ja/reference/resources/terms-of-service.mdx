@@ -1,0 +1,119 @@
+---
+title: "サービス利用規約"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+1つのサービス利用規約に該当するとみなされるルートレベルのレコード。
+
+* [Standard](/reference/resources/terms-of-service/)
+* [Base](/reference/resources/terms-of-service--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このサービス利用規約の一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `terms_of_service`
+
+値は常に`terms_of_service`になります。
+
+次の値に固定: `terms_of_service`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+リーガル項目が作成された日時。
+</ParamField>
+
+<ParamField body="enterprise" type="object">
+これらの利用規約が適用される企業。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `11446498`
+  
+  この会社の一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `enterprise`
+  
+  値は常に`enterprise`になります。
+  
+  次の値に固定: `enterprise`
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  例 `Acme Inc.`
+  
+  企業の名前。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+リーガル項目が変更された日時。
+</ParamField>
+
+<ParamField body="status" type="string">
+例 `enabled`
+
+これらの利用規約が有効になっているかどうか。
+
+次の値のいずれか1つ: `enabled`,`disabled`
+</ParamField>
+
+<ParamField body="text" type="string">
+例 `By using this service, you agree to ...`
+
+利用規約のテキスト。`status`が`disabled`に設定されている場合は、このテキストが空になることがあります。
+</ParamField>
+
+<ParamField body="tos_type" type="string">
+例 `managed`
+
+これらの利用規約を管理対象ユーザーに適用するか、外部ユーザーに適用するか。
+
+次の値のいずれか1つ: `managed`,`external`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "terms_of_service",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "enterprise": {
+    "id": "11446498",
+    "type": "enterprise",
+    "name": "Acme Inc."
+  },
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "status": "enabled",
+  "text": "By using this service, you agree to ...",
+  "tos_type": "managed"
+}
+```
+
+</ResponseExample>

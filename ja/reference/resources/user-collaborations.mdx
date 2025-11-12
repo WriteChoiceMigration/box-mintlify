@@ -1,0 +1,70 @@
+---
+title: "ユーザー (コラボレーション)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ユーザーのMini版の表示は、ステータスが`pending`の場合にのみ返すことができます。
+
+* [Full](/reference/resources/user-collaborations--full/)
+* [Standard](/reference/resources/user-collaborations/)
+* [Mini](/reference/resources/user-collaborations--mini/)
+* [Base](/reference/resources/user-collaborations--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このユーザーの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `user`
+
+値は常に`user`になります。
+
+次の値に固定: `user`
+</ParamField>
+
+<ParamField body="is_active" type="boolean">
+例 `true`
+
+`false`に設定した場合、ユーザーは非アクティブになるか削除されます。
+</ParamField>
+
+<ParamField body="login" type="string(email)">
+例 `ceo@example.com`
+
+このユーザーのプライマリメールアドレス。コラボレーションのステータスが`pending`の場合、空の文字列が返されます。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Aaron Levie`
+
+このユーザーの表示名。コラボレーションのステータスが`pending`の場合、空の文字列が返されます。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "user",
+  "is_active": true,
+  "login": "ceo@example.com",
+  "name": "Aaron Levie"
+}
+```
+
+</ResponseExample>

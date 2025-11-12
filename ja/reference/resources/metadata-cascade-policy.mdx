@@ -1,0 +1,106 @@
+---
+title: "メタデータカスケードポリシー"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+メタデータカスケードポリシーにより、メタデータテンプレートインスタンスが自動的にターゲットフォルダ内のすべてのファイルとフォルダに適用されます。
+
+<ParamField body="id" type="string">
+例 `6fd4ff89-8fc1-42cf-8b29-1890dedd26d7`
+
+メタデータカスケードポリシーオブジェクトのID。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `metadata_cascade_policy`
+
+値は常に`metadata_cascade_policy`になります。
+
+次の値に固定: `metadata_cascade_policy`
+</ParamField>
+
+<ParamField body="owner_enterprise" type="object">
+このポリシーを所有する会社。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `690678`
+  
+  ポリシーを所有する会社のID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `enterprise`
+  
+  値は常に`enterprise`になります。
+  
+  次の値に固定: `enterprise`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="parent" type="object">
+ポリシーが適用されるフォルダを表します。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `1234567`
+  
+  ポリシーが適用されるフォルダのID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `folder`
+  
+  値は常に`folder`になります。
+  
+  次の値に固定: `folder`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="scope" type="string">
+例 `enterprise_123456`
+
+メタデータカスケードポリシーのスコープは、`global`または`enterprise_*`のいずれかになります。`global`スコープは、任意のBox Enterpriseで利用できるポリシーに使用されます。`enterprise_*`スコープは、特定のEnterprise内で作成されたポリシーを表します (`*`はそのEnterpriseのID)。
+</ParamField>
+
+<ParamField body="templateKey" type="string">
+例 `productInfo`
+
+フォルダの子にカスケードされるテンプレートのキー。
+
+多くの場合、テンプレートキーはその表示名から自動的に派生します。たとえば、`Contract Template`の場合は`contractTemplate`となります。場合によっては、テンプレートの作成者が独自のテンプレートキーを指定することもあります。
+
+テンプレートのキーを調べるには、[会社のテンプレートのリストを取得する](/reference/get-metadata-templates-enterprise/)か、[ファイル](/reference/get-files-id-metadata/)または[フォルダ](/reference/get-folders-id-metadata/)上のすべてのインスタンスを取得してください。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "6fd4ff89-8fc1-42cf-8b29-1890dedd26d7",
+  "type": "metadata_cascade_policy",
+  "owner_enterprise": {
+    "id": "690678",
+    "type": "enterprise"
+  },
+  "parent": {
+    "id": "1234567",
+    "type": "folder"
+  },
+  "scope": "enterprise_123456",
+  "templateKey": "productInfo"
+}
+```
+
+</ResponseExample>

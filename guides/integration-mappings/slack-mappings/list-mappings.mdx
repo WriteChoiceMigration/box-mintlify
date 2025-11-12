@@ -1,0 +1,48 @@
+---
+title: "List Slack Integration Mappings"
+rank: 3
+related_endpoints:
+related_guides: []
+required_guides:
+related_resources: []
+alias_paths: []
+---
+Use the `GET /integration_mappings/slack` call to
+fetch and filter the mappings,
+both the ones created manually by the admin
+those created
+automatically by the integration.
+
+<CodeGroup>
+
+```sh cURL
+curl -X -L GET "https://api.box.com/2.0/integration_mappings/slack?partner_item_id=C987654321&box_item_id=123456789" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+```
+
+```typescript Node/TypeScript v10
+await userClient.integrationMappings.getSlackIntegrationMapping();
+```
+
+```python Python v10
+user_client.integration_mappings.get_slack_integration_mapping()
+```
+
+```cs .NET v10
+await userClient.IntegrationMappings.GetSlackIntegrationMappingAsync();
+```
+
+```swift Swift v10
+try await userClient.integrationMappings.getSlackIntegrationMapping()
+```
+
+```java Java v10
+userClient.getIntegrationMappings().getSlackIntegrationMapping()
+```
+
+```javascript Node v4
+const integrationMappings = await client.integrationMappings.getSlackIntegrationMappings();
+console.log(`There are ${integrationMappings.entries.length} Slack integration mappings`);
+```
+
+</CodeGroup>

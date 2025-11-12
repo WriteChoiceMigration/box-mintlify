@@ -1,0 +1,155 @@
+---
+title: "Slack統合マッピング"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+統合マッピングオブジェクトのSlack固有のレプリゼンテーション。
+
+<ParamField body="id" type="string">
+例 `12345`
+
+フォルダマッピングの一意の識別子 (`integration_type`とともに複合キーの一部)。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `integration_mapping`
+
+マッピングタイプ。
+
+次の値に固定: `integration_mapping`
+</ParamField>
+
+<ParamField body="box_item" type="フォルダ (Mini)object">
+パートナーアプリのドメインのオブジェクト (`partner_item_id`で参照) のマッピング先であるBoxフォルダ。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+統合マッピングオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (統合マッピング)object">
+統合マッピングを作成したユーザーを表すオブジェクト。
+</ParamField>
+
+<ParamField body="integration_type" type="string">
+例 `slack`
+
+マッピングが関連付けられているBoxパートナーアプリを示します。現在サポートされているのはSlackのみです (`id`とともに複合キーの一部)。
+
+次の値に固定: `slack`
+</ParamField>
+
+<ParamField body="is_manually_created" type="boolean">
+例 `true`
+
+マッピングが (自動作成されたのではなく) 手動で設定されているかどうかを示します。
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+統合マッピングオブジェクトが最後に変更された日時。
+</ParamField>
+
+<ParamField body="modified_by" type="ユーザー (統合マッピング)object">
+統合マッピングを最後に変更したユーザー。
+</ParamField>
+
+<ParamField body="options" type="object">
+Slackタイプの統合マッピングオプションオブジェクトのスキーマ。
+
+<Expandable>
+  <ParamField body="is_access_management_disabled" type="boolean">
+  例 `true`
+  
+  基になるBox項目に対するチャンネルメンバーのアクセスを自動で管理する必要があるかどうかを示します。チャンネルのタイプによっては、アクセスがコラボレーションまたは共有リンクの作成により管理されます。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="partner_item" type="object">
+例 `{"id":"C12378991223","slack_org_id":"E1234567","type":"channel"}`
+
+Slack用にマッピングされた項目オブジェクト。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `C12378991223`
+  
+  (`type`で参照されるタイプの) マッピングされた項目のID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `channel`
+  
+  `id`で参照されるマッピングされた項目のタイプ。
+  
+  次の値に固定: `channel`
+  </ParamField>
+
+  <ParamField body="slack_org_id" type="string">
+  例 `E1234567`
+  
+  項目が関連付けられているSlackオーガナイゼーションのID。このパラメータは、オーガナイゼーションレベルでBox for Slackがインストールされている場合に使用します。`slack_workspace_id`を同時に使用しないでください。
+  </ParamField>
+
+  <ParamField body="slack_workspace_id" type="string">
+  例 `T12352314`
+  
+  項目が関連付けられているSlackワークスペースのID。このパラメータは、ワークスペースレベルでBox for Slackがインストールされている場合に使用します。`slack_org_id`を同時に使用しないでください。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "integration_mapping",
+  "box_item": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "integration_type": "slack",
+  "is_manually_created": true,
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "options": {
+    "is_access_management_disabled": true
+  },
+  "partner_item": {
+    "id": "C12378991223",
+    "type": "channel",
+    "slack_org_id": "E1234567"
+  }
+}
+```
+
+</ResponseExample>

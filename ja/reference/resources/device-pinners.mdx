@@ -1,0 +1,82 @@
+---
+title: "Device Pinners"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+デバイスピンのリスト。
+
+<ParamField body="entries" type="Device Pinnerarray">
+デバイスピンのリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+例 `200`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。
+</ParamField>
+
+<ParamField body="next_marker" type="integer(int64)">
+例 `3000`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ParamField body="order" type="objectarray">
+項目が返される順序。
+
+<Expandable>
+  <ParamField body="by" type="string">
+  例 `id`
+  
+  並べ替えに使用するフィールド。
+  
+  次の値に固定: `id`
+  </ParamField>
+
+  <ParamField body="direction" type="string">
+  例 `asc`
+  
+  並べ替えの方向 (昇順または降順)。
+  
+  次の値のいずれか1つ: `asc`,`desc`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "id": "11446498",
+      "owned_by": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      },
+      "product_name": "iPad",
+      "type": "device_pinner"
+    }
+  ],
+  "limit": 200,
+  "next_marker": 3000,
+  "order": [
+    {
+      "by": "id",
+      "direction": "asc"
+    }
+  ]
+}
+```
+
+</ResponseExample>

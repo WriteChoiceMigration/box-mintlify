@@ -1,0 +1,96 @@
+---
+title: "Create Folder Lock"
+rank: 8
+related_endpoints:
+  - post_folder_locks
+related_guides:
+  - folders/single/get-locks
+  - folders/single/delete-lock
+required_guides: []
+related_resources:
+  - folder_lock
+alias_paths: []
+---
+To create a lock on a folder in Box you will need to provide our API with the
+`id` of the folder for which the lock should be applied. Optionally you may
+supply the specific `locked_operations` to be applied with the folder lock.
+
+<Note>
+  **Folder Locks**
+
+  When using any folder lock API endpoints, you must be authenticated as the
+  owner/co-owner of the folder you are trying to access.
+</Note>
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/folder_locks" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "folder": {
+         "type": "folder",
+         "id": "33552487093"
+       },
+       "locked_operations": {
+         "move": true,
+         "delete": true
+       }
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.folderLocks.createFolderLock({
+  folder: {
+    id: folder.id,
+    type: 'folder',
+  } satisfies CreateFolderLockRequestBodyFolderField,
+  lockedOperations: {
+    move: true,
+    delete: true,
+  } satisfies CreateFolderLockRequestBodyLockedOperationsField,
+} satisfies CreateFolderLockRequestBody);
+```
+
+```python Python v10
+client.folder_locks.create_folder_lock(
+    CreateFolderLockFolder(id=folder.id, type="folder"),
+    locked_operations=CreateFolderLockLockedOperations(move=True, delete=True),
+)
+```
+
+```cs .NET v10
+await client.FolderLocks.CreateFolderLockAsync(requestBody: new CreateFolderLockRequestBody(folder: new CreateFolderLockRequestBodyFolderField(id: folder.Id, type: "folder")) { LockedOperations = new CreateFolderLockRequestBodyLockedOperationsField(move: true, delete: true) });
+```
+
+```swift Swift v10
+try await client.folderLocks.createFolderLock(requestBody: CreateFolderLockRequestBody(folder: CreateFolderLockRequestBodyFolderField(id: folder.id, type: "folder"), lockedOperations: CreateFolderLockRequestBodyLockedOperationsField(move: true, delete: true)))
+```
+
+```java Java v10
+client.getFolderLocks().createFolderLock(new CreateFolderLockRequestBody.Builder(new CreateFolderLockRequestBodyFolderField("folder", folder.getId())).lockedOperations(new CreateFolderLockRequestBodyLockedOperationsField(true, true)).build())
+```
+
+</CodeGroup>
+
+<Warning>
+  **Setting Locked Operations**
+
+  If the `locked_operations` object is included with a folder lock request,
+  both `move` and `delete` need to be set to `true`. Supplying only one lock
+  operation in the object, or setting the values of both to something other
+  than `true` will produce an error. These options are in place to allow
+  for additional operations in the future.
+</Warning>
+
+## Lock Operations
+
+There are two possible lock operations that may be applied to a folder, `move`
+and `delete`.
+
+The `move` lock will prevent the folder from being moved to a new location or
+owner while the lock is still applied.
+
+The `delete` lock will prevent the folder from being deleted while the lock is
+still applied.

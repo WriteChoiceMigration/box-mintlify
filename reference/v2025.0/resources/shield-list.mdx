@@ -1,0 +1,94 @@
+---
+title: "Shield List"
+---
+
+API version 2025.0
+
+A standard representation of a Shield List.
+
+<ParamField body="id" type="string">
+example: `90fb0e17-c332-40ed-b4f9-fa8908fbbb24`
+
+Unique identifier for the shield list.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `shield_list`
+
+Type of the object.
+</ParamField>
+
+<ParamField body="content" type="Shield List Content (Country)/Shield List Content (Domain)/Shield List Content (Email)/Shield List Content (Integration)/Shield List Content (IP)object">
+Specifies the type of elements in this Shield List and includes the elements themselves.
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2025-01-13T15:31:01.896Z`
+
+ISO date time string when this shield list object was created.
+</ParamField>
+
+<ParamField body="description" type="string">
+example: `A list of things that are shielded`
+
+Description of Shield List.
+</ParamField>
+
+<ParamField body="enterprise" type="object">
+Enterprise for which this list belongs to.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `1910967`
+  
+  The unique identifier for this enterprise.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `enterprise`
+  
+  The value will always be `enterprise`.
+  
+  Value is always `enterprise`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Shield List Name`
+
+Name of the shield list.
+</ParamField>
+
+<ParamField body="updated_at" type="string(date-time)">
+example: `2025-01-13T15:31:01.896Z`
+
+ISO date time string when this shield list object was updated.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "90fb0e17-c332-40ed-b4f9-fa8908fbbb24",
+  "type": "shield_list",
+  "content": {
+    "type": "country",
+    "country_codes": [
+      "US",
+      "PL"
+    ]
+  },
+  "created_at": "2025-01-13T15:31:01.896Z",
+  "description": "A list of things that are shielded",
+  "enterprise": {
+    "id": "1910967",
+    "type": "enterprise"
+  },
+  "name": "Shield List Name",
+  "updated_at": "2025-01-13T15:31:01.896Z"
+}
+```
+
+</ResponseExample>

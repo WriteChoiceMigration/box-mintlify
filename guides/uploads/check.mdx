@@ -1,0 +1,149 @@
+---
+title: "Preflight Check"
+rank: 1
+related_endpoints:
+  - options_files_content
+  - options_files_id_content
+  - post_files_content
+  - post_files_id_content
+related_guides:
+  - uploads/direct/file
+  - uploads/direct/file-version
+related_pages: []
+required_guides: []
+related_resources: []
+alias_paths: []
+---
+The Pre-flight check API allows an application to verify that a file will be
+accepted by Box before it uploads any bytes. It can both be used for new files,
+as well as uploading new versions of existing files.
+
+## Checklist
+
+Preflight checks perform all the same checks as if the file was
+actually uploaded including:
+
+* The permission of the application and the user to upload to the folder
+* Any file name collisions
+* Any file size caps and limits
+* Any folder and file name restrictions
+* Any folder and account storage quotas
+
+## Check for new file
+
+To perform a check for a new file, call the
+[`OPTIONS /files/content`](/reference/options_files_content) API with the same
+parameters (except for the binary content) as if uploading an actual file.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X OPTIONS "https://api.box.com/2.0/files/content" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{"name":"Contract.pdf", "parent":{"id":"11446498"}}'
+```
+
+```typescript Node/TypeScript v10
+await client.uploads.preflightFileUploadCheck({
+  name: newFileName,
+  size: 1024 * 1024,
+  parent: { id: '0' } satisfies PreflightFileUploadCheckRequestBodyParentField,
+} satisfies PreflightFileUploadCheckRequestBody);
+```
+
+```python Python v10
+client.uploads.preflight_file_upload_check(
+    name=new_file_name, size=1024 * 1024, parent=PreflightFileUploadCheckParent(id="0")
+)
+```
+
+```cs .NET v10
+await client.Uploads.PreflightFileUploadCheckAsync(requestBody: new PreflightFileUploadCheckRequestBody() { Name = newFileName, Size = 1024 * 1024, Parent = new PreflightFileUploadCheckRequestBodyParentField() { Id = "0" } });
+```
+
+```java Java v10
+client.getUploads().preflightFileUploadCheck(new PreflightFileUploadCheckRequestBody.Builder().name(newFileName).size(1024 * 1024).parent(new PreflightFileUploadCheckRequestBodyParentField.Builder().id("0").build()).build())
+```
+
+```java Java v5
+String fileName = "My Doc.pdf";
+BoxFolder rootFolder = BoxFolder.getRootFolder(api);
+try {
+    folder.canUpload(fileName, 98734576);
+
+    // If the file upload would not have succeeded, it will not be attempted
+    folder.uploadFile(fileContents, fileName);
+} catch (BoxAPIException ex) (
+
+)
+```
+
+```javascript Node v4
+// Verify that uploading a 200MB file named "Preso.ppt" to folder 12345 would succeed
+client.files.preflightUploadFile(
+		'12345',
+		{
+			name: 'Preso.ppt',
+			size: 200000000
+		},
+		null,
+		callback
+	);
+```
+
+</CodeGroup>
+
+## Check for new file version
+
+To perform a check for a new version of a file, call the
+[`OPTIONS /files/:id/content`](/reference/options_files_content) API with the same
+parameters (except for the binary content) as if uploading an actual file.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X OPTIONS "https://api.box.com/2.0/files/12345/content" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{"name":"Contract.pdf", "parent":{"id":"11446498"}}'
+```
+
+```javascript Node v4
+// Check if uploading a larger version of this file will succeed
+client.files.preflightUploadNewFileVersion('87646', {size: 300000000}, null, callback);
+```
+
+</CodeGroup>
+
+## Checks & Chunk Uploads
+
+When performing a [chunked upload][chunked], performing a preflight check is not
+required as [creating an Upload Session][chunkedsession] also performs a
+preflight check.
+
+## Response codes
+
+When the API call detects any problems, a HTTP `409 Conflict` status code is
+returned with a message to describe the possible conflict. If no problems were
+discovered, it returns a HTTP `200 OK` status code and the upload can proceed.
+
+{/* alex ignore failed */}
+A `200 OK` response does not guarantee that the upload call will actually
+succeed. Pre-flight checks have show to reduce failed uploads by over 99%, yet
+concurrency issues still come into play when uploading a file.
+
+Highly active folders, common filenames, and accounts near their quota
+limits may get a `200 OK` for the preflight check, and then have a real conflict
+during the actual upload.
+
+## Response body
+
+In many cases, the preflight check will return valuable data in the API response
+when a conflict has been detected. For example, when a name collision has been
+detected, the application can use the `SHA-1` that is returned in the error
+response to check if the existing file is identical to the one it is trying to
+upload.
+
+[chunked]: /guides/uploads/chunked
+[chunkedsession]: /guides/uploads/chunked/create-session

@@ -1,0 +1,73 @@
+---
+title: "Update AI agent"
+rank: 4
+related_guides:
+  - authentication/tokens/developer-tokens/
+  - box-ai/ai-tutorials/ask-questions
+  - box-ai/ai-tutorials/default-agent-overrides
+  - box-ai/ai-tutorials/generate-text
+  - box-ai/ai-tutorials/extract-metadata-structured
+  - box-ai/ai-tutorials/extract-metadata
+---
+The `PUT /2.0/ai_agents/{id}` endpoint allows you to update a custom AI agent based on its ID. 
+
+## Send a request
+
+To send a request, use the `PUT /2.0/ai_agents/{id}` endpoint.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X PUT "https://api.box.com/2.0/ai_agents/1234567890" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.aiStudio.updateAiAgentById(createdAgent.id, {
+  name: agentName,
+  accessState: 'enabled',
+  ask: new AiStudioAgentAsk({ accessState: 'disabled', description: 'desc2' }),
+} satisfies CreateAiAgentInput);
+```
+
+```python Python v10
+client.ai_studio.update_ai_agent_by_id(
+    created_agent.id,
+    agent_name,
+    "enabled",
+    ask=AiStudioAgentAsk(access_state="disabled", description="desc2"),
+)
+```
+
+```cs .NET v10
+await client.AiStudio.UpdateAiAgentByIdAsync(agentId: createdAgent.Id, requestBody: new CreateAiAgent(name: agentName, accessState: "enabled") { Ask = new AiStudioAgentAsk(accessState: "disabled", description: "desc2") });
+```
+
+```swift Swift v10
+try await client.aiStudio.updateAiAgentById(agentId: createdAgent.id, requestBody: CreateAiAgent(name: agentName, accessState: "enabled", ask: AiStudioAgentAsk(accessState: "disabled", description: "desc2")))
+```
+
+```java Java v10
+client.getAiStudio().updateAiAgentById(createdAgent.getId(), new CreateAiAgent.Builder(agentName, "enabled").ask(new AiStudioAgentAsk("disabled", "desc2")).build())
+```
+
+</CodeGroup>
+
+### Parameters
+
+To make a call, you must pass the following parameters. Mandatory parameters are in **bold**.
+
+{/* alex ignore */}
+
+| Parameter| Description| Example|
+|--------|--------|-------|
+| **`type`**  | The type of agent used to handle queries. | ```` |
+| **`name`**| The name of the AI Agent. | My AI Agent |
+| **`access_state`** | The state of the AI Agent. Value is one of `enabled` `disabled`. | `enabled` |
+| `icon_reference` | The icon reference of the AI Agent. It should have format of the URL `https://cdn01.boxcdn.net/app-assets/aistudio/avatars/<file_name>`, where possible values of `file_name` are: `logo_boxAi.png`,`logo_stamp.png`,`logo_legal.png`,`logo_finance.png`,`logo_config.png`,`logo_handshake.png`,`logo_analytics.png`,`logo_classification.png` | `https://cdn01.boxcdn.net/app-assets/aistudio/avatars/logo_analytics.svg` |
+| `allowed_entities` | List of allowed users or groups. |
+| `ask` | The AI Agent to be used for ask.  | `ask` |
+| `extract` | The AI Agent to be used for extraction.  | |
+| `text_gen` | The AI agent used for generating text. | |
+
+{/* alex ignore */}

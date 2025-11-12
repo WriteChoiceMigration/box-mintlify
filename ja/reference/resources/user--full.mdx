@@ -1,0 +1,312 @@
+---
+title: "ユーザー (Full)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+任意のユーザーAPIエンドポイントから返される可能性があるユーザーのFull版の表示。
+
+* [Full](/reference/resources/user--full/)
+* [Standard](/reference/resources/user/)
+* [Mini](/reference/resources/user--mini/)
+* [Base](/reference/resources/user--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Full**バリアントに含まれるフィールドは、`fields`パラメータをサポートするAPIエンドポイントによって返すことができます。たとえば、IDでファイルを取得するときに、`fields`リクエストパラメータを`id,type`に設定すると、これらのフィールドのみがAPIレスポンスで返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このユーザーの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `user`
+
+値は常に`user`になります。
+
+次の値に固定: `user`
+</ParamField>
+
+<ParamField body="address" type="string">
+例 `900 Jefferson Ave, Redwood City, CA 94063`
+
+ユーザーの住所。
+</ParamField>
+
+<ParamField body="avatar_url" type="string">
+例 `https://www.box.com/api/avatar/large/181216415`
+
+ユーザーのアバター画像のURL。
+</ParamField>
+
+<ParamField body="can_see_managed_users" type="boolean">
+例 `true`
+
+ユーザーが自身の連絡先リストで企業の他のユーザーを参照できるかどうか。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+ユーザーオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="enterprise" type="object">
+ユーザーの企業のレプリゼンテーション。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `11446498`
+  
+  この会社の一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `enterprise`
+  
+  値は常に`enterprise`になります。
+  
+  次の値に固定: `enterprise`
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  例 `Acme Inc.`
+  
+  企業の名前。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="external_app_user_id" type="string">
+例 `my-user-1234`
+
+ユーザーの検索に使用できる、App Userの外部識別子。これを使用して、外部IDプロバイダのユーザーIDをBoxユーザーに結び付けることができます。
+</ParamField>
+
+<ParamField body="hostname" type="string">
+例 `https://example.app.box.com/`
+
+ユーザーに対して生成する必要があるリンクのルート (プロトコル、サブドメイン、ドメイン)。
+</ParamField>
+
+<ParamField body="is_exempt_from_device_limits" type="boolean">
+例 `true`
+
+企業のデバイス制限からユーザーを除外するかどうか。
+</ParamField>
+
+<ParamField body="is_exempt_from_login_verification" type="boolean">
+例 `true`
+
+ユーザーが2要素認証を使用する必要があるかどうか。
+</ParamField>
+
+<ParamField body="is_external_collab_restricted" type="boolean">
+例 `true`
+
+ユーザーが社外のユーザーとのコラボレーションを許可されているかどうか。
+</ParamField>
+
+<ParamField body="is_platform_access_only" type="boolean">
+例 `true`
+
+ユーザーがApp Userであるかどうか。
+</ParamField>
+
+<ParamField body="is_sync_enabled" type="boolean">
+例 `true`
+
+ユーザーがBox Syncを使用できるかどうか。
+</ParamField>
+
+<ParamField body="job_title" type="string">
+例 `CEO`
+
+ユーザーの役職。
+</ParamField>
+
+<ParamField body="language" type="string">
+例 `en`
+
+修正版の[ISO 639-1](/guides/api-calls/language-codes/)形式で表されるユーザーの言語。
+</ParamField>
+
+<ParamField body="login" type="string(email)">
+例 `ceo@example.com`
+
+このユーザーのプライマリメールアドレス。
+</ParamField>
+
+<ParamField body="max_upload_size" type="integer(int64)">
+例 `2147483648`
+
+ユーザーが所有できる個々のファイルの最大サイズ (バイト単位)。
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+ユーザーオブジェクトが最後に変更された日時。
+</ParamField>
+
+<ParamField body="my_tags" type="stringarray">
+例 `["important"]`
+
+ユーザーが所有するすべてのファイルとフォルダのタグ。返される値にはリクエスト元によって設定されたタグのみが含まれます。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Aaron Levie`
+
+このユーザーの表示名。
+</ParamField>
+
+<ParamField body="notification_email" type="object">
+通知メールが送信される代替の通知用メールアドレス。確認されると、通知メールはプライマリメールアドレスではなくこのメールアドレスに送信されます。
+
+<Expandable>
+  <ParamField body="email" type="string">
+  例 `notifications@example.com`
+  
+  通知を送付するメールアドレス。
+  </ParamField>
+
+  <ParamField body="is_confirmed" type="boolean">
+  例 `true`
+  
+  このメールアドレスが確認されたかどうかを指定します。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="phone" type="string">
+例 `6509241374`
+
+ユーザーの電話番号。
+</ParamField>
+
+<ParamField body="role" type="string">
+例 `admin`
+
+ユーザーの企業でのロール。
+
+次の値のいずれか1つ: `admin`,`coadmin`,`user`
+</ParamField>
+
+<ParamField body="space_amount" type="integer(int64)">
+例 `11345156112`
+
+ユーザーが利用可能な容量の合計 (バイト数)。
+</ParamField>
+
+<ParamField body="space_used" type="integer(int64)">
+例 `1237009912`
+
+ユーザーが現在使用している容量。
+</ParamField>
+
+<ParamField body="status" type="string">
+例 `active`
+
+ユーザーのアカウントのステータス。
+
+次の値のいずれか1つ: `active`,`inactive`,`cannot_delete_edit`,`cannot_delete_edit_upload`
+</ParamField>
+
+<ParamField body="timezone" type="string(timezone)">
+例 `Africa/Bujumbura`
+
+ユーザーのタイムゾーン。
+</ParamField>
+
+<ParamField body="tracking_codes" type="objectarray">
+追跡コードを使用すると、管理者は管理コンソールからレポートを生成し、特定のグループのユーザーに属性を割り当てることができます。この設定を使用するには、会社に対して有効にしておく必要があります。
+
+<Expandable>
+  <ParamField body="type" type="string">
+  例 `tracking_code`
+  
+  値は常に`tracking_code`になります。
+  
+  次の値に固定: `tracking_code`
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  例 `department`
+  
+  追跡コードの名前。管理コンソールであらかじめ設定しておく必要があります。
+  </ParamField>
+
+  <ParamField body="value" type="string">
+  例 `Sales`
+  
+  追跡コードの値。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "user",
+  "address": "900 Jefferson Ave, Redwood City, CA 94063",
+  "avatar_url": "https://www.box.com/api/avatar/large/181216415",
+  "can_see_managed_users": true,
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "enterprise": {
+    "id": "11446498",
+    "type": "enterprise",
+    "name": "Acme Inc."
+  },
+  "external_app_user_id": "my-user-1234",
+  "hostname": "https://example.app.box.com/",
+  "is_exempt_from_device_limits": true,
+  "is_exempt_from_login_verification": true,
+  "is_external_collab_restricted": true,
+  "is_platform_access_only": true,
+  "is_sync_enabled": true,
+  "job_title": "CEO",
+  "language": "en",
+  "login": "ceo@example.com",
+  "max_upload_size": 2147483648,
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "my_tags": [
+    "important"
+  ],
+  "name": "Aaron Levie",
+  "notification_email": {
+    "email": "notifications@example.com",
+    "is_confirmed": true
+  },
+  "phone": "6509241374",
+  "role": "admin",
+  "space_amount": 11345156112,
+  "space_used": 1237009912,
+  "status": "active",
+  "timezone": "Africa/Bujumbura",
+  "tracking_codes": [
+    {
+      "name": "department",
+      "type": "tracking_code",
+      "value": "Sales"
+    }
+  ]
+}
+```
+
+</ResponseExample>

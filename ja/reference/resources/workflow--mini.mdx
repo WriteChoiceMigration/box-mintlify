@@ -1,0 +1,70 @@
+---
+title: "ワークフロー (Mini)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+Box Relayワークフローは、名前が付けられたフローのコレクションを表すオブジェクトです。
+
+アプリケーションは、このリソースを使用するために、開発者コンソールでの`Manage Box Relay`アプリケーションスコープの使用が承認されている必要があります。
+
+* [Standard](/reference/resources/workflow/)
+* [Mini](/reference/resources/workflow--mini/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Mini**バリアントに含まれるフィールドは、このリソースが別のリソースのレスポンス内にネストされている場合に返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+ワークフローの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `workflow`
+
+値は常に`workflow`になります。
+
+次の値に固定: `workflow`
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `This workflow sets off a new hire approval flow`
+
+ワークフローの説明
+</ParamField>
+
+<ParamField body="is_enabled" type="boolean">
+例 `true`
+
+このワークフローが有効かどうかを指定します。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `New Hire Workflow`
+
+ワークフローの名前。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "workflow",
+  "description": "This workflow sets off a new hire approval flow",
+  "is_enabled": true,
+  "name": "New Hire Workflow"
+}
+```
+
+</ResponseExample>

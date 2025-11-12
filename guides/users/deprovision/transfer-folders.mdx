@@ -1,0 +1,338 @@
+---
+title: "Transfer Files & Folders"
+rank: 2
+related_endpoints:
+  - put_users_id_folders_0
+related_guides:
+  - users/deprovision
+related_pages: []
+required_guides: []
+related_resources: []
+alias_paths: []
+---
+
+As part of user account deprovisioning, a common requirement is to transfer all
+files and folders that are stored within the user account to another user
+account or into a location for long term storage, such as into the service
+account.
+
+There are two general methods that are employed to accomplish this within Box:
+
+* Using the direct [transfer owned folders](/reference/put_users_id_folders_0) API, which will move all content from one user directly to another.
+* Using the collaboration transfer method to change ownership of one file or folder at a time from one user to another.
+
+<Note>
+  Files owned by a user will be inaccessible while they are being transferred.
+  This also means that any shared content owned by the user may be inaccessible
+  during the move.
+
+  Depending on the volume of content, this operation may take a significant
+  amount of time.
+</Note>
+
+## Transfer Owned Folders API Method
+
+The [transfer owned folders endpoint](/reference/put_users_id_folders_0) is
+designed to move the entirety of content owned by one user over to another user.
+
+<Note>
+  The transfer owned folders API is performed as a synchronous process, which
+  might lead to a slow response when the source user has a large number of
+  items in all of its folders.
+</Note>
+
+To call the transfer endpoint, you will supply the user ID to transfer from and
+the user ID to transfer to.
+
+<CodeGroup>
+
+```typescript Node/TypeScript v10
+await client.transfer.transferOwnedFolder(
+  sourceUser.id,
+  {
+    ownedBy: {
+      id: targetUser.id,
+    } satisfies TransferOwnedFolderRequestBodyOwnedByField,
+  } satisfies TransferOwnedFolderRequestBody,
+  {
+    queryParams: { notify: false } satisfies TransferOwnedFolderQueryParams,
+  } satisfies TransferOwnedFolderOptionalsInput,
+);
+```
+
+```python Python v10
+client.transfer.transfer_owned_folder(
+    source_user.id, TransferOwnedFolderOwnedBy(id=target_user.id), notify=False
+)
+```
+
+```cs .NET v10
+await client.Transfer.TransferOwnedFolderAsync(userId: sourceUser.Id, requestBody: new TransferOwnedFolderRequestBody(ownedBy: new TransferOwnedFolderRequestBodyOwnedByField(id: targetUser.Id)), queryParams: new TransferOwnedFolderQueryParams() { Notify = false });
+```
+
+```swift Swift v10
+try await client.transfer.transferOwnedFolder(userId: sourceUser.id, requestBody: TransferOwnedFolderRequestBody(ownedBy: TransferOwnedFolderRequestBodyOwnedByField(id: targetUser.id)), queryParams: TransferOwnedFolderQueryParams(notify: false))
+```
+
+```java Java v10
+client.getTransfer().transferOwnedFolder(sourceUser.getId(), new TransferOwnedFolderRequestBody(new TransferOwnedFolderRequestBodyOwnedByField(targetUser.getId())), new TransferOwnedFolderQueryParams.Builder().notify(false).build())
+```
+
+```java Java v5
+String sourceUserID = "11111";
+String destinationUserID = "22222";
+BoxUser sourceUser = new BoxUser(api, sourceUserID);
+BoxFolder.Info transferredFolderInfo = sourceUser.transferContent(destinationUserID);
+```
+
+```python Python v4
+source_user_id = '33333'
+destination_user_id = '44444'
+
+user = client.user(source_user_id)
+destination_user = client.user(destination_user_id)
+
+folder = user.transfer_content(destination_user)
+print(f'Created new folder "{folder.name}" in the account of user {destination_user.id}')
+```
+
+```cs .NET v6
+var sourceUserId = "33333";
+var destinationUserId = "44444";
+BoxFolder movedFolder = await client.MoveUserFolderAsync(sourceUserId, destinationUserId);
+```
+
+```javascript Node v4
+var sourceUserID = '33333';
+var destinationUserID = '44444';
+client.enterprise.transferUserContent(sourceUserID, destinationUserID)
+	.then(movedFolder => {
+		/* movedFolder -> {
+			type: 'folder',
+			id: '123456789',
+			sequence_id: '1',
+			etag: '1',
+			name: 'Other User's Files and Folders',
+			created_at: '2018-04-23T11:00:07-07:00',
+			modified_at: '2018-04-23T11:00:07-07:00',
+			description: 'This folder contains files previously owned by Other User, and were transferred to you by your enterprise administrator. If you have any questions, please contact Enterprise Admin (admin@example.com).',
+			size: 0,
+			path_collection: 
+			{ total_count: 1,
+				entries: 
+				[ { type: 'folder',
+					id: '0',
+					sequence_id: null,
+					etag: null,
+					name: 'All Files' } ] },
+			created_by: 
+			{ type: 'user',
+				id: '99999',
+				name: 'Enterprise Admin',
+				login: 'admin@example.com' },
+			modified_by: 
+			{ type: 'user',
+				id: '99999',
+				name: 'Enterprise Admin',
+				login: 'admin@example.com' },
+			trashed_at: null,
+			purged_at: null,
+			content_created_at: '2018-04-23T11:00:07-07:00',
+			content_modified_at: '2018-04-23T11:00:07-07:00',
+			owned_by: 
+			{ type: 'user',
+				id: '33333',
+				name: 'Example User',
+				login: 'user@example.com' },
+			shared_link: null,
+			folder_upload_email: null,
+			parent: 
+			{ type: 'folder',
+				id: '0',
+				sequence_id: null,
+				etag: null,
+				name: 'All Files' },
+			item_status: 'active' }
+		*/
+	});
+```
+
+</CodeGroup>
+
+## Collaboration Transfer Method
+
+The collaboration transfer method is a process that uses the
+[collaboration endpoint](/reference/post_collaborations) to change the
+ownership of a single file or folder from one user to another instantaneously.
+
+<Note>
+  This method will perform an instantaneous transfer of ownership of a single
+  file or folder, but **cannot** be used to transfer the root (all files and
+  folders) from one user to another.
+</Note>
+
+The general process, between `transfer_from_user` to `transfer_to_user`, will
+follow these steps:
+
+### Add Transfer To User as Co-Owner
+
+The first step is to add the `transfer_to_user` account as a collaborator with
+`co-owner` access on the file or folder that should be transferred.
+
+Making the call as the `transfer_from_user` account, add the `transfer_to_user`
+as a co-owner using the
+[add collaboration endpoint](/reference/post_collaborations).
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/collaborations" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "item": {
+         "type": "file",
+         "id": "11446498"
+       },
+       "accessible_by": {
+         "type": "user",
+         "login": "user@example.com"
+       },
+       "role": "editor"
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.userCollaborations.createCollaboration({
+  item: {
+    type: 'folder' as CreateCollaborationRequestBodyItemTypeField,
+    id: folder.id,
+  } satisfies CreateCollaborationRequestBodyItemField,
+  accessibleBy: {
+    type: 'user' as CreateCollaborationRequestBodyAccessibleByTypeField,
+    id: user.id,
+  } satisfies CreateCollaborationRequestBodyAccessibleByField,
+  role: 'editor' as CreateCollaborationRequestBodyRoleField,
+} satisfies CreateCollaborationRequestBody);
+```
+
+```python Python v10
+client.user_collaborations.create_collaboration(
+    CreateCollaborationItem(type=CreateCollaborationItemTypeField.FOLDER, id=folder.id),
+    CreateCollaborationAccessibleBy(
+        type=CreateCollaborationAccessibleByTypeField.USER, id=user.id
+    ),
+    CreateCollaborationRole.EDITOR,
+)
+```
+
+```cs .NET v10
+await client.UserCollaborations.CreateCollaborationAsync(requestBody: new CreateCollaborationRequestBody(item: new CreateCollaborationRequestBodyItemField() { Type = CreateCollaborationRequestBodyItemTypeField.Folder, Id = folder.Id }, accessibleBy: new CreateCollaborationRequestBodyAccessibleByField(type: CreateCollaborationRequestBodyAccessibleByTypeField.User) { Id = user.Id }, role: CreateCollaborationRequestBodyRoleField.Editor));
+```
+
+```swift Swift v10
+try await client.userCollaborations.createCollaboration(requestBody: CreateCollaborationRequestBody(item: CreateCollaborationRequestBodyItemField(type: CreateCollaborationRequestBodyItemTypeField.folder, id: folder.id), accessibleBy: CreateCollaborationRequestBodyAccessibleByField(type: CreateCollaborationRequestBodyAccessibleByTypeField.user, id: user.id), role: CreateCollaborationRequestBodyRoleField.editor))
+```
+
+```java Java v10
+client.getUserCollaborations().createCollaboration(new CreateCollaborationRequestBody(new CreateCollaborationRequestBodyItemField.Builder().type(CreateCollaborationRequestBodyItemTypeField.FOLDER).id(folder.getId()).build(), new CreateCollaborationRequestBodyAccessibleByField.Builder(CreateCollaborationRequestBodyAccessibleByTypeField.USER).id(user.getId()).build(), CreateCollaborationRequestBodyRoleField.EDITOR))
+```
+
+```java Java v5
+BoxCollaborator user = new BoxUser(api, "user-id")
+BoxFolder folder = new BoxFolder(api, "folder-id");
+folder.collaborate(user, BoxCollaboration.Role.EDITOR);
+```
+
+```python Python v4
+from boxsdk.object.collaboration import CollaborationRole
+
+user = client.user(user_id='11111')
+collaboration = client.folder(folder_id='22222').collaborate(user, CollaborationRole.VIEWER)
+
+collaborator = collaboration.accessible_by
+item = collaboration.item
+has_accepted = 'has' if collaboration.status == 'accepted' else 'has not'
+print(f'{collaborator.name} {has_accepted} accepted the collaboration to folder "{item.name}"')
+```
+
+```cs .NET v6
+// collaborate folder 11111 with user 22222
+BoxCollaborationRequest requestParams = new BoxCollaborationRequest()
+{
+    Item = new BoxRequestEntity()
+    {
+        Type = BoxType.folder,
+        Id = "11111"
+    },
+    Role = "editor",
+    AccessibleBy = new BoxCollaborationUserRequest()
+    {
+        Type = BoxType.user,
+        Id = "22222"
+    }
+};
+BoxCollaboration collab = await client.CollaborationsManager.AddCollaborationAsync(requestParams);
+```
+
+```javascript Node v4
+// Invite user 123456 to collaborate on folder 987654
+client.collaborations.createWithUserID('123456', '987654', client.collaborationRoles.EDITOR)
+	.then(collaboration => {
+		/* collaboration -> {
+			type: 'collaboration',
+			id: '11111',
+			created_by: 
+			{ type: 'user',
+				id: '22222',
+				name: 'Inviting User',
+				login: 'inviter@example.com' },
+			created_at: '2016-11-16T21:33:31-08:00',
+			modified_at: '2016-11-16T21:33:31-08:00',
+			expires_at: null,
+			status: 'accepted',
+			accessible_by: 
+			{ type: 'user',
+				id: '123456',
+				name: 'Collaborator User',
+				login: 'collaborator@example.com' },
+			role: 'editor',
+			acknowledged_at: '2016-11-16T21:33:31-08:00',
+			item: 
+			{ type: 'folder',
+				id: '987654',
+				sequence_id: '0',
+				etag: '0',
+				name: 'Collaborated Folder' } }
+		*/
+	});
+```
+
+</CodeGroup>
+
+### Fetch Collaboration ID as Transfer To User
+
+The next step is make a request to get the collaboration information, making
+the request as the `transfer_to_user` account. The collaboration object
+returned will include a collaboration ID, which is used for the last step.
+
+Making the call as the `transfer_to_user` account, get the collaboration on the
+file or folder ID being transferred, using the
+[get collaboration endpoint](/reference/get_collaborations_id). Capture the
+collaboration ID.
+
+<Sample id='get_collaborations_id' />
+
+### Remove Transfer From User as Owner
+
+The final step is to remove the `transfer_from_user` account as an owner of the
+file or folder, which is accomplished using the
+[delete collaboration endpoint](/reference/delete_collaborations_id).
+
+Making call as the `transfer_to_user` account, remove the `transfer_from_user`
+as a collaborator on the file or folder.
+
+<Sample id='delete_collaborations_id' />
+
+The file or folder is now owned by the `transfer_to_user` account, and the
+`transfer_from_user` account no longer has access.

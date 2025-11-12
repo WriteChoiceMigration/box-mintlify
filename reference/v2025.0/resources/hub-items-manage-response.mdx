@@ -1,0 +1,56 @@
+---
+title: "Box Hub Items Manage Response"
+---
+
+API version 2025.0
+
+Response schema for the status of Box Hub items management operations.
+
+<ParamField body="operations" type="objectarray">
+List of operations performed on Box Hub items.
+
+<Expandable>
+  <ParamField body="action" type="string">
+  example: `add`
+  
+  The action performed on the item.
+  </ParamField>
+
+  <ParamField body="error" type="string">
+  example: `Item not found`
+  
+  Error message if the operation failed.
+  </ParamField>
+
+  <ParamField body="item" type="objectobject">
+  Reference to an item that can be added to a Box Hub.
+  </ParamField>
+
+  <ParamField body="status" type="integer">
+  example: `200`
+  
+  The HTTP status code of the operation.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "operations": [
+    {
+      "action": "add",
+      "error": "Item not found",
+      "item": {
+        "id": "42037322",
+        "type": "file"
+      },
+      "status": 200
+    }
+  ]
+}
+```
+
+</ResponseExample>

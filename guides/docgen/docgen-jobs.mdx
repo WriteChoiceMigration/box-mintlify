@@ -1,0 +1,248 @@
+---
+title: "Box Doc Gen jobs"
+rank: 5
+related_endpoints:
+  - get_docgen_jobs_v2025.0
+  - get_docgen_batch_jobs_id_v2025.0
+  - get_docgen_jobs_id_v2025.0
+related_guides:
+  - docgen/docgen-getting-started
+  - docgen/generate-document
+---
+A Box Doc Gen job runs when you make a request to generate a document.
+The `document_generation_data` parameter in the `POST` request is an array of entries that represent Box Doc Gen jobs run to generate a document.
+
+<CodeGroup>
+
+```sh cURL
+curl -L 'https://api.box.com/2.0/docgen_batches' \
+     -H 'box-version: 2025.0' \
+     -H 'Authorization: Bearer <ACCESS_TOKEN>' \
+     -D '{
+        "file": {
+            "id": "12345678",
+            "type": "file"
+        },
+        "input_source": "api",
+        "destination_folder": {
+            "id": "12345678",
+            "type": "folder"
+        },
+        "output_type": "docx",
+        "document_generation_data": [
+            {
+                "generated_file_name": "Image test",
+                "user_input": {
+                    "order": {
+                        "id": "12305",
+                        "date": "18-08-2023",
+                        "country": "US",
+                        "expiryDate": "18-08-2024",
+                        "currency": "$",
+                        "amount": 5060.5,
+                        "taxRate": 10,
+                        "requester": "John",
+                        "approver": "Smith",
+                        "department": "Procurement",
+                        "paymentTerms": "30 days",
+                        "deliveryTerms": "30 days",
+                        "deliveryDate": "18-09-2023",
+                        "vendor": {
+                            "company": "Example company",
+                            "address": {
+                                "street": "Example street",
+                                "city": "Example city",
+                                "zip": "EX-456"
+                            }
+                        },
+                        "products": [
+                            {
+                                "id": 1,
+                                "name": "A4 Papers",
+                                "type": "non-fragile",
+                                "quantity": 100,
+                                "price": 29,
+                                "amount": 2900
+                            },
+                            {
+                                "id": 2,
+                                "name": "Ink  Cartridge",
+                                "type": "non-fragile",
+                                "quantity": 40,
+                                "price": 39,
+                                "amount": 1560
+                            },
+                            {
+                                "id": 3,
+                                "name": "Adhesive tape",
+                                "type": "non-fragile",
+                                "quantity": 20,
+                                "price": 30,
+                                "amount": 600.5
+                            }
+                        ]
+                    }
+                }
+            }
+        ]`
+```
+
+```typescript Node/TypeScript v10
+await client.docgen.createDocgenBatchV2025R0({
+  file: new FileReferenceV2025R0({ id: uploadedFile.id }),
+  inputSource: 'api',
+  destinationFolder: new DocGenBatchCreateRequestV2025R0DestinationFolderField({
+    id: folder.id,
+  }),
+  outputType: 'pdf',
+  documentGenerationData: [
+    {
+      generatedFileName: 'test',
+      userInput: { ['abc']: 'xyz' },
+    } satisfies DocGenDocumentGenerationDataV2025R0,
+  ],
+} satisfies DocGenBatchCreateRequestV2025R0);
+```
+
+```python Python v10
+client.docgen.create_docgen_batch_v2025_r0(
+    FileReferenceV2025R0(id=uploaded_file.id),
+    "api",
+    CreateDocgenBatchV2025R0DestinationFolder(id=folder.id),
+    "pdf",
+    [
+        DocGenDocumentGenerationDataV2025R0(
+            generated_file_name="test", user_input={"abc": "xyz"}
+        )
+    ],
+)
+```
+
+```cs .NET v10
+await client.Docgen.CreateDocgenBatchV2025R0Async(requestBody: new DocGenBatchCreateRequestV2025R0(file: new FileReferenceV2025R0(id: uploadedFile.Id), inputSource: "api", destinationFolder: new DocGenBatchCreateRequestV2025R0DestinationFolderField(id: folder.Id), outputType: "pdf", documentGenerationData: Array.AsReadOnly(new [] {new DocGenDocumentGenerationDataV2025R0(generatedFileName: "test", userInput: new Dictionary<string, object>() { { "abc", "xyz" } })})));
+```
+
+```swift Swift v10
+try await client.docgen.createDocgenBatchV2025R0(requestBody: DocGenBatchCreateRequestV2025R0(file: FileReferenceV2025R0(id: uploadedFile.id), inputSource: "api", destinationFolder: DocGenBatchCreateRequestV2025R0DestinationFolderField(id: folder.id), outputType: "pdf", documentGenerationData: [DocGenDocumentGenerationDataV2025R0(generatedFileName: "test", userInput: ["abc": "xyz"])]))
+```
+
+```java Java v10
+client.getDocgen().createDocgenBatchV2025R0(new DocGenBatchCreateRequestV2025R0(new FileReferenceV2025R0(uploadedFile.getId()), "api", new DocGenBatchCreateRequestV2025R0DestinationFolderField(folder.getId()), "pdf", Arrays.asList(new DocGenDocumentGenerationDataV2025R0("test", mapOf(entryOf("abc", "xyz"))))))
+```
+
+</CodeGroup>
+
+Box Doc Gen API allows you to get information about the Box Doc Gen jobs.
+
+## Prerequisites
+
+Before you start using Box Doc Gen API, follow the steps listed in the [get started with Box Doc Gen][docgen-prerequisites] guide to create a platform app and a Box Doc Gen template.
+
+## List all Box Doc Gen jobs
+
+To get a list of all Box Doc Gen jobs that were run,
+use the `GET /2.0/docgen_jobs` endpoint. You don't have to provide any additional parameters.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/docgen_jobs" \
+     -H 'box-version: 2025.0' \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.docgen.getDocgenJobsV2025R0({
+  limit: 10000,
+} satisfies GetDocgenJobsV2025R0QueryParams);
+```
+
+```python Python v10
+client.docgen.get_docgen_jobs_v2025_r0(limit=10000)
+```
+
+```cs .NET v10
+await client.Docgen.GetDocgenJobsV2025R0Async(queryParams: new GetDocgenJobsV2025R0QueryParams() { Limit = 10000 });
+```
+
+```swift Swift v10
+try await client.docgen.getDocgenJobsV2025R0(queryParams: GetDocgenJobsV2025R0QueryParams(limit: Int64(10000)))
+```
+
+```java Java v10
+client.getDocgen().getDocgenJobsV2025R0(new GetDocgenJobsV2025R0QueryParams.Builder().limit(10000L).build())
+```
+
+</CodeGroup>
+
+## Get a Box Doc Gen job by ID
+
+To get a specific Box Doc Gen job,
+use the `GET /2.0/docgen_jobs_id` endpoint and provide the `job_id`.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/docgen_jobs/12345" \
+     -H 'box-version: 2025.0' \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.docgen.getDocgenJobByIdV2025R0(docgenJobItemFromList.id);
+```
+
+```python Python v10
+client.docgen.get_docgen_job_by_id_v2025_r0(docgen_job_item_from_list.id)
+```
+
+```cs .NET v10
+await client.Docgen.GetDocgenJobByIdV2025R0Async(jobId: docgenJobItemFromList.Id);
+```
+
+```swift Swift v10
+try await client.docgen.getDocgenJobByIdV2025R0(jobId: docgenJobItemFromList.id)
+```
+
+```java Java v10
+client.getDocgen().getDocgenJobByIdV2025R0(docgenJobItemFromList.getId())
+```
+
+</CodeGroup>
+
+## Get Box Doc Gen jobs in batch with a specific ID
+
+A single request can generate several documents. In such a case, a separate generation job is run for each document and all these jobs are included in one "batch" meaning a request.
+To get all jobs performed within one request, use the `GET /2.0/docgen_batch_jobs_id` endpoint and provide the `batch_id`.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/docgen_jobs/12345" \
+     -H 'box-version: 2025.0' \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.docgen.getDocgenJobByIdV2025R0(docgenJobItemFromList.id);
+```
+
+```python Python v10
+client.docgen.get_docgen_job_by_id_v2025_r0(docgen_job_item_from_list.id)
+```
+
+```cs .NET v10
+await client.Docgen.GetDocgenJobByIdV2025R0Async(jobId: docgenJobItemFromList.Id);
+```
+
+```swift Swift v10
+try await client.docgen.getDocgenJobByIdV2025R0(jobId: docgenJobItemFromList.id)
+```
+
+```java Java v10
+client.getDocgen().getDocgenJobByIdV2025R0(docgenJobItemFromList.getId())
+```
+
+</CodeGroup>
+
+[docgen-prerequisites]: /guides/docgen/docgen-getting-started

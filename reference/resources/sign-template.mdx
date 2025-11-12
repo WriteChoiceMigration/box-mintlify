@@ -1,0 +1,567 @@
+---
+title: "Box Sign template"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A Box Sign template object.
+
+<ParamField body="id" type="string">
+example: `4206996024-14944f75-c34b-478a-95a1-264b1ff80d35`
+
+Template identifier.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `sign-template`
+
+The value will always be `sign-template`.
+
+Value is always `sign-template`
+</ParamField>
+
+<ParamField body="additional_info" type="object">
+Additional information on which fields are
+required and which fields are not editable.
+
+<Expandable>
+  <ParamField body="non_editable" type="stringarray">
+  example: `["email_subject","name"]`
+  
+  Non editable fields.
+  </ParamField>
+
+  <ParamField body="required" type="object">
+  Required fields.
+  
+  <Expandable>
+    <ParamField body="signers" type="arrayarray">
+    example: `[["email"],["email"]]`
+    
+    Required signer fields.
+    
+    <Expandable>
+      <ParamField body="[]" type="stringarray">
+      example: `["email"]`
+      
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="are_email_settings_locked" type="boolean">
+example: `true`
+
+Indicates if the template email settings are editable or not.
+</ParamField>
+
+<ParamField body="are_fields_locked" type="boolean">
+example: `false`
+
+Indicates if the template input
+fields are editable or not.
+</ParamField>
+
+<ParamField body="are_files_locked" type="boolean">
+example: `true`
+
+Indicates if the template files are editable or not.
+This includes deleting or renaming template files.
+</ParamField>
+
+<ParamField body="are_options_locked" type="boolean">
+example: `true`
+
+Indicates if the template document options
+are editable or not,
+for example renaming the document.
+</ParamField>
+
+<ParamField body="are_recipients_locked" type="boolean">
+example: `false`
+
+Indicates if the template signers are editable or not.
+</ParamField>
+
+<ParamField body="custom_branding" type="object">
+Custom branding applied to notifications
+and signature requests.
+
+<Expandable>
+  <ParamField body="branding_color" type="string">
+  example: `9E5E6F`
+  
+  Custom branding color in hex.
+  </ParamField>
+
+  <ParamField body="company_name" type="string">
+  example: `Corporation inc.`
+  
+  Name of the company.
+  </ParamField>
+
+  <ParamField body="email_footer_text" type="string">
+  example: `Contact email email@mail.com`
+  
+  Content of the email footer.
+  </ParamField>
+
+  <ParamField body="logo_uri" type="string">
+  example: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
+  AAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A
+  8AAQUBAScY42YAAAAASUVORK5CYII=`
+  
+  Custom branding logo URI in the form of a base64 image.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="days_valid" type="integer">
+example: `2`
+
+Set the number of days after which the
+created signature request will automatically
+expire if not completed. By default, we do
+not apply any expiration date on signature
+requests, and the signature request does not expire.
+</ParamField>
+
+<ParamField body="email_message" type="string">
+example: `Hello! Please sign the document below`
+
+Message to include in signature request email. The field
+is cleaned through sanitization of specific characters. However,
+some html tags are allowed. Links included in the
+message are also converted to hyperlinks in the email. The
+message may contain the following html tags including `a`, `abbr`,
+`acronym`, `b`, `blockquote`, `code`, `em`, `i`, `ul`, `li`, `ol`, and
+`strong`. Be aware that when the text
+to html ratio is too high, the email
+may end up in spam filters. Custom styles on
+these tags are not allowed.
+If this field is not passed, a default message will be used.
+</ParamField>
+
+<ParamField body="email_subject" type="string">
+example: `Sign Request from Acme`
+
+Subject of signature request email. This is cleaned by sign
+request. If this field is not passed, a default subject will be used.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Official contract`
+
+The name of the template.
+</ParamField>
+
+<ParamField body="parent_folder" type="Folder (Mini)object">
+The destination folder to place final, signed document and signing
+log. Only `ID` and `type` fields are required. The root folder,
+folder ID `0`, cannot be used.
+</ParamField>
+
+<ParamField body="ready_sign_link" type="object">
+Box's ready-sign link feature enables you to create a
+link to a signature request that
+you've created from a template. Use this link
+when you want to post a signature request
+on a public form — such as an email, social media post,
+or web page — without knowing who the signers will be.
+Note: The ready-sign link feature is
+limited to Enterprise Plus customers and not
+available to Box Verified Enterprises.
+
+<Expandable>
+  <ParamField body="folder_id" type="string">
+  example: `12345`
+  
+  The destination folder to place final,
+  signed document and signing
+  log. Only `ID` and `type` fields are required.
+  The root folder,
+  folder ID `0`, cannot be used.
+  </ParamField>
+
+  <ParamField body="instructions" type="string">
+  example: `Hello! Please sign the document below`
+  
+  Extra instructions for all signers.
+  </ParamField>
+
+  <ParamField body="is_active" type="boolean">
+  example: `false`
+  
+  Whether the ready sign link is enabled or not.
+  </ParamField>
+
+  <ParamField body="is_notification_disabled" type="boolean">
+  example: `true`
+  
+  Whether to disable notifications when
+  a signer has signed.
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  example: `Official contract`
+  
+  Request name.
+  </ParamField>
+
+  <ParamField body="url" type="string">
+  example: `"https://app.box.com/sign/
+  ready-sign-link/a1cdf2c7-fa81-4a67-8163-1e5f4dbe5178"`
+  
+  The URL that can be sent to signers.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="signers" type="objectarray">
+Array of signers for the template.
+
+**Note**: It may happen that some signers specified in the template belong to conflicting [segments](/reference/resources/shield-information-barrier-segment-member/) (user groups).
+This means that due to the security policies, users are assigned to segments to prevent exchanges or communication that could lead to ethical conflicts.
+In such a case, an attempt to send a sign request based on a template that lists signers in conflicting segments will result in an error.
+
+Read more about [segments and ethical walls](https://support.box.com/hc/en-us/articles/9920431507603-Understanding-Information-Barriers#h_01GFVJEHQA06N7XEZ4GCZ9GFAQ).
+
+<Expandable>
+  <ParamField body="email" type="string">
+  example: `example@mail.com`
+  
+  Email address of the signer.
+  </ParamField>
+
+  <ParamField body="inputs" type="objectarray">
+  
+  <Expandable>
+    <ParamField body="type" type="string">
+    example: `text`
+    
+    Type of input.
+    
+    Value is one of `signature`,`date`,`text`,`checkbox`,`attachment`,`radio`,`dropdown`
+    </ParamField>
+  
+    <ParamField body="checkbox_value" type="boolean">
+    example: `true`
+    
+    Checkbox prefill value.
+    </ParamField>
+  
+    <ParamField body="content_type" type="string">
+    example: `text`
+    
+    Content type of input.
+    
+    Value is one of `signature`,`initial`,`stamp`,`date`,`checkbox`,`text`,`full_name`,`first_name`,`last_name`,`company`,`title`,`email`,`attachment`,`radio`,`dropdown`
+    </ParamField>
+  
+    <ParamField body="coordinates" type="object">
+    Where the input is located on a page.
+    
+    <Expandable>
+      <ParamField body="x" type="number">
+      example: `0.672258592471358`
+      
+      Relative x coordinate to the page the input is on, ranging from 0 to 1.
+      </ParamField>
+    
+      <ParamField body="y" type="number">
+      example: `0.18654283173599448`
+      
+      Relative y coordinate to the page the input is on, ranging from 0 to 1.
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="date_value" type="string(date)">
+    example: `2021-04-26`
+    
+    Date prefill value.
+    </ParamField>
+  
+    <ParamField body="dimensions" type="object">
+    The size of the input.
+    
+    <Expandable>
+      <ParamField body="height" type="number">
+      example: `0.05311728090109673`
+      
+      Relative height to the page the input is on, ranging from 0 to 1.
+      </ParamField>
+    
+      <ParamField body="width" type="number">
+      example: `0.2618657937806874`
+      
+      Relative width to the page the input is on, ranging from 0 to 1.
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="document_id" type="string">
+    example: `123075213-eb54b537-8b25-445e-87c1-5a1c67d8cbd7`
+    
+    Document identifier.
+    </ParamField>
+  
+    <ParamField body="document_tag_id" type="string">
+    example: `1234`
+    
+    This references the ID of a specific tag contained in a file of the signature request.
+    </ParamField>
+  
+    <ParamField body="dropdown_choices" type="stringarray">
+    example: `["Yes","No","Maybe"]`
+    
+    When the input is of the type `dropdown` this
+    values will be filled with all the
+    dropdown options.
+    </ParamField>
+  
+    <ParamField body="group_id" type="string">
+    example: `da317330-225a-4c72-89ad-0d6dcaaf4df6`
+    
+    When the input is of type `radio` they can be
+    grouped to gather with this identifier.
+    </ParamField>
+  
+    <ParamField body="is_required" type="boolean">
+    example: `true`
+    
+    Whether or not the input is required.
+    </ParamField>
+  
+    <ParamField body="label" type="string">
+    example: `Legal name`
+    
+    The label field is used especially for text, attachment, radio, and checkbox type inputs.
+    </ParamField>
+  
+    <ParamField body="page_index" type="integer">
+    example: `4`
+    
+    Index of page that the input is on.
+    </ParamField>
+  
+    <ParamField body="read_only" type="boolean">
+    example: `true`
+    
+    Whether this input was defined as read-only(immutable by signers) or not.
+    </ParamField>
+  
+    <ParamField body="text_value" type="string">
+    example: `text`
+    
+    Text prefill value.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="is_in_person" type="boolean">
+  example: `true`
+  
+  Used in combination with an embed URL for a sender.
+  After the sender signs, they will be
+  redirected to the next `in_person` signer.
+  </ParamField>
+
+  <ParamField body="is_password_required" type="boolean">
+  example: `true`
+  
+  If true for signers with a defined email, the password provided when the template was created is used by default.
+  If true for signers without a specified / defined email, the creator needs to provide a password when using the template.
+  </ParamField>
+
+  <ParamField body="is_phone_number_required" type="boolean">
+  example: `true`
+  
+  If true for signers with a defined email, the phone number provided when the template was created is used by default.
+  If true for signers without a specified / defined email, the template creator needs to provide a phone number when creating a request.
+  </ParamField>
+
+  <ParamField body="label" type="string">
+  example: `Jane Doe`
+  
+  A placeholder label for the signer set by the template creator to differentiate between signers.
+  </ParamField>
+
+  <ParamField body="login_required" type="boolean">
+  example: `true`
+  
+  If true, the signer is required to login to access the document.
+  </ParamField>
+
+  <ParamField body="order" type="integer">
+  example: `2`
+  
+  Order of the signer.
+  </ParamField>
+
+  <ParamField body="public_id" type="string">
+  example: `RJZYYVPR`
+  
+  An identifier for the signer. This can be used to identify a signer within the template.
+  </ParamField>
+
+  <ParamField body="role" type="string">
+  example: `signer`
+  
+  Defines the role of the signer in the signature request. A role of
+  `signer` needs to sign the document, a role `approver`
+  approves the document and
+  a `final_copy_reader` role only
+  receives the final signed document and signing log.
+  
+  Value is one of `signer`,`approver`,`final_copy_reader`
+  </ParamField>
+
+  <ParamField body="signer_group_id" type="string">
+  example: `cd4ff89-8fc1-42cf-8b29-1890dedd26d7`
+  
+  If provided, this value points signers that are assigned the same inputs and belongs to same signer group.
+  A signer group is not a Box Group. It is an entity that belongs to the template itself and can only be used
+  within Box Sign requests created from it.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="source_files" type="File (Mini)array">
+List of files to create a signing document from.
+Only the ID and type fields are required
+for each file.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "4206996024-14944f75-c34b-478a-95a1-264b1ff80d35",
+  "type": "sign-template",
+  "additional_info": {
+    "non_editable": [
+      "email_subject",
+      "name"
+    ],
+    "required": {
+      "signers": [
+        [
+          "email"
+        ],
+        [
+          "email"
+        ]
+      ]
+    }
+  },
+  "are_email_settings_locked": true,
+  "are_fields_locked": false,
+  "are_files_locked": true,
+  "are_options_locked": true,
+  "are_recipients_locked": false,
+  "custom_branding": {
+    "branding_color": "9E5E6F",
+    "company_name": "Corporation inc.",
+    "email_footer_text": "Contact email email@mail.com",
+    "logo_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA\nAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A\n8AAQUBAScY42YAAAAASUVORK5CYII="
+  },
+  "days_valid": 2,
+  "email_message": "Hello! Please sign the document below",
+  "email_subject": "Sign Request from Acme",
+  "name": "Official contract",
+  "parent_folder": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "ready_sign_link": {
+    "folder_id": "12345",
+    "instructions": "Hello! Please sign the document below",
+    "is_active": false,
+    "is_notification_disabled": true,
+    "name": "Official contract",
+    "url": "\"https://app.box.com/sign/\nready-sign-link/a1cdf2c7-fa81-4a67-8163-1e5f4dbe5178\""
+  },
+  "signers": [
+    {
+      "email": "example@mail.com",
+      "inputs": [
+        {
+          "checkbox_value": true,
+          "date_value": "2021-04-26",
+          "document_tag_id": "1234",
+          "text_value": "text",
+          "content_type": "text",
+          "coordinates": {
+            "x": 0.672258592471358,
+            "y": 0.18654283173599448
+          },
+          "dimensions": {
+            "height": 0.05311728090109673,
+            "width": 0.2618657937806874
+          },
+          "document_id": "123075213-eb54b537-8b25-445e-87c1-5a1c67d8cbd7",
+          "dropdown_choices": [
+            "Yes",
+            "No",
+            "Maybe"
+          ],
+          "group_id": "da317330-225a-4c72-89ad-0d6dcaaf4df6",
+          "is_required": true,
+          "label": "Legal name",
+          "page_index": 4,
+          "read_only": true,
+          "type": "text"
+        }
+      ],
+      "is_in_person": true,
+      "is_password_required": true,
+      "is_phone_number_required": true,
+      "label": "Jane Doe",
+      "login_required": true,
+      "order": 2,
+      "public_id": "RJZYYVPR",
+      "role": "signer",
+      "signer_group_id": "cd4ff89-8fc1-42cf-8b29-1890dedd26d7"
+    }
+  ],
+  "source_files": [
+    {
+      "etag": "1",
+      "id": "12345",
+      "type": "file",
+      "file_version": {
+        "id": "12345",
+        "type": "file_version",
+        "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+      },
+      "name": "Contract.pdf",
+      "sequence_id": "3",
+      "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+    }
+  ]
+}
+```
+
+</ResponseExample>

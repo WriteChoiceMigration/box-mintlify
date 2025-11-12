@@ -1,0 +1,52 @@
+---
+title: "Terms of service user statuses"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of terms of service user statuses.
+
+<ParamField body="entries" type="Terms of service user statusarray">
+A list of terms of service user statuses.
+</ParamField>
+
+<ParamField body="total_count" type="integer(int64)">
+example: `2`
+
+The total number of objects.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "created_at": "2012-12-12T10:53:43-08:00",
+      "id": "11446498",
+      "is_accepted": true,
+      "modified_at": "2012-12-12T10:53:43-08:00",
+      "tos": {
+        "id": "11446498",
+        "type": "terms_of_service"
+      },
+      "type": "terms_of_service_user_status",
+      "user": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      }
+    }
+  ],
+  "total_count": 2
+}
+```
+
+</ResponseExample>

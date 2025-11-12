@@ -1,0 +1,31 @@
+---
+title: "Session termination message"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A message informing about the
+termination job status.
+
+<ParamField body="message" type="string">
+example: `Request is successful, please check the admin
+events for the status of the job`
+
+The unique identifier for the termination job status.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "message": "Request is successful, please check the admin\nevents for the status of the job"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,51 @@
+---
+title: "Box Hub (Base)"
+---
+
+API version 2025.0
+
+The bare basic representation of a Box Hub.
+
+* [Standard](/reference/v2025.0/resources/hub/)
+* [Base](/reference/v2025.0/resources/hub--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **base** variant represent
+the default fields that are always returned when using the `fields`
+query parameter, additional to the fields specified in the
+parameter.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a Box Hub.
+
+The ID for any Box Hub can be determined
+by visiting a Box Hub in the web application
+and copying the ID from the URL. For example,
+for the URL `https://*.app.box.com/hubs/123`
+the `hub_id` is `123`.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `hubs`
+
+The value will always be `hubs`.
+
+Value is always `hubs`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "hubs"
+}
+```
+
+</ResponseExample>

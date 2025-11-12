@@ -1,0 +1,178 @@
+---
+title: "Metadata template"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A template for metadata that can be applied to files and folders.
+
+<ParamField body="id" type="string">
+example: `58063d82-4128-7b43-bba9-92f706befcdf`
+
+The ID of the metadata template.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `metadata_template`
+
+The value will always be `metadata_template`.
+
+Value is always `metadata_template`
+</ParamField>
+
+<ParamField body="copyInstanceOnItemCopy" type="boolean">
+example: `true`
+
+Whether or not to include the metadata when a file or folder is copied.
+</ParamField>
+
+<ParamField body="displayName" type="string">
+example: `Product Info`
+
+The display name of the template. This can be seen in the Box web app
+and mobile apps.
+</ParamField>
+
+<ParamField body="fields" type="objectarray">
+An ordered list of template fields which are part of the template. Each
+field can be a regular text field, date field, number field, as well as a
+single or multi-select list.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `822227e0-47a5-921b-88a8-494760b2e6d2`
+  
+  The unique ID of the metadata template field.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `string`
+  
+  The type of field. The basic fields are a `string` field for text, a
+  `float` field for numbers, and a `date` fields to present the user with a
+  date-time picker.
+  
+  Additionally, metadata templates support an `enum` field for a basic list
+  of items, and  `multiSelect` field for a similar list of items where the
+  user can select more than one value.
+  
+  **Note**: The `integer` value is deprecated.
+  It is still present in the response,
+  but cannot be used in the POST request.
+  
+  Value is one of `string`,`float`,`date`,`enum`,`multiSelect`,`integer`
+  </ParamField>
+
+  <ParamField body="description" type="string">
+  example: `The category`
+  
+  A description of the field. This is not shown to the user.
+  </ParamField>
+
+  <ParamField body="displayName" type="string">
+  example: `Category`
+  
+  The display name of the field as it is shown to the user in the web and
+  mobile apps.
+  </ParamField>
+
+  <ParamField body="hidden" type="boolean">
+  example: `true`
+  
+  Whether this field is hidden in the UI for the user and can only be set
+  through the API instead.
+  </ParamField>
+
+  <ParamField body="key" type="string">
+  example: `category`
+  
+  A unique identifier for the field. The identifier must
+  be unique within the template to which it belongs.
+  </ParamField>
+
+  <ParamField body="options" type="objectarray">
+  A list of options for this field. This is used in combination
+  with the `enum` and `multiSelect` field types.
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    example: `45dc2849-a4a7-40a9-a751-4a699a589190`
+    
+    The internal unique identifier of the option.
+    </ParamField>
+  
+    <ParamField body="key" type="string">
+    example: `Category 1`
+    
+    The text value of the option. This represents both the display name of the
+    option and the internal key used when updating templates.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="hidden" type="boolean">
+example: `true`
+
+Defines if this template is visible in the Box web app UI, or if
+it is purely intended for usage through the API.
+</ParamField>
+
+<ParamField body="scope" type="string">
+example: `enterprise_123456`
+
+The scope of the metadata template can either be `global` or
+`enterprise_*`. The `global` scope is used for templates that are
+available to any Box enterprise. The `enterprise_*` scope represents
+templates that have been created within a specific enterprise, where `*`
+will be the ID of that enterprise.
+</ParamField>
+
+<ParamField body="templateKey" type="string">
+example: `^[a-zA-Z_][-a-zA-Z0-9_]*$`
+
+A unique identifier for the template. This identifier is unique across
+the `scope` of the enterprise to which the metadata template is being
+applied, yet is not necessarily unique across different enterprises.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "58063d82-4128-7b43-bba9-92f706befcdf",
+  "type": "metadata_template",
+  "copyInstanceOnItemCopy": true,
+  "displayName": "Product Info",
+  "fields": [
+    {
+      "description": "The category",
+      "displayName": "Category",
+      "hidden": true,
+      "key": "category",
+      "options": [
+        {
+          "key": "Category 1",
+          "id": "45dc2849-a4a7-40a9-a751-4a699a589190"
+        }
+      ],
+      "type": "string",
+      "id": "822227e0-47a5-921b-88a8-494760b2e6d2"
+    }
+  ],
+  "hidden": true,
+  "scope": "enterprise_123456",
+  "templateKey": "productInfo"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,203 @@
+---
+title: "Get a metadata template"
+related_endpoints:
+  - get_metadata_templates_id_id_schema
+  - get_metadata_templates_id
+related_guides:
+  - metadata/scopes
+  - metadata/templates/list
+  - metadata/templates/create
+related_resources:
+  - metadata_templates
+---
+Information for a metadata template can be retrieved using the template's name
+and scope, or the template's identifier.
+
+<Info>
+
+  The authenticated user can only get Information about metadata templates
+  [scoped][scopes] within the `global` scope or the `enterprise_:id` scope where
+  `:id` is  the ID of their enterprise.
+
+</Info>
+
+## Get a metadata template by name
+
+To get a metadata template by name, call the [`GET
+/metadata_templates/:scope/:templateKey/schema`][e_by_name] API endpoint with the
+template's `scope` and `templateKey`.
+
+<CodeGroup>
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/metadata_templates/enterprise/blueprintTemplate/schema" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.metadataTemplates.getMetadataTemplate(
+  'enterprise' as GetMetadataTemplateScope,
+  template.templateKey!,
+);
+```
+
+```python Python v10
+client.metadata_templates.get_metadata_template(
+    GetMetadataTemplateScope.ENTERPRISE, template.template_key
+)
+```
+
+```csharp .NET v10
+await client.MetadataTemplates.GetMetadataTemplateAsync(scope: GetMetadataTemplateScope.Enterprise, templateKey: NullableUtils.Unwrap(template.TemplateKey));
+```
+
+```swift Swift v10
+try await client.metadataTemplates.getMetadataTemplate(scope: GetMetadataTemplateScope.enterprise, templateKey: template.templateKey!)
+```
+
+```java Java v10
+client.getMetadataTemplates().getMetadataTemplate(GetMetadataTemplateScope.ENTERPRISE, template.getTemplateKey())
+```
+
+```java Java v5
+MetadataTemplate template = MetadataTemplate.getMetadataTemplate(api, "templateName");
+```
+
+```py Python v4
+template = client.metadata_template('enterprise', 'employeeRecord').get()
+print(f'The {template.displayName} template has {len(template.fields)} fields')
+```
+
+```csharp .NET v6
+BoxMetadataTemplate template = await client.MetadataManager
+    .GetMetadataTemplate("enterprise", "marketingCollateral");
+```
+
+```js Node v4
+client.metadata.getTemplateSchema('enterprise', 'vcontract')
+ .then(template => {
+  /* template -> {
+   id: '17f2d715-6acb-45f2-b96a-28b15efc9faa',
+   templateKey: 'vcontract',
+   scope: 'enterprise_12345',
+   displayName: 'Vendor Contract',
+   hidden: true,
+   fields: 
+   [ { type: 'date',
+    key: 'signed',
+    displayName: 'Date Signed',
+    hidden: false },
+    { type: 'string',
+    key: 'vendor',
+    displayName: 'Vendor',
+    hidden: false },
+    { type: 'enum',
+    key: 'fy',
+    displayName: 'Fiscal Year',
+    options: 
+     [ { key: 'FY17' },
+     { key: 'FY18' },
+     { key: 'FY19' } ],
+    hidden: false } ] }
+  */
+ });
+```
+</CodeGroup>
+
+<Info>
+
+  To get the `scope` and `templateKey` for a template, either
+  [list all metadata templates][g_list_templates], or
+  [list all instances on an item][g_list_instances_item].
+
+</Info>
+
+## Get a metadata template by ID
+
+To get a metadata template by ID, you will need to pass the template's
+`id` to the [`GET
+/metadata_templates/:id`][e_by_id] API endpoint.
+
+<CodeGroup>
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/metadata_templates/d9671692-3df6-11ea-b77f-2e728ce88125" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.metadataTemplates.getMetadataTemplateById(template.id);
+```
+
+```python Python v10
+client.metadata_templates.get_metadata_template_by_id(template.id)
+```
+
+```csharp .NET v10
+await client.MetadataTemplates.GetMetadataTemplateByIdAsync(templateId: template.Id);
+```
+
+```swift Swift v10
+try await client.metadataTemplates.getMetadataTemplateById(templateId: template.id)
+```
+
+```java Java v10
+client.getMetadataTemplates().getMetadataTemplateById(template.getId())
+```
+
+```java Java v5
+MetadataTemplate template = MetadataTemplate.getMetadataTemplateByID(api, "37c0204b-3fe1-4a32-b9da-f28e88f4c4c6");
+```
+
+```py Python v4
+template = client.metadata_template_by_id(template_id='abcdef-fba434-ace44').get()
+print(f'The {template.displayName} template has {len(template.fields)} fields')
+```
+
+```csharp .NET v6
+BoxMetadataTemplate template = await client.MetadataManager
+    .GetMetadataTemplateById("17f2d715-6acb-45f2-b96a-28b15efc9faa");
+```
+
+```js Node v4
+client.metadata.getTemplateByID('17f2d715-6acb-45f2-b96a-28b15efc9faa')
+ .then(template => {
+  /* template -> {
+   id: '17f2d715-6acb-45f2-b96a-28b15efc9faa',
+   templateKey: 'vcontract',
+   scope: 'enterprise_12345',
+   displayName: 'Vendor Contract',
+   hidden: true,
+   fields: 
+   [ { type: 'date',
+    key: 'signed',
+    displayName: 'Date Signed',
+    hidden: false },
+    { type: 'string',
+    key: 'vendor',
+    displayName: 'Vendor',
+    hidden: false },
+    { type: 'enum',
+    key: 'fy',
+    displayName: 'Fiscal Year',
+    options: 
+     [ { key: 'FY17' },
+     { key: 'FY18' },
+     { key: 'FY19' } ],
+    hidden: false } ] }
+  */
+ });
+```
+</CodeGroup>
+
+<Info>
+
+  To get the `id` for a template, either
+  [list all metadata templates][g_list_templates], or
+  [list all instances on an item][g_list_instances_item].
+  
+</Info>
+
+[e_by_name]: /reference/get_metadata_templates_id_id_schema
+[e_by_id]: /reference/get_metadata_templates_id
+[scopes]: /guides/metadata/scopes
+[g_list_templates]: /guides/metadata/templates/list
+[g_list_instances_item]: /guides/metadata/instances/list

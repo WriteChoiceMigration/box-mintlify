@@ -1,0 +1,84 @@
+---
+title: "分類"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ファイルまたはフォルダに適用される分類を含む、分類メタデータテンプレートのインスタンス。
+
+項目に適用される分類に関する詳細を取得するには、分類メタデータテンプレートをリクエストしてください。
+
+<ParamField body="$canEdit" type="boolean">
+例 `true`
+
+エンドユーザーが分類を変更できるかどうか。
+</ParamField>
+
+<ParamField body="$parent" type="string">
+例 `folder_59449484661,`
+
+このメタデータインスタンスが追加されている項目の識別子。これは、親の`type`と`id`を`{type}_{id}`という形式で組み合わせたものです。
+</ParamField>
+
+<ParamField body="$scope" type="string">
+例 `enterprise_27335`
+
+この分類が適用されている会社のスコープ。
+
+これは`enterprise_{enterprise_id}`形式になります。
+</ParamField>
+
+<ParamField body="$template" type="string">
+例 `securityClassification-6VMVochwUWo`
+
+値は常に`securityClassification-6VMVochwUWo`になります。
+
+次の値に固定: `securityClassification-6VMVochwUWo`
+</ParamField>
+
+<ParamField body="$type" type="string">
+例 `securityClassification-6VMVochwUWo-fd31537a-0f95-4d86-9f2b-5974a29978f8`
+
+この分類インスタンスの一意のID。これには、分類テンプレートの名前と一意のIDが含まれます。
+</ParamField>
+
+<ParamField body="$typeVersion" type="number">
+例 `5`
+
+メタデータテンプレートのバージョン。このバージョンは0から始まり、テンプレートが更新されるたびに増加します。これはほとんどの場合、内部で使用されます。
+</ParamField>
+
+<ParamField body="$version" type="integer">
+例 `1`
+
+メタデータインスタンスのバージョン。このバージョンは0から始まり、分類が更新されるたびに増加します。
+</ParamField>
+
+<ParamField body="Box__Security__Classification__Key" type="string">
+例 `Sensitive`
+
+項目に適用される分類の名前。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "$canEdit": true,
+  "$parent": "folder_59449484661,",
+  "$scope": "enterprise_27335",
+  "$template": "securityClassification-6VMVochwUWo",
+  "$type": "securityClassification-6VMVochwUWo-fd31537a-0f95-4d86-9f2b-5974a29978f8",
+  "$typeVersion": 5,
+  "$version": 1,
+  "Box__Security__Classification__Key": "Sensitive"
+}
+```
+
+</ResponseExample>

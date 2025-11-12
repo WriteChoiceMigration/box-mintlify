@@ -1,0 +1,39 @@
+---
+title: "Box Hub Item"
+---
+
+API version 2025.0
+
+A Box Hub Item is a Box Item that is referenced in a Box Hub.
+
+<ParamField body="id" type="string">
+example: `12345678`
+
+The unique identifier for this item.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `file`
+
+The type of the item.
+
+Value is one of `file`,`folder`,`web_link`
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `My File`
+
+The name of the item.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345678",
+  "type": "file",
+  "name": "My File"
+}
+```
+
+</ResponseExample>

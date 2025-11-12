@@ -1,0 +1,58 @@
+---
+title: "App item association"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+An app item association represents an association between a file or
+folder and an app item. Associations between a folder and an app item
+cascade down to all descendants of the folder.
+
+<ParamField body="id" type="string">
+example: `12345678`
+
+The unique identifier for this app item association.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `app_item_association`
+
+The value will always be `app_item_association`.
+
+Value is always `app_item_association`
+</ParamField>
+
+<ParamField body="app_item" type="App itemobject">
+The app item which is associated with the file or folder.
+</ParamField>
+
+<ParamField body="item" type="File (Base)/Folder (Base)/Web link (Base)object">
+The file, folder or web link which is associated with the app item.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345678",
+  "type": "app_item_association",
+  "app_item": {
+    "id": "12345678",
+    "type": "app_item",
+    "application_type": "hubs"
+  },
+  "item": {
+    "id": "12345",
+    "type": "file",
+    "etag": "1"
+  }
+}
+```
+
+</ResponseExample>

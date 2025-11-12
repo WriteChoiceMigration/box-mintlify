@@ -1,0 +1,39 @@
+---
+title: "Bulk delete external users"
+rank: 7
+related_endpoints:
+  - post_external_users_submit_delete_job
+related_guides:
+  - users/delete-user
+  - users/deprovision
+related_pages: []
+required_guides: []
+related_resources: []
+alias_paths: []
+---
+You can remove up to 100 external users from your enterprise using API. 
+This API endpoint removes access to all types of content you invited the
+listed external users to collaborate on.
+
+To remove the external users, call the
+[`POST /external_users/post_external_users_submit_delete_job`]. 
+
+<CodeGroup>
+```sh cURL
+curl -X -L POST "https://api.box.com/2.0/external_users/external_users_submit_delete_job" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -d '{
+      "external_users":
+        "type": "array"
+        "description": "List of external users to delete."
+        "items":
+          "$ref: #/components/schemas/UserReference"
+      }'
+```
+</CodeGroup>
+
+This job runs in the background, and sends a completion report listing deletion status for each user when it's finished.
+
+<Note>
+When you delete external users, their pending collaboration invites are not deleted. 
+</Note>

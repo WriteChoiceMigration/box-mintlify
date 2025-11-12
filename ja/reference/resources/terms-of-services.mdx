@@ -1,0 +1,49 @@
+---
+title: "サービス利用規約"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+サービス利用規約のリスト。
+
+<ParamField body="entries" type="サービス利用規約array">
+サービス利用規約オブジェクトのリスト。
+</ParamField>
+
+<ParamField body="total_count" type="integer(int64)">
+例 `2`
+
+オブジェクトの合計数。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "id": "11446498",
+      "type": "terms_of_service",
+      "created_at": "2012-12-12T10:53:43-08:00",
+      "enterprise": {
+        "id": "11446498",
+        "name": "Acme Inc.",
+        "type": "enterprise"
+      },
+      "modified_at": "2012-12-12T10:53:43-08:00",
+      "status": "enabled",
+      "text": "By using this service, you agree to ...",
+      "tos_type": "managed"
+    }
+  ],
+  "total_count": 2
+}
+```
+
+</ResponseExample>

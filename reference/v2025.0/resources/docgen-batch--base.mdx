@@ -1,0 +1,44 @@
+---
+title: "Box Doc Gen batch (Base)"
+---
+
+API version 2025.0
+
+The basic representation of a Box Doc Gen batch object. A Box Doc Gen batch contains one or more Box Doc Gen jobs.
+
+* [Base](/reference/v2025.0/resources/docgen-batch--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **base** variant represent
+the default fields that are always returned when using the `fields`
+query parameter, additional to the fields specified in the
+parameter.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represents a Box Doc Gen batch.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `docgen_batch`
+
+The value will always be `docgen_batch`.
+
+Value is always `docgen_batch`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "docgen_batch"
+}
+```
+
+</ResponseExample>

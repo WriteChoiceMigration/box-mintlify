@@ -1,0 +1,43 @@
+---
+title: "メタデータエラー"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+一般的なメタデータ操作エラー。
+
+<ParamField body="code" type="string">
+例 `bad_request`
+
+Box固有のエラーコード。
+</ParamField>
+
+<ParamField body="message" type="string">
+例 `Encountered invalid value for template field key=someKey field type=properties`
+
+エラーについての短い説明メッセージ。
+</ParamField>
+
+<ParamField body="request_id" type="string">
+例 `abcdef123456`
+
+Boxサポートに連絡するときに使用できる、このレスポンスの一意の識別子。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "code": "bad_request",
+  "message": "Encountered invalid value for template field key=someKey field type=properties",
+  "request_id": "abcdef123456"
+}
+```
+
+</ResponseExample>

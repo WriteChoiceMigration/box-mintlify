@@ -1,0 +1,221 @@
+---
+title: "ごみ箱内のファイル (復元済み)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ごみ箱から復元されたファイルを表します。
+
+<ParamField body="id" type="string">
+例 `123456789`
+
+ファイルを表す一意の識別子。
+
+ファイルIDを確認するには、ウェブアプリケーションでファイルにアクセスして、URLからIDをコピーします。たとえば、URLが`https://*.app.box.com/files/123`の場合、`file_id`は`123`です。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `file`
+
+値は常に`file`になります。
+
+次の値に固定: `file`
+</ParamField>
+
+<ParamField body="content_created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルが最初に作成された日時。この日時はファイルがBoxにアップロードされた時点よりも前になる場合があります。
+</ParamField>
+
+<ParamField body="content_modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルが最後に更新された日時。この日時はファイルがBoxにアップロードされた時点よりも前になる場合があります。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+Box上でこのファイルが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+このファイルを作成したユーザー。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `Contract for Q1 renewal`
+
+このファイルの説明 (省略可)。
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このファイルのHTTP `etag`。これは変更が発生した場合 (またはしなかった場合) にファイルに対して変更を行う目的でのみ、`If-Match`および`If-None-Match`ヘッダー内の一部のAPIエンドポイントで使用できます。
+</ParamField>
+
+<ParamField body="file_version" type="ファイルバージョン (Mini)object">
+ファイルの現在のバージョンに関する情報。
+</ParamField>
+
+<ParamField body="item_status" type="string">
+例 `active`
+
+この項目が削除されたかどうかを定義します。
+
+* `active` - 項目がごみ箱に移動されていない場合。
+* `trashed` - 項目がごみ箱に移動されているが、まだ削除されていない場合。
+* `deleted` - 項目がすでに完全に削除されている場合。
+
+次の値のいずれか1つ: `active`,`trashed`,`deleted`
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+Boxでこのファイルが最後に更新された日時。
+</ParamField>
+
+<ParamField body="modified_by" type="ユーザー (Mini)object">
+このファイルを最後に変更したユーザー。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Contract.pdf`
+
+ファイルの名前。
+</ParamField>
+
+<ParamField body="owned_by" type="ユーザー (Mini)object">
+このファイルを所有するユーザー。
+</ParamField>
+
+<ParamField body="parent" type="フォルダ (Mini)object">
+このファイルが配置されているフォルダ。
+</ParamField>
+
+<ParamField body="path_collection" type="object">
+ルートフォルダを起点にした、このファイルを含むフォルダツリー。
+
+<Expandable>
+  <ParamField body="entries" type="フォルダ (Mini)array">
+  この項目の親フォルダ。
+  </ParamField>
+
+  <ParamField body="total_count" type="integer(int64)">
+  例 `1`
+  
+  このリスト内のフォルダの数。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="purged_at" type="string">
+このファイルがごみ箱から削除される予定日時。復元後は`null`になります。
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+例 `3`
+
+この項目に適用された最新のUser Eventを表す数値の識別子。
+
+これを`GET /events`エンドポイントと組み合わせて使用すると、この識別子が読み取られる前に発生した可能性があるUser Eventを除外できます。
+
+たとえば、Box DriveなどのアプリケーションがAPIを介して項目を取得し、その項目の変更に関連するUser Eventの発生を監視する場合などがこれに該当します。User Eventの`sequence_id`が最初に取得されたリソースの`sequence_id`よりも小さいか同じである場合、アプリケーションはそのようなUser Eventをすべて無視します。
+</ParamField>
+
+<ParamField body="sha1" type="string(digest)">
+例 `85136C79CBF9FE36BB9D05D0639C70C265C18D37`
+
+ファイルのSHA1ハッシュ。Box上のファイルとローカルファイルの内容を比較する目的に使用できます。
+</ParamField>
+
+<ParamField body="shared_link" type="string">
+このファイルの共有リンク。ファイルがごみ箱に移動された場合、元の共有リンクが再度アクティブになっても、これは`null`になります。
+</ParamField>
+
+<ParamField body="size" type="integer">
+例 `629644`
+
+ファイルサイズ (バイト単位)。この整数を解析する際には、非常に大きな数値となって整数オーバーフローになる可能性があるため、注意が必要です。
+</ParamField>
+
+<ParamField body="trashed_at" type="string">
+このファイルがごみ箱に移動された日時。復元後は`null`になります。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "123456789",
+  "type": "file",
+  "content_created_at": "2012-12-12T10:53:43-08:00",
+  "content_modified_at": "2012-12-12T10:53:43-08:00",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Contract for Q1 renewal",
+  "etag": "1",
+  "file_version": {
+    "id": "12345",
+    "type": "file_version",
+    "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+  },
+  "item_status": "active",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "name": "Contract.pdf",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "path_collection": {
+    "entries": [
+      {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      }
+    ],
+    "total_count": 1
+  },
+  "purged_at": "null",
+  "sequence_id": "3",
+  "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37",
+  "shared_link": "null",
+  "size": 629644,
+  "trashed_at": "null"
+}
+```
+
+</ResponseExample>

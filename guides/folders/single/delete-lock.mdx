@@ -1,0 +1,59 @@
+---
+title: "Delete Folder Lock"
+rank: 10
+related_endpoints:
+  - delete_folder_locks_id
+related_guides:
+  - folders/single/create-lock
+  - folders/single/get-locks
+alias_paths: []
+related_resources:
+  - folder_locks
+---
+To remove a lock applied to a folder in Box, call the
+`DELETE /folder_locks/:id` API with the id of the folder lock.
+
+<Note>
+  **Folder Locks**
+
+  When using any folder lock API endpoints, you must be authenticated as the
+  owner/co-owner of the folder you are trying to access.
+</Note>
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X DELETE "https://api.box.com/2.0/folder_locks/93134" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.folderLocks.deleteFolderLockById(folderLock.id!);
+```
+
+```python Python v10
+client.folder_locks.delete_folder_lock_by_id(folder_lock.id)
+```
+
+```cs .NET v10
+await client.FolderLocks.DeleteFolderLockByIdAsync(folderLockId: NullableUtils.Unwrap(folderLock.Id));
+```
+
+```swift Swift v10
+try await client.folderLocks.deleteFolderLockById(folderLockId: folderLock.id!)
+```
+
+```java Java v10
+client.getFolderLocks().deleteFolderLockById(folderLock.getId())
+```
+
+</CodeGroup>
+
+<Note>
+  **Locating the folder Lock ID**
+
+  To delete a folder lock you must supply the folder lock ID to the API. A
+  folder lock ID is supplied in the response when
+  [creating a folder lock](/guides/folders/single/create-lock), or
+  when [listing locks](/guides/folders/single/get-locks) on a given folder.
+</Note>

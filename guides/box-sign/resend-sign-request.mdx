@@ -1,0 +1,57 @@
+---
+title: "Resend Box Sign Request"
+rank: 2
+related_endpoints:
+  - post-sign-requests-id-resend
+related_guides:
+  - box-sign/create-sign-request
+  - box-sign/cancel-sign-request
+  - box-sign/sign-templates
+---
+The [resend a Box sign request endpoint][resend] can be used to resend request
+emails to any remaining signers.
+
+A Box Sign request cannot be resent if the [status][status] is: `signed`,
+`cancelled`, `declined`, `expired`, `error_sending`, or `error_converting`.
+
+If a Box Sign request was recently sent, you will need to wait 10 minutes before
+resending. If you try before this time has passed you will receive a 400 error.
+
+<Tip>
+Reminder emails can be enabled when creating a Box Sign request to avoid the
+need to resend the request.
+</Tip>
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/sign_requests/<SIGN_REQUEST_ID>/resend" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```java Java v5
+BoxSignRequest signRequest = new BoxSignRequest(api, id);
+BoxSignRequest.Info signRequestInfo = signRequest.getInfo();
+
+signRequestInfo.resend();
+```
+
+```python Python v4
+sign_request = client.sign_request(sign_request_id='12345')
+sign_request.resend()
+```
+
+```cs .NET v6
+await client.SignRequestsManager.ResendSignRequestAsync("12345");
+```
+
+```javascript Node v4
+const id = 12345;
+await client.signRequests.resendById({ sign_request_id: id });
+console.log(`Sign request id ${sr.id} resent`);
+```
+
+</CodeGroup>
+
+[resend]: /reference/post-sign-requests-id-resend
+[status]: /guides/box-sign/create-sign-request/#request-status

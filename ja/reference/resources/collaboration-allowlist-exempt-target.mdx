@@ -1,0 +1,94 @@
+---
+title: "許可されたコラボレーションドメインからユーザーを除外"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+この会社に許可されたコラボレーションドメインのリストによって課せられた制限から除外されるユーザー。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+この除外の一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `collaboration_whitelist_exempt_target`
+
+値は常に`collaboration_whitelist_exempt_target`になります。
+
+次の値に固定: `collaboration_whitelist_exempt_target`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+エントリが作成された日時。
+</ParamField>
+
+<ParamField body="enterprise" type="object">
+このエントリが属する企業。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `11446498`
+  
+  この会社の一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `enterprise`
+  
+  値は常に`enterprise`になります。
+  
+  次の値に固定: `enterprise`
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  例 `Acme Inc.`
+  
+  企業の名前。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+エントリが変更された日時。
+</ParamField>
+
+<ParamField body="user" type="ユーザー (Mini)object">
+除外されているユーザー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "collaboration_whitelist_exempt_target",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "enterprise": {
+    "id": "11446498",
+    "type": "enterprise",
+    "name": "Acme Inc."
+  },
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "user": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  }
+}
+```
+
+</ResponseExample>

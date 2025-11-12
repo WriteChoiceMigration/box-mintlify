@@ -1,0 +1,95 @@
+---
+title: "Allowed collaboration domains user exemption"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The user that is exempt from any of the restrictions
+imposed by the list of allowed collaboration domains for this enterprise.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this exemption.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `collaboration_whitelist_exempt_target`
+
+The value will always be `collaboration_whitelist_exempt_target`.
+
+Value is always `collaboration_whitelist_exempt_target`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The time the entry was created.
+</ParamField>
+
+<ParamField body="enterprise" type="object">
+The enterprise this entry belongs to.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `11446498`
+  
+  The unique identifier for this enterprise.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `enterprise`
+  
+  The value will always be `enterprise`.
+  
+  Value is always `enterprise`
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  example: `Acme Inc.`
+  
+  The name of the enterprise.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The time the entry was modified.
+</ParamField>
+
+<ParamField body="user" type="User (Mini)object">
+The user that has been exempt.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "collaboration_whitelist_exempt_target",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "enterprise": {
+    "id": "11446498",
+    "type": "enterprise",
+    "name": "Acme Inc."
+  },
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "user": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  }
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,112 @@
+---
+title: "タスク割り当て"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+タスク割り当てでは、完了するためにどのタスクをどのユーザーに割り当てるかを定義します。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このタスク割り当ての一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `task_assignment`
+
+値は常に`task_assignment`になります。
+
+次の値に固定: `task_assignment`
+</ParamField>
+
+<ParamField body="assigned_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このタスクがユーザーに割り当てられた日。
+</ParamField>
+
+<ParamField body="assigned_by" type="ユーザー (Mini)object">
+このタスクを割り当てたユーザー。
+</ParamField>
+
+<ParamField body="assigned_to" type="ユーザー (Mini)object">
+タスクが割り当てられているユーザー。
+</ParamField>
+
+<ParamField body="completed_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このタスク割り当てが完了した日。タスクがまだ完了していない場合は`null`になります。
+</ParamField>
+
+<ParamField body="item" type="ファイル (Mini)object">
+タスクが割り当てられているファイル。
+</ParamField>
+
+<ParamField body="message" type="string">
+例 `Please review`
+
+タスク割り当てに含められるメッセージ。これは、ウェブおよびモバイルUIで、タスクが割り当てられたユーザーに表示されます。
+</ParamField>
+
+<ParamField body="reminded_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+タスクが割り当てられたユーザーに、このタスク割り当てがリマインドされた日。
+</ParamField>
+
+<ParamField body="resolution_state" type="string">
+例 `incomplete`
+
+割り当ての現在の状態。使用可能な状態は、タスクオブジェクトの`action`値によって異なります。
+
+次の値のいずれか1つ: `completed`,`incomplete`,`approved`,`rejected`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "task_assignment",
+  "assigned_at": "2012-12-12T10:53:43-08:00",
+  "assigned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "assigned_to": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "completed_at": "2012-12-12T10:53:43-08:00",
+  "item": {
+    "id": "12345",
+    "type": "file",
+    "etag": "1",
+    "file_version": {
+      "id": "12345",
+      "type": "file_version",
+      "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+    },
+    "name": "Contract.pdf",
+    "sequence_id": "3",
+    "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+  },
+  "message": "Please review",
+  "reminded_at": "2012-12-12T10:53:43-08:00",
+  "resolution_state": "incomplete"
+}
+```
+
+</ResponseExample>

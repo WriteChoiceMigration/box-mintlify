@@ -1,0 +1,582 @@
+---
+title: "AI agent capability ask"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The AI agent to be used to ask questions.
+
+<ParamField body="type" type="string">
+example: `ai_agent_ask`
+
+The type of AI agent used to ask questions.
+
+Value is always `ai_agent_ask`
+</ParamField>
+
+<ParamField body="access_state" type="string">
+example: `enabled`
+
+The state of the AI Agent capability. Possible values are: `enabled` and `disabled`.
+</ParamField>
+
+<ParamField body="basic_image" type="object">
+AI agent processor used to handle basic text.
+
+<Expandable>
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  example: `false`
+  
+  True if system message contains custom instructions placeholder, false otherwise.
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLM endpoint params AWS/AI LLM endpoint params Google/AI LLM endpoint params IBM/AI LLM endpoint params OpenAIobject">
+  The parameters for the LLM endpoint specific to a model.
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  example: `azure__openai__gpt_4o_mini`
+  
+  The model used for the AI agent for basic text. For specific model values, see the [available models list](/guides/box-ai/supported-models/).
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  example: `8400`
+  
+  The number of tokens for completion.
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  example: `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  The prompt template contains contextual information of the request and the user prompt.
+  When passing `prompt_template` parameters, you **must include** inputs for `{user_question}` and `{content}`.
+  `{current_date}` is optional, depending on the use.
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  example: `You are a helpful travel assistant specialized in budget travel`
+  
+  System messages try to help the LLM "understand" its role and what it is supposed to do.
+  </ParamField>
+
+  <ParamField body="warnings" type="stringarray">
+  example: `["MODEL_INACTIVE"]`
+  
+  Warnings concerning tool.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="basic_image_multi" type="object">
+AI agent processor used to handle basic text.
+
+<Expandable>
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  example: `false`
+  
+  True if system message contains custom instructions placeholder, false otherwise.
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLM endpoint params AWS/AI LLM endpoint params Google/AI LLM endpoint params IBM/AI LLM endpoint params OpenAIobject">
+  The parameters for the LLM endpoint specific to a model.
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  example: `azure__openai__gpt_4o_mini`
+  
+  The model used for the AI agent for basic text. For specific model values, see the [available models list](/guides/box-ai/supported-models/).
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  example: `8400`
+  
+  The number of tokens for completion.
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  example: `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  The prompt template contains contextual information of the request and the user prompt.
+  When passing `prompt_template` parameters, you **must include** inputs for `{user_question}` and `{content}`.
+  `{current_date}` is optional, depending on the use.
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  example: `You are a helpful travel assistant specialized in budget travel`
+  
+  System messages try to help the LLM "understand" its role and what it is supposed to do.
+  </ParamField>
+
+  <ParamField body="warnings" type="stringarray">
+  example: `["MODEL_INACTIVE"]`
+  
+  Warnings concerning tool.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="basic_text" type="object">
+AI agent processor used to handle basic text.
+
+<Expandable>
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  example: `false`
+  
+  True if system message contains custom instructions placeholder, false otherwise.
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLM endpoint params AWS/AI LLM endpoint params Google/AI LLM endpoint params IBM/AI LLM endpoint params OpenAIobject">
+  The parameters for the LLM endpoint specific to a model.
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  example: `azure__openai__gpt_4o_mini`
+  
+  The model used for the AI agent for basic text. For specific model values, see the [available models list](/guides/box-ai/supported-models/).
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  example: `8400`
+  
+  The number of tokens for completion.
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  example: `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  The prompt template contains contextual information of the request and the user prompt.
+  When passing `prompt_template` parameters, you **must include** inputs for `{user_question}` and `{content}`.
+  `{current_date}` is optional, depending on the use.
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  example: `You are a helpful travel assistant specialized in budget travel`
+  
+  System messages try to help the LLM "understand" its role and what it is supposed to do.
+  </ParamField>
+
+  <ParamField body="warnings" type="stringarray">
+  example: `["MODEL_INACTIVE"]`
+  
+  Warnings concerning tool.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="basic_text_multi" type="object">
+AI agent processor used to handle basic text.
+
+<Expandable>
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  example: `false`
+  
+  True if system message contains custom instructions placeholder, false otherwise.
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLM endpoint params AWS/AI LLM endpoint params Google/AI LLM endpoint params IBM/AI LLM endpoint params OpenAIobject">
+  The parameters for the LLM endpoint specific to a model.
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  example: `azure__openai__gpt_4o_mini`
+  
+  The model used for the AI agent for basic text. For specific model values, see the [available models list](/guides/box-ai/supported-models/).
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  example: `8400`
+  
+  The number of tokens for completion.
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  example: `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  The prompt template contains contextual information of the request and the user prompt.
+  When passing `prompt_template` parameters, you **must include** inputs for `{user_question}` and `{content}`.
+  `{current_date}` is optional, depending on the use.
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  example: `You are a helpful travel assistant specialized in budget travel`
+  
+  System messages try to help the LLM "understand" its role and what it is supposed to do.
+  </ParamField>
+
+  <ParamField body="warnings" type="stringarray">
+  example: `["MODEL_INACTIVE"]`
+  
+  Warnings concerning tool.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="custom_instructions" type="string">
+example: `This is a custom instruction`
+
+Custom instructions for the AI agent.
+</ParamField>
+
+<ParamField body="description" type="string">
+example: `This is ASK Agent`
+
+The description of the AI agent.
+</ParamField>
+
+<ParamField body="long_text" type="object">
+AI agent processor used to to handle longer text.
+
+<Expandable>
+  <ParamField body="embeddings" type="object">
+  
+  <Expandable>
+    <ParamField body="model" type="string">
+    example: `azure__openai__text_embedding_ada_002`
+    
+    The model used for the AI agent for calculating embeddings.
+    </ParamField>
+  
+    <ParamField body="strategy" type="object">
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      example: `basic`
+      
+      The strategy used for the AI agent for calculating embeddings.
+      </ParamField>
+    
+      <ParamField body="num_tokens_per_chunk" type="integer">
+      example: `64`
+      
+      The number of tokens per chunk.
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  example: `false`
+  
+  True if system message contains custom instructions placeholder, false otherwise.
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLM endpoint params AWS/AI LLM endpoint params Google/AI LLM endpoint params IBM/AI LLM endpoint params OpenAIobject">
+  The parameters for the LLM endpoint specific to a model.
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  example: `azure__openai__gpt_4o_mini`
+  
+  The model used for the AI agent for basic text. For specific model values, see the [available models list](/guides/box-ai/supported-models/).
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  example: `8400`
+  
+  The number of tokens for completion.
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  example: `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  The prompt template contains contextual information of the request and the user prompt.
+  When passing `prompt_template` parameters, you **must include** inputs for `{user_question}` and `{content}`.
+  `{current_date}` is optional, depending on the use.
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  example: `You are a helpful travel assistant specialized in budget travel`
+  
+  System messages try to help the LLM "understand" its role and what it is supposed to do.
+  </ParamField>
+
+  <ParamField body="warnings" type="stringarray">
+  example: `["MODEL_INACTIVE"]`
+  
+  Warnings concerning tool.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="long_text_multi" type="object">
+AI agent processor used to to handle longer text.
+
+<Expandable>
+  <ParamField body="embeddings" type="object">
+  
+  <Expandable>
+    <ParamField body="model" type="string">
+    example: `azure__openai__text_embedding_ada_002`
+    
+    The model used for the AI agent for calculating embeddings.
+    </ParamField>
+  
+    <ParamField body="strategy" type="object">
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      example: `basic`
+      
+      The strategy used for the AI agent for calculating embeddings.
+      </ParamField>
+    
+      <ParamField body="num_tokens_per_chunk" type="integer">
+      example: `64`
+      
+      The number of tokens per chunk.
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="is_custom_instructions_included" type="boolean">
+  example: `false`
+  
+  True if system message contains custom instructions placeholder, false otherwise.
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLM endpoint params AWS/AI LLM endpoint params Google/AI LLM endpoint params IBM/AI LLM endpoint params OpenAIobject">
+  The parameters for the LLM endpoint specific to a model.
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  example: `azure__openai__gpt_4o_mini`
+  
+  The model used for the AI agent for basic text. For specific model values, see the [available models list](/guides/box-ai/supported-models/).
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  example: `8400`
+  
+  The number of tokens for completion.
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  example: `(\{user_question\}[\s\S]*?\{content\}|\{content\}[\s\S]*?\{user_question\})`
+  
+  The prompt template contains contextual information of the request and the user prompt.
+  When passing `prompt_template` parameters, you **must include** inputs for `{user_question}` and `{content}`.
+  `{current_date}` is optional, depending on the use.
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  example: `You are a helpful travel assistant specialized in budget travel`
+  
+  System messages try to help the LLM "understand" its role and what it is supposed to do.
+  </ParamField>
+
+  <ParamField body="warnings" type="stringarray">
+  example: `["MODEL_INACTIVE"]`
+  
+  Warnings concerning tool.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="spreadsheet" type="object">
+The AI agent tool used to handle spreadsheets and tabular data.
+
+<Expandable>
+  <ParamField body="llm_endpoint_params" type="AI LLM endpoint params AWS/AI LLM endpoint params Google/AI LLM endpoint params IBM/AI LLM endpoint params OpenAIobject">
+  The parameters for the LLM endpoint specific to a model.
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  example: `azure__openai__gpt_4o_mini`
+  
+  The model used for the AI agent for spreadsheets. For specific model values, see the [available models list](/guides/box-ai/supported-models/).
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  example: `8400`
+  
+  The number of tokens for completion.
+  </ParamField>
+
+  <ParamField body="warnings" type="stringarray">
+  example: `["MODEL_INACTIVE"]`
+  
+  Warnings concerning tool.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="suggested_questions" type="stringarray">
+example: `["What is in this file?","What are the main highlights of this document?"]`
+
+Suggested questions for the AI agent. If null, suggested question will be generated. If empty, no suggested questions will be displayed.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "ai_agent_ask",
+  "access_state": "enabled",
+  "basic_image": {
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel",
+    "warnings": [
+      "MODEL_INACTIVE"
+    ]
+  },
+  "basic_image_multi": {
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel",
+    "warnings": [
+      "MODEL_INACTIVE"
+    ]
+  },
+  "basic_text": {
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel",
+    "warnings": [
+      "MODEL_INACTIVE"
+    ]
+  },
+  "basic_text_multi": {
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel",
+    "warnings": [
+      "MODEL_INACTIVE"
+    ]
+  },
+  "custom_instructions": "This is a custom instruction",
+  "description": "This is ASK Agent",
+  "long_text": {
+    "embeddings": {
+      "model": "azure__openai__text_embedding_ada_002",
+      "strategy": {
+        "id": "basic",
+        "num_tokens_per_chunk": 64
+      }
+    },
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel",
+    "warnings": [
+      "MODEL_INACTIVE"
+    ]
+  },
+  "long_text_multi": {
+    "embeddings": {
+      "model": "azure__openai__text_embedding_ada_002",
+      "strategy": {
+        "id": "basic",
+        "num_tokens_per_chunk": 64
+      }
+    },
+    "is_custom_instructions_included": false,
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, consider these travel options `{content}` and answer the `{user_question}`.",
+    "system_message": "You are a helpful travel assistant specialized in budget travel",
+    "warnings": [
+      "MODEL_INACTIVE"
+    ]
+  },
+  "spreadsheet": {
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "warnings": [
+      "MODEL_INACTIVE"
+    ]
+  },
+  "suggested_questions": [
+    "What is in this file?",
+    "What are the main highlights of this document?"
+  ]
+}
+```
+
+</ResponseExample>

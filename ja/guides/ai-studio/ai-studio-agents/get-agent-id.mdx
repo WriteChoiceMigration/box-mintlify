@@ -1,0 +1,69 @@
+---
+title: "IDを指定してAIエージェントを取得"
+rank: 3
+related_guides:
+  - authentication/tokens/developer-tokens/
+  - box-ai/ai-tutorials/ask-questions
+  - box-ai/ai-tutorials/default-agent-overrides
+  - box-ai/ai-tutorials/generate-text
+  - box-ai/ai-tutorials/extract-metadata-structured
+  - box-ai/ai-tutorials/extract-metadata
+category_id: ai-studio
+subcategory_id: ai-studio/ai-studio-agents
+is_index: false
+id: ai-studio/ai-studio-agents/get-agent-id
+type: guide
+total_steps: 5
+sibling_id: ai-studio/ai-studio-agents
+parent_id: ai-studio/ai-studio-agents
+next_page_id: ai-studio/ai-studio-agents/update-agents
+previous_page_id: ai-studio/ai-studio-agents/get-agents
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/ai-studio/ai-studio-agents/get-agent-id.md
+fullyTranslated: true
+---
+`GET /2.0/ai_agents/{id}`エンドポイントを使用すると、`agent_id`パラメータを使用して特定のAIエージェントのリストを取得できます。
+
+## リクエストの送信
+
+リクエストを送信するには、`GET /2.0/ai_agents/{id}`エンドポイントを使用します。
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/ai_agents/1234567890" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.aiStudio.getAiAgentById(createdAgent.id, {
+  queryParams: { fields: ['ask'] } satisfies GetAiAgentByIdQueryParams,
+} satisfies GetAiAgentByIdOptionalsInput);
+```
+
+```python Python v10
+client.ai_studio.get_ai_agent_by_id(created_agent.id, fields=["ask"])
+```
+
+```cs .NET v10
+await client.AiStudio.GetAiAgentByIdAsync(agentId: createdAgent.Id, queryParams: new GetAiAgentByIdQueryParams() { Fields = Array.AsReadOnly(new [] {"ask"}) });
+```
+
+```swift Swift v10
+try await client.aiStudio.getAiAgentById(agentId: createdAgent.id, queryParams: GetAiAgentByIdQueryParams(fields: ["ask"]))
+```
+
+```java Java v10
+client.getAiStudio().getAiAgentById(createdAgent.getId(), new GetAiAgentByIdQueryParams.Builder().fields(Arrays.asList("ask")).build())
+```
+
+</CodeGroup>
+
+### パラメータ
+
+コールを実行するには、以下のパラメータを渡す必要があります。必須のパラメータは**太字**で示されています。
+
+| パラメータ          | 説明               | 例      |
+| -------------- | ---------------- | ------ |
+| **`agent_id`** | 取得するエージェントID。    | `1234` |
+| `fields`       | レスポンスで返されるフィールド。 | `ask`  |

@@ -1,0 +1,45 @@
+---
+title: "External Users Submit Delete Job Response"
+---
+
+API version 2025.0
+
+Multi-status response containing the result for each external user deletion request.
+
+<ParamField body="entries" type="objectarray">
+Array of results of each external user deletion request.
+
+<Expandable>
+  <ParamField body="detail" type="string">
+  Deletion request status details. This property is only present when the deletion request is not successful.
+  </ParamField>
+
+  <ParamField body="status" type="integer">
+  example: `202`
+  
+  HTTP status code for a specific user's deletion request.
+  </ParamField>
+
+  <ParamField body="user_id" type="string">
+  example: `12345`
+  
+  The ID of the external user.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "status": 202,
+      "user_id": "12345"
+    }
+  ]
+}
+```
+
+</ResponseExample>

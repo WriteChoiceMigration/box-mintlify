@@ -1,0 +1,129 @@
+---
+title: "AI agent for text generation requests"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The AI agent used for generating text.
+
+<ParamField body="type" type="string">
+example: `ai_agent_text_gen`
+
+The type of AI agent used for generating text.
+
+Value is always `ai_agent_text_gen`
+</ParamField>
+
+<ParamField body="basic_gen" type="object">
+AI agent basic tool used to generate text.
+
+<Expandable>
+  <ParamField body="content_template" type="string">
+  example: `---{content}---`
+  
+  How the content should be included in a request to the LLM.
+  Input for `{content}` is optional, depending on the use.
+  </ParamField>
+
+  <ParamField body="embeddings" type="object">
+  
+  <Expandable>
+    <ParamField body="model" type="string">
+    example: `azure__openai__text_embedding_ada_002`
+    
+    The model used for the AI agent for calculating embeddings.
+    </ParamField>
+  
+    <ParamField body="strategy" type="object">
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      example: `basic`
+      
+      The strategy used for the AI agent for calculating embeddings.
+      </ParamField>
+    
+      <ParamField body="num_tokens_per_chunk" type="integer">
+      example: `64`
+      
+      The number of tokens per chunk.
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="llm_endpoint_params" type="AI LLM endpoint params AWS/AI LLM endpoint params Google/AI LLM endpoint params IBM/AI LLM endpoint params OpenAIobject">
+  The parameters for the LLM endpoint specific to a model.
+  </ParamField>
+
+  <ParamField body="model" type="string">
+  example: `azure__openai__gpt_4o_mini`
+  
+  The model used for the AI agent for basic text. For specific model values, see the [available models list](/guides/box-ai/supported-models/).
+  </ParamField>
+
+  <ParamField body="num_tokens_for_completion" type="integer">
+  example: `8400`
+  
+  The number of tokens for completion.
+  </ParamField>
+
+  <ParamField body="prompt_template" type="string">
+  example: `\{user_question\}`
+  
+  The prompt template contains contextual information of the request and the user prompt.
+  
+  When using the `prompt_template` parameter, you **must include** input for `{user_question}`.
+  Inputs for `{current_date}` and `{content}` are optional, depending on the use.
+  </ParamField>
+
+  <ParamField body="system_message" type="string">
+  example: `You are a helpful travel assistant specialized in budget travel`
+  
+  System messages aim at helping the LLM understand its role and what it is supposed to do.
+  The input for `{current_date}` is optional, depending on the use.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "ai_agent_text_gen",
+  "basic_gen": {
+    "content_template": "---{content}---",
+    "embeddings": {
+      "model": "azure__openai__text_embedding_ada_002",
+      "strategy": {
+        "id": "basic",
+        "num_tokens_per_chunk": 64
+      }
+    },
+    "llm_endpoint_params": {
+      "type": "openai_params",
+      "frequency_penalty": 1.5,
+      "presence_penalty": 1.5,
+      "stop": "<|im_end|>",
+      "temperature": 0,
+      "top_p": 1
+    },
+    "model": "azure__openai__gpt_4o_mini",
+    "num_tokens_for_completion": 8400,
+    "prompt_template": "It is `{current_date}`, and I have $8000 and want to spend a week in the Azores. `{user_question}`",
+    "system_message": "You are a helpful travel assistant specialized in budget travel"
+  }
+}
+```
+
+</ResponseExample>

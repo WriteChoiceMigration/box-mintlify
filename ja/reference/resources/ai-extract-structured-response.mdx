@@ -1,0 +1,88 @@
+---
+title: "AIによる抽出 (構造化) のレスポンス"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+AIによる抽出 (構造化) のレスポンス。
+
+<ParamField body="ai_agent_info" type="object">
+リクエストで使用されるモデルおよびプロセッサに関する情報。
+
+<Expandable>
+  <ParamField body="models" type="objectarray">
+  リクエストに使用されるモデル。
+  
+  <Expandable>
+    <ParamField body="name" type="string">
+    例 `azure__openai__text_embedding_ada_002`
+    
+    リクエストに使用されるモデルの名前。
+    </ParamField>
+  
+    <ParamField body="provider" type="string">
+    例 `azure`
+    
+    リクエストに使用されるモデルを所有するプロバイダ。
+    </ParamField>
+  
+    <ParamField body="supported_purpose" type="string">
+    例 `embedding`
+    
+    リクエストに使用されるモデルで利用されるサポートされている目的。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="processor" type="string">
+  例 `basic_text`
+  
+  リクエストに使用されるプロセッサ。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="answer" type="AIによる抽出のレスポンスobject">
+AIによる抽出のレスポンス。このレスポンスのコンテンツは、リクエストされた構成に応じて異なる場合があります。
+</ParamField>
+
+<ParamField body="completion_reason" type="string">
+例 `done`
+
+応答が終了した理由。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+プロンプトに対する回答が作成された時点のISO日付形式のタイムスタンプ。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "ai_agent_info": {
+    "models": [
+      {
+        "name": "azure__openai__text_embedding_ada_002",
+        "provider": "azure",
+        "supported_purpose": "embedding"
+      }
+    ],
+    "processor": "basic_text"
+  },
+  "completion_reason": "done",
+  "created_at": "2012-12-12T10:53:43-08:00"
+}
+```
+
+</ResponseExample>

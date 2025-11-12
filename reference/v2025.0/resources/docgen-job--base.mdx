@@ -1,0 +1,46 @@
+---
+title: "Box Doc Gen job (Base)"
+---
+
+API version 2025.0
+
+The basic representation of a Box Doc Gen job.
+
+* [Full](/reference/v2025.0/resources/docgen-job--full/)
+* [Standard](/reference/v2025.0/resources/docgen-job/)
+* [Base](/reference/v2025.0/resources/docgen-job--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **base** variant represent
+the default fields that are always returned when using the `fields`
+query parameter, additional to the fields specified in the
+parameter.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a Box Doc Gen job.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `docgen_job`
+
+The value will always be `docgen_job`.
+
+Value is always `docgen_job`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "docgen_job"
+}
+```
+
+</ResponseExample>

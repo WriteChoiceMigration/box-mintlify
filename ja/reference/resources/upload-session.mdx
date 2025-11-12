@@ -1,0 +1,121 @@
+---
+title: "アップロードセッション"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ファイルをアップロードするチャンクのアップロードセッション。
+
+<ParamField body="id" type="string">
+例 `F971964745A5CD0C001BBE4E58196BFD`
+
+このセッションの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `upload_session`
+
+値は常に`upload_session`になります。
+
+次の値に固定: `upload_session`
+</ParamField>
+
+<ParamField body="num_parts_processed" type="integer(int32)">
+例 `455`
+
+アップロードが完了し、サーバーで処理されたパーツの数。値は`0`から始まります。
+
+ファイルをコミットするときにこのプロパティを調べることで、すべてのパーツが正しくアップロードされているかどうかを確認できます。
+</ParamField>
+
+<ParamField body="part_size" type="integer(int64)">
+例 `1024`
+
+アップロードのすべての部分で使用する必要があるサイズ (バイト単位)。
+
+最後の部分のみ、これより小さいサイズを使用できます。
+</ParamField>
+
+<ParamField body="session_endpoints" type="object">
+このセッションに使用されるエンドポイントのリスト。
+
+<Expandable>
+  <ParamField body="abort" type="string">
+  例 `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD`
+  
+  セッションの中止に使用されるURL。
+  </ParamField>
+
+  <ParamField body="commit" type="string">
+  例 `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/commit`
+  
+  ファイルのコミットに使用されるURL。
+  </ParamField>
+
+  <ParamField body="list_parts" type="string">
+  例 `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/parts`
+  
+  すべてのパーツのリストを取得するためのURL。
+  </ParamField>
+
+  <ParamField body="log_event" type="string">
+  例 `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/log`
+  
+  アップロードログの取得に使用されるURL。
+  </ParamField>
+
+  <ParamField body="status" type="string">
+  例 `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD`
+  
+  アップロードステータスの取得に使用されるURL。
+  </ParamField>
+
+  <ParamField body="upload_part" type="string">
+  例 `https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD`
+  
+  パーツのアップロード先のURL。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="session_expires_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このセッションが期限切れになる日時。
+</ParamField>
+
+<ParamField body="total_parts" type="integer(int32)">
+例 `1000`
+
+ファイルのサイズとパーツのサイズで決定される、このアップロードセッションで予想されるパーツの総数。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "F971964745A5CD0C001BBE4E58196BFD",
+  "type": "upload_session",
+  "num_parts_processed": 455,
+  "part_size": 1024,
+  "session_endpoints": {
+    "abort": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD",
+    "commit": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/commit",
+    "list_parts": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/parts",
+    "log_event": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD/log",
+    "status": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD",
+    "upload_part": "https://{box-upload-server}/api/2.0/files/upload_sessions/F971964745A5CD0C001BBE4E58196BFD"
+  },
+  "session_expires_at": "2012-12-12T10:53:43-08:00",
+  "total_parts": 1000
+}
+```
+
+</ResponseExample>

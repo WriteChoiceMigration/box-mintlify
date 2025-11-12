@@ -1,0 +1,65 @@
+---
+title: "AppItem event source"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The AppItem that triggered an event in the event stream.
+
+<ParamField body="id" type="string">
+example: `6374669741`
+
+The id of the `AppItem`.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `app_item`
+
+The type of the source that this event represents. Can only be `app_item`.
+
+Value is always `app_item`
+</ParamField>
+
+<ParamField body="app_item_type" type="string">
+example: `hubs`
+
+The type of the `AppItem`.
+</ParamField>
+
+<ParamField body="group" type="Group (Mini)object">
+The group that triggered the event.
+</ParamField>
+
+<ParamField body="user" type="User (Mini)object">
+The user that triggered the event.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "6374669741",
+  "type": "app_item",
+  "app_item_type": "hubs",
+  "group": {
+    "id": "11446498",
+    "type": "group",
+    "group_type": "managed_group",
+    "name": "Support"
+  },
+  "user": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  }
+}
+```
+
+</ResponseExample>

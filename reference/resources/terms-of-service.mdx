@@ -1,0 +1,124 @@
+---
+title: "Terms of service"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The root-level record that is supposed to represent a
+single Terms of Service.
+
+* [Standard](/reference/resources/terms-of-service/)
+* [Base](/reference/resources/terms-of-service--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **standard** variant are generally
+returned when the resource is requested via its own API endpoints.
+For example, when retrieving a file by ID, it will return
+these fields unless the `fields` parameter has been specified.
+</Info>
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this terms of service.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `terms_of_service`
+
+The value will always be `terms_of_service`.
+
+Value is always `terms_of_service`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the legal item was created.
+</ParamField>
+
+<ParamField body="enterprise" type="object">
+The enterprise these terms apply to.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `11446498`
+  
+  The unique identifier for this enterprise.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `enterprise`
+  
+  The value will always be `enterprise`.
+  
+  Value is always `enterprise`
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  example: `Acme Inc.`
+  
+  The name of the enterprise.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the legal item was modified.
+</ParamField>
+
+<ParamField body="status" type="string">
+example: `enabled`
+
+Whether these terms are enabled or not.
+
+Value is one of `enabled`,`disabled`
+</ParamField>
+
+<ParamField body="text" type="string">
+example: `By using this service, you agree to ...`
+
+The text for your terms and conditions. This text could be
+empty if the `status` is set to `disabled`.
+</ParamField>
+
+<ParamField body="tos_type" type="string">
+example: `managed`
+
+Whether to apply these terms to managed users or external users.
+
+Value is one of `managed`,`external`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "terms_of_service",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "enterprise": {
+    "id": "11446498",
+    "type": "enterprise",
+    "name": "Acme Inc."
+  },
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "status": "enabled",
+  "text": "By using this service, you agree to ...",
+  "tos_type": "managed"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,261 @@
+---
+title: "Workflow"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+Box Relayワークフローは、名前が付けられたフローのコレクションを表すオブジェクトです。
+
+アプリケーションは、このリソースを使用するために、開発者コンソールでの`Manage Box Relay`アプリケーションスコープの使用が承認されている必要があります。
+
+* [Standard](/reference/resources/workflow/)
+* [Mini](/reference/resources/workflow--mini/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Standard**バリアントに含まれるフィールドは、固有のAPIエンドポイントを介してこのリソースがリクエストされたときに返されます。
+たとえば、`fields`パラメータが指定されていない場合、IDでファイルを取得すると、これらのフィールドが返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+ワークフローの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `workflow`
+
+値は常に`workflow`になります。
+
+次の値に固定: `workflow`
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `This workflow sets off a new hire approval flow`
+
+ワークフローの説明
+</ParamField>
+
+<ParamField body="flows" type="objectarray">
+ワークフローに割り当てられているフローのリスト。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `12345`
+  
+  フローのID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `flow`
+  
+  フローのリソースの種類。
+  
+  次の値に固定: `flow`
+  </ParamField>
+
+  <ParamField body="created_at" type="string(date-time)">
+  例 `2012-12-12T10:53:43-08:00`
+  
+  このフローが作成された日時。
+  </ParamField>
+
+  <ParamField body="created_by" type="ユーザー (Base)object">
+  このフローを作成したユーザー。
+  </ParamField>
+
+  <ParamField body="outcomes" type="objectarray">
+  フローがトリガーされたら完了する操作。
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    例 `12345`
+    
+    結果のID。
+    </ParamField>
+  
+    <ParamField body="type" type="string">
+    例 `outcome`
+    
+    結果のリソースの種類。
+    
+    次の値に固定: `outcome`
+    </ParamField>
+  
+    <ParamField body="action_type" type="string">
+    例 `assign_task`
+    
+    結果の種類。
+    
+    次の値のいずれか1つ: `add_metadata`,`assign_task`,`copy_file`,`copy_folder`,`create_folder`,`delete_file`,`delete_folder`,`lock_file`,`move_file`,`move_folder`,`remove_watermark_file`,`rename_folder`,`restore_folder`,`share_file`,`share_folder`,`unlock_file`,`upload_file`,`wait_for_task`,`watermark_file`,`go_back_to_step`,`apply_file_classification`,`apply_folder_classification`,`send_notification`
+    </ParamField>
+  
+    <ParamField body="if_rejected" type="objectarray">
+    `action_type`が`assign_task`の場合にタスクが拒否されると、完了すべき結果のリストが返されます。
+    
+    <Expandable>
+      <ParamField body="id" type="string">
+      例 `12345`
+      
+      結果のID。
+      </ParamField>
+    
+      <ParamField body="type" type="string">
+      例 `outcome`
+      
+      結果のリソースの種類。
+      
+      次の値に固定: `outcome`
+      </ParamField>
+    
+      <ParamField body="action_type" type="string">
+      例 `assign_task`
+      
+      結果の種類。
+      
+      次の値のいずれか1つ: `add_metadata`,`assign_task`,`copy_file`,`copy_folder`,`create_folder`,`delete_file`,`delete_folder`,`lock_file`,`move_file`,`move_folder`,`remove_watermark_file`,`rename_folder`,`restore_folder`,`share_file`,`share_folder`,`unlock_file`,`upload_file`,`wait_for_task`,`watermark_file`,`go_back_to_step`,`apply_file_classification`,`apply_folder_classification`,`send_notification`
+      </ParamField>
+    
+      <ParamField body="name" type="string">
+      例 `Approval Rejection Outcome`
+      
+      結果の名前。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="name" type="string">
+    例 `Task Approval Outcome`
+    
+    結果の名前。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="trigger" type="object">
+  フローを開始するトリガー。
+  
+  <Expandable>
+    <ParamField body="type" type="string">
+    例 `trigger`
+    
+    トリガーのリソースの種類。
+    
+    次の値に固定: `trigger`
+    </ParamField>
+  
+    <ParamField body="scope" type="objectarray">
+    トリガースコープのリスト。
+    
+    <Expandable>
+      <ParamField body="type" type="string">
+      例 `trigger_scope`
+      
+      トリガースコープのリソースの種類。
+      
+      次の値に固定: `trigger_scope`
+      </ParamField>
+    
+      <ParamField body="object" type="object">
+      `ref`が指すオブジェクト。
+      </ParamField>
+    
+      <ParamField body="ref" type="string">
+      例 `/event/source/parameters/folder`
+      
+      確認する条件値のパスを示します。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+    <ParamField body="trigger_type" type="string">
+    例 `WORKFLOW_MANUAL_START`
+    
+    このフローに選択されているトリガーのタイプ。
+    
+    次の値に固定: `WORKFLOW_MANUAL_START`
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="is_enabled" type="boolean">
+例 `true`
+
+このワークフローが有効かどうかを指定します。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `New Hire Workflow`
+
+ワークフローの名前。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "workflow",
+  "description": "This workflow sets off a new hire approval flow",
+  "flows": [
+    {
+      "created_at": "2012-12-12T10:53:43-08:00",
+      "created_by": {
+        "id": "11446498",
+        "type": "user"
+      },
+      "id": "12345",
+      "outcomes": [
+        {
+          "action_type": "assign_task",
+          "id": "12345",
+          "if_rejected": [
+            {
+              "action_type": "assign_task",
+              "id": "12345",
+              "name": "Approval Rejection Outcome",
+              "type": "outcome"
+            }
+          ],
+          "name": "Task Approval Outcome",
+          "type": "outcome"
+        }
+      ],
+      "trigger": {
+        "scope": [
+          {
+            "object": {
+              "id": "12345",
+              "type": "folder"
+            },
+            "ref": "/event/source/parameters/folder",
+            "type": "trigger_scope"
+          }
+        ],
+        "trigger_type": "WORKFLOW_MANUAL_START",
+        "type": "trigger"
+      },
+      "type": "flow"
+    }
+  ],
+  "is_enabled": true,
+  "name": "New Hire Workflow"
+}
+```
+
+</ResponseExample>

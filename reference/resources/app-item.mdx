@@ -1,0 +1,47 @@
+---
+title: "App item"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+An app item represents an content object owned by an application. It can
+group files and folders together from different paths. That set can be shared
+via a collaboration.
+
+<ParamField body="id" type="string">
+example: `12345678`
+
+The unique identifier for this app item.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `app_item`
+
+The value will always be `app_item`.
+
+Value is always `app_item`
+</ParamField>
+
+<ParamField body="application_type" type="string">
+example: `hubs`
+
+The type of the app that owns this app item.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345678",
+  "type": "app_item",
+  "application_type": "hubs"
+}
+```
+
+</ResponseExample>

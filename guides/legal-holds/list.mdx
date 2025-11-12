@@ -1,0 +1,88 @@
+---
+title: "List All Legal Hold Policies"
+rank: 1
+related_endpoints:
+  - get_legal_hold_policies
+related_guides:
+  - legal-holds/get
+related_resources:
+  - legal_hold_policies
+required_guides: []
+alias_paths: []
+---
+To list all Legal Hold Policies that have been created in an enterprise, call
+the [`GET /legal_hold_policies`][legal_holds] API endpoint.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/legal_hold_policies" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.legalHoldPolicies.getLegalHoldPolicies();
+```
+
+```python Python v10
+client.legal_hold_policies.get_legal_hold_policies()
+```
+
+```cs .NET v10
+await client.LegalHoldPolicies.GetLegalHoldPoliciesAsync();
+```
+
+```swift Swift v10
+try await client.legalHoldPolicies.getLegalHoldPolicies()
+```
+
+```java Java v10
+client.getLegalHoldPolicies().getLegalHoldPolicies()
+```
+
+```java Java v5
+Iterable<BoxLegalHoldPolicy.Info> policies = BoxLegalHoldPolicy.getAll(api);
+for (BoxLegalHoldPolicy.Info policyInfo : policies) {
+    // Do something with the legal hold policy.
+}
+```
+
+```python Python v4
+policies = client.get_legal_hold_policies()
+for policy in policies:
+    print(f'Legal Hold Policy "{policy.name}" has ID {policy.id}')
+```
+
+```cs .NET v6
+BoxCollectionMarkerBased<BoxLegalHoldPolicy> policies = await client.LegalHoldPoliciesManager
+    .GetListLegalHoldPoliciesAsync();
+```
+
+```javascript Node v4
+client.legalHoldPolicies.getAll({policy_name: 'Important'})
+	.then(policies => {
+		/* policies -> {
+			entries: 
+			[ { type: 'legal_hold_policy',
+				id: '11111',
+				policy_name: 'Important Policy 1' },
+				{ type: 'legal_hold_policy',
+				id: '22222',
+				policy_name: 'Important Policy 2' } ],
+			limit: 100,
+			order: [ { by: 'policy_name', direction: 'ASC' } ] }
+		*/
+	});
+```
+
+</CodeGroup>
+
+## Required Scopes
+
+{/* i18n-enable localize-links */}
+Before using any of the Legal Hold APIs, an application must have the right
+scopes enabled. See [Required Scopes][scopes] for more details.
+{/* i18n-disable localize-links */}
+
+[legal_holds]: /reference/get_legal_hold_policies
+[scopes]: /guides/legal-holds#required-scopes

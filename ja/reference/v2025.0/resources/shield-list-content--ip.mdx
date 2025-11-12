@@ -1,0 +1,35 @@
+---
+title: "Shieldリストのコンテンツ (IP)"
+---
+
+APIバージョン 2025.0
+
+IPアドレスのデータを含むShieldリストのコンテンツの表示。
+
+<ParamField body="type" type="string">
+例 `ip`
+
+Shieldリスト内のコンテンツのタイプ。
+
+次の値に固定: `ip`
+</ParamField>
+
+<ParamField body="ip_addresses" type="stringarray">
+例 `["127.0.0.1","80.12.12.12/24"]`
+
+IPアドレスとCIDRのリスト。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "ip",
+  "ip_addresses": [
+    "127.0.0.1",
+    "80.12.12.12/24"
+  ]
+}
+```
+
+</ResponseExample>

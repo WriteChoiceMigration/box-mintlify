@@ -1,0 +1,161 @@
+---
+title: "ファイルリクエスト"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+任意のファイルリクエストAPIエンドポイントからデフォルトで返されるファイルリクエストのStandard版の表示。
+
+<ParamField body="id" type="string">
+例 `42037322`
+
+このファイルリクエストの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `file_request`
+
+値は常に`file_request`になります。
+
+次の値に固定: `file_request`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2020-09-28T10:53:43-08:00`
+
+ファイルリクエストが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+このファイルリクエストを作成したユーザー。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `Following documents are requested for your process`
+
+このファイルリクエストの説明 (省略可)。これは、Box UIで、ファイルをアップロードしているユーザーに表示されます。
+
+デフォルトでは、このファイルリクエストを作成するためにコピーされたファイルリクエストの説明になります。
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このファイルのHTTP `etag`。これは、ファイルリクエストの更新時に`If-Match`ヘッダーと組み合わせて使用できます。そのヘッダーを指定すると、`If-Match`ヘッダーで指定された`etag`とファイルリクエストの`etag`がまだ一致している場合のみ、ファイルリクエストが変更されます。
+</ParamField>
+
+<ParamField body="expires_at" type="string(date-time)">
+例 `2020-09-28T10:53:43-08:00`
+
+ファイルリクエストが新しい送信を受け付けなくなる日付。
+
+この日付を過ぎると、`status`は自動的に`inactive`に設定されます。
+</ParamField>
+
+<ParamField body="folder" type="フォルダ (Mini)object">
+このファイルリクエストが関連付けられているフォルダ。
+
+ファイルリクエストフォームを使用して送信されたファイルは、このフォルダにアップロードされます。
+</ParamField>
+
+<ParamField body="is_description_required" type="boolean">
+例 `true`
+
+ファイルリクエストの送信者に、送信するファイルの説明の指定を義務付けるかどうか。
+
+これをtrueに設定すると、Box UIのファイルリクエストフォームに説明フィールドが表示されます。
+
+デフォルトでは、このファイルリクエストを作成するためにコピーされたファイルリクエストの設定になります。
+</ParamField>
+
+<ParamField body="is_email_required" type="boolean">
+例 `true`
+
+ファイルリクエストの送信者に、メールアドレスの指定を義務付けるかどうか。
+
+これをtrueに設定すると、Box UIのファイルリクエストフォームにメールフィールドが表示されます。
+
+デフォルトでは、このファイルリクエストを作成するためにコピーされたファイルリクエストの設定になります。
+</ParamField>
+
+<ParamField body="status" type="string">
+例 `active`
+
+ファイルリクエストのステータス。デフォルトでは`active`になります。
+
+このステータスを`inactive`に設定すると、ファイルリクエストでは新しい送信を受け付けなくなり、ファイルリクエストのURLにアクセスした場合は`HTTP 404`ステータスコードが返されます。
+
+デフォルトでは、このファイルリクエストを作成するためにコピーされたファイルリクエストのステータスになります。
+
+次の値のいずれか1つ: `active`,`inactive`
+</ParamField>
+
+<ParamField body="title" type="string">
+例 `Please upload documents`
+
+ファイルリクエストのタイトル。これは、Box UIで、ファイルをアップロードしているユーザーに表示されます。
+
+デフォルトでは、このファイルリクエストを作成するためにコピーされたファイルリクエストのタイトルになります。
+</ParamField>
+
+<ParamField body="updated_at" type="string(date-time)">
+例 `2020-09-28T10:53:43-08:00`
+
+ファイルリクエストが最後に更新された日時。
+</ParamField>
+
+<ParamField body="updated_by" type="ユーザー (Mini)object">
+このファイルリクエストを最後に変更したユーザー。
+</ParamField>
+
+<ParamField body="url" type="string">
+例 `/f/19e57f40ace247278a8e3d336678c64a`
+
+このファイルリクエストに対して生成されたURL。このURLをユーザーと共有すると、ユーザーが関連付けられたフォルダにファイルをアップロードできるようになります。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "42037322",
+  "type": "file_request",
+  "created_at": "2020-09-28T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Following documents are requested for your process",
+  "etag": "1",
+  "expires_at": "2020-09-28T10:53:43-08:00",
+  "folder": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "is_description_required": true,
+  "is_email_required": true,
+  "status": "active",
+  "title": "Please upload documents",
+  "updated_at": "2020-09-28T10:53:43-08:00",
+  "updated_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "url": "/f/19e57f40ace247278a8e3d336678c64a"
+}
+```
+
+</ResponseExample>

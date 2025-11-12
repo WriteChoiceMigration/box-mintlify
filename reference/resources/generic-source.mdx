@@ -1,0 +1,41 @@
+---
+title: "Generic source"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A generic event source type.
+
+<ParamField body="<key>" type="object">
+A definition of a generic
+event source object. The set of
+parameters depends on the
+object type. For example, a Box Shield
+event source would have the following
+set of parameters:
+
+```
+{
+"barrier_id": 123456,
+"barrier_status": "ENABLED",
+"barrier_segments": [
+  {
+      "name": "8",
+      "member_count": 1
+    },
+  {
+      "name": "9",
+      "member_count": 1
+           }
+       ]
+}   
+```.
+
+```
+</ParamField>

@@ -1,0 +1,41 @@
+---
+title: "Metadata instances"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of metadata instances that have been applied to a file or folder.
+
+<ParamField body="entries" type="Metadata instancearray">
+A list of metadata instances, as applied to this file or folder.
+</ParamField>
+
+<ParamField body="limit" type="integer">
+example: `100`
+
+The limit that was used for this page of results.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "$parent": "folder_59449484661,",
+      "$scope": "enterprise_27335",
+      "$template": "marketingCollateral",
+      "$version": 1
+    }
+  ],
+  "limit": 100
+}
+```
+
+</ResponseExample>

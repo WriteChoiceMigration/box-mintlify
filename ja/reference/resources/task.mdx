@@ -1,0 +1,157 @@
+---
+title: "Task"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+タスクを使用すると、Boxでファイル中心のワークフローを実現できます。ユーザーはファイルに関連するタスクを作成し、タスクを完了するために他のユーザーに割り当てることができます。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このタスクの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `task`
+
+値は常に`task`になります。
+
+次の値に固定: `task`
+</ParamField>
+
+<ParamField body="action" type="string">
+例 `review`
+
+タスク担当者が実行するように求められるタスクのタイプ。
+
+次の値のいずれか1つ: `review`,`complete`
+</ParamField>
+
+<ParamField body="completion_rule" type="string">
+例 `all_assignees`
+
+タスクが完了と見なされる前にそのタスクを完了する必要がある担当者を定義します。
+
+* `all_assignees` - タスクが完了と見なされるには、すべての担当者がそのタスクをレビューまたは承認する必要があります。
+* `any_assignee` - いずれか1人の担当者がタスクをレビューまたは承認すれば、タスクが完了と見なされます。
+
+次の値のいずれか1つ: `all_assignees`,`any_assignee`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+タスクオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Mini)object">
+タスクを作成したユーザー。
+</ParamField>
+
+<ParamField body="due_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+タスクの期限。
+</ParamField>
+
+<ParamField body="is_completed" type="boolean">
+例 `true`
+
+タスクが完了しているかどうか。
+</ParamField>
+
+<ParamField body="item" type="ファイル (Mini)object">
+タスクに関連付けられたファイル。
+</ParamField>
+
+<ParamField body="message" type="string">
+例 `Legal review`
+
+タスクに含めるメッセージ。
+</ParamField>
+
+<ParamField body="task_assignment_collection" type="タスク割り当てobject">
+タスクに関連付けられたタスク割り当てオブジェクトのコレクション。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "task",
+  "action": "review",
+  "completion_rule": "all_assignees",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "due_at": "2012-12-12T10:53:43-08:00",
+  "is_completed": true,
+  "item": {
+    "id": "12345",
+    "type": "file",
+    "etag": "1",
+    "file_version": {
+      "id": "12345",
+      "type": "file_version",
+      "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+    },
+    "name": "Contract.pdf",
+    "sequence_id": "3",
+    "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+  },
+  "message": "Legal review",
+  "task_assignment_collection": {
+    "entries": [
+      {
+        "assigned_at": "2012-12-12T10:53:43-08:00",
+        "assigned_by": {
+          "id": "11446498",
+          "type": "user",
+          "login": "ceo@example.com",
+          "name": "Aaron Levie"
+        },
+        "assigned_to": {
+          "id": "11446498",
+          "type": "user",
+          "login": "ceo@example.com",
+          "name": "Aaron Levie"
+        },
+        "completed_at": "2012-12-12T10:53:43-08:00",
+        "id": "11446498",
+        "item": {
+          "etag": "1",
+          "id": "12345",
+          "type": "file",
+          "file_version": {
+            "id": "12345",
+            "type": "file_version",
+            "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+          },
+          "name": "Contract.pdf",
+          "sequence_id": "3",
+          "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+        },
+        "message": "Please review",
+        "reminded_at": "2012-12-12T10:53:43-08:00",
+        "resolution_state": "incomplete",
+        "type": "task_assignment"
+      }
+    ],
+    "total_count": 100
+  }
+}
+```
+
+</ResponseExample>

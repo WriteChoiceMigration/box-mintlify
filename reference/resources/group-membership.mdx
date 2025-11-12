@@ -1,0 +1,82 @@
+---
+title: "Group membership"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Membership is used to signify that a user is part of a
+group.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this group membership.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `group_membership`
+
+The value will always be `group_membership`.
+
+Value is always `group_membership`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The time this membership was created.
+</ParamField>
+
+<ParamField body="group" type="Group (Mini)object">
+The group that the membership applies to.
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The time this membership was last modified.
+</ParamField>
+
+<ParamField body="role" type="string">
+example: `member`
+
+The role of the user in the group.
+
+Value is one of `member`,`admin`
+</ParamField>
+
+<ParamField body="user" type="User (Mini)object">
+The user that the membership applies to.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "group_membership",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "group": {
+    "id": "11446498",
+    "type": "group",
+    "group_type": "managed_group",
+    "name": "Support"
+  },
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "role": "member",
+  "user": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  }
+}
+```
+
+</ResponseExample>

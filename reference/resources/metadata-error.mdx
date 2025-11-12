@@ -1,0 +1,44 @@
+---
+title: "Metadata Error"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A generic metadata operation error.
+
+<ParamField body="code" type="string">
+example: `bad_request`
+
+A Box-specific error code.
+</ParamField>
+
+<ParamField body="message" type="string">
+example: `Encountered invalid value for template field key=someKey field type=properties`
+
+A short message describing the error.
+</ParamField>
+
+<ParamField body="request_id" type="string">
+example: `abcdef123456`
+
+A unique identifier for this response, which can be used
+when contacting Box support.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "code": "bad_request",
+  "message": "Encountered invalid value for template field key=someKey field type=properties",
+  "request_id": "abcdef123456"
+}
+```
+
+</ResponseExample>

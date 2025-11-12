@@ -1,0 +1,37 @@
+---
+title: "Shield情報バリアレポートの詳細"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+レポートの生成時に、レポートファイルが配置されているフォルダとエラー (ある場合) を示します。
+
+<ParamField body="details" type="object">
+
+<Expandable>
+  <ParamField body="folder_id" type="string">
+  例 `124235`
+  
+  このレポートの配置先を表すフォルダID。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "details": {
+    "folder_id": "124235"
+  }
+}
+```
+
+</ResponseExample>

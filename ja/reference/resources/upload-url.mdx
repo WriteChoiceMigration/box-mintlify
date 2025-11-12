@@ -1,0 +1,36 @@
+---
+title: "アップロードURL"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ファイルのアップロードセッションの詳細。
+
+<ParamField body="upload_token" type="string">
+例 `Pc3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQP`
+
+ファイルをアップロードするために使用するアクセストークン (省略可)。
+</ParamField>
+
+<ParamField body="upload_url" type="string">
+例 `https://upload-las.app.box.com/api/2.0/files/content?upload_session_id=1234`
+
+ファイルのアップロードに使用できるアップロードセッションのURL。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "upload_token": "Pc3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQP",
+  "upload_url": "https://upload-las.app.box.com/api/2.0/files/content?upload_session_id=1234"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,58 @@
+---
+title: "Upload part (Mini)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The basic representation of an upload
+session chunk.
+
+* [Standard](/reference/resources/upload-part/)
+* [Mini](/reference/resources/upload-part--mini/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **mini** variant are generally
+returned when the resource is nested within the response for
+another resource.
+</Info>
+
+<ParamField body="offset" type="integer(int64)">
+example: `16777216`
+
+The offset of the chunk within the file
+in bytes. The lower bound of the position
+of the chunk within the file.
+</ParamField>
+
+<ParamField body="part_id" type="string">
+example: `6F2D3486`
+
+The unique ID of the chunk.
+</ParamField>
+
+<ParamField body="size" type="integer(int64)">
+example: `3222784`
+
+The size of the chunk in bytes.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "offset": 16777216,
+  "part_id": "6F2D3486",
+  "size": 3222784
+}
+```
+
+</ResponseExample>

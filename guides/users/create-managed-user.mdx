@@ -1,0 +1,129 @@
+---
+title: "Create Managed User"
+rank: 1
+related_endpoints:
+  - post_users
+related_guides:
+  - users/create-app-user
+  - users/deprovision
+  - users/deprovision/transfer-folders
+related_pages: []
+required_guides: []
+related_resources: []
+alias_paths: []
+---
+To generate a new managed user, the minimal information that will be required
+will be a name and an email address for the managed user.
+
+<Note>
+  The email address supplied when creating a managed user must be unique. It
+  cannot already be associated with an existing Box user.
+</Note>
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/users" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "login": "ceo@example.com",
+       "name": "Aaron Levie"
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.users.createUser({
+  name: userName,
+  login: userLogin,
+  isPlatformAccessOnly: true,
+} satisfies CreateUserRequestBody);
+```
+
+```python Python v10
+client.users.create_user(user_name, login=user_login, is_platform_access_only=True)
+```
+
+```cs .NET v10
+await client.Users.CreateUserAsync(requestBody: new CreateUserRequestBody(name: userName) { Login = userLogin, IsPlatformAccessOnly = true });
+```
+
+```swift Swift v10
+try await client.users.createUser(requestBody: CreateUserRequestBody(name: userName, login: userLogin, isPlatformAccessOnly: true))
+```
+
+```java Java v10
+client.getUsers().createUser(new CreateUserRequestBody.Builder(userName).login(userLogin).isPlatformAccessOnly(true).build())
+```
+
+```java Java v5
+BoxUser.Info createdUserInfo = BoxUser.createEnterpriseUser(api, "user@example.com", "A User");
+```
+
+```python Python v4
+new_user = client.create_user('Temp User', 'user@example.com')
+```
+
+```cs .NET v6
+var userParams = new BoxUserRequest()
+{
+    Name = "Example User",
+    Login = "user@example.com"
+};
+BoxUser newUser = await client.UsersManager.CreateEnterpriseUserAsync(userParams);
+```
+
+```javascript Node v4
+client.enterprise.addUser(
+	'eddard@winterfell.example.com',
+	'Ned Stark',
+	{
+		role: client.enterprise.userRoles.COADMIN,
+		address: '555 Box Lane',
+		status: client.enterprise.userStatuses.CANNOT_DELETE_OR_EDIT
+	})
+	.then(user => {
+		/* user -> {
+			type: 'user',
+			id: '44444',
+			name: 'Ned Stark',
+			login: 'eddard@winterfell.example.com',
+			created_at: '2012-11-15T16:34:28-08:00',
+			modified_at: '2012-11-15T16:34:29-08:00',
+			role: 'coadmin',
+			language: 'en',
+			timezone: 'America/Los_Angeles',
+			space_amount: 5368709120,
+			space_used: 0,
+			max_upload_size: 2147483648,
+			status: 'active',
+			job_title: '',
+			phone: '',
+			address: '555 Box Lane',
+			avatar_url: 'https://www.box.com/api/avatar/large/deprecated' }
+        */
+	});
+```
+
+</CodeGroup>
+
+To see all available optional parameters that may be set when creating an app
+user, see the [create user endpoint](endpoint://post-users).
+
+<Note>
+Before you can make any changes to the newly created account, you need to
+click the link you receive in the confirmation email.
+</Note>
+
+A user object will be returned from the create user request. Within the user
+object is an ID for the managed user, which may be used to make API requests to
+modify the user in the future.
+
+Once a new managed user is created the email address used will receive an email
+from Box asking them to create a password for the account. The account will be
+in a `pending` state until that action has taken place.
+
+<Note>
+  For security reasons passwords cannot be supplied when creating a new managed
+  user
+</Note>

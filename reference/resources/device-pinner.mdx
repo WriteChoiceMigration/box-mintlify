@@ -1,0 +1,56 @@
+---
+title: "Device pinner"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Device pins allow enterprises to control what devices can
+use native Box applications.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this device pin.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `device_pinner`
+
+The value will always be `device_pinner`.
+
+Value is always `device_pinner`
+</ParamField>
+
+<ParamField body="owned_by" type="User (Mini)object">
+The user that the device pin belongs to.
+</ParamField>
+
+<ParamField body="product_name" type="string">
+example: `iPad`
+
+The type of device being pinned.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "device_pinner",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "product_name": "iPad"
+}
+```
+
+</ResponseExample>

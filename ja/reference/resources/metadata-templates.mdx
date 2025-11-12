@@ -1,0 +1,74 @@
+---
+title: "メタデータテンプレート"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+メタデータテンプレートのリスト。
+
+<ParamField body="entries" type="メタデータテンプレートarray">
+メタデータテンプレートのリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+例 `1000`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。最大値はAPIによって異なります。
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ParamField body="prev_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih`
+
+前の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "copyInstanceOnItemCopy": true,
+      "displayName": "Product Info",
+      "fields": [
+        {
+          "description": "The category",
+          "displayName": "Category",
+          "hidden": true,
+          "key": "category",
+          "options": [
+            {
+              "key": "Category 1",
+              "id": "45dc2849-a4a7-40a9-a751-4a699a589190"
+            }
+          ],
+          "type": "string",
+          "id": "822227e0-47a5-921b-88a8-494760b2e6d2"
+        }
+      ],
+      "hidden": true,
+      "id": "58063d82-4128-7b43-bba9-92f706befcdf",
+      "scope": "enterprise_123456",
+      "templateKey": "productInfo",
+      "type": "metadata_template"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii",
+  "prev_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih"
+}
+```
+
+</ResponseExample>

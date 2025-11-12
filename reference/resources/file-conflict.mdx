@@ -1,0 +1,110 @@
+---
+title: "File (Conflict)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A representation of a file that is used to show.
+
+* [Full](/reference/resources/file-conflict--full/)
+* [Standard](/reference/resources/file-conflict/)
+* [Mini](/reference/resources/file-conflict--mini/)
+* [Base](/reference/resources/file-conflict--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **mini** variant are generally
+returned when the resource is nested within the response for
+another resource.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a file.
+
+The ID for any file can be determined
+by visiting a file in the web application
+and copying the ID from the URL. For example,
+for the URL `https://*.app.box.com/files/123`
+the `file_id` is `123`.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `file`
+
+The value will always be `file`.
+
+Value is always `file`
+</ParamField>
+
+<ParamField body="etag" type="string">
+example: `1`
+
+The HTTP `etag` of this file. This can be used within some API
+endpoints in the `If-Match` and `If-None-Match` headers to only
+perform changes on the file if (no) changes have happened.
+</ParamField>
+
+<ParamField body="file_version" type="File version (Mini)object">
+A mini representation of a file version, used when
+nested within another resource.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Contract.pdf`
+
+The name of the file.
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+example: `3`
+
+A numeric identifier that represents the most recent user event
+that has been applied to this item.
+
+This can be used in combination with the `GET /events`-endpoint
+to filter out user events that would have occurred before this
+identifier was read.
+
+An example would be where a Box Drive-like application
+would fetch an item via the API, and then listen to incoming
+user events for changes to the item. The application would
+ignore any user events where the `sequence_id` in the event
+is smaller than or equal to the `sequence_id` in the originally
+fetched resource.
+</ParamField>
+
+<ParamField body="sha1" type="string(digest)">
+example: `85136C79CBF9FE36BB9D05D0639C70C265C18D37`
+
+The SHA1 hash of the file.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "file",
+  "etag": "1",
+  "file_version": {
+    "id": "12345",
+    "type": "file_version",
+    "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+  },
+  "name": "Contract.pdf",
+  "sequence_id": "3",
+  "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+}
+```
+
+</ResponseExample>

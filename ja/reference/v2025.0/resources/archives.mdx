@@ -1,0 +1,42 @@
+---
+title: "Archives"
+---
+
+APIバージョン 2025.0
+
+アーカイブのリスト。
+
+<ParamField body="entries" type="Archivearray">
+各エントリがアーカイブオブジェクトを表しているリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+例 `1000`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。最大値はAPIによって異なります。
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "id": "12345",
+      "name": "Archive",
+      "size": 123456789,
+      "type": "archive"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii"
+}
+```
+
+</ResponseExample>

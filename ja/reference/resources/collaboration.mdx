@@ -1,0 +1,294 @@
+---
+title: "Collaboration"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+アクセス制御リストと同様に、コラボレーションではファイルとフォルダに 対するユーザーおよびグループのアクセス権限が定義されます。コラボレーションオブジェクトは、特定のロールによって定義される権限を含んだファイルまたはフォルダへのアクセス権限をユーザーまたはグループに付与します。
+
+<ParamField body="id" type="string">
+例 `12345678`
+
+このコラボレーションの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `collaboration`
+
+値は常に`collaboration`になります。
+
+次の値に固定: `collaboration`
+</ParamField>
+
+<ParamField body="acceptance_requirements_status" type="object">
+
+<Expandable>
+  <ParamField body="strong_password_requirement" type="object">
+  
+  <Expandable>
+    <ParamField body="enterprise_has_strong_password_required_for_external_users" type="boolean">
+    例 `true`
+    
+    コンテンツを所有する企業が、コンテンツのコラボレーションに強力なパスワードを要求するかどうか、または外部コラボレータに対して漏えいが確認されたパスワードの検出を適用するかどうか。
+    </ParamField>
+  
+    <ParamField body="user_has_strong_password" type="boolean">
+    例 `true`
+    
+    ユーザーのアカウントに対して、強力なパスワードの要求と漏えいが確認されたパスワードの検出が設定されているかどうか。強力なパスワードが要求されていない場合、このフィールドは`null`になります。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="terms_of_service_requirement" type="object">
+  
+  <Expandable>
+    <ParamField body="is_accepted" type="boolean">
+    例 `true`
+    
+    サービス利用規約に同意済みかどうか。利用規約への同意が必要ない場合、このフィールドは`null`です。
+    </ParamField>
+  
+    <ParamField body="terms_of_service" type="サービス利用規約 (Base)object">
+    コラボレーションが承認される前に同意する必要があるサービス利用規約。利用規約への同意が必要ない場合、このフィールドは`null`です。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="two_factor_authentication_requirement" type="object">
+  
+  <Expandable>
+    <ParamField body="enterprise_has_two_factor_auth_enabled" type="boolean">
+    例 `true`
+    
+    このコンテンツを所有する会社が、このコンテンツでのコラボレーションを行うために2要素認証を有効にする必要があるかどうか。
+    </ParamField>
+  
+    <ParamField body="user_has_two_factor_authentication_enabled" type="boolean">
+    例 `true`
+    
+    ユーザーが2要素認証を有効にしているかどうか。2要素認証が必要ない場合、このフィールドは`null`です。
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="accessible_by" type="グループ (Mini)/ユーザー (コラボレーション)object">
+アクセス権限が付与されるユーザーまたはグループ。
+</ParamField>
+
+<ParamField body="acknowledged_at" type="string(date-time)">
+例 `2012-12-12T10:55:20-08:00`
+
+コラボレーションオブジェクトの`status`が`accepted`または`rejected`に変更された日時。
+</ParamField>
+
+<ParamField body="app_item" type="アプリ項目object">
+アクセスが許可されている`app_item`。コラボレーションが項目に作成されている場合 (`item`フィールド参照) または`app_item`にアクセスできない場合、このフィールドは`null`です。ロールは、`app_item`に関連付けられたすべての項目にカスケードされます。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+コラボレーションオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (コラボレーション)object">
+例 `[{"id":33224412},{"type":"user"},{"login":"dylan@example.com"},{"name":"Dylan Smith"}]`
+
+コラボレーションオブジェクトを作成したユーザー。
+</ParamField>
+
+<ParamField body="expires_at" type="string(date-time)">
+例 `2012-12-26T10:53:43-08:00`
+
+コラボレーションの有効期限。有効期限が設定されていない場合は`null`。
+</ParamField>
+
+<ParamField body="invite_email" type="string">
+例 `john@example.com`
+
+登録済みユーザーでない未登録コラボレータを招待するために使用されたメールアドレス。
+</ParamField>
+
+<ParamField body="is_access_only" type="boolean">
+例 `true`
+
+`true`に設定した場合、コラボレータは共有項目にアクセスできますが、これらの項目は [すべてのファイル] リストに表示されません。また、コラボレータには共有項目のルートフォルダのパスも表示されません。
+</ParamField>
+
+<ParamField body="item" type="File/Folder/ウェブリンクobject">
+アクセスが許可されているファイルまたはフォルダ。コラボレーションの`status`が`pending`の場合またはコラボレーションがアプリ項目に作成されている場合 (`app_item`フィールド参照)、このフィールドは`null`です。
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+コラボレーションオブジェクトが最後に変更された日時。
+</ParamField>
+
+<ParamField body="role" type="string">
+例 `editor`
+
+付与されるアクセスレベル。
+
+次の値のいずれか1つ: `editor`,`viewer`,`previewer`,`uploader`,`previewer uploader`,`viewer uploader`,`co-owner`,`owner`
+</ParamField>
+
+<ParamField body="status" type="string">
+例 `accepted`
+
+コラボレーション招待のステータス。ステータスが`pending`の場合、`login`と`name`は空の文字列を返します。
+
+次の値のいずれか1つ: `accepted`,`pending`,`rejected`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345678",
+  "type": "collaboration",
+  "acceptance_requirements_status": {
+    "strong_password_requirement": {
+      "enterprise_has_strong_password_required_for_external_users": true,
+      "user_has_strong_password": true
+    },
+    "terms_of_service_requirement": {
+      "is_accepted": true,
+      "terms_of_service": {
+        "id": "11446498",
+        "type": "terms_of_service"
+      }
+    },
+    "two_factor_authentication_requirement": {
+      "enterprise_has_two_factor_auth_enabled": true,
+      "user_has_two_factor_authentication_enabled": true
+    }
+  },
+  "accessible_by": {
+    "id": "11446498",
+    "type": "user",
+    "is_active": true,
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "acknowledged_at": "2012-12-12T10:55:20-08:00",
+  "app_item": {
+    "id": "12345678",
+    "type": "app_item",
+    "application_type": "hubs"
+  },
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": [
+    {
+      "id": 33224412
+    },
+    {
+      "type": "user"
+    },
+    {
+      "login": "dylan@example.com"
+    },
+    {
+      "name": "Dylan Smith"
+    }
+  ],
+  "expires_at": "2012-12-26T10:53:43-08:00",
+  "invite_email": "john@example.com",
+  "is_access_only": true,
+  "item": {
+    "id": "12345",
+    "type": "file",
+    "content_created_at": "2012-12-12T10:53:43-08:00",
+    "content_modified_at": "2012-12-12T10:53:43-08:00",
+    "created_at": "2012-12-12T10:53:43-08:00",
+    "created_by": {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie"
+    },
+    "description": "Contract for Q1 renewal",
+    "etag": "1",
+    "file_version": {
+      "id": "12345",
+      "type": "file_version",
+      "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+    },
+    "item_status": "active",
+    "modified_at": "2012-12-12T10:53:43-08:00",
+    "modified_by": {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie"
+    },
+    "name": "Contract.pdf",
+    "owned_by": {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie"
+    },
+    "parent": {
+      "id": "12345",
+      "type": "folder",
+      "etag": "1",
+      "name": "Contracts",
+      "sequence_id": "3"
+    },
+    "path_collection": {
+      "entries": [
+        {
+          "etag": "1",
+          "id": "12345",
+          "type": "folder",
+          "name": "Contracts",
+          "sequence_id": "3"
+        }
+      ],
+      "total_count": 1
+    },
+    "purged_at": "2012-12-12T10:53:43-08:00",
+    "sequence_id": "3",
+    "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37",
+    "shared_link": {
+      "access": "open",
+      "download_count": 3,
+      "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+      "effective_access": "company",
+      "effective_permission": "can_download",
+      "is_password_enabled": true,
+      "permissions": {
+        "can_download": true,
+        "can_edit": false,
+        "can_preview": true
+      },
+      "preview_count": 3,
+      "unshared_at": "2018-04-13T13:53:23-07:00",
+      "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+      "vanity_name": "my_url",
+      "vanity_url": "https://acme.app.box.com/v/my_url/"
+    },
+    "size": 629644,
+    "trashed_at": "2012-12-12T10:53:43-08:00"
+  },
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "role": "editor",
+  "status": "accepted"
+}
+```
+
+</ResponseExample>

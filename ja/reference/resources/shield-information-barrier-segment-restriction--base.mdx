@@ -1,0 +1,48 @@
+---
+title: "Shield情報バリアのセグメント制限 (Base)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+Shield情報バリアのセグメント制限オブジェクトのBase版の表示。
+
+* [Standard](/reference/resources/shield-information-barrier-segment-restriction/)
+* [Mini](/reference/resources/shield-information-barrier-segment-restriction--mini/)
+* [Base](/reference/resources/shield-information-barrier-segment-restriction--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+Shield情報バリアのセグメント制限の一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `shield_information_barrier_segment_restriction`
+
+Shield情報バリアのセグメント制限。
+
+次の値に固定: `shield_information_barrier_segment_restriction`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "shield_information_barrier_segment_restriction"
+}
+```
+
+</ResponseExample>

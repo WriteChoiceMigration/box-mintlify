@@ -1,0 +1,142 @@
+---
+title: "Create Folder"
+rank: 1
+related_endpoints:
+  - post_folders
+related_guides:
+  - folders/single/update
+  - folders/single/copy
+required_guides: []
+related_resources:
+  - folder
+alias_paths: []
+---
+To create a folder in Box you will need to provide our API with a `name` for the
+new folder, as well as the `id` of the `parent` folder that you would like to
+create the new folder within.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/folders" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "name": "New Folder",
+       "parent": {
+         "id": "0"
+       }
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.folders.createFolder({
+  name: newFolderName,
+  parent: { id: '0' } satisfies CreateFolderRequestBodyParentField,
+} satisfies CreateFolderRequestBody);
+```
+
+```python Python v10
+client.folders.create_folder(new_folder_name, CreateFolderParent(id="0"))
+```
+
+```cs .NET v10
+await client.Folders.CreateFolderAsync(requestBody: new CreateFolderRequestBody(name: newFolderName, parent: new CreateFolderRequestBodyParentField(id: "0")));
+```
+
+```swift Swift v10
+try await client.folders.createFolder(requestBody: CreateFolderRequestBody(name: newFolderName, parent: CreateFolderRequestBodyParentField(id: "0")))
+```
+
+```java Java v10
+client.getFolders().createFolder(new CreateFolderRequestBody(newFolderName, new CreateFolderRequestBodyParentField("0")))
+```
+
+```java Java v5
+BoxFolder parentFolder = new BoxFolder(api, "id");
+BoxFolder.Info childFolderInfo = parentFolder.createFolder("Child Folder Name");
+```
+
+```python Python v4
+subfolder = client.folder('0').create_subfolder('My Stuff')
+print(f'Created subfolder with ID {subfolder.id}')
+```
+
+```cs .NET v6
+// Create a new folder in the user's root folder
+var folderParams = new BoxFolderRequest()
+{
+    Name = "New folder",
+    Parent = new BoxRequestEntity()
+    {
+        Id = "0"
+    }
+};
+BoxFolder folder = await client.FoldersManager.CreateAsync(folderParams);
+```
+
+```javascript Node v4
+client.folders.create('0', 'New Folder')
+    .then(folder => {
+        /* folder -> {
+            type: 'folder',
+            id: '123456',
+            sequence_id: '0',
+            etag: '0',
+            name: 'New Folder',
+            created_at: '2012-12-12T10:53:43-08:00',
+            modified_at: '2012-12-12T11:15:04-08:00',
+            description: '',
+            size: 0,
+            path_collection: 
+            { total_count: 1,
+                entries: 
+                [ { type: 'folder',
+                    id: '0',
+                    sequence_id: null,
+                    etag: null,
+                    name: 'All Files' } ] },
+            created_by: 
+            { type: 'user',
+                id: '22222',
+                name: 'Example User'
+                login: 'user@example.com' },
+            modified_by: 
+            { type: 'user',
+                id: '22222',
+                name: 'Example User',
+                login: 'user@example.com' },
+            owned_by: 
+            { type: 'user',
+                id: '22222',
+                name: 'Example User',
+                login: 'user@example.com' },
+            shared_link: null,
+            parent: 
+            { type: 'folder',
+                id: '0',
+                sequence_id: null,
+                etag: null,
+                name: 'All Files' },
+            item_status: 'active',
+            item_collection: 
+            { total_count: 0,
+                entries: [],
+                offset: 0,
+                limit: 100 } }
+        */
+    });
+```
+
+</CodeGroup>
+
+<Note>
+  **Name restrictions**
+  
+  There are some restrictions to the folder name. Names containing non-printable
+  ASCII characters, forward and backward slashes (`/`, `\`), as well as names
+  with trailing spaces are prohibited.
+
+  Additionally, the names `.` and `..` are reserved names and therefore
+  also prohibited.
+</Note>

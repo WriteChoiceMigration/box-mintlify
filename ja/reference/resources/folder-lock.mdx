@@ -1,0 +1,92 @@
+---
+title: "フォルダロック"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+フォルダロックでは、特定のフォルダが移動または削除されないように、フォルダ所有者によって設定されるアクセス制限を定義します。
+
+<ParamField body="id" type="string">
+例 `12345678`
+
+このフォルダロックの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `folder_lock`
+
+オブジェクトタイプ (常に`folder_lock`)。
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2020-09-14T23:12:53Z`
+
+フォルダロックオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Base)object">
+ロックを作成したユーザーまたはグループ。
+</ParamField>
+
+<ParamField body="folder" type="フォルダ (Mini)object">
+ロックが適用されるフォルダ。
+</ParamField>
+
+<ParamField body="lock_type" type="string">
+例 `freeze`
+
+ロックの種類 (常に`freeze`)。
+</ParamField>
+
+<ParamField body="locked_operations" type="object">
+ロックされている操作。現在、`move`操作と`delete`操作を別々にロックすることはできません。両方とも`true`に設定する必要があります。
+
+<Expandable>
+  <ParamField body="delete" type="boolean">
+  例 `true`
+  
+  フォルダの削除が制限されるかどうか。
+  </ParamField>
+
+  <ParamField body="move" type="boolean">
+  例 `true`
+  
+  フォルダの移動が制限されるかどうか。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345678",
+  "type": "folder_lock",
+  "created_at": "2020-09-14T23:12:53Z",
+  "created_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "folder": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "lock_type": "freeze",
+  "locked_operations": {
+    "delete": true,
+    "move": true
+  }
+}
+```
+
+</ResponseExample>

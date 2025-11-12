@@ -1,0 +1,48 @@
+---
+title: "Get Workflows"
+rank: 1
+---
+The [get workflows][get] endpoint can be used to grab all workflows on a 
+particular folder. It will return all workflows regardless of if there is a 
+flow of type `WORKFLOW_MANUAL_START`.
+
+<Note>
+  For more information on how to use these endpoints, refer to our [blog][blog] 
+  post.
+</Note>
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/workflows?folder_id=324234" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await adminClient.workflows.getWorkflows({
+  folderId: workflowFolderId,
+} satisfies GetWorkflowsQueryParams);
+```
+
+```python Python v10
+admin_client.workflows.get_workflows(workflow_folder_id)
+```
+
+```cs .NET v10
+await adminClient.Workflows.GetWorkflowsAsync(queryParams: new GetWorkflowsQueryParams(folderId: workflowFolderId));
+```
+
+```swift Swift v10
+try await adminClient.workflows.getWorkflows(queryParams: GetWorkflowsQueryParams(folderId: workflowFolderId))
+```
+
+```java Java v10
+adminClient.getWorkflows().getWorkflows(new GetWorkflowsQueryParams(workflowFolderId))
+```
+
+</CodeGroup>
+
+[get]: /reference/get-workflows
+{/* i18n-enable localize-links */}
+[blog]: https://medium.com/box-developer-blog/manual-start-workflow-api-box-relay-4f8d0f51b7a4
+{/* i18n-disable localize-links */}

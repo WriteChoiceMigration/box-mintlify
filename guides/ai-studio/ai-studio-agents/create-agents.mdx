@@ -1,0 +1,80 @@
+---
+title: "Create agents"
+rank: 1
+related_guides:
+  - authentication/tokens/developer-tokens/
+  - box-ai/ai-tutorials/ask-questions
+  - box-ai/ai-tutorials/default-agent-overrides
+  - box-ai/ai-tutorials/generate-text
+  - box-ai/ai-tutorials/extract-metadata-structured
+  - box-ai/ai-tutorials/extract-metadata
+---
+<Warning>
+
+Box AI Studio is available only for Enterprise Advanced accounts.
+
+</Warning>
+
+The `POST /2.0/ai_agents` endpoint allows you to create a new, custom [AI agent][agents]. 
+
+## Send a request
+
+To send a request, use the `POST /2.0/ai_agents` endpoint.
+
+Make sure you have generated the developer token
+to authorize your app. See [getting started with Box AI][prereq]
+for details.
+
+<CodeGroup>
+
+```typescript Node/TypeScript v10
+await client.aiStudio.createAiAgent({
+  name: agentName,
+  accessState: 'enabled',
+  ask: new AiStudioAgentAsk({ accessState: 'enabled', description: 'desc1' }),
+} satisfies CreateAiAgentInput);
+```
+
+```python Python v10
+client.ai_studio.create_ai_agent(
+    agent_name,
+    "enabled",
+    ask=AiStudioAgentAsk(access_state="enabled", description="desc1"),
+)
+```
+
+```cs .NET v10
+await client.AiStudio.CreateAiAgentAsync(requestBody: new CreateAiAgent(name: agentName, accessState: "enabled") { Ask = new AiStudioAgentAsk(accessState: "enabled", description: "desc1") });
+```
+
+```swift Swift v10
+try await client.aiStudio.createAiAgent(requestBody: CreateAiAgent(name: agentName, accessState: "enabled", ask: AiStudioAgentAsk(accessState: "enabled", description: "desc1")))
+```
+
+```java Java v10
+client.getAiStudio().createAiAgent(new CreateAiAgent.Builder(agentName, "enabled").ask(new AiStudioAgentAsk("enabled", "desc1")).build())
+```
+
+</CodeGroup>
+
+### Parameters
+
+To make a call, you must pass the following parameters. Mandatory parameters are in **bold**.
+
+{/* alex ignore */}
+
+| Parameter| Description| Example|
+|--------|--------|-------|
+| **`type`** | The type of agent used to handle queries. | `ai_agent` |
+| **`name`** | The name of the AI Agent. | `My AI Agent` |
+| **`access_state`** | The state of the AI Agent. Value is one of `enabled` `disabled`. | `enabled` |
+| `icon_reference` |  The icon reference of the AI Agent. It should have format of the URL `https://cdn01.boxcdn.net/app-assets/aistudio/avatars/<file_name>` , where the possible values of `file_name` are: `logo_boxAi.png`,`logo_stamp.png`, `logo_legal.png`,`logo_finance.png`,`logo_config.png`,`logo_handshake.png` `logo_analytics.png`,`logo_classification.png`. | `https://cdn01.boxcdn.net/app-assets/aistudio/avatars/logo_analytics.svg` |
+| `allowed_entities` | List of allowed users or groups. | |
+| `ask` | The AI Agent to be used for ask. | `ask` |
+| `extract` | The AI Agent to be used for extraction. | |
+| `text_gen` | The AI agent used for generating text. | |
+
+{/* alex enable */}
+
+[agents]: /guides/box-ai/ai-agents/index
+[prereq]: /guides/ai-studio/getting-started-ai-studio

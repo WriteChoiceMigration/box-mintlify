@@ -1,0 +1,59 @@
+---
+title: "zipダウンロードのステータス"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ダウンロード中の`zip`アーカイブのステータス。
+
+<ParamField body="downloaded_file_count" type="integer">
+例 `10`
+
+すでにダウンロードされているファイルの数。
+</ParamField>
+
+<ParamField body="skipped_file_count" type="integer">
+例 `5`
+
+ダウンロードできなかったためスキップされたファイルの数。多くの場合、この原因は、アーカイブに対するリクエストの作成と、ダウンロードされるアーカイブとの間に発生した権限に関する問題です。
+</ParamField>
+
+<ParamField body="skipped_folder_count" type="integer">
+例 `5`
+
+ダウンロードできなかったためスキップされたフォルダの数。多くの場合、この原因は、アーカイブに対するリクエストの作成と、ダウンロードされるアーカイブとの間に発生した権限に関する問題です。
+</ParamField>
+
+<ParamField body="state" type="string">
+例 `succeeded`
+
+ダウンロード中のアーカイブの状態。
+
+次の値のいずれか1つ: `in_progress`,`failed`,`succeeded`
+</ParamField>
+
+<ParamField body="total_file_count" type="integer">
+例 `20`
+
+このアーカイブ内のファイルの合計数。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "downloaded_file_count": 10,
+  "skipped_file_count": 5,
+  "skipped_folder_count": 5,
+  "state": "succeeded",
+  "total_file_count": 20
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,73 @@
+---
+title: "Retention policy assignments"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of retention policy assignments.
+
+<ParamField body="entries" type="Retention policy assignmentarray">
+A list of retention policy assignments.
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+example: `1000`
+
+The limit that was used for these entries. This will be the same as the
+`limit` query parameter unless that value exceeded the maximum value
+allowed. The maximum value varies by API.
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+example: `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+The marker for the start of the next page of results.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "assigned_at": "2012-12-12T10:53:43-08:00",
+      "assigned_by": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      },
+      "assigned_to": {
+        "id": "a983f69f-e85f-4ph4-9f46-4afdf9c1af65",
+        "type": "metadata_template"
+      },
+      "filter_fields": [
+        {
+          "field": "a0f4ee4e-1dc1-4h90-a8a9-aef55fc681d4",
+          "value": "0c27b756-0p87-4fe0-a43a-59fb661ccc4e"
+        }
+      ],
+      "id": "11446498",
+      "retention_policy": {
+        "id": "12345",
+        "type": "retention_policy",
+        "disposition_action": "permanently_delete",
+        "policy_name": "Some Policy Name",
+        "retention_length": "365"
+      },
+      "start_date_field": "upload_date",
+      "type": "retention_policy_assignment"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii"
+}
+```
+
+</ResponseExample>

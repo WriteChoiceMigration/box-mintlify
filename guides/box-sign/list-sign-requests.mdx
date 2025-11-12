@@ -1,0 +1,130 @@
+---
+title: "List Box Sign Requests"
+rank: 4
+related_endpoints:
+  - get-sign-requests
+related_guides:
+  - box-sign/create-sign-request
+---
+## All
+
+The [get sign requests endpoint][get_all] can be used to view a list of all Box 
+Sign requests created by the user associated with the passed Access Token.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/sign_requests" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.signRequests.getSignRequests();
+```
+
+```python Python v10
+client.sign_requests.get_sign_requests()
+```
+
+```cs .NET v10
+await client.SignRequests.GetSignRequestsAsync();
+```
+
+```swift Swift v10
+try await client.signRequests.getSignRequests()
+```
+
+```java Java v10
+client.getSignRequests().getSignRequests()
+```
+
+```java Java v5
+Iterable<BoxSignRequest.Info> signRequests = BoxSignRequest.getAll(api);
+for (BoxSignRequest.Info signRequestInfo : signRequests) {
+	// Do something with each `signRequestInfo`.
+}
+```
+
+```python Python v4
+sign_requests = client.get_sign_requests()
+for sign_request in sign_requests:
+    print(f'(Sign Request ID: {sign_request.id})')
+```
+
+```cs .NET v6
+BoxCollectionMarkerBased<BoxSignRequest> signRequests = await client.SignRequestsManager.GetSignRequestsAsync();
+```
+
+```javascript Node v4
+const result = await client.signRequests.getAll();
+console.log(`There are ${result.count} sign requests`);
+```
+
+</CodeGroup>
+
+## By ID
+
+The [get sign requests by ID endpoint][get_by_id] can be used to view
+information about a specific Box Sign request. This endpoint requires the sign
+request's ID, which can be obtained by using the
+[get all Box Sign requests endpoint][get_all] or in the response when
+[creating a Box Sign request][create].
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/sign_requests/<SIGN_REQUEST_ID>" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.signRequests.getSignRequestById(createdSignRequest.id!);
+```
+
+```python Python v10
+client.sign_requests.get_sign_request_by_id(created_sign_request.id)
+```
+
+```cs .NET v10
+await client.SignRequests.GetSignRequestByIdAsync(signRequestId: NullableUtils.Unwrap(createdSignRequest.Id));
+```
+
+```swift Swift v10
+try await client.signRequests.getSignRequestById(signRequestId: createdSignRequest.id!)
+```
+
+```java Java v10
+client.getSignRequests().getSignRequestById(createdSignRequest.getId())
+```
+
+```java Java v5
+BoxSignRequest signRequest = new BoxSignRequest(api, id);
+BoxSignRequest.Info signRequestInfo = signRequest.getInfo();
+
+//using `fields` parameter
+BoxSignRequest.Info signRequestInfoWithFields = signRequest.getInfo("status")
+```
+
+```python Python v4
+sign_request = client.sign_request(sign_request_id='12345').get()
+print(f'Sign Request ID is {sign_request.id}')
+```
+
+```cs .NET v6
+BoxSignRequest signRequest = await client.SignRequestsManager.GetSignRequestByIdAsync("12345");
+```
+
+```javascript Node v4
+const sr = await client.signRequests.getById({
+	sign_request_id: 12345,
+});
+console.log(
+	`Sign request id ${sr.id} contains ${sr.source_files.length} files`
+);
+```
+
+</CodeGroup>
+
+[get_all]: /reference/get-sign-requests
+[get_by_id]: /reference/get-sign-requests-id
+[create]: /reference/post-sign-requests

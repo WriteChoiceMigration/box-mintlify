@@ -1,0 +1,60 @@
+---
+title: "メタデータフィルタ"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+検索結果のフィルタに使用されたメタデータテンプレート。
+
+<ParamField body="filters" type="associative array">
+検索結果のフィルタに使用するテンプレートのフィールドを指定します。複数のフィールドを指定すると、クエリでは論理`AND`が実行され、指定された各フィールドに一致するテンプレートのインスタンスが取得されます。
+
+<Expandable>
+  <ParamField body="<key>" type="string/number/string array/メタデータフィールドのフィルタ (日付範囲)/メタデータフィールドのフィルタ (浮動小数点の範囲)">
+  例 `"online"`
+  
+  メタデータフィルタの値。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="scope" type="string">
+例 `enterprise`
+
+検索結果のフィルタに使用する、テンプレートのスコープを指定します。
+
+これは、この会社で使用するために定義されたテンプレートの場合は`enterprise_{enterprise_id}`、Boxを使用するすべての会社が利用できる一般的なテンプレートの場合は`global`になります。
+
+次の値のいずれか1つ: `global`,`enterprise`,`enterprise_{enterprise_id}`
+</ParamField>
+
+<ParamField body="templateKey" type="string">
+例 `contract`
+
+検索結果のフィルタに使用されたテンプレートのキー。
+
+多くの場合、テンプレートキーはその表示名から自動的に派生します。たとえば、`Contract Template`の場合は`contractTemplate`となります。場合によっては、テンプレートの作成者が独自のテンプレートキーを指定することもあります。
+
+テンプレートのキーを調べるには、[会社のテンプレートのリストを取得する](/reference/get-metadata-templates-enterprise/)か、[ファイル](/reference/get-files-id-metadata/)または[フォルダ](/reference/get-folders-id-metadata/)上のすべてのインスタンスを取得してください。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "filters": {
+    "category": "online"
+  },
+  "scope": "enterprise",
+  "templateKey": "contract"
+}
+```
+
+</ResponseExample>

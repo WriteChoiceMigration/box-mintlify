@@ -1,0 +1,65 @@
+---
+title: "グループ (Mini)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+グループのIDや名前を含むグループのMini版の表示。
+
+* [Full](/reference/resources/group--full/)
+* [Standard](/reference/resources/group/)
+* [Mini](/reference/resources/group--mini/)
+* [Base](/reference/resources/group--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Mini**バリアントに含まれるフィールドは、このリソースが別のリソースのレスポンス内にネストされている場合に返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このオブジェクトの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `group`
+
+値は常に`group`になります。
+
+次の値に固定: `group`
+</ParamField>
+
+<ParamField body="group_type" type="string">
+例 `managed_group`
+
+グループのタイプ。
+
+次の値のいずれか1つ: `managed_group`,`all_users_group`
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Support`
+
+グループの名前。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "group",
+  "group_type": "managed_group",
+  "name": "Support"
+}
+```
+
+</ResponseExample>

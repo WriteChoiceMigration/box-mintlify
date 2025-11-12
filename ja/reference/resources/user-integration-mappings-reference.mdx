@@ -1,0 +1,63 @@
+---
+title: "ユーザー (統合マッピング)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+統合マッピングAPIのためのユーザーのレプリゼンテーション。フィールド名とログインは必要ありません。
+
+* [Full](/reference/resources/user-integration-mappings-reference--full/)
+* [Standard](/reference/resources/user-integration-mappings-reference/)
+* [Mini](/reference/resources/user-integration-mappings-reference--mini/)
+* [Base](/reference/resources/user-integration-mappings-reference--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このユーザーの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `user`
+
+値は常に`user`になります。
+
+次の値に固定: `user`
+</ParamField>
+
+<ParamField body="login" type="string(email)">
+例 `ceo@example.com`
+
+このユーザーのプライマリメールアドレス。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Aaron Levie`
+
+このユーザーの表示名。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "user",
+  "login": "ceo@example.com",
+  "name": "Aaron Levie"
+}
+```
+
+</ResponseExample>

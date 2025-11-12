@@ -1,0 +1,48 @@
+---
+title: "Restore Web Link"
+rank: 10
+related_endpoints:
+related_guides:
+required_guides: []
+related_resources:
+  - web-link
+---
+To restore a web link that has been moved to the trash, but has not yet been
+purged, make a `POST` request to the `/web_links/:web_link_id` endpoint. This
+will place the web link in the original parent folder if it is still
+available, you optionally can specify a `parent` folder.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/web_links/12345" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.trashedWebLinks.restoreWeblinkFromTrash(weblink.id);
+```
+
+```python Python v10
+client.trashed_web_links.restore_weblink_from_trash(weblink.id)
+```
+
+```cs .NET v10
+await client.TrashedWebLinks.RestoreWeblinkFromTrashAsync(webLinkId: weblink.Id);
+```
+
+```swift Swift v10
+try await client.trashedWebLinks.restoreWeblinkFromTrash(webLinkId: weblink.id)
+```
+
+```java Java v10
+client.getTrashedWebLinks().restoreWeblinkFromTrash(weblink.getId())
+```
+
+```python Python v4
+web_link_to_restore = client.web_link(web_link_id='33333')
+restored_web_link = client.trash().restore_item(web_link_to_restore)
+print(f'Web link ID is {restored_web_link.id} and name is {restored_web_link.name}')
+```
+
+</CodeGroup>

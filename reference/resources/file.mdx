@@ -1,0 +1,422 @@
+---
+title: "File"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A standard representation of a file, as returned from any
+file API endpoints by default.
+
+* [Full](/reference/resources/file--full/)
+* [Standard](/reference/resources/file/)
+* [Mini](/reference/resources/file--mini/)
+* [Base](/reference/resources/file--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **standard** variant are generally
+returned when the resource is requested via its own API endpoints.
+For example, when retrieving a file by ID, it will return
+these fields unless the `fields` parameter has been specified.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a file.
+
+The ID for any file can be determined
+by visiting a file in the web application
+and copying the ID from the URL. For example,
+for the URL `https://*.app.box.com/files/123`
+the `file_id` is `123`.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `file`
+
+The value will always be `file`.
+
+Value is always `file`
+</ParamField>
+
+<ParamField body="content_created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The date and time at which this file was originally
+created, which might be before it was uploaded to Box.
+</ParamField>
+
+<ParamField body="content_modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The date and time at which this file was last updated,
+which might be before it was uploaded to Box.
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The date and time when the file was created on Box.
+</ParamField>
+
+<ParamField body="created_by" type="User (Mini)object">
+The user who created this file.
+</ParamField>
+
+<ParamField body="description" type="string">
+example: `Contract for Q1 renewal`
+
+The optional description of this file.
+If the description exceeds 255 characters, the first 255 characters
+are set as a file description and the rest of it is ignored.
+</ParamField>
+
+<ParamField body="etag" type="string">
+example: `1`
+
+The HTTP `etag` of this file. This can be used within some API
+endpoints in the `If-Match` and `If-None-Match` headers to only
+perform changes on the file if (no) changes have happened.
+</ParamField>
+
+<ParamField body="file_version" type="File version (Mini)object">
+The information about the current version of the file.
+</ParamField>
+
+<ParamField body="item_status" type="string">
+example: `active`
+
+Defines if this item has been deleted or not.
+
+* `active` when the item has is not in the trash
+* `trashed` when the item has been moved to the trash but not deleted
+* `deleted` when the item has been permanently deleted.
+
+Value is one of `active`,`trashed`,`deleted`
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The date and time when the file was last updated on Box.
+</ParamField>
+
+<ParamField body="modified_by" type="User (Mini)object">
+The user who last modified this file.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Contract.pdf`
+
+The name of the file.
+</ParamField>
+
+<ParamField body="owned_by" type="User (Mini)object">
+The user who owns this file.
+</ParamField>
+
+<ParamField body="parent" type="Folder (Mini)object">
+The folder that this file is located within.
+This value may be `null` for some folders such as
+the root folder or the trash folder.
+</ParamField>
+
+<ParamField body="path_collection" type="object">
+The tree of folders that this file is contained in,
+starting at the root.
+
+<Expandable>
+  <ParamField body="entries" type="Folder (Mini)array">
+  The parent folders for this item.
+  </ParamField>
+
+  <ParamField body="total_count" type="integer(int64)">
+  example: `1`
+  
+  The number of folders in this list.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="purged_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The time at which this file is expected to be purged
+from the trash.
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+example: `3`
+
+A numeric identifier that represents the most recent user event
+that has been applied to this item.
+
+This can be used in combination with the `GET /events`-endpoint
+to filter out user events that would have occurred before this
+identifier was read.
+
+An example would be where a Box Drive-like application
+would fetch an item via the API, and then listen to incoming
+user events for changes to the item. The application would
+ignore any user events where the `sequence_id` in the event
+is smaller than or equal to the `sequence_id` in the originally
+fetched resource.
+</ParamField>
+
+<ParamField body="sha1" type="string(digest)">
+example: `85136C79CBF9FE36BB9D05D0639C70C265C18D37`
+
+The SHA1 hash of the file. This can be used to compare the contents
+of a file on Box with a local file.
+</ParamField>
+
+<ParamField body="shared_link" type="object">
+The shared link for this file. This value will be
+`null` if no shared link has been created for this
+file.
+
+<Expandable>
+  <ParamField body="access" type="string">
+  example: `open`
+  
+  The access level for this shared link.
+  
+  * `open` - provides access to this item to anyone with this link
+  * `company` - only provides access to this item to people the same company
+  * `collaborators` - only provides access to this item to people who are
+    collaborators on this item
+  
+  If this field is omitted when creating the shared link, the access level
+  will be set to the default access level specified by the enterprise admin.
+  
+  Value is one of `open`,`company`,`collaborators`
+  </ParamField>
+
+  <ParamField body="download_count" type="integer">
+  example: `3`
+  
+  The number of times this item has been downloaded.
+  </ParamField>
+
+  <ParamField body="download_url" type="string(url)">
+  example: `https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg`
+  
+  A URL that can be used to download the file. This URL can be used in
+  a browser to download the file. This URL includes the file
+  extension so that the file will be saved with the right file type.
+  
+  This property will be `null` for folders.
+  </ParamField>
+
+  <ParamField body="effective_access" type="string">
+  example: `company`
+  
+  The effective access level for the shared link. This can be a more
+  restrictive access level than the value in the `access` field when the
+  enterprise settings restrict the allowed access levels.
+  
+  Value is one of `open`,`company`,`collaborators`
+  </ParamField>
+
+  <ParamField body="effective_permission" type="string">
+  example: `can_download`
+  
+  The effective permissions for this shared link.
+  These result in the more restrictive combination of
+  the share link permissions and the item permissions set
+  by the administrator, the owner, and any ancestor item
+  such as a folder.
+  
+  Value is one of `can_edit`,`can_download`,`can_preview`,`no_access`
+  </ParamField>
+
+  <ParamField body="is_password_enabled" type="boolean">
+  example: `true`
+  
+  Defines if the shared link requires a password to access the item.
+  </ParamField>
+
+  <ParamField body="permissions" type="object">
+  Defines if this link allows a user to preview, edit, and download an item.
+  These permissions refer to the shared link only and
+  do not supersede permissions applied to the item itself.
+  
+  <Expandable>
+    <ParamField body="can_download" type="boolean">
+    example: `true`
+    
+    Defines if the shared link allows for the item to be downloaded. For
+    shared links on folders, this also applies to any items in the folder.
+    
+    This value can be set to `true` when the effective access level is
+    set to `open` or `company`, not `collaborators`.
+    </ParamField>
+  
+    <ParamField body="can_edit" type="boolean">
+    example: `false`
+    
+    Defines if the shared link allows for the item to be edited.
+    
+    This value can only be `true` if `can_download` is also `true` and if
+    the item has a type of `file`.
+    </ParamField>
+  
+    <ParamField body="can_preview" type="boolean">
+    example: `true`
+    
+    Defines if the shared link allows for the item to be previewed.
+    
+    This value is always `true`. For shared links on folders this also
+    applies to any items in the folder.
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+  <ParamField body="preview_count" type="integer">
+  example: `3`
+  
+  The number of times this item has been previewed.
+  </ParamField>
+
+  <ParamField body="unshared_at" type="string(date-time)">
+  example: `2018-04-13T13:53:23-07:00`
+  
+  The date and time when this link will be unshared. This field can only be
+  set by users with paid accounts.
+  </ParamField>
+
+  <ParamField body="url" type="string(url)">
+  example: `https://www.box.com/s/vspke7y05sb214wjokpk`
+  
+  The URL that can be used to access the item on Box.
+  
+  This URL will display the item in Box's preview UI where the file
+  can be downloaded if allowed.
+  
+  This URL will continue to work even when a custom `vanity_url`
+  has been set for this shared link.
+  </ParamField>
+
+  <ParamField body="vanity_name" type="string">
+  example: `my_url`
+  
+  The custom name of a shared link, as used in the `vanity_url` field.
+  </ParamField>
+
+  <ParamField body="vanity_url" type="string(url)">
+  example: `https://acme.app.box.com/v/my_url/`
+  
+  The "Custom URL" that can also be used to preview the item on Box. Custom
+  URLs can only be created or modified in the Box Web application.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="size" type="integer">
+example: `629644`
+
+The file size in bytes. Be careful parsing this integer as it can
+get very large and cause an integer overflow.
+</ParamField>
+
+<ParamField body="trashed_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+The time at which this file was put in the trash.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "file",
+  "content_created_at": "2012-12-12T10:53:43-08:00",
+  "content_modified_at": "2012-12-12T10:53:43-08:00",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "description": "Contract for Q1 renewal",
+  "etag": "1",
+  "file_version": {
+    "id": "12345",
+    "type": "file_version",
+    "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+  },
+  "item_status": "active",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "modified_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "name": "Contract.pdf",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  },
+  "path_collection": {
+    "entries": [
+      {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      }
+    ],
+    "total_count": 1
+  },
+  "purged_at": "2012-12-12T10:53:43-08:00",
+  "sequence_id": "3",
+  "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37",
+  "shared_link": {
+    "access": "open",
+    "download_count": 3,
+    "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+    "effective_access": "company",
+    "effective_permission": "can_download",
+    "is_password_enabled": true,
+    "permissions": {
+      "can_download": true,
+      "can_edit": false,
+      "can_preview": true
+    },
+    "preview_count": 3,
+    "unshared_at": "2018-04-13T13:53:23-07:00",
+    "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+    "vanity_name": "my_url",
+    "vanity_url": "https://acme.app.box.com/v/my_url/"
+  },
+  "size": 629644,
+  "trashed_at": "2012-12-12T10:53:43-08:00"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,24 @@
+---
+title: "V1 Webhooks"
+rank: 2
+related_endpoints: []
+related_guides: []
+required_guides:
+alias_paths: []
+---
+Webhooks created using the [Developer Console][console] monitor changes to all
+files and folders within a user's account. When creating one of these webhooks
+it is not possible specify a specific object to bind the webhook to. To create
+a webhook for a specific file or folder, you will need to leverage
+[v2 webhooks][v2].
+
+<Warning>
+  Webhooks created through this process will not show when listing all
+  webhooks for a user via API call. All V1 webhooks are visible in the
+  **Webhooks** tab in the [Developer Console][console].
+</Warning>
+
+[devconsole]: https://app.box.com/developers/console
+[list_webhooks]: /guides/webhooks/v2/list-v2
+[v2]: /guides/webhooks/v2
+[console]: https://app.box.com/developers/console

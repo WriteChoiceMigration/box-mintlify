@@ -1,0 +1,70 @@
+---
+title: "Create Teams integration mappings"
+rank: 3
+related_endpoints:
+related_guides:
+required_guides:
+related_resources: []
+alias_paths: []
+---
+Use the `POST integration_mappings_teams` call to create a mapping.
+To make it work, you need the `box_item` and the `partner_item` parameters,
+which refer to a Box folder and a Teams channel, respectively.
+
+<CodeGroup>
+
+```sh cURL
+curl -X -L POST "https://api.box.com/2.0/integration_mappings/teams" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H 'content-type: application/json' \
+     -d '{
+          "partner_item": {
+              "id": "19%3ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2",
+              "type": "channel",
+              "team_id": "hjgjgjg-bhhj-564a-b643-hghgj685u",
+              "tenant_id": "E1234567"
+          },
+          "box_item": {
+              "id": "42037322",
+              "type": "folder"
+          }
+      }'
+```
+
+```typescript Node/TypeScript v10
+await userClient.integrationMappings.createTeamsIntegrationMapping({
+  partnerItem: {
+    type: 'channel' as IntegrationMappingPartnerItemTeamsCreateRequestTypeField,
+    id: partnerItemId,
+    tenantId: tenantId,
+    teamId: teamId,
+  } satisfies IntegrationMappingPartnerItemTeamsCreateRequest,
+  boxItem: new FolderReference({ id: folder.id }),
+} satisfies IntegrationMappingTeamsCreateRequest);
+```
+
+```python Python v10
+user_client.integration_mappings.create_teams_integration_mapping(
+    IntegrationMappingPartnerItemTeamsCreateRequest(
+        type=IntegrationMappingPartnerItemTeamsCreateRequestTypeField.CHANNEL,
+        id=partner_item_id,
+        tenant_id=tenant_id,
+        team_id=team_id,
+    ),
+    FolderReference(id=folder.id),
+)
+```
+
+```cs .NET v10
+await userClient.IntegrationMappings.CreateTeamsIntegrationMappingAsync(requestBody: new IntegrationMappingTeamsCreateRequest(partnerItem: new IntegrationMappingPartnerItemTeamsCreateRequest(type: IntegrationMappingPartnerItemTeamsCreateRequestTypeField.Channel, id: partnerItemId, tenantId: tenantId, teamId: teamId), boxItem: new FolderReference(id: folder.Id)));
+```
+
+```swift Swift v10
+try await userClient.integrationMappings.createTeamsIntegrationMapping(requestBody: IntegrationMappingTeamsCreateRequest(partnerItem: IntegrationMappingPartnerItemTeamsCreateRequest(type: IntegrationMappingPartnerItemTeamsCreateRequestTypeField.channel, id: partnerItemId, tenantId: tenantId, teamId: teamId), boxItem: FolderReference(id: folder.id)))
+```
+
+```java Java v10
+userClient.getIntegrationMappings().createTeamsIntegrationMapping(new IntegrationMappingTeamsCreateRequest(new IntegrationMappingPartnerItemTeamsCreateRequest(IntegrationMappingPartnerItemTeamsCreateRequestTypeField.CHANNEL, partnerItemId, tenantId, teamId), new FolderReference(folder.getId())))
+```
+
+</CodeGroup>

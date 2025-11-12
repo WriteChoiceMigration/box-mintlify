@@ -1,0 +1,43 @@
+---
+title: Authentication
+rank: 20
+alias_paths:
+- /docs/application-setup
+- /docs/authentication
+sidebarTitle: Overview
+---
+Authentication with the Box API uses an Access Token to identify a user. The
+way in which an Access Token is acquired depends on the method used to authorize
+a user. The type of authorization available to an application depends on the
+use-case as well as the type of application that has been created in the developer
+console.
+
+| Box Application Type         | Authentication methods                                              |
+| ---------------------------- | ------------------------------------------------------------------- |
+| [Platform App][custom-app]     | [OAuth 2.0][oauth2], [JWT][jwt], or [Client Credentials Grant][ccg] |
+| [Limited Access App][la]     | [App token][apptoken]                                               |
+| [Custom Skill][custom-skill] | No authentication method selection needed                           |
+
+<Card href="/guides/authentication/select" arrow title="Learn how to select an authorization type"/>
+
+## Access Tokens for Authentication
+
+Every API endpoint requires a valid and active **Access Token** to make API
+calls. An Access Token is a unique string that identifies an authenticated Box
+user to the API endpoints.
+
+```sh
+curl https://api.box.com/2.0/users/me \
+    -H "authorization: Bearer EGmDmRVfhfHsqesn5yVYHAqUkD0dyDfk"
+```
+
+<Card href="/guides/authentication/tokens" arrow title="Learn more about Access Tokens"/>
+
+[oauth2]: /guides/authentication/oauth2
+[jwt]: /guides/authentication/jwt
+[apptoken]: /guides/authentication/app-token
+[devtoken]: /guides/authentication/tokens/developer-tokens
+[custom-app]: /guides/applications/app-types/platform-apps
+[custom-skill]: /guides/applications/app-types/custom-skills
+[la]: /guides/applications/app-types/select/#limited-access-app
+[ccg]: /guides/authentication/client-credentials

@@ -1,0 +1,36 @@
+---
+title: "OAuth 2.0エラー"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+OAuth 2.0エラー。
+
+<ParamField body="error" type="string">
+例 `invalid_client`
+
+返されるエラーのタイプ。
+</ParamField>
+
+<ParamField body="error_description" type="string">
+例 `The client credentials are not valid`
+
+返されるエラーのタイプ。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "error": "invalid_client",
+  "error_description": "The client credentials are not valid"
+}
+```
+
+</ResponseExample>

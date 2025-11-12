@@ -1,0 +1,37 @@
+---
+title: "Upload URL"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The details for the upload session for the file.
+
+<ParamField body="upload_token" type="string">
+example: `Pc3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQP`
+
+An optional access token to use to upload the file.
+</ParamField>
+
+<ParamField body="upload_url" type="string">
+example: `https://upload-las.app.box.com/api/2.0/files/content?upload_session_id=1234`
+
+A URL for an upload session that can be used to upload
+the file.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "upload_token": "Pc3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQP",
+  "upload_url": "https://upload-las.app.box.com/api/2.0/files/content?upload_session_id=1234"
+}
+```
+
+</ResponseExample>

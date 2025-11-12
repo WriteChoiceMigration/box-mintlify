@@ -1,0 +1,35 @@
+---
+title: "Shield List Content (Email)"
+---
+
+API version 2025.0
+
+Representation of content of a Shield List that contains email addresses data.
+
+<ParamField body="type" type="string">
+example: `email`
+
+The type of content in the shield list.
+
+Value is always `email`
+</ParamField>
+
+<ParamField body="email_addresses" type="stringarray">
+example: `["example1@box.com","example2@gmail.com"]`
+
+List of emails.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "type": "email",
+  "email_addresses": [
+    "example1@box.com",
+    "example2@gmail.com"
+  ]
+}
+```
+
+</ResponseExample>

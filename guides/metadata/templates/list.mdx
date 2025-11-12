@@ -1,0 +1,216 @@
+---
+title: "List all metadata templates"
+required_guides:
+  - metadata/scopes
+related_endpoints:
+  - get_metadata_templates_enterprise
+  - get_metadata_templates_global
+related_guides:
+  - metadata/templates/get
+  - metadata/templates/create
+  - metadata/templates/update
+related_resources:
+  - metadata_templates
+---
+Metadata templates can be listed for either the [enterprise or the global
+scope][scopes].
+
+## List global templates
+
+To list all global metadata templates, call the [`GET
+/metadata_templates/global`][get_global] API endpoint.
+
+<CodeGroup>
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/metadata_templates/global" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.metadataTemplates.getGlobalMetadataTemplates();
+```
+
+```python Python v10
+client.metadata_templates.get_global_metadata_templates()
+```
+
+```csharp .NET v10
+await client.MetadataTemplates.GetGlobalMetadataTemplatesAsync();
+```
+
+```swift Swift v10
+try await client.metadataTemplates.getGlobalMetadataTemplates()
+```
+
+```java Java v10
+client.getMetadataTemplates().getGlobalMetadataTemplates()
+```
+
+```java Java v5
+Iterable<MetadataTemplate> templates = MetadataTemplate.getEnterpriseMetadataTemplates('global', api);
+for (MetadataTemplate templateInfo : templates) {
+    // Do something with the metadata template.
+}
+```
+
+```py Python v4
+templates = client.get_metadata_templates(scope='global)
+for template in templates:
+    print(f'Metadata template {template.templateKey} is in global scope')
+```
+
+```csharp .NET v6
+BoxEnterpriseMetadataTemplateCollection<BoxMetadataTemplate> templates = await client.MetadataManager
+    .GetEnterpriseMetadataAsync("global");
+```
+
+```js Node v4
+client.metadata.getTemplates('global')
+ .then(templates => {
+  // ...
+ });
+```
+</CodeGroup>
+
+<Info>
+  This API returns a list of all the metadata templates created by Box and made
+  available to all enterprises.
+</Info>
+
+## List current enterprise's templates
+
+To list all metadata templates created for usage within the current
+enterprise, call the [`GET  /metadata_templates/enterprise`][get_enterprise] API
+endpoint.
+
+<CodeGroup>
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/metadata_templates/enterprise" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.metadataTemplates.getEnterpriseMetadataTemplates();
+```
+
+```python Python v10
+client.metadata_templates.get_enterprise_metadata_templates()
+```
+
+```csharp .NET v10
+await client.MetadataTemplates.GetEnterpriseMetadataTemplatesAsync();
+```
+
+```swift Swift v10
+try await client.metadataTemplates.getEnterpriseMetadataTemplates()
+```
+
+```java Java v10
+client.getMetadataTemplates().getEnterpriseMetadataTemplates()
+```
+
+```java Java v5
+Iterable<MetadataTemplate> templates = MetadataTemplate.getEnterpriseMetadataTemplates(api);
+for (MetadataTemplate templateInfo : templates) {
+    // Do something with the metadata template.
+}
+```
+
+```py Python v4
+templates = client.get_metadata_templates()
+for template in templates:
+    print(f'Metadata template {template.templateKey} is in enterprise scope')
+```
+
+```csharp .NET v6
+BoxEnterpriseMetadataTemplateCollection<BoxMetadataTemplate> templates = await client.MetadataManager
+    .GetEnterpriseMetadataAsync();
+```
+
+```js Node v4
+client.metadata.getTemplates('enterprise')
+ .then(templates => {
+  /* templates -> {
+   limit: 100,
+   entries: 
+   [ { templateKey: 'documentFlow',
+    scope: 'enterprise_12345',
+    displayName: 'Document Flow',
+    hidden: false,
+    fields: 
+     [ { type: 'string',
+      key: 'currentDocumentStage',
+      displayName: 'Current Document Stage',
+      hidden: false }
+     { type: 'string',
+      key: 'needsApprovalFrom',
+      displayName: 'Needs Approval From',
+      hidden: false },
+     { type: 'string',
+      key: 'nextDocumentStage',
+      displayName: 'Next Document Stage',
+      hidden: false }
+     { type: 'float',
+      key: 'maximumDaysAllowedInCurrentStage',
+      displayName: 'Maximum Days Allowed In Current Stage',
+      hidden: false }
+    { templateKey: 'marketingCollateral',
+    scope: 'enterprise_12345',
+    displayName: 'Marketing Collateral',
+    hidden: false,
+    fields: 
+     [ { type: 'string',
+      key: 'audience1',
+      displayName: 'Audience',
+      hidden: false },
+     { type: 'string',
+      key: 'previousState',
+      displayName: 'Previous State',
+      hidden: false } ] },
+    { templateKey: 'productInfo',
+    scope: 'enterprise_12345',
+    displayName: 'Product Info',
+    hidden: false,
+    fields: 
+     [ { type: 'float',
+      key: 'skuNumber',
+      displayName: 'SKU Number',
+      hidden: false },
+     { type: 'enum',
+      key: 'department',
+      displayName: 'Department',
+      hidden: false,
+      options: 
+      [ { key: 'Beauty' },
+      { key: 'Shoes' },
+      { key: 'Accessories' },
+      { key: 'Clothing' },
+      { key: 'Handbags' },
+      { key: 'Bedding' },
+      { key: 'Watches' } ] },
+     { type: 'date',
+      key: 'displayDate',
+      displayName: 'Display Date',
+      hidden: false } ] } ],
+   next_marker: null,
+   prev_marker: null }
+  */
+ });
+```
+</CodeGroup>
+
+<Info>
+  This API returns a list of all the metadata templates created by this
+  enterprise, and these templates are only available to apply to files in this enterprise.
+</Info>
+
+## Pagination
+
+This API uses [marker-based pagination][pagination] and can return a
+`next_marker` value in the response body to indicate that more templates might
+be available.
+
+[scopes]: /guides/metadata/scopes
+[get_global]: /reference/get_metadata_templates_global
+[get_enterprise]: /reference/get_metadata_templates_enterprise
+[pagination]: /guides/api-calls/pagination/marker-based

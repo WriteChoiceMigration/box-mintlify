@@ -1,0 +1,39 @@
+---
+title: "Box Hubの項目"
+---
+
+APIバージョン 2025.0
+
+Box Hubの項目とは、Box Hubで参照されるBox項目のことです。
+
+<ParamField body="id" type="string">
+例 `12345678`
+
+この項目の一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `file`
+
+項目のタイプ。
+
+次の値のいずれか1つ: `file`,`folder`,`web_link`
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `My File`
+
+項目の名前。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345678",
+  "type": "file",
+  "name": "My File"
+}
+```
+
+</ResponseExample>

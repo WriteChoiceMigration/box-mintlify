@@ -1,0 +1,45 @@
+---
+title: "AI LLMエンドポイントパラメータ (AWS)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+AI LLMエンドポイントパラメータ (AWS) オブジェクト。
+
+<ParamField body="type" type="string">
+例 `aws_params`
+
+AWS用のAI LLMエンドポイントパラメータオブジェクトのタイプ。このパラメータは**必須**です。
+
+次の値に固定: `aws_params`
+</ParamField>
+
+<ParamField body="temperature" type="number">
+例 `0.5`
+
+使用するサンプリングtemperature (0～1の間)。0.8のような高い値を指定すると、出力がよりランダムになるのに対し、0.2のような低い値を指定すると、出力はより焦点を絞った、決定的なものになります。一般的には、この値と`top_p`の両方ではなく、いずれかを変更することをお勧めします。
+</ParamField>
+
+<ParamField body="top_p" type="number">
+例 `0.5`
+
+temperatureによるサンプリングの代替手段 (核サンプリングと呼ばれます)。この場合、モデルは`top_p`の確率質量を持つトークンの結果を考慮します。つまり、0.1の場合は、上位10%の確率質量で構成されるトークンのみが考慮されます。一般的には、この値とtemperatureの両方ではなく、いずれかを変更することをお勧めします。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "aws_params",
+  "temperature": 0.5,
+  "top_p": 0.5
+}
+```
+
+</ResponseExample>

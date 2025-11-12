@@ -1,0 +1,231 @@
+---
+title: "Retention policy"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A retention policy blocks permanent deletion of content
+for a specified amount of time. Admins can create retention
+policies and then later assign them to specific folders, metadata
+templates, or their entire enterprise. To use this feature, you must
+have the manage retention policies scope enabled
+for your API key via your application management console.
+
+* [Standard](/reference/resources/retention-policy/)
+* [Mini](/reference/resources/retention-policy--mini/)
+* [Base](/reference/resources/retention-policy--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **standard** variant are generally
+returned when the resource is requested via its own API endpoints.
+For example, when retrieving a file by ID, it will return
+these fields unless the `fields` parameter has been specified.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represents a retention policy.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `retention_policy`
+
+The value will always be `retention_policy`.
+
+Value is always `retention_policy`
+</ParamField>
+
+<ParamField body="are_owners_notified" type="boolean">
+example: `false`
+
+Determines if owners and co-owners of items
+under the policy are notified when
+the retention duration is about to end.
+</ParamField>
+
+<ParamField body="assignment_counts" type="object">
+Counts the retention policy assignments for each item type.
+
+<Expandable>
+  <ParamField body="enterprise" type="integer(int64)">
+  example: `1`
+  
+  The number of enterprise assignments this policy has. The maximum value is 1.
+  </ParamField>
+
+  <ParamField body="folder" type="integer(int64)">
+  example: `1`
+  
+  The number of folder assignments this policy has.
+  </ParamField>
+
+  <ParamField body="metadata_template" type="integer(int64)">
+  example: `1`
+  
+  The number of metadata template assignments this policy has.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="can_owner_extend_retention" type="boolean">
+example: `false`
+
+Determines if the owner of items under the policy
+can extend the retention when the original
+retention duration is about to end.
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the retention policy object was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Mini)object">
+A mini user object representing the user that
+created the retention policy.
+</ParamField>
+
+<ParamField body="custom_notification_recipients" type="User (Mini)array">
+A list of users notified when the retention policy duration is about to end.
+</ParamField>
+
+<ParamField body="description" type="string">
+example: `Policy to retain all reports for at least one month`
+
+The additional text description of the retention policy.
+</ParamField>
+
+<ParamField body="disposition_action" type="string">
+example: `permanently_delete`
+
+The disposition action of the retention policy.
+This action can be `permanently_delete`, which
+will cause the content retained by the policy
+to be permanently deleted, or `remove_retention`,
+which will lift the retention policy from the content,
+allowing it to be deleted by users,
+once the retention policy has expired.
+
+Value is one of `permanently_delete`,`remove_retention`
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the retention policy object was last modified.
+</ParamField>
+
+<ParamField body="policy_name" type="string">
+example: `Some Policy Name`
+
+The name given to the retention policy.
+</ParamField>
+
+<ParamField body="policy_type" type="string">
+example: `finite`
+
+The type of the retention policy. A retention
+policy type can either be `finite`, where a
+specific amount of time to retain the content is known
+upfront, or `indefinite`, where the amount of time
+to retain the content is still unknown.
+
+Value is one of `finite`,`indefinite`
+</ParamField>
+
+<ParamField body="retention_length" type="string(int32)">
+example: `365`
+
+The length of the retention policy. This value
+specifies the duration in days that the retention
+policy will be active for after being assigned to
+content. If the policy has a `policy_type` of
+`indefinite`, the `retention_length` will also be
+`indefinite`.
+</ParamField>
+
+<ParamField body="retention_type" type="string">
+example: `non_modifiable`
+
+Specifies the retention type:
+
+* `modifiable`: You can modify the retention policy. For example,
+  you can add or remove folders, shorten or lengthen
+  the policy duration, or delete the assignment.
+  Use this type if your retention policy
+  is not related to any regulatory purposes.
+* `non-modifiable`: You can modify the retention policy
+  only in a limited way: add a folder, lengthen the duration,
+  retire the policy, change the disposition action
+  or notification settings. You cannot perform other actions,
+  such as deleting the assignment or shortening the
+  policy duration. Use this type to ensure
+  compliance with regulatory retention policies.
+
+Value is one of `modifiable`,`non_modifiable`
+</ParamField>
+
+<ParamField body="status" type="string">
+example: `active`
+
+The status of the retention policy. The status of
+a policy will be `active`, unless explicitly retired by an
+administrator, in which case the status will be `retired`.
+Once a policy has been retired, it cannot become
+active again.
+
+Value is one of `active`,`retired`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "retention_policy",
+  "are_owners_notified": false,
+  "assignment_counts": {
+    "enterprise": 1,
+    "folder": 1,
+    "metadata_template": 1
+  },
+  "can_owner_extend_retention": false,
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "created_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "custom_notification_recipients": [
+    {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie"
+    }
+  ],
+  "description": "Policy to retain all reports for at least one month",
+  "disposition_action": "permanently_delete",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "policy_name": "Some Policy Name",
+  "policy_type": "finite",
+  "retention_length": "365",
+  "retention_type": "non_modifiable",
+  "status": "active"
+}
+```
+
+</ResponseExample>

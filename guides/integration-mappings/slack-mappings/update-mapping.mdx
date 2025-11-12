@@ -1,0 +1,73 @@
+---
+title: "Update Slack Integration Mapping"
+rank: 5
+related_endpoints:
+related_guides:
+required_guides:
+related_resources: []
+alias_paths: []
+---
+Use the `PUT integration_mappings/slack/:integration_mapping_id`
+call to update the existing mapping or the target Box folder.
+
+<CodeGroup>
+
+```sh cURL
+curl -X -L PUT "https://api.box.com/2.0/integration_mappings/slack/512521" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"  \
+     -H 'content-type: application/json'  \
+     -d'{
+         "options": {
+            "is_access_management_disabled": true
+        }
+    }'
+```
+
+```typescript Node/TypeScript v10
+await userClient.integrationMappings.updateSlackIntegrationMappingById(
+  slackIntegrationMapping.id,
+  {
+    requestBody: {
+      boxItem: new IntegrationMappingBoxItemSlack({ id: folder.id }),
+    } satisfies UpdateSlackIntegrationMappingByIdRequestBody,
+  } satisfies UpdateSlackIntegrationMappingByIdOptionalsInput,
+);
+```
+
+```python Python v10
+user_client.integration_mappings.update_slack_integration_mapping_by_id(
+    slack_integration_mapping.id, box_item=IntegrationMappingBoxItemSlack(id=folder.id)
+)
+```
+
+```cs .NET v10
+await userClient.IntegrationMappings.UpdateSlackIntegrationMappingByIdAsync(integrationMappingId: slackIntegrationMapping.Id, requestBody: new UpdateSlackIntegrationMappingByIdRequestBody() { BoxItem = new IntegrationMappingBoxItemSlack(id: folder.Id) });
+```
+
+```swift Swift v10
+try await userClient.integrationMappings.updateSlackIntegrationMappingById(integrationMappingId: slackIntegrationMapping.id, requestBody: UpdateSlackIntegrationMappingByIdRequestBody(boxItem: IntegrationMappingBoxItemSlack(id: folder.id)))
+```
+
+```java Java v10
+userClient.getIntegrationMappings().updateSlackIntegrationMappingById(slackIntegrationMapping.getId(), new UpdateSlackIntegrationMappingByIdRequestBody.Builder().boxItem(new IntegrationMappingBoxItemSlack(folder.getId())).build())
+```
+
+```javascript Node v4
+const mapping = await client.integrationMappings.updateSlackIntegrationMapping({
+	box_item: {
+		id: '12345',
+		type: 'folder'
+	},
+	options: {
+		is_access_management_disabled: true
+	}
+}, {
+	integration_mapping_id: integrationMappingId
+});
+
+console.log(
+    `Slack integration mapping with id ${mapping.id} was updated`
+);
+```
+
+</CodeGroup>

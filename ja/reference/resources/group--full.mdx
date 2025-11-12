@@ -1,0 +1,144 @@
+---
+title: "グループ (Full)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+グループは複数のユーザーを含み、グループを使用するとコラボレーションなどの一部の操作をユーザーの代わりに実行できます。
+
+* [Full](/reference/resources/group--full/)
+* [Standard](/reference/resources/group/)
+* [Mini](/reference/resources/group--mini/)
+* [Base](/reference/resources/group--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Full**バリアントに含まれるフィールドは、`fields`パラメータをサポートするAPIエンドポイントによって返すことができます。たとえば、IDでファイルを取得するときに、`fields`リクエストパラメータを`id,type`に設定すると、これらのフィールドのみがAPIレスポンスで返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このオブジェクトの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `group`
+
+値は常に`group`になります。
+
+次の値に固定: `group`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+グループオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `Support Group - as imported from Active Directory`
+
+グループについての人間が判読できる説明。
+</ParamField>
+
+<ParamField body="external_sync_identifier" type="string">
+例 `AD:123456`
+
+このBoxグループを外部グループにリンクするために外部のグループ同期ツールで使用できる任意の識別子。このフィールドの値には、Active DirectoryオブジェクトIDやGoogleグループIDなどを使用できます。Boxまたは外部システム内でグループ名が更新されたときの問題を回避するために、このフィールドを使用することをお勧めします。
+</ParamField>
+
+<ParamField body="group_type" type="string">
+例 `managed_group`
+
+グループのタイプ。
+
+次の値のいずれか1つ: `managed_group`,`all_users_group`
+</ParamField>
+
+<ParamField body="invitability_level" type="string">
+例 `admins_only`
+
+項目でのコラボレーションにグループを招待できるユーザーを指定します。
+
+`admins_only`に設定すると、会社の管理者、共同管理者、およびグループ管理者がグループを招待できるようになります。
+
+`admins_and_members`に設定すると、上記すべての管理者に加えて、グループのメンバーもグループを招待できるようになります。
+
+`all_managed_users`に設定すると、社内のすべての管理対象ユーザーがグループを招待できるようになります。
+
+次の値のいずれか1つ: `admins_only`,`admins_and_members`,`all_managed_users`
+</ParamField>
+
+<ParamField body="member_viewability_level" type="string">
+例 `admins_only`
+
+グループのメンバーを表示できるユーザーを指定します (グループのメンバーを取得)。
+
+* `admins_only` - 企業の管理者、共同管理者、グループのグループ管理者。
+* `admins_and_members` - すべての管理者とグループメンバー。
+* `all_managed_users` - 企業のすべての管理対象ユーザー。
+
+次の値のいずれか1つ: `admins_only`,`admins_and_members`,`all_managed_users`
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+グループオブジェクトが最後に変更された日時。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Support`
+
+グループの名前。
+</ParamField>
+
+<ParamField body="permissions" type="object">
+このグループに対して現在のユーザーが持っている権限について説明します。
+
+<Expandable>
+  <ParamField body="can_invite_as_collaborator" type="boolean">
+  例 `true`
+  
+  ユーザーが項目でのコラボレーションにグループを招待できるかどうかを指定します。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="provenance" type="string">
+例 `Active Directory`
+
+このグループの元になっている外部ソース ("Active Directory"、"Google Groups"、"Facebook Groups"など) を追跡します。また、これを設定すると、Box管理者がBoxウェブアプリケーションからグループ名やメンバーを直接編集できなくなります。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "group",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "description": "Support Group - as imported from Active Directory",
+  "external_sync_identifier": "AD:123456",
+  "group_type": "managed_group",
+  "invitability_level": "admins_only",
+  "member_viewability_level": "admins_only",
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "name": "Support",
+  "permissions": {
+    "can_invite_as_collaborator": true
+  },
+  "provenance": "Active Directory"
+}
+```
+
+</ResponseExample>

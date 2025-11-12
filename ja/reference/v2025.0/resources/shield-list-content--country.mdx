@@ -1,0 +1,35 @@
+---
+title: "Shieldリストのコンテンツ (国)"
+---
+
+APIバージョン 2025.0
+
+国のデータを含むShieldリストのコンテンツの表示。
+
+<ParamField body="type" type="string">
+例 `country`
+
+Shieldリスト内のコンテンツのタイプ。
+
+次の値に固定: `country`
+</ParamField>
+
+<ParamField body="country_codes" type="stringarray">
+例 `["US","PL"]`
+
+国コードの値のリスト。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "country",
+  "country_codes": [
+    "US",
+    "PL"
+  ]
+}
+```
+
+</ResponseExample>

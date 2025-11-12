@@ -1,0 +1,66 @@
+---
+title: "Permanently Delete File"
+rank: 2
+related_endpoints:
+related_guides:
+required_guides: []
+related_resources:
+  - files
+---
+Once a file has been moved to the trash, it will stay in the trash for 30
+days by default before being purged. Administrators of Business or
+Enterprise accounts can alter the purge window. If you wish to permanently
+delete the file from the trash before the purge window expires, make a `DELETE`
+request to `/files/:file_id/trash` using the trashed file's `ID`.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X DELETE "https://api.box.com/2.0/files/12345/trash" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.trashedFiles.deleteTrashedFileById(file.id);
+```
+
+```python Python v10
+client.trashed_files.delete_trashed_file_by_id(file.id)
+```
+
+```cs .NET v10
+await client.TrashedFiles.DeleteTrashedFileByIdAsync(fileId: file.Id);
+```
+
+```swift Swift v10
+try await client.trashedFiles.deleteTrashedFileById(fileId: file.id)
+```
+
+```java Java v10
+client.getTrashedFiles().deleteTrashedFileById(file.getId())
+```
+
+```java Java v5
+String fileID = "87398";
+BoxTrash trash = new BoxTrash(api);
+trash.deleteFile(fileID);
+```
+
+```python Python v4
+file_to_delete = client.file(file_id='11111')
+client.trash().permanently_delete_item(file_to_delete)
+print('The file was deleted from trash!')
+```
+
+```cs .NET v6
+await client.FilesManager.PurgeTrashedAsync("11111");
+```
+
+```javascript Node v4
+client.files.deletePermanently('11111')
+	.then(() => {
+		// deletion succeeded — no value returned
+	});
+```
+
+</CodeGroup>

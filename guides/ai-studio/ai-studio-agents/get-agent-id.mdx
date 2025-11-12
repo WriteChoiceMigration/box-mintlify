@@ -1,0 +1,57 @@
+---
+title: "Get AI agent by ID"
+rank: 3
+related_guides:
+  - authentication/tokens/developer-tokens/
+  - box-ai/ai-tutorials/ask-questions
+  - box-ai/ai-tutorials/default-agent-overrides
+  - box-ai/ai-tutorials/generate-text
+  - box-ai/ai-tutorials/extract-metadata-structured
+  - box-ai/ai-tutorials/extract-metadata
+---
+The `GET /2.0/ai_agents/{id}` endpoint allows you to list a specific AI
+agent by the `agent_id` parameter.
+
+## Send a request
+
+To send a request, use the `GET /2.0/ai_agents/{id}` endpoint.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/ai_agents/1234567890" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.aiStudio.getAiAgentById(createdAgent.id, {
+  queryParams: { fields: ['ask'] } satisfies GetAiAgentByIdQueryParams,
+} satisfies GetAiAgentByIdOptionalsInput);
+```
+
+```python Python v10
+client.ai_studio.get_ai_agent_by_id(created_agent.id, fields=["ask"])
+```
+
+```cs .NET v10
+await client.AiStudio.GetAiAgentByIdAsync(agentId: createdAgent.Id, queryParams: new GetAiAgentByIdQueryParams() { Fields = Array.AsReadOnly(new [] {"ask"}) });
+```
+
+```swift Swift v10
+try await client.aiStudio.getAiAgentById(agentId: createdAgent.id, queryParams: GetAiAgentByIdQueryParams(fields: ["ask"]))
+```
+
+```java Java v10
+client.getAiStudio().getAiAgentById(createdAgent.getId(), new GetAiAgentByIdQueryParams.Builder().fields(Arrays.asList("ask")).build())
+```
+
+</CodeGroup>
+
+### Parameters
+
+To make a call, you must pass the following parameters. Mandatory parameters are in **bold**.
+
+| Parameter| Description| Example|
+|--------|--------|-------|
+| **`agent_id`** | The agent id to get. | `1234` |
+| `fields` | The fields to return in the response. | `ask` |

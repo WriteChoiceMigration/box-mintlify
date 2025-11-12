@@ -1,0 +1,95 @@
+---
+title: "Find Item from Shared Link"
+rank: 3
+related_endpoints:
+  - get_shared_items
+related_guides:
+  - shared-links/remove
+  - shared-links/create-or-update
+related_pages: []
+required_guides: []
+related_resources: []
+alias_paths: []
+---
+The [find item for shared link](endpoint://get_shared_items) API is designed to
+accept a shared link as an input using a `BoxApi` header and return the file or
+folder object that the shared link is set for.
+
+To get the file or folder object associated with a shared link, supply
+the full shared link URL in the request.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/shared_items" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "boxapi: shared_link=https://app.box.com/s/gjasdasjhasd&shared_link_password=letmein"
+```
+
+```typescript Node/TypeScript v10
+await userClient.sharedLinksFiles.findFileForSharedLink(
+  {} satisfies FindFileForSharedLinkQueryParams,
+  {
+    boxapi: ''.concat(
+      'shared_link=',
+      fileFromApi.sharedLink!.url,
+      '&shared_link_password=Secret123@',
+    ) as string,
+  } satisfies FindFileForSharedLinkHeadersInput,
+);
+```
+
+```python Python v10
+user_client.shared_links_files.find_file_for_shared_link(
+    "".join(
+        [
+            "shared_link=",
+            file_from_api.shared_link.url,
+            "&shared_link_password=Secret123@",
+        ]
+    )
+)
+```
+
+```cs .NET v10
+await userClient.SharedLinksFiles.FindFileForSharedLinkAsync(queryParams: new FindFileForSharedLinkQueryParams(), headers: new FindFileForSharedLinkHeaders(boxapi: string.Concat("shared_link=", NullableUtils.Unwrap(fileFromApi.SharedLink).Url, "&shared_link_password=Secret123@")));
+```
+
+```swift Swift v10
+try await userClient.sharedLinksFiles.findFileForSharedLink(queryParams: FindFileForSharedLinkQueryParams(), headers: FindFileForSharedLinkHeaders(boxapi: "\("shared_link=")\(fileFromApi.sharedLink!.url)\("&shared_link_password=Secret123@")"))
+```
+
+```java Java v10
+userClient.getSharedLinksFiles().findFileForSharedLink(new FindFileForSharedLinkQueryParams(), new FindFileForSharedLinkHeaders(String.join("", "shared_link=", fileFromApi.getSharedLink().getUrl(), "&shared_link_password=Secret123@")))
+```
+
+```java Java v5
+String sharedLink = "https://app.box.com/s/abcdefghijklmnopqrstuvwxyz123456";
+String password = "foo";
+BoxItem.Info itemInfo = BoxItem.getSharedItem(api, sharedLink, password);
+```
+
+```python Python v4
+file = client.get_shared_item('https://app.box.com/s/gjasdasjhasd', password='letmein')
+```
+
+```javascript Node v4
+client.sharedItems.get(
+    'https://app.box.com/s/1a2b3c4d5e',
+    null,
+    {fields: 'type,id,parent,extension,shared_link'},
+    callback
+);
+```
+
+</CodeGroup>
+
+<Info>
+  Please note that when the shared link is for a folder, the response of this
+  API does not include the list of nested items within that folder.
+
+  To further traverse the items in the folder, use the same `BoxApi` header to
+  [get a nested folder's information](/reference/get-folders-id), [list the items in
+  those folders](/reference/get-folders-id-items), [get a nested file's
+  information](/reference/get-files-id), or [download a file](/reference/get-files-id-content)
+</Info>

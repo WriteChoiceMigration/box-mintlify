@@ -1,0 +1,92 @@
+---
+title: "ファイル (競合)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+以前出力されていたファイルの表示。
+
+* [Full](/reference/resources/file-conflict--full/)
+* [Standard](/reference/resources/file-conflict/)
+* [Mini](/reference/resources/file-conflict--mini/)
+* [Base](/reference/resources/file-conflict--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+通常、**Mini**バリアントに含まれるフィールドは、このリソースが別のリソースのレスポンス内にネストされている場合に返されます。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+ファイルを表す一意の識別子。
+
+ファイルIDを確認するには、ウェブアプリケーションでファイルにアクセスして、URLからIDをコピーします。たとえば、URLが`https://*.app.box.com/files/123`の場合、`file_id`は`123`です。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `file`
+
+値は常に`file`になります。
+
+次の値に固定: `file`
+</ParamField>
+
+<ParamField body="etag" type="string">
+例 `1`
+
+このファイルのHTTP `etag`。これは変更が発生した場合 (またはしなかった場合) にファイルに対して変更を行う目的でのみ、`If-Match`および`If-None-Match`ヘッダー内の一部のAPIエンドポイントで使用できます。
+</ParamField>
+
+<ParamField body="file_version" type="ファイルバージョン (Mini)object">
+他のリソース内にネストされたときに使用されるファイルバージョンのMini版の表示。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Contract.pdf`
+
+ファイルの名前。
+</ParamField>
+
+<ParamField body="sequence_id" type="string">
+例 `3`
+
+この項目に適用された最新のUser Eventを表す数値の識別子。
+
+これを`GET /events`エンドポイントと組み合わせて使用すると、この識別子が読み取られる前に発生した可能性があるUser Eventを除外できます。
+
+たとえば、Box DriveなどのアプリケーションがAPIを介して項目を取得し、その項目の変更に関連するUser Eventの発生を監視する場合などがこれに該当します。User Eventの`sequence_id`が最初に取得されたリソースの`sequence_id`よりも小さいか同じである場合、アプリケーションはそのようなUser Eventをすべて無視します。
+</ParamField>
+
+<ParamField body="sha1" type="string(digest)">
+例 `85136C79CBF9FE36BB9D05D0639C70C265C18D37`
+
+ファイルのSHA1ハッシュ。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "file",
+  "etag": "1",
+  "file_version": {
+    "id": "12345",
+    "type": "file_version",
+    "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+  },
+  "name": "Contract.pdf",
+  "sequence_id": "3",
+  "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+}
+```
+
+</ResponseExample>

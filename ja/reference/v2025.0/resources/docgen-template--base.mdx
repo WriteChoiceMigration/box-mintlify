@@ -1,0 +1,50 @@
+---
+title: "Box Doc Genテンプレート (Base)"
+---
+
+APIバージョン 2025.0
+
+他のリソース内にネストされたときに使用されるBox Doc GenテンプレートのBase版の表示。
+
+* [Standard](/reference/v2025.0/resources/docgen-template/)
+* [Base](/reference/v2025.0/resources/docgen-template--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="file" type="object">
+ドキュメントの生成元となるファイルを有効にします。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `42037322`
+  
+  オブジェクトのID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `file`
+  
+  値は常に`file`になります。
+  
+  次の値に固定: `file`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "file": {
+    "id": "42037322",
+    "type": "file"
+  }
+}
+```
+
+</ResponseExample>

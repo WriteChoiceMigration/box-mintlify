@@ -1,0 +1,86 @@
+---
+title: "Retention policy (Mini)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A mini representation of a retention policy, used when
+nested within another resource.
+
+* [Standard](/reference/resources/retention-policy/)
+* [Mini](/reference/resources/retention-policy--mini/)
+* [Base](/reference/resources/retention-policy--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **mini** variant are generally
+returned when the resource is nested within the response for
+another resource.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represents a retention policy.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `retention_policy`
+
+The value will always be `retention_policy`.
+
+Value is always `retention_policy`
+</ParamField>
+
+<ParamField body="disposition_action" type="string">
+example: `permanently_delete`
+
+The disposition action of the retention policy.
+This action can be `permanently_delete`, which
+will cause the content retained by the policy
+to be permanently deleted, or `remove_retention`,
+which will lift the retention policy from the content,
+allowing it to be deleted by users,
+once the retention policy has expired.
+
+Value is one of `permanently_delete`,`remove_retention`
+</ParamField>
+
+<ParamField body="policy_name" type="string">
+example: `Some Policy Name`
+
+The name given to the retention policy.
+</ParamField>
+
+<ParamField body="retention_length" type="string(int32)">
+example: `365`
+
+The length of the retention policy. This value
+specifies the duration in days that the retention
+policy will be active for after being assigned to
+content. If the policy has a `policy_type` of
+`indefinite`, the `retention_length` will also be
+`indefinite`.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "retention_policy",
+  "disposition_action": "permanently_delete",
+  "policy_name": "Some Policy Name",
+  "retention_length": "365"
+}
+```
+
+</ResponseExample>

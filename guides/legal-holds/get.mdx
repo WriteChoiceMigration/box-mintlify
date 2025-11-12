@@ -1,0 +1,90 @@
+---
+title: "Get Legal Hold Policy"
+rank: 2
+related_endpoints:
+  - get_legal_hold_policies_id
+related_guides:
+  - legal-holds/list
+related_resources:
+  - legal_hold_policy
+required_guides: []
+alias_paths: []
+---
+To get the information for a specific Legal Hold policy that has been created in
+an enterprise, call the [`GET /legal_hold_policies/:id`][legal_hold] API
+endpoint with the `id` of the policy.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/legal_hold_policies/324432" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.legalHoldPolicies.getLegalHoldPolicyById(legalHoldPolicyId);
+```
+
+```python Python v10
+client.legal_hold_policies.get_legal_hold_policy_by_id(legal_hold_policy_id)
+```
+
+```cs .NET v10
+await client.LegalHoldPolicies.GetLegalHoldPolicyByIdAsync(legalHoldPolicyId: legalHoldPolicyId);
+```
+
+```swift Swift v10
+try await client.legalHoldPolicies.getLegalHoldPolicyById(legalHoldPolicyId: legalHoldPolicyId)
+```
+
+```java Java v10
+client.getLegalHoldPolicies().getLegalHoldPolicyById(legalHoldPolicyId)
+```
+
+```java Java v5
+BoxLegalHoldPolicy policy = new BoxLegalHoldPolicy(api, id);
+BoxLegalHoldPolicy.Info policyInfo = policy.getInfo();
+```
+
+```python Python v4
+legal_hold_policy = client.legal_hold_policy(policy_id='12345').get()
+print(f'The "{legal_hold_policy.policy_name}" policy is {legal_hold_policy.status}')
+```
+
+```cs .NET v6
+BoxLegalHoldPolicy policy = await client.LegalHoldPoliciesManager.GetLegalHoldPolicyAsync("11111");
+```
+
+```javascript Node v4
+client.legalHoldPolicies.get('11111')
+	.then(policy => {
+		/* policy -> {
+			type: 'legal_hold_policy',
+			id: '11111',
+			policy_name: 'IRS Audit',
+			description: '',
+			status: 'active',
+			assignment_counts: { user: 1, folder: 0, file: 0, file_version: 0 },
+			created_by: 
+			{ type: 'user',
+				id: '22222',
+				name: 'Example User',
+				login: 'user@example.com' },
+			created_at: '2016-05-18T10:28:45-07:00',
+			modified_at: '2016-05-18T11:25:59-07:00',
+			deleted_at: null,
+			filter_started_at: '2016-05-17T01:00:00-07:00',
+			filter_ended_at: '2016-05-21T01:00:00-07:00' }
+		*/
+	});
+```
+
+</CodeGroup>
+
+## Required Scopes
+
+Before using any of the Legal Hold APIs, an application must have the right
+scopes enabled. See [Required Scopes][scopes] for more details.
+
+[legal_hold]: /reference/get_legal_hold_policies_id
+[scopes]: /guides/legal-holds#required-scopes

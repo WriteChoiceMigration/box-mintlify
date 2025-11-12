@@ -1,0 +1,36 @@
+---
+title: "OAuth 2.0 error"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+An OAuth 2.0 error.
+
+<ParamField body="error" type="string">
+example: `invalid_client`
+
+The type of the error returned.
+</ParamField>
+
+<ParamField body="error_description" type="string">
+example: `The client credentials are not valid`
+
+The type of the error returned.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "error": "invalid_client",
+  "error_description": "The client credentials are not valid"
+}
+```
+
+</ResponseExample>

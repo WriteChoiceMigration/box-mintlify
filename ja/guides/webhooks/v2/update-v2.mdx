@@ -1,0 +1,141 @@
+---
+title: "Webhookの更新"
+rank: 3
+related_endpoints:
+  - put_webhooks_id
+  - get_webhooks
+related_guides:
+  - webhooks/v2/create-v2
+  - webhooks/v2/list-v2
+required_guides:
+  - webhooks/v2/list-v2
+related_resources:
+  - webhook
+alias_paths:
+  - /webhooks/manage/update
+category_id: webhooks
+subcategory_id: webhooks/v2
+is_index: false
+id: webhooks/v2/update-v2
+type: guide
+total_steps: 6
+sibling_id: webhooks/v2
+parent_id: webhooks/v2
+next_page_id: webhooks/v2/delete-v2
+previous_page_id: webhooks/v2/create-v2
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/webhooks/v2/update-v2.md
+fullyTranslated: true
+---
+Webhookは、[開発者コンソール][console]またはAPIを使用して更新できます。
+
+## 開発者コンソール
+
+[開発者コンソール][console]でWebhookを更新するには、以下の手順に従います。
+
+1. [開発者コンソール][console]の \[**Webhook**] タブに移動し、すべてのWebhookを表示します。
+2. WebhookのIDをクリックして、更新するWebhookを選択します。
+3. \[**Webhookを編集**] ボタンをクリックします。
+4. 更新するデータを入力します。
+5. \[**更新**] ボタンをクリックして変更を保存します。
+
+<Note>
+
+Webhookのリストには、\[**ID**]、\[**アドレス**]、\[**コンテンツ**]、\[**作成者**]、\[**作成日**] フィールドがあります。
+
+</Note>
+
+## API
+
+Webhookを更新するには、[Webhookを更新][2]エンドポイントを使用します。それにはWebhook IDが必要です。WebhookのIDを調べるには、[すべてのWebhookのリストを取得][1]エンドポイントを使用します。
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X PUT "https://api.box.com/2.0/webhooks/3321123" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "triggers": [
+         "FILE.DOWNLOADED"
+       ]
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.webhooks.updateWebhookById(webhook.id!, {
+  requestBody: {
+    address: 'https://example.com/updated-webhook',
+  } satisfies UpdateWebhookByIdRequestBody,
+} satisfies UpdateWebhookByIdOptionalsInput);
+```
+
+```python Python v10
+client.webhooks.update_webhook_by_id(
+    webhook.id, address="https://example.com/updated-webhook"
+)
+```
+
+```cs .NET v10
+await client.Webhooks.UpdateWebhookByIdAsync(webhookId: NullableUtils.Unwrap(webhook.Id), requestBody: new UpdateWebhookByIdRequestBody() { Address = "https://example.com/updated-webhook" });
+```
+
+```swift Swift v10
+try await client.webhooks.updateWebhookById(webhookId: webhook.id!, requestBody: UpdateWebhookByIdRequestBody(address: "https://example.com/updated-webhook"))
+```
+
+```java Java v10
+client.getWebhooks().updateWebhookById(webhook.getId(), new UpdateWebhookByIdRequestBody.Builder().address("https://example.com/updated-webhook").build())
+```
+
+```java Java v5
+BoxWebHook webhook = new BoxWebHook(api, id);
+BoxWebHook.Info info = webhook.new Info();
+info.setAddress(url);
+webhook.update(info);
+```
+
+```python Python v4
+update_object = {
+    'triggers': ['FILE.COPIED'],
+    'address': 'https://newexample.com',
+}
+webhook = client.webhook(webhook_id='12345').update_info(data=update_object)
+print(f'Updated the webhook info for triggers: {webhook.triggers} and address: {webhook.address}')
+```
+
+```cs .NET v6
+var updates = new BoxWebhookRequest()
+{
+    Id = "12345",
+    Address = "https://example.com/webhooks/fileActions
+};
+BoxWebhook updatedWebhook = await client.WebhooksManager.UpdateWebhookAsync(updates);
+```
+
+```javascript Node v4
+client.webhooks.update('678901', {address: "https://example.com/webhooks/fileActions"})
+	.then(webhook => {
+		/* webhook -> {
+			id: '1234',
+			type: 'webhook',
+			target: { id: '22222', type: 'folder' },
+			created_by: 
+			{ type: 'user',
+				id: '33333',
+				name: 'Example User',
+				login: 'user@example.com' },
+			created_at: '2016-05-09T17:41:27-07:00',
+			address: 'https://example.com/webhooks/fileActions',
+			triggers: [ 'FILE.DOWNLOADED', 'FILE.UPLOADED' ] }
+		*/
+	});
+```
+
+</CodeGroup>
+
+[1]: /ja/guides/webhooks/v2/list-v2
+
+[2]: /ja/reference/put-webhooks-id
+
+[console]: https://app.box.com/developers/console

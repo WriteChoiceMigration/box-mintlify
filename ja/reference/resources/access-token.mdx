@@ -1,0 +1,92 @@
+---
+title: "アクセストークン"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+認証済みのAPIコールを行うために使用できるトークン。
+
+<ParamField body="access_token" type="string(token)">
+例 `c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ`
+
+リクエストされたアクセストークン。
+</ParamField>
+
+<ParamField body="expires_in" type="integer(int64)">
+例 `3600`
+
+このトークンが期限切れになるまでの秒数。
+</ParamField>
+
+<ParamField body="issued_token_type" type="string(urn)">
+例 `urn:ietf:params:oauth:token-type:access_token`
+
+返されたダウンスコープ済みアクセストークンのタイプ。これは、アクセストークンがダウンスコープされている場合にのみ返されます。
+
+次の値に固定: `urn:ietf:params:oauth:token-type:access_token`
+</ParamField>
+
+<ParamField body="refresh_token" type="string(token)">
+例 `c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ`
+
+このアクセストークンの更新トークン。現在のトークンの有効期限が切れて新しいアクセストークンをリクエストするときに使用できます。
+</ParamField>
+
+<ParamField body="restricted_to" type="objectarray">
+このアクセストークンで許可される権限を返します。これにより、リソース (ファイルやフォルダなど) のリストと、各リソースで許可されるスコープが提供されます。
+
+<Expandable>
+  <ParamField body="object" type="ファイル (Mini)/フォルダ (Mini)object">
+  ファイルまたはフォルダのリソース。
+  </ParamField>
+
+  <ParamField body="scope" type="string">
+  例 `item_download`
+  
+  リソースへのアクセスのスコープ。
+  
+  次の値のいずれか1つ: `annotation_edit`,`annotation_view_all`,`annotation_view_self`,`base_explorer`,`base_picker`,`base_preview`,`base_upload`,`item_delete`,`item_download`,`item_preview`,`item_rename`,`item_share`,`item_upload`,`item_read`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="token_type" type="string">
+例 `bearer`
+
+返されるアクセストークンのタイプ。
+
+次の値に固定: `bearer`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "access_token": "c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ",
+  "expires_in": 3600,
+  "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+  "refresh_token": "c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ",
+  "restricted_to": [
+    {
+      "object": {
+        "etag": "1",
+        "id": "12345",
+        "type": "folder",
+        "name": "Contracts",
+        "sequence_id": "3"
+      },
+      "scope": "item_download"
+    }
+  ],
+  "token_type": "bearer"
+}
+```
+
+</ResponseExample>

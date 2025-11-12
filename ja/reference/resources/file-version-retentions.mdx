@@ -1,0 +1,82 @@
+---
+title: "ファイルバージョンリテンション"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ファイルバージョンリテンションのリスト。
+
+**注**: ファイルリテンションAPIは**非推奨**になりました。リテンションの対象となるファイルおよびファイルバージョンに関する情報を取得するには、[リテンションの対象となるファイル](/reference/get-retention-policy-assignments-id-files-under-retention/)または[リテンションの対象となるファイルバージョン](/reference/get-retention-policy-assignments-id-file-versions-under-retention/)のエンドポイントを参照してください。
+
+<ParamField body="entries" type="ファイルバージョンリテンションarray">
+ファイルバージョンリテンションのリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+例 `1000`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。最大値はAPIによって異なります。
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ParamField body="prev_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih`
+
+前の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "applied_at": "2012-12-12T10:53:43-08:00",
+      "disposition_at": "2012-12-12T10:53:43-08:00",
+      "file": {
+        "etag": "1",
+        "id": "12345",
+        "type": "file",
+        "file_version": {
+          "id": "12345",
+          "type": "file_version",
+          "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+        },
+        "name": "Contract.pdf",
+        "sequence_id": "3",
+        "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+      },
+      "file_version": {
+        "id": "12345",
+        "type": "file_version",
+        "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+      },
+      "id": "11446498",
+      "type": "file_version_retention",
+      "winning_retention_policy": {
+        "id": "12345",
+        "type": "retention_policy",
+        "disposition_action": "permanently_delete",
+        "policy_name": "Some Policy Name",
+        "retention_length": "365"
+      }
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii",
+  "prev_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih"
+}
+```
+
+</ResponseExample>

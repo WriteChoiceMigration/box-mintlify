@@ -1,0 +1,91 @@
+---
+title: "Shield情報バリアのセグメント"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+Shield情報バリアのセグメントオブジェクト。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+Shield情報バリアのセグメントの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `shield_information_barrier_segment`
+
+Shield情報バリアのセグメントのタイプ。
+
+次の値に固定: `shield_information_barrier_segment`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2020-06-26T18:44:45.869Z`
+
+このShield情報バリアオブジェクトが作成された日時を示すISO日時文字列。
+</ParamField>
+
+<ParamField body="created_by" type="ユーザー (Base)object">
+このShield情報バリアのセグメントを作成したユーザー。
+</ParamField>
+
+<ParamField body="description" type="string">
+例 `'Corporate division that engages in advisory_based financial
+ transactions on behalf of individuals, corporations, and governments.'`
+
+Shield情報バリアのセグメントの説明。
+</ParamField>
+
+<ParamField body="name" type="string">
+例 `Investment Banking`
+
+Shield情報バリアのセグメントの名前。
+</ParamField>
+
+<ParamField body="shield_information_barrier" type="Shield情報バリア (Base)object">
+Shield情報バリアオブジェクトのBase版の表示。
+</ParamField>
+
+<ParamField body="updated_at" type="string(date-time)">
+例 `2020-07-26T18:44:45.869Z`
+
+このShield情報バリアのセグメントが更新された日時を示すISO日時文字列。
+</ParamField>
+
+<ParamField body="updated_by" type="ユーザー (Base)object">
+このShield情報バリアのセグメントを更新したユーザー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "shield_information_barrier_segment",
+  "created_at": "2020-06-26T18:44:45.869Z",
+  "created_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "description": "'Corporate division that engages in advisory_based financial\n transactions on behalf of individuals, corporations, and governments.'",
+  "name": "Investment Banking",
+  "shield_information_barrier": {
+    "id": "11446498",
+    "type": "shield_information_barrier"
+  },
+  "updated_at": "2020-07-26T18:44:45.869Z",
+  "updated_by": {
+    "id": "11446498",
+    "type": "user"
+  }
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,34 @@
+---
+title: "Uploaded part"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A chunk of a file uploaded as part of
+an upload session, as returned by some endpoints.
+
+<ParamField body="part" type="Upload partobject">
+The representation of an upload
+session chunk.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "part": {
+    "offset": 16777216,
+    "part_id": "6F2D3486",
+    "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+    "size": 3222784
+  }
+}
+```
+
+</ResponseExample>

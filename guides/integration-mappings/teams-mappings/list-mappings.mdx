@@ -1,0 +1,41 @@
+---
+title: "List Teams integration mappings"
+rank: 2
+related_endpoints:
+related_guides: []
+required_guides:
+related_resources: []
+alias_paths: []
+---
+Use the `GET /integration_mappings/teams` call to fetch and filter the mappings,
+both the ones created manually by the admin and those created automatically by the
+integration.
+
+<CodeGroup>
+
+```sh cURL
+curl -X -L GET "https://api.box.com/2.0/integration_mappings/teams" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+```
+
+```typescript Node/TypeScript v10
+await userClient.integrationMappings.getTeamsIntegrationMapping();
+```
+
+```python Python v10
+user_client.integration_mappings.get_teams_integration_mapping()
+```
+
+```cs .NET v10
+await userClient.IntegrationMappings.GetTeamsIntegrationMappingAsync();
+```
+
+```swift Swift v10
+try await userClient.integrationMappings.getTeamsIntegrationMapping()
+```
+
+```java Java v10
+userClient.getIntegrationMappings().getTeamsIntegrationMapping()
+```
+
+</CodeGroup>

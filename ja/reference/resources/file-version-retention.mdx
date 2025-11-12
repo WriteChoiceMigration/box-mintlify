@@ -1,0 +1,91 @@
+---
+title: "ファイルバージョンリテンション"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+リテンションポリシーは、指定した期間にわたってコンテンツが完全に削除されるのを防止します。管理者はポリシーを特定のフォルダや企業全体に適用できます。ファイルバージョンリテンションとは、保持されているファイルバージョンのレコードです。この機能を使用するには、アプリケーション管理コンソールから、APIキーに対して [リテンションポリシーを管理する] スコープを有効にする必要があります。
+
+**注**: ファイルリテンションAPIは**非推奨**になりました。リテンションの対象となるファイルおよびファイルバージョンに関する情報を取得するには、[リテンションの対象となるファイル](/reference/get-retention-policy-assignments-id-files-under-retention/)または[リテンションの対象となるファイルバージョン](/reference/get-retention-policy-assignments-id-file-versions-under-retention/)のエンドポイントを参照してください。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このファイルバージョンリテンションの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `file_version_retention`
+
+値は常に`file_version_retention`になります。
+
+次の値に固定: `file_version_retention`
+</ParamField>
+
+<ParamField body="applied_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルバージョンリテンションオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="disposition_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+このファイルバージョンリテンションのリテンションが終了する日時。
+</ParamField>
+
+<ParamField body="file" type="ファイル (Mini)object">
+このファイルバージョンリテンションが適用されたファイル。
+</ParamField>
+
+<ParamField body="file_version" type="ファイルバージョン (Mini)object">
+このファイルバージョンリテンションが適用されたファイルバージョン。
+</ParamField>
+
+<ParamField body="winning_retention_policy" type="リテンションポリシー (Mini)object">
+このファイルバージョンリテンションに適用されている、優先度が最も高いリテンションポリシー。ファイルバージョンには複数のリテンションポリシーが適用されている場合があります。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "file_version_retention",
+  "applied_at": "2012-12-12T10:53:43-08:00",
+  "disposition_at": "2012-12-12T10:53:43-08:00",
+  "file": {
+    "id": "12345",
+    "type": "file",
+    "etag": "1",
+    "file_version": {
+      "id": "12345",
+      "type": "file_version",
+      "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+    },
+    "name": "Contract.pdf",
+    "sequence_id": "3",
+    "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37"
+  },
+  "file_version": {
+    "id": "12345",
+    "type": "file_version",
+    "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+  },
+  "winning_retention_policy": {
+    "id": "12345",
+    "type": "retention_policy",
+    "disposition_action": "permanently_delete",
+    "policy_name": "Some Policy Name",
+    "retention_length": "365"
+  }
+}
+```
+
+</ResponseExample>

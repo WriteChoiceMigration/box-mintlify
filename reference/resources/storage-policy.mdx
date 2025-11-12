@@ -1,0 +1,58 @@
+---
+title: "Storage policy"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The Storage Policy object describes the storage zone.
+
+* [Standard](/reference/resources/storage-policy/)
+* [Mini](/reference/resources/storage-policy--mini/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **standard** variant are generally
+returned when the resource is requested via its own API endpoints.
+For example, when retrieving a file by ID, it will return
+these fields unless the `fields` parameter has been specified.
+</Info>
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this storage policy.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `storage_policy`
+
+The value will always be `storage_policy`.
+
+Value is always `storage_policy`
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Montreal / Dublin`
+
+A descriptive name of the region.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "storage_policy",
+  "name": "Montreal / Dublin"
+}
+```
+
+</ResponseExample>

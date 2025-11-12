@@ -1,0 +1,45 @@
+---
+title: "Shieldリストのコンテンツ (統合)"
+---
+
+APIバージョン 2025.0
+
+統合のデータを含むShieldリストのコンテンツの表示。
+
+<ParamField body="type" type="string">
+例 `integration`
+
+Shieldリスト内のコンテンツのタイプ。
+
+次の値に固定: `integration`
+</ParamField>
+
+<ParamField body="integrations" type="objectarray">
+例 `1`
+
+統合のリスト。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `505e40b5-5d04-446a-9268-72a0ccc13669`
+  
+  統合のID。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "type": "integration",
+  "integrations": [
+    {
+      "id": "505e40b5-5d04-446a-9268-72a0ccc13669"
+    }
+  ]
+}
+```
+
+</ResponseExample>

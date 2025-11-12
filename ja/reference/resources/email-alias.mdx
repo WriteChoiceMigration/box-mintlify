@@ -1,0 +1,52 @@
+---
+title: "メールエイリアス"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+ユーザーのメールエイリアス。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このオブジェクトの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `email_alias`
+
+値は常に`email_alias`になります。
+
+次の値に固定: `email_alias`
+</ParamField>
+
+<ParamField body="email" type="string">
+例 `alias@example.com`
+
+メールアドレス。
+</ParamField>
+
+<ParamField body="is_confirmed" type="boolean">
+例 `true`
+
+メールアドレスが確認済みかどうか。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "email_alias",
+  "email": "alias@example.com",
+  "is_confirmed": true
+}
+```
+
+</ResponseExample>

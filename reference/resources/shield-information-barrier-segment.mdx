@@ -1,0 +1,94 @@
+---
+title: "Shield information barrier segment"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A shield information barrier segment object.
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for the shield information barrier segment.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `shield_information_barrier_segment`
+
+The type of the shield information barrier segment.
+
+Value is always `shield_information_barrier_segment`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2020-06-26T18:44:45.869Z`
+
+ISO date time string when this shield information
+barrier object was created.
+</ParamField>
+
+<ParamField body="created_by" type="User (Base)object">
+The user who created this shield information barrier segment.
+</ParamField>
+
+<ParamField body="description" type="string">
+example: `'Corporate division that engages in advisory_based financial
+ transactions on behalf of individuals, corporations, and governments.'`
+
+Description of the shield information barrier segment.
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `Investment Banking`
+
+Name of the shield information barrier segment.
+</ParamField>
+
+<ParamField body="shield_information_barrier" type="Shield information barrier (Base)object">
+A base representation of a
+shield information barrier object.
+</ParamField>
+
+<ParamField body="updated_at" type="string(date-time)">
+example: `2020-07-26T18:44:45.869Z`
+
+ISO date time string when this
+shield information barrier segment was updated.
+</ParamField>
+
+<ParamField body="updated_by" type="User (Base)object">
+The user that updated this shield information barrier segment.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "shield_information_barrier_segment",
+  "created_at": "2020-06-26T18:44:45.869Z",
+  "created_by": {
+    "id": "11446498",
+    "type": "user"
+  },
+  "description": "'Corporate division that engages in advisory_based financial\n transactions on behalf of individuals, corporations, and governments.'",
+  "name": "Investment Banking",
+  "shield_information_barrier": {
+    "id": "11446498",
+    "type": "shield_information_barrier"
+  },
+  "updated_at": "2020-07-26T18:44:45.869Z",
+  "updated_by": {
+    "id": "11446498",
+    "type": "user"
+  }
+}
+```
+
+</ResponseExample>

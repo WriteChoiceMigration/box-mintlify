@@ -1,0 +1,60 @@
+---
+title: "Get Folder Lock"
+rank: 9
+related_endpoints:
+  - get_folder_locks
+related_guides:
+  - folders/single/create-lock
+  - folders/single/delete-lock
+required_guides: []
+related_resources:
+  - folder_locks
+alias_paths: []
+---
+To get a list of the current locks on a folder in Box, call the
+`GET /folder_locks/` API with the id of the folder supplied as a `folder_id`
+query string parameter.
+
+<Note>
+  **Folder Locks**
+
+  When using any folder lock API endpoints, you must be authenticated as the
+  owner/co-owner of the folder you are trying to access.
+</Note>
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/folder_locks?folder_id=33552487093" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.folderLocks.getFolderLocks({
+  folderId: folder.id,
+} satisfies GetFolderLocksQueryParams);
+```
+
+```python Python v10
+client.folder_locks.get_folder_locks(folder.id)
+```
+
+```cs .NET v10
+await client.FolderLocks.GetFolderLocksAsync(queryParams: new GetFolderLocksQueryParams(folderId: folder.Id));
+```
+
+```swift Swift v10
+try await client.folderLocks.getFolderLocks(queryParams: GetFolderLocksQueryParams(folderId: folder.id))
+```
+
+```java Java v10
+client.getFolderLocks().getFolderLocks(new GetFolderLocksQueryParams(folder.getId()))
+```
+
+</CodeGroup>
+
+## Folder ID
+
+The `id` of any folder can be determined by visiting a folder in the web
+application and copying the `id` from the URL. For example, for the URL
+`https://*.app.box.com/folder/123` the `folder_id` is `123`.

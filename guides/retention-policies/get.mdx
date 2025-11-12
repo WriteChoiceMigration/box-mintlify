@@ -1,0 +1,94 @@
+---
+title: "Get Retention Policy"
+rank: 2
+related_endpoints:
+  - get_retention_policies_id
+related_guides:
+  - retention-policies/list
+related_resources:
+  - retention_policy
+required_guides: []
+alias_paths: []
+---
+To get the information for a specific Retention Policy that has been created in
+an enterprise, call the [`GET /retention_policies/:id`][retention] API endpoint
+with the `id` of the policy.
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/retention_policies/982312" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.retentionPolicies.getRetentionPolicyById(retentionPolicy.id);
+```
+
+```python Python v10
+client.retention_policies.get_retention_policy_by_id(retention_policy.id)
+```
+
+```cs .NET v10
+await client.RetentionPolicies.GetRetentionPolicyByIdAsync(retentionPolicyId: retentionPolicy.Id);
+```
+
+```swift Swift v10
+try await client.retentionPolicies.getRetentionPolicyById(retentionPolicyId: retentionPolicy.id)
+```
+
+```java Java v10
+client.getRetentionPolicies().getRetentionPolicyById(retentionPolicy.getId())
+```
+
+```java Java v5
+// Get the policy name and status for a given retention policy
+BoxRetentionPolicy policy = new BoxRetentionPolicy(api, id);
+policy.getInfo("policy_name", "status");
+```
+
+```python Python v4
+retention_policy = client.retention_policy(retention_id='12345').get()
+print(f'Retention Policy ID is {retention_policy.id} and the name is {retention_policy.policy_name}')
+```
+
+```cs .NET v6
+BoxRetentionPolicy policy = await client.RetentionPoliciesManager.GetRetentionPolicyAsync("11111");
+```
+
+```javascript Node v4
+client.retentionPolicies.get('123456789').then((policy) => {
+	/* policy -> {
+			type: 'retention_policy',
+			id: '123456789',
+			policy_name: 'Tax Documents',
+			policy_type: 'indefinite',
+			retention_length: 'indefinite',
+			retention_type: 'modifiable',
+			description: 'Policy to retain all reports',
+			disposition_action: 'remove_retention',
+			can_owner_extend_retention: false,
+			status: 'active',
+			are_owners_notified: true,
+			custom_notification_recipients: []
+			assignment_counts: { enterprise: 0, folder: 1, metadata_template: 0 },
+			created_by:
+			{ type: 'user',
+				id: '11111',
+				name: 'Example User',
+				login: 'user@example.com' },
+			created_at: '2015-05-01T11:12:54-07:00',
+			modified_at: '2015-06-08T11:11:50-07:00' }
+		*/
+});
+```
+
+</CodeGroup>
+
+## Required Scopes
+
+Before using any of the Retention Policy APIs, an application must have the
+right scopes enabled. See [Required Scopes][scopes] for more details.
+
+[retention]: /reference/get_retention_policies_id
+[scopes]: /guides/retention-policies#required-scopes

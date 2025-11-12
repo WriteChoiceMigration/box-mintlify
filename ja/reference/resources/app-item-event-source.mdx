@@ -1,0 +1,65 @@
+---
+title: "AppItemイベントソース"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+イベントストリーム内のイベントをトリガーしたAppItem。
+
+<ParamField body="id" type="string">
+例 `6374669741`
+
+`AppItem`のID。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `app_item`
+
+このイベントが表すソースのタイプ。`app_item`のみになります。
+
+次の値に固定: `app_item`
+</ParamField>
+
+<ParamField body="app_item_type" type="string">
+例 `hubs`
+
+`AppItem`のタイプ。
+</ParamField>
+
+<ParamField body="group" type="グループ (Mini)object">
+このイベントをトリガーしたグループ。
+</ParamField>
+
+<ParamField body="user" type="ユーザー (Mini)object">
+このイベントをトリガーしたユーザー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "6374669741",
+  "type": "app_item",
+  "app_item_type": "hubs",
+  "group": {
+    "id": "11446498",
+    "type": "group",
+    "group_type": "managed_group",
+    "name": "Support"
+  },
+  "user": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  }
+}
+```
+
+</ResponseExample>

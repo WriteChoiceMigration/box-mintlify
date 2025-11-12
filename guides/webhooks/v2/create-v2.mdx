@@ -1,0 +1,198 @@
+---
+title: "Create Webhooks"
+rank: 2
+related_endpoints:
+  - post_webhooks
+related_guides:
+  - webhooks/triggers
+  - webhooks/v2
+  - webhooks/v2/delete-v2
+related_resources:
+  - webhook
+required_guides: []
+alias_paths:
+---
+V2 webhooks can monitor specific files or folders. They can be
+created in the [Developer Console][console] and with API.
+
+## Developer console
+
+<Warning>
+  V2 webhooks can be created only when the scope **Manage Webhooks**
+  is selected and the application is authorized. See more about
+  [Required Access Scopes][1] and [authorization][2].
+</Warning>
+
+To create a webhook follow the steps below.
+
+1. Navigate to your application in the [Developer Console][console].
+2. Select the **Webhooks** tab.
+3. Click the **Create webhook** button.
+4. Select **V2** from the drop-down list.
+5. Fill in the form.
+6. Click **Create webhook** button to save your changes.
+
+### Required fields
+
+| Field name | Description | Required |
+| --- | --- | --- |
+| URL Address | URL address to be notified by the webhook. | Yes |
+| Content type | Type of content (file/folder) the webhook is configured for. | Yes |
+| Triggers | Different triggers that activate the webhook. | Yes |
+
+## API
+
+<Warning>
+  This API requires the application to have the **Manage Webhooks** scope enabled.
+</Warning>
+
+To attach a webhook to a folder, call the [create webhook][3] endpoint with the
+type of `folder`, the ID of the folder, a URL to send webhook notifications to,
+and a list of [triggers][4].
+
+<CodeGroup>
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/webhooks" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "target": {
+         "id": "21322",
+         "type": "file"
+       },
+       "address": "https://example.com/webhooks",
+       "triggers": [
+         "FILE.PREVIEWED"
+       ]
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.webhooks.createWebhook({
+  target: {
+    id: folder.id,
+    type: 'folder' as CreateWebhookRequestBodyTargetTypeField,
+  } satisfies CreateWebhookRequestBodyTargetField,
+  address: 'https://example.com/new-webhook',
+  triggers: ['FILE.UPLOADED' as CreateWebhookRequestBodyTriggersField],
+} satisfies CreateWebhookRequestBody);
+```
+
+```python Python v10
+client.webhooks.create_webhook(
+    CreateWebhookTarget(id=folder.id, type=CreateWebhookTargetTypeField.FOLDER),
+    "https://example.com/new-webhook",
+    [CreateWebhookTriggers.FILE_UPLOADED],
+)
+```
+
+```csharp .NET v10
+await client.Webhooks.CreateWebhookAsync(requestBody: new CreateWebhookRequestBody(target: new CreateWebhookRequestBodyTargetField() { Id = folder.Id, Type = CreateWebhookRequestBodyTargetTypeField.Folder }, address: "https://example.com/new-webhook", triggers: Array.AsReadOnly(new [] {new StringEnum<CreateWebhookRequestBodyTriggersField>(CreateWebhookRequestBodyTriggersField.FileUploaded)})));
+```
+
+```swift Swift v10
+try await client.webhooks.createWebhook(requestBody: CreateWebhookRequestBody(target: CreateWebhookRequestBodyTargetField(id: folder.id, type: CreateWebhookRequestBodyTargetTypeField.folder), address: "https://example.com/new-webhook", triggers: [CreateWebhookRequestBodyTriggersField.fileUploaded]))
+```
+
+```java Java v10
+client.getWebhooks().createWebhook(new CreateWebhookRequestBody(new CreateWebhookRequestBodyTargetField.Builder().id(folder.getId()).type(CreateWebhookRequestBodyTargetTypeField.FOLDER).build(), "https://example.com/new-webhook", Arrays.asList(CreateWebhookRequestBodyTriggersField.FILE_UPLOADED)))
+```
+
+```java Java v5
+// Listen for preview events for a file
+BoxFile file = new BoxFile(api, id);
+BoxWebHook.Info webhookInfo = BoxWebHook.create(file, url, BoxWebHook.Trigger.FILE.PREVIEWED);
+```
+
+```py Python v4
+file = client.file(file_id='12345')
+webhook = client.create_webhook(file, ['FILE.PREVIEWED'], 'https://example.com')
+print(f'Webhook ID is {webhook.id} and the address is {webhook.address}')
+```
+
+```csharp .NET v6
+var webhookParams = new BoxWebhookRequest()
+{
+    Target = new BoxRequestEntity()
+    {
+        Type = BoxType.file,
+        Id = "22222"
+    },
+    Triggers = new List<string>()
+    {
+        "FILE.PREVIEWED"
+    },
+    Address = "https://example.com/webhook"
+};
+BoxWebhook webhook = await client.WebhooksManager.CreateWebhookAsync(webhookParams);
+```
+
+```js Node v4
+// Attach a webhook that sends a notification to https://example.com/webhook when
+//   file 11111 is renamed or downloaded.
+client.webhooks.create(
+ '11111',
+ client.itemTypes.FILE,
+ 'https://example.com/webhook',
+ [
+  client.webhooks.triggerTypes.FILE.RENAMED,
+  client.webhooks.triggerTypes.FILE.DOWNLOADED
+ ])
+ .then(webhook => {
+  /* webhook -> {
+   id: '12345',
+   type: 'webhook',
+   target: { id: '11111', type: 'file' },
+   created_by: 
+   { type: 'user',
+    id: '33333',
+    name: 'Example User',
+    login: 'user@example.com' },
+   created_at: '2016-05-09T17:41:27-07:00',
+   address: 'https://example.com/webhook',
+   triggers: [ 'FILE.RENAMED', 'FILE.UPLOADED' ] }
+  */
+ });
+```
+</CodeGroup>
+
+<Note>
+  Webhooks do cascade, so if a webhook is set on a parent folder,
+  it will also monitor sub-folders for the selected triggers.
+</Note>
+
+## Ownership
+
+It is best practice and strongly recommended to create webhooks with a
+[Service Account][sa], or user that will not be deleted, to avoid potential
+issues with webhook delivery due to loss of access to content.
+
+Similar to files and folders, webhooks are owned by a user. If a user who owns a
+webhook is deleted, they will lose access to all files and folders that they
+previously had access to. Their webhooks will begin to fail validation, but the
+webhook service will continue to send events and require retries.
+
+## Webhook address
+
+The notification URL specified in the `address` parameter must be a valid URL
+that you specify when you create a webhook. Every time one of the triggers is
+activated, this URL is called.
+
+The notification URL must use standard port `443` and should return
+an HTTP status in the range of `200` to `299` within 30 seconds of receiving
+the webhook payload.
+
+## Webhook triggers
+
+The triggers are a list of strings that specify the events which cause the
+webhook to fire. For example, if you want the webhook to be triggered
+when a user uploads a file, use `FILE.UPLOADED`.
+
+You can find a list of available triggers [in this guide][4].
+
+[1]: /guides/applications
+[2]: /guides/authorization
+[3]: /reference/post_webhooks
+[4]: /guides/webhooks/triggers
+[sa]: page!://platform/user-types/#service-account
+[console]: https://app.box.com/developers/console

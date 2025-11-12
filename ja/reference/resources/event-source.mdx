@@ -1,0 +1,84 @@
+---
+title: "イベントソース"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+イベントストリーム内のイベントを開始させるソースファイルまたはフォルダ。
+
+<ParamField body="classification" type="object">
+イベントをトリガーした項目の分類情報を格納しているオブジェクト。項目に分類が設定されていない場合、このフィールドは表示されません。
+
+<Expandable>
+  <ParamField body="name" type="string">
+  例 `Top Secret`
+  
+  分類の名前。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="item_id" type="string">
+例 `560284318361`
+
+項目を表す一意の識別子。
+</ParamField>
+
+<ParamField body="item_name" type="string">
+例 `report.pdf`
+
+項目の名前。
+</ParamField>
+
+<ParamField body="item_type" type="string">
+例 `file`
+
+イベントを表す項目の種類。`file`または`folder`になります。
+
+次の値のいずれか1つ: `file`,`folder`
+</ParamField>
+
+<ParamField body="owned_by" type="ユーザー (Mini)object">
+この項目を所有するユーザー
+</ParamField>
+
+<ParamField body="parent" type="フォルダ (Mini)object">
+このフォルダが配置されているフォルダ (省略可)
+
+ルートフォルダやごみ箱フォルダなど、一部のフォルダの場合、この値は`null`になることがあります。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "classification": {
+    "name": "Top Secret"
+  },
+  "item_id": "560284318361",
+  "item_name": "report.pdf",
+  "item_type": "file",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  }
+}
+```
+
+</ResponseExample>

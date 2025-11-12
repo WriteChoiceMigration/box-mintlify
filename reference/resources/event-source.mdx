@@ -1,0 +1,90 @@
+---
+title: "Event source"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The source file or folder that triggered an event in
+the event stream.
+
+<ParamField body="classification" type="object">
+The object containing classification information for the item that
+triggered the event. This field will not appear if the item does not
+have a classification set.
+
+<Expandable>
+  <ParamField body="name" type="string">
+  example: `Top Secret`
+  
+  The classification's name.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="item_id" type="string">
+example: `560284318361`
+
+The unique identifier that represents the
+item.
+</ParamField>
+
+<ParamField body="item_name" type="string">
+example: `report.pdf`
+
+The name of the item.
+</ParamField>
+
+<ParamField body="item_type" type="string">
+example: `file`
+
+The type of the item that the event
+represents. Can be `file` or `folder`.
+
+Value is one of `file`,`folder`
+</ParamField>
+
+<ParamField body="owned_by" type="User (Mini)object">
+The user who owns this item.
+</ParamField>
+
+<ParamField body="parent" type="Folder (Mini)object">
+The optional folder that this folder is located within.
+
+This value may be `null` for some folders such as the
+root folder or the trash folder.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "classification": {
+    "name": "Top Secret"
+  },
+  "item_id": "560284318361",
+  "item_name": "report.pdf",
+  "item_type": "file",
+  "owned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "parent": {
+    "id": "12345",
+    "type": "folder",
+    "etag": "1",
+    "name": "Contracts",
+    "sequence_id": "3"
+  }
+}
+```
+
+</ResponseExample>

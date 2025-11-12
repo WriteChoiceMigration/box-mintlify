@@ -1,0 +1,162 @@
+---
+title: "リーガルホールドポリシー割り当て"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+リーガルホールド割り当ては、ユーザー、フォルダ、ファイル、またはファイルバージョンにリーガルホールドポリシーを割り当てる目的に使用されます。
+
+リーガルホールド割り当てを作成すると、その割り当ての「apply-to」エンティティに属するファイルバージョンにホールドが適用されます。
+
+* [Standard](/reference/resources/legal-hold-policy-assignment/)
+* [Base](/reference/resources/legal-hold-policy-assignment--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このリーガルホールド割り当ての一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `legal_hold_policy_assignment`
+
+値は常に`legal_hold_policy_assignment`になります。
+
+次の値に固定: `legal_hold_policy_assignment`
+</ParamField>
+
+<ParamField body="assigned_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+リーガルホールドポリシー割り当てオブジェクトが作成された日時。
+</ParamField>
+
+<ParamField body="assigned_by" type="ユーザー (Mini)object">
+リーガルホールドポリシー割り当てを作成したユーザー。
+</ParamField>
+
+<ParamField body="assigned_to" type="File/Folder/ウェブリンクobject">
+リーガルホールドポリシーが割り当てられている項目。タイプとIDを含みます。
+</ParamField>
+
+<ParamField body="deleted_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+割り当て解除リクエストが送信された日時 (割り当てが完全に削除されるまでに時間がかかる場合があるため、この日時は割り当てが完全に削除された日時と一致しない場合があります)。nullの場合、割り当ては削除されていません。
+</ParamField>
+
+<ParamField body="legal_hold_policy" type="リーガルホールドポリシー (Mini)object">
+そのリーガルホールドポリシー割り当てを含むポリシー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "legal_hold_policy_assignment",
+  "assigned_at": "2012-12-12T10:53:43-08:00",
+  "assigned_by": {
+    "id": "11446498",
+    "type": "user",
+    "login": "ceo@example.com",
+    "name": "Aaron Levie"
+  },
+  "assigned_to": {
+    "id": "12345",
+    "type": "file",
+    "content_created_at": "2012-12-12T10:53:43-08:00",
+    "content_modified_at": "2012-12-12T10:53:43-08:00",
+    "created_at": "2012-12-12T10:53:43-08:00",
+    "created_by": {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie"
+    },
+    "description": "Contract for Q1 renewal",
+    "etag": "1",
+    "file_version": {
+      "id": "12345",
+      "type": "file_version",
+      "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc"
+    },
+    "item_status": "active",
+    "modified_at": "2012-12-12T10:53:43-08:00",
+    "modified_by": {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie"
+    },
+    "name": "Contract.pdf",
+    "owned_by": {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie"
+    },
+    "parent": {
+      "id": "12345",
+      "type": "folder",
+      "etag": "1",
+      "name": "Contracts",
+      "sequence_id": "3"
+    },
+    "path_collection": {
+      "entries": [
+        {
+          "etag": "1",
+          "id": "12345",
+          "type": "folder",
+          "name": "Contracts",
+          "sequence_id": "3"
+        }
+      ],
+      "total_count": 1
+    },
+    "purged_at": "2012-12-12T10:53:43-08:00",
+    "sequence_id": "3",
+    "sha1": "85136C79CBF9FE36BB9D05D0639C70C265C18D37",
+    "shared_link": {
+      "access": "open",
+      "download_count": 3,
+      "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+      "effective_access": "company",
+      "effective_permission": "can_download",
+      "is_password_enabled": true,
+      "permissions": {
+        "can_download": true,
+        "can_edit": false,
+        "can_preview": true
+      },
+      "preview_count": 3,
+      "unshared_at": "2018-04-13T13:53:23-07:00",
+      "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+      "vanity_name": "my_url",
+      "vanity_url": "https://acme.app.box.com/v/my_url/"
+    },
+    "size": 629644,
+    "trashed_at": "2012-12-12T10:53:43-08:00"
+  },
+  "deleted_at": "2012-12-12T10:53:43-08:00",
+  "legal_hold_policy": {
+    "id": "11446498",
+    "type": "legal_hold_policy"
+  }
+}
+```
+
+</ResponseExample>

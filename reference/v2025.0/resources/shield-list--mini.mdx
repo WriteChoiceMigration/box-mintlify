@@ -1,0 +1,54 @@
+---
+title: "Shield List (Mini)"
+---
+
+API version 2025.0
+
+A mini representation of a Shield List.
+
+<ParamField body="id" type="string">
+example: `12345678-1234-1234-1234-123456789012`
+
+Unique global identifier for this list.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `shield_list`
+
+The type of object.
+
+Value is always `shield_list`
+</ParamField>
+
+<ParamField body="content" type="object">
+
+<Expandable>
+  <ParamField body="type" type="string">
+  example: `country_code`
+  
+  The type of content in the shield list.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="name" type="string">
+example: `My Shield List`
+
+Name of Shield List.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345678-1234-1234-1234-123456789012",
+  "type": "shield_list",
+  "content": {
+    "type": "country_code"
+  },
+  "name": "My Shield List"
+}
+```
+
+</ResponseExample>

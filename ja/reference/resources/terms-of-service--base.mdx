@@ -1,0 +1,47 @@
+---
+title: "サービス利用規約 (Base)"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+1つのサービス利用規約に該当するとみなされるルートレベルのレコード。
+
+* [Standard](/reference/resources/terms-of-service/)
+* [Base](/reference/resources/terms-of-service--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このサービス利用規約の一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `terms_of_service`
+
+値は常に`terms_of_service`になります。
+
+次の値に固定: `terms_of_service`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "terms_of_service"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,137 @@
+---
+title: "Integration mapping Teams"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A Microsoft Teams specific representation of an integration
+mapping object.
+
+<ParamField body="id" type="string">
+example: `12345`
+
+A unique identifier of a folder mapping
+(part of a composite key together
+with `integration_type`).
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `integration_mapping`
+
+Mapping type.
+
+Value is always `integration_mapping`
+</ParamField>
+
+<ParamField body="box_item" type="object">
+The Box folder, to which the object from the
+partner app domain (referenced in `partner_item_id`) is mapped.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `42037322`
+  
+  ID of the folder.
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `folder`
+  
+  The value will always be `folder`.
+  
+  Value is always `folder`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the integration mapping object was created.
+</ParamField>
+
+<ParamField body="integration_type" type="string">
+example: `teams`
+
+Identifies the Box partner app,
+with which the mapping is associated.
+Supports Slack and Teams.
+(part of the composite key together with `id`).
+
+Value is always `teams`
+</ParamField>
+
+<ParamField body="is_overridden_by_manual_mapping" type="boolean">
+example: `true`
+
+Identifies whether the mapping has
+been manually set by the team owner from UI for channels
+(as opposed to being automatically created).
+</ParamField>
+
+<ParamField body="modified_at" type="string(date-time)">
+example: `2012-12-12T10:53:43-08:00`
+
+When the integration mapping object was last modified.
+</ParamField>
+
+<ParamField body="partner_item" type="object">
+example: `{"id":"19%3ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2","team_id":"hjgjgjg-bhhj-564a-b643-hghgj685u","tenant_id":"E1234567","type":"channel"}`
+
+Mapped item object for Teams.
+
+<Expandable>
+  <ParamField body="id" type="string">
+  example: `19%ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2`
+  
+  ID of the mapped item (of type referenced in `type`).
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  example: `channel`
+  
+  Type of the mapped item referenced in `id`.
+  
+  Value is one of `channel`,`team`
+  </ParamField>
+
+  <ParamField body="tenant_id" type="string">
+  example: `abcd-defg-1235-7890`
+  
+  ID of the tenant that is registered with Microsoft Teams.
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "integration_mapping",
+  "box_item": {
+    "id": "42037322",
+    "type": "folder"
+  },
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "integration_type": "teams",
+  "is_overridden_by_manual_mapping": true,
+  "modified_at": "2012-12-12T10:53:43-08:00",
+  "partner_item": {
+    "id": "19%3ABCD-Avgfggkggyftdtfgghjhkhkhh%40thread:tacv2",
+    "type": "channel",
+    "team_id": "hjgjgjg-bhhj-564a-b643-hghgj685u",
+    "tenant_id": "E1234567"
+  }
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,223 @@
+---
+title: "Create connection between SSO identity and app user"
+related_endpoints:
+  - post_users
+related_guides:
+  - sso-identities-and-app-users/find-app-user
+---
+When a user signs in to a custom Box application for the first time using their
+SSO provider credentials a new Box user will need to be created and associated
+with their SSO user record using some piece of unique information from that SSO
+user record. Typically the data that is used to make the association between
+those two accounts is either a unique ID or an email address.
+
+To make that association, a Box account may be created in a few ways:
+
+* Using the `external_app_user_id` field of a Box user to store the unique ID from the SSO provider.
+* Using the `login` field of a Box user to store the unique email from the SSO provider (managed users only).
+
+## Create association with `external_app_user_id`
+
+Using the `external_app_user_id` field of a Box user record is a viable option
+for both app users and managed users, and is the recommended method when
+associating a user record from an SSO provider with a Box user account.
+
+### App user
+
+To create a new Box app user with an `external_app_user_id` association to a
+SSO user record you will need two pieces of information from the SSO provider:
+
+* UID (required): The unique identifier from the SSO user record.
+* Name (optional): To maintain uniformity between the records, the SSO user name may be extracted to associate with the Box user record.
+
+Once available, make a request to create a new app user, supplying the optional
+`external_app_user_id` definition in the user parameters.
+
+<CodeGroup>
+    ```js Node
+    const ssoName = 'SSO User Name';
+    const ssoUID = 'SSO User Unique ID';
+    const spaceAmount = 1073741824;
+
+    // Create app user
+    client.enterprise.addAppUser(
+        ssoName,
+        {
+          space_amount: spaceAmount,
+          external_app_user_id: ssoUID
+        }
+    ).then(appUser => {
+        console.log(`New user created: ${appUser.name}`);
+    });
+    ```
+
+    ```java Java
+    String ssoName = "SSO User Name";
+    String ssoUID = "SSO User Unique ID";
+
+    // Create app user
+    CreateUserParams params = new CreateUserParams();
+    params.setExternalAppUserId(ssoUID);
+    BoxUser.Info createdUserInfo = BoxUser.createAppUser(client, ssoName, params);
+
+    outputString = "New user created: " + createdUserInfo.getName();
+    ```
+
+    ```python Python
+    sso_name = 'SSO User Name'
+    sso_uid = 'SSO User Unique ID'
+    space = 1073741824
+
+    # Create app user
+    user = box_client.create_user(sso_name, None, space_amount=space, external_app_user_id=sso_uid)
+    print('New user created: {name}')
+    ```
+</CodeGroup>
+
+### Managed user
+
+To create a new Box managed user with an `external_app_user_id` association to
+a SSO user record you will need two pieces of information from the SSO
+provider:
+
+* Email (required): The unique email from the SSO user record.
+* Name (optional): To maintain uniformity between the records, the SSO user may be extracted to associate with the Box user record.
+
+Once available, make a request to create a new managed user, supplying the
+SSO user record email address for the login.
+
+<CodeGroup>
+    ```js Node
+    const ssoName = 'SSO User Name';
+    const ssoEmail = 'ssouser@email.com';
+    const spaceAmount = 1073741824;
+
+    // Create app user
+    client.enterprise.addUser(
+        ssoEmail,
+        ssoName,
+        {
+            space_amount: spaceAmount
+        }
+    ).then(managedUser => {
+        console.log(`New user created: ${managedUser.name}`);
+    });
+    ```
+
+    ```java Java
+    String ssoName = "SSO User Name";
+    String ssoEmail = "ssouser@email.com";
+
+    // Create managed user
+    BoxUser.Info createdUserInfo =
+      BoxUser.createEnterpriseUser(client, ssoEmail, ssoName);
+
+    outputString = "New user created: " + createdUserInfo.getName();
+    ```
+
+    ```python Python
+    sso_name = 'SSO User Name'
+    sso_email = 'ssouser@email.com'
+    space = 1073741824
+
+    # Create managed user
+    user = box_client.create_user(sso_name, sso_email, space_amount=space)
+    print('New user created: {name}')
+    ```
+
+</CodeGroup>
+
+## Create association by email
+
+Creating a new [managed user](https://developer.box.com/platform/user-types/#managed-users)
+that is associated by the SSO user email address is the same process as
+creating a standard managed user.
+
+After the user logs in via your SSO provider, if the user doesn't already exist
+as a Box user, extract the email address from the SSO user record and make a
+request to create a new Box managed user.
+
+<CodeGroup>
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/users" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json" \
+     -d '{
+       "login": "ceo@example.com",
+       "name": "Aaron Levie"
+     }'
+```
+
+```typescript Node/TypeScript v10
+await client.users.createUser({
+  name: userName,
+  login: userLogin,
+  isPlatformAccessOnly: true,
+} satisfies CreateUserRequestBody);
+```
+
+```python Python v10
+client.users.create_user(user_name, login=user_login, is_platform_access_only=True)
+```
+
+```csharp .NET v10
+await client.Users.CreateUserAsync(requestBody: new CreateUserRequestBody(name: userName) { Login = userLogin, IsPlatformAccessOnly = true });
+```
+
+```swift Swift v10
+try await client.users.createUser(requestBody: CreateUserRequestBody(name: userName, login: userLogin, isPlatformAccessOnly: true))
+```
+
+```java Java v10
+client.getUsers().createUser(new CreateUserRequestBody.Builder(userName).login(userLogin).isPlatformAccessOnly(true).build())
+```
+
+```java Java v5
+BoxUser.Info createdUserInfo = BoxUser.createEnterpriseUser(api, "user@example.com", "A User");
+```
+
+```py Python v4
+new_user = client.create_user('Temp User', 'user@example.com')
+```
+
+```csharp .NET v6
+var userParams = new BoxUserRequest()
+{
+    Name = "Example User",
+    Login = "user@example.com"
+};
+BoxUser newUser = await client.UsersManager.CreateEnterpriseUserAsync(userParams);
+```
+
+```js Node v4
+client.enterprise.addUser(
+ 'eddard@winterfell.example.com',
+ 'Ned Stark',
+ {
+  role: client.enterprise.userRoles.COADMIN,
+  address: '555 Box Lane',
+  status: client.enterprise.userStatuses.CANNOT_DELETE_OR_EDIT
+ })
+ .then(user => {
+  /* user -> {
+   type: 'user',
+   id: '44444',
+   name: 'Ned Stark',
+   login: 'eddard@winterfell.example.com',
+   created_at: '2012-11-15T16:34:28-08:00',
+   modified_at: '2012-11-15T16:34:29-08:00',
+   role: 'coadmin',
+   language: 'en',
+   timezone: 'America/Los_Angeles',
+   space_amount: 5368709120,
+   space_used: 0,
+   max_upload_size: 2147483648,
+   status: 'active',
+   job_title: '',
+   phone: '',
+   address: '555 Box Lane',
+   avatar_url: 'https://www.box.com/api/avatar/large/deprecated' }
+        */
+ });
+```
+</CodeGroup>

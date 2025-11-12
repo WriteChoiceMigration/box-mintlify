@@ -1,0 +1,43 @@
+---
+title: "Box Hub (Base)"
+---
+
+APIバージョン 2025.0
+
+最も基本的なBox HubのBase版の表示。
+
+* [Standard](/reference/v2025.0/resources/hub/)
+* [Base](/reference/v2025.0/resources/hub--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+Box Hubを表す一意の識別子。
+
+Box HubのIDを確認するには、ウェブアプリでBox Hubにアクセスして、URLからIDをコピーします。たとえば、URLが`https://*.app.box.com/hubs/123`の場合、`hub_id`は`123`です。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `hubs`
+
+値は常に`hubs`になります。
+
+次の値に固定: `hubs`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "hubs"
+}
+```
+
+</ResponseExample>

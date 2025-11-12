@@ -1,0 +1,64 @@
+---
+title: "Web link (Base)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+Web links are objects that point to URLs. These objects
+are also known as bookmarks within the Box web application.
+
+Web link objects are treated similarly to file objects,
+they will also support most actions that apply to regular files.
+
+* [Standard](/reference/resources/web-link/)
+* [Mini](/reference/resources/web-link--mini/)
+* [Base](/reference/resources/web-link--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **base** variant represent
+the default fields that are always returned when using the `fields`
+query parameter, additional to the fields specified in the
+parameter.
+</Info>
+
+<ParamField body="id" type="string">
+example: `11446498`
+
+The unique identifier for this web link.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `web_link`
+
+The value will always be `web_link`.
+
+Value is always `web_link`
+</ParamField>
+
+<ParamField body="etag" type="string">
+example: `1`
+
+The entity tag of this web link. Used with `If-Match`
+headers.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "11446498",
+  "type": "web_link",
+  "etag": "1"
+}
+```
+
+</ResponseExample>

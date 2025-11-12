@@ -1,0 +1,251 @@
+---
+title: "新しいファイルのアップロード"
+rank: 1
+related_endpoints:
+  - options_files_content
+  - post_files_content
+related_guides: []
+related_pages: []
+required_guides:
+  - uploads/check
+related_resources: []
+alias_paths: []
+category_id: uploads
+subcategory_id: uploads/direct
+is_index: false
+id: uploads/direct/file
+type: guide
+total_steps: 2
+sibling_id: uploads/direct
+parent_id: uploads/direct
+next_page_id: uploads/direct/file-version
+previous_page_id: ''
+source_url: >-
+  https://github.com/box/developer.box.com/blob/main/content/guides/uploads/direct/file.md
+fullyTranslated: true
+---
+直接アップロードによってBoxにファイルをアップロードするには、ファイルのコンテンツ、目的のファイル名、フォルダIDを使用して、[`POST /files/content`][upload] APIにAPIコールを実行します。
+
+<Tip>
+
+アーカイブフォルダにファイルをアップロードするには、最初に、開発者コンソールで[グローバルコンテンツマネージャ][GCM] (GCM) スコープを有効にする必要があります。
+
+</Tip>
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://upload.box.com/api/2.0/files/content" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: multipart/form-data" \
+     -F attributes='{"name":"Contract.pdf", "parent":{"id":"11446498"}}' \
+     -F file=@<FILE_NAME>
+```
+
+```typescript Node/TypeScript v10
+const fs = require('fs');
+
+const attrs = { name: 'filename.txt', parent: { id: '0' } };
+const body = {
+  attributes: attrs,
+  file: fs.createReadStream('filename.txt'),
+};
+const files = await client.uploads.uploadFile(body);
+const file = files.entries[0];
+console.log(`File uploaded with id ${file.id}, name ${file.name}`);
+```
+
+```python Python v10
+client.uploads.upload_file(
+    UploadFileAttributes(
+        name=new_file_name, parent=UploadFileAttributesParentField(id="0")
+    ),
+    file_content_stream,
+)
+```
+
+```cs .NET v10
+await client.Uploads.UploadFileAsync(requestBody: new UploadFileRequestBody(attributes: new UploadFileRequestBodyAttributesField(name: newFileName, parent: new UploadFileRequestBodyAttributesParentField(id: "0")), file: fileContentStream));
+```
+
+```swift Swift v10
+// Create InputStream for a file based on URL
+guard let fileStream = InputStream(url: URL(string: "<URL_TO_YOUR_FILE>")!) else {
+    fatalError("Could not read a file")
+}
+
+// Create a request body with the required parameters
+let requestBody = UploadFileRequestBodyArg(
+    attributes: UploadFileRequestBodyArgAttributesField(
+        name: "filename.txt",
+        parent: UploadFileRequestBodyArgAttributesFieldParentField(id: "0")
+    ),
+    file: fileStream
+)
+
+// Call uploadFile method
+let files = try await client.uploads.uploadFile(requestBody: requestBody)
+
+// Print some data from the reponse
+if let file = files.entries?[0] {
+    print("File uploaded with id \(file.id), name \(file.name!)")
+}
+```
+
+```java Java v10
+client.getUploads().uploadFile(new UploadFileRequestBody(new UploadFileRequestBodyAttributesField(newFileName, new UploadFileRequestBodyAttributesParentField("0")), fileContentStream))
+```
+
+```java Java v5
+BoxFolder rootFolder = BoxFolder.getRootFolder(api);
+FileInputStream stream = new FileInputStream("My File.txt");
+BoxFile.Info newFileInfo = rootFolder.uploadFile(stream, "My File.txt");
+stream.close();
+```
+
+```python Python v4
+folder_id = '22222'
+new_file = client.folder(folder_id).upload('/home/me/document.pdf')
+print(f'File "{new_file.name}" uploaded to Box with file ID {new_file.id}')
+```
+
+```cs .NET v6
+using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+{
+    BoxFileRequest requestParams = new BoxFileRequest()
+    {
+        Name = uploadFileName,
+        Parent = new BoxRequestEntity() { Id = "0" }
+    };
+
+    BoxFile file = await client.FilesManager.UploadAsync(requestParams, fileStream);
+}
+```
+
+```javascript Node v4
+var fs = require('fs');
+var stream = fs.createReadStream('/path/to/My File.pdf');
+var folderID = '0'
+client.files.uploadFile(folderID, 'My File.pdf', stream)
+	.then(file => {
+		/* file -> {
+			total_count: 1,
+			entries: 
+			[ { type: 'file',
+				id: '11111',
+				file_version: 
+					{ type: 'file_version',
+					id: '22222',
+					sha1: '0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33' },
+				sequence_id: '0',
+				etag: '0',
+				sha1: '0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33',
+				name: 'My File.pdf',
+				description: '',
+				size: 68431,
+				path_collection: 
+					{ total_count: 1,
+					entries: 
+					[ { type: 'folder',
+						id: '0',
+						sequence_id: null,
+						etag: null,
+						name: 'All Files' } ] },
+				created_at: '2017-05-16T15:18:02-07:00',
+				modified_at: '2017-05-16T15:18:02-07:00',
+				trashed_at: null,
+				purged_at: null,
+				content_created_at: '2017-05-16T15:18:02-07:00',
+				content_modified_at: '2017-05-16T15:18:02-07:00',
+				created_by: 
+					{ type: 'user',
+					id: '33333',
+					name: 'Test User',
+					login: 'test@example.com' },
+				modified_by: 
+					{ type: 'user',
+					id: '33333',
+					name: 'Test User',
+					login: 'test@example.com' },
+				owned_by: 
+					{ type: 'user',
+					id: '33333',
+					name: 'Test User',
+					login: 'test@example.com' },
+				shared_link: null,
+				parent: 
+					{ type: 'folder',
+					id: '0',
+					sequence_id: null,
+					etag: null,
+					name: 'All Files' }
+				item_status: 'active' } ] }
+		*/
+	});
+```
+
+</CodeGroup>
+
+<Info>
+**事前チェック**
+
+アップロードしたファイルが拒否されることによる時間や帯域幅の無駄を防ぐため、ファイルをアップロードする前に[事前チェック][preflight]を実行することをお勧めします。
+
+</Info>
+
+## リクエスト形式
+
+このAPIのリクエスト本文には、`multipart/form-data`のコンテンツタイプが使用されます。これを使用して、ファイル属性とファイルの実際のコンテンツの2つの部分を送信します。
+
+最初の部分は`attributes`と呼ばれ、ファイル名や親フォルダの`id`など、ファイルに関する情報を含むJSONオブジェクトが含まれています。
+
+以下の例では、ユーザーのルートフォルダに`test.txt`をアップロードしています。
+
+```sh
+POST /api/2.0/files/content HTTP/1.1
+Host: upload.box.com
+Authorization: Bearer [ACCESS_TOKEN]
+content-length: 343
+content-type: multipart/form-data; boundary=------------------------9fd09388d840fef1
+--------------------------9fd09388d840fef1
+content-disposition: form-data; name="attributes"
+
+{"name":"test.txt", "parent":{"id":"0"}}
+--------------------------9fd09388d840fef1
+content-disposition: form-data; name="file"; filename="test.txt"
+content-type: text/plain
+
+Test file text.
+--------------------------9fd09388d840fef1--
+
+```
+
+<Warning>
+
+マルチパート本文の`attributes` JSON部分は、マルチパートフォームデータの`file` 部分の前に置く必要があります。この順番を間違えると、APIがHTTP `400`ステータスコードとエラーコード`metadata_after_file_contents`を返します。
+
+</Warning>
+
+## オプション
+
+ファイルのアップロード時に使用できるすべてのパラメータの詳細については、[このAPIコールに関するリファレンスドキュメント][upload]を参照してください。パラメータには、設定することで転送中のファイルの破損を防ぐ`content-md5`や、アップロード時間とは異なる時間をファイル作成時間として明示的に指定できる機能が含まれます。
+
+## 制約事項
+
+直接アップロードできるファイルサイズの上限は50 MBです。ファイルがこれより大きい場合は、[分割アップロードAPI][chunked]を使用してください。
+
+アップロードの上限は、認証済みユーザーのアカウントの種類によって決まります。詳細については、このトピックに関する[Boxコミュニティの記事][fsizes]を参照してください。
+
+[preflight]: /ja/guides/uploads/check
+
+[chunked]: /ja/guides/uploads/chunked
+
+[upload]: /ja/reference/post_files_content
+
+{/* i18n-enable localize-links */}
+
+[fsizes]: https://support.box.com/hc/ja/articles/360043697314-Boxにアップロードできる最大ファイルサイズ
+
+{/* i18n-disable localize-links */}
+
+[GCM]: /ja/guides/api-calls/permissions-and-errors/scopes

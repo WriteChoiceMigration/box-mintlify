@@ -1,0 +1,173 @@
+---
+title: "分類テンプレート"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+会社が定義したセキュリティ分類を保持するメタデータテンプレート。
+
+<ParamField body="id" type="string">
+例 `58063d82-4128-7b43-bba9-92f706befcdf`
+
+分類テンプレートのID。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `metadata_template`
+
+値は常に`metadata_template`になります。
+
+次の値に固定: `metadata_template`
+</ParamField>
+
+<ParamField body="copyInstanceOnItemCopy" type="boolean">
+例 `true`
+
+ファイルまたはフォルダをコピーするときに分類もコピーするかどうかを決定します。
+</ParamField>
+
+<ParamField body="displayName" type="string">
+例 `Classification`
+
+ウェブインターフェースおよびモバイルインターフェースに表示されるこのテンプレートの名前。
+
+次の値に固定: `Classification`
+</ParamField>
+
+<ParamField body="fields" type="objectarray">
+この分類テンプレートのフィールドのリスト。これには、`Box__Security__Classification__Key`というフィールドが1つだけ含まれています。これにより、この会社で使用できるさまざまな分類が定義されます。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `822227e0-47a5-921b-88a8-494760b2e6d2`
+  
+  フィールドの一意のID。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `enum`
+  
+  配列の項目のタイプ。
+  
+  次の値に固定: `enum`
+  </ParamField>
+
+  <ParamField body="displayName" type="string">
+  例 `Classification`
+  
+  値は常に`Classification`になります。
+  
+  次の値に固定: `Classification`
+  </ParamField>
+
+  <ParamField body="hidden" type="boolean">
+  例 `false`
+  
+  分類は常にウェブユーザーおよびモバイルユーザーに表示されます。
+  </ParamField>
+
+  <ParamField body="key" type="string">
+  例 `Box__Security__Classification__Key`
+  
+  企業で使用できる分類を定義します。
+  
+  次の値に固定: `Box__Security__Classification__Key`
+  </ParamField>
+
+  <ParamField body="options" type="objectarray">
+  この会社で使用できる分類のリスト。
+  
+  <Expandable>
+    <ParamField body="id" type="string">
+    例 `46aea176-3483-4431-856c-6b5b13d1cc50`
+    
+    この分類の一意のID。
+    </ParamField>
+  
+    <ParamField body="key" type="string">
+    例 `Sensitive`
+    
+    この分類の表示名とキー。
+    </ParamField>
+  
+    <ParamField body="staticConfig" type="object">
+    分類に関する追加情報。
+    
+    <Expandable>
+      <ParamField body="classification" type="object">
+      分類に関する追加情報。
+      
+      これはプロパティの唯一のリストではなく、より多くのオブジェクトフィールドが返される場合があります。これらのフィールドは内部のBox ShieldおよびBox Governanceの目的で使用されるため、これらのフィールドからさらなる値が派生しないようにしてください。
+      </ParamField>
+    
+    </Expandable>
+    </ParamField>
+  
+  </Expandable>
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="hidden" type="boolean">
+例 `false`
+
+このテンプレートを常にウェブインターフェースおよびモバイルインターフェースで使用可能にするかどうかを決定します。
+</ParamField>
+
+<ParamField body="scope" type="string">
+例 `enterprise_123456`
+
+分類テンプレートのスコープ。これは`enterprise_{id}`形式 (`id`はEnterprise ID) になります。
+</ParamField>
+
+<ParamField body="templateKey" type="string">
+例 `securityClassification-6VMVochwUWo`
+
+値は常に`securityClassification-6VMVochwUWo`になります。
+
+次の値に固定: `securityClassification-6VMVochwUWo`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "58063d82-4128-7b43-bba9-92f706befcdf",
+  "type": "metadata_template",
+  "copyInstanceOnItemCopy": true,
+  "displayName": "Classification",
+  "fields": [
+    {
+      "displayName": "Classification",
+      "hidden": false,
+      "id": "822227e0-47a5-921b-88a8-494760b2e6d2",
+      "key": "Box__Security__Classification__Key",
+      "options": [
+        {
+          "id": "46aea176-3483-4431-856c-6b5b13d1cc50",
+          "key": "Sensitive",
+          "staticConfig": {
+            "classification": {
+              "classificationDefinition": "Sensitive information",
+              "colorID": 4
+            }
+          }
+        }
+      ],
+      "type": "enum"
+    }
+  ],
+  "hidden": false,
+  "scope": "enterprise_123456",
+  "templateKey": "securityClassification-6VMVochwUWo"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,93 @@
+---
+title: "許可されたコラボレーションドメイン"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+\*\*[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)\*\*を参照してください。
+</Note>
+
+ユーザーが社内のファイルやフォルダでコラボレーションできる (またはコラボレーションできない) 承認済みドメインを表すエントリ。
+
+<ParamField body="id" type="string">
+例 `11446498`
+
+このエントリの一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `collaboration_whitelist_entry`
+
+値は常に`collaboration_whitelist_entry`になります。
+
+次の値に固定: `collaboration_whitelist_entry`
+</ParamField>
+
+<ParamField body="created_at" type="string(date-time)">
+例 `2012-12-12T10:53:43-08:00`
+
+エントリが作成された日時。
+</ParamField>
+
+<ParamField body="direction" type="string">
+例 `both`
+
+許可するコラボレーションの方向。
+
+次の値のいずれか1つ: `inbound`,`outbound`,`both`
+</ParamField>
+
+<ParamField body="domain" type="string">
+例 `example.com`
+
+許可リストに登録されるドメイン。
+</ParamField>
+
+<ParamField body="enterprise" type="object">
+このリストが適用される企業。
+
+<Expandable>
+  <ParamField body="id" type="string">
+  例 `11446498`
+  
+  この会社の一意の識別子。
+  </ParamField>
+
+  <ParamField body="type" type="string">
+  例 `enterprise`
+  
+  値は常に`enterprise`になります。
+  
+  次の値に固定: `enterprise`
+  </ParamField>
+
+  <ParamField body="name" type="string">
+  例 `Acme Inc.`
+  
+  企業の名前。
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "11446498",
+  "type": "collaboration_whitelist_entry",
+  "created_at": "2012-12-12T10:53:43-08:00",
+  "direction": "both",
+  "domain": "example.com",
+  "enterprise": {
+    "id": "11446498",
+    "type": "enterprise",
+    "name": "Acme Inc."
+  }
+}
+```
+
+</ResponseExample>

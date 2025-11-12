@@ -1,0 +1,40 @@
+---
+title: "AI agent reference"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The AI agent used to handle queries.
+
+<ParamField body="id" type="string">
+example: `14031`
+
+The ID of an Agent. This can be a numeric ID for custom agents (for example, `14031`)
+or a unique identifier for pre-built agents (for example, `enhanced_extract_agent`
+for the [Enhanced Extract Agent](/guides/box-ai/ai-tutorials/extract-metadata-structured//#enhanced-extract-agent)).
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `ai_agent_id`
+
+The type of AI agent used to handle queries.
+
+Value is always `ai_agent_id`
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "14031",
+  "type": "ai_agent_id"
+}
+```
+
+</ResponseExample>

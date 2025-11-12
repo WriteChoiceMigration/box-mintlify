@@ -1,0 +1,111 @@
+---
+title: "Start Workflow"
+rank: 2
+---
+The [start workflow endpoint][start] can be used to start a flow within a
+workflow of type `WORKFLOW_MANUAL_START`. Other flow types cannot be started. 
+If you have the flow set up to accept configurations at runtime, you must send 
+in the optional `outcomes` array object. 
+
+<Note>
+  For more information on how to use this endpoint, refer to our [blog][blog] 
+  post.
+</Note>
+
+<CodeGroup>
+
+```sh cURL
+curl -i -X POST "https://api.box.com/2.0/workflows/42037322/start" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -d '{
+       "type": "workflow_parameters",
+       "flow": {
+        "id": "8937625",
+        "type": "flow"
+       },
+       "files": [{
+          "type": "file",
+          "id": "389047572"
+        },
+        {
+          "type": "file",
+          "id": "389047578"
+        }],
+       "folder": {
+         "id": "2233212",
+         "type": "folder"
+       },
+       "outcomes": [
+          {
+            "id": "34895783",
+            "type": "outcome",
+            "task_collaborators": {
+                "type": "variable",
+                "variable_type": "user_list",
+                "variable_value": [{ "type": "user", "id": "890273642" }]
+            },
+            "completion_rule": {
+                "type": "variable",
+                "variable_type": "task_completion_rule",
+                "variable_value": "all_assignees"
+            },
+            "file_collaborator_role": {
+                "type": "variable",
+                "variable_type": "collaborator_role",
+                "variable_value": "viewer"
+            }
+          }
+        ]
+     }'
+```
+
+```typescript Node/TypeScript v10
+await adminClient.workflows.startWorkflow(workflowToRun.id!, {
+  type: 'workflow_parameters' as StartWorkflowRequestBodyTypeField,
+  flow: {
+    type: 'flow',
+    id: workflowToRun.flows![0].id!,
+  } satisfies StartWorkflowRequestBodyFlowField,
+  files: [
+    {
+      type: 'file' as StartWorkflowRequestBodyFilesTypeField,
+      id: workflowFileId,
+    } satisfies StartWorkflowRequestBodyFilesField,
+  ],
+  folder: {
+    type: 'folder' as StartWorkflowRequestBodyFolderTypeField,
+    id: workflowFolderId,
+  } satisfies StartWorkflowRequestBodyFolderField,
+} satisfies StartWorkflowRequestBody);
+```
+
+```python Python v10
+admin_client.workflows.start_workflow(
+    workflow_to_run.id,
+    StartWorkflowFlow(type="flow", id=workflow_to_run.flows[0].id),
+    [StartWorkflowFiles(type=StartWorkflowFilesTypeField.FILE, id=workflow_file_id)],
+    StartWorkflowFolder(
+        type=StartWorkflowFolderTypeField.FOLDER, id=workflow_folder_id
+    ),
+    type=StartWorkflowType.WORKFLOW_PARAMETERS,
+)
+```
+
+```cs .NET v10
+await adminClient.Workflows.StartWorkflowAsync(workflowId: NullableUtils.Unwrap(workflowToRun.Id), requestBody: new StartWorkflowRequestBody(flow: new StartWorkflowRequestBodyFlowField() { Type = "flow", Id = NullableUtils.Unwrap(NullableUtils.Unwrap(workflowToRun.Flows)[0].Id) }, files: Array.AsReadOnly(new [] {new StartWorkflowRequestBodyFilesField() { Type = StartWorkflowRequestBodyFilesTypeField.File, Id = workflowFileId }}), folder: new StartWorkflowRequestBodyFolderField() { Type = StartWorkflowRequestBodyFolderTypeField.Folder, Id = workflowFolderId }) { Type = StartWorkflowRequestBodyTypeField.WorkflowParameters });
+```
+
+```swift Swift v10
+try await adminClient.workflows.startWorkflow(workflowId: workflowToRun.id!, requestBody: StartWorkflowRequestBody(type: StartWorkflowRequestBodyTypeField.workflowParameters, flow: StartWorkflowRequestBodyFlowField(type: "flow", id: workflowToRun.flows![0].id!), files: [StartWorkflowRequestBodyFilesField(type: StartWorkflowRequestBodyFilesTypeField.file, id: workflowFileId)], folder: StartWorkflowRequestBodyFolderField(type: StartWorkflowRequestBodyFolderTypeField.folder, id: workflowFolderId)))
+```
+
+```java Java v10
+adminClient.getWorkflows().startWorkflow(workflowToRun.getId(), new StartWorkflowRequestBody.Builder(new StartWorkflowRequestBodyFlowField.Builder().type("flow").id(workflowToRun.getFlows().get(0).getId()).build(), Arrays.asList(new StartWorkflowRequestBodyFilesField.Builder().type(StartWorkflowRequestBodyFilesTypeField.FILE).id(workflowFileId).build()), new StartWorkflowRequestBodyFolderField.Builder().type(StartWorkflowRequestBodyFolderTypeField.FOLDER).id(workflowFolderId).build()).type(StartWorkflowRequestBodyTypeField.WORKFLOW_PARAMETERS).build())
+```
+
+</CodeGroup>
+
+[start]: /reference/post-workflows-id-start
+{/* i18n-enable localize-links */}
+[blog]: https://medium.com/box-developer-blog/manual-start-workflow-api-box-relay-4f8d0f51b7a4
+{/* i18n-disable localize-links */}

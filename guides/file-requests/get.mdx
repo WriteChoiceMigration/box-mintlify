@@ -1,0 +1,66 @@
+---
+title: "Get information for a File Request"
+related_endpoints:
+  - get_file_requests_id
+related_guides:
+  - file-requests/copy
+required_guides: []
+related_resources:
+  - file_request
+---
+To get details about an existing [file request](/guides/file-requests/template),
+all you need is its unique ID.
+
+<CodeGroup>
+```sh cURL
+curl -i -X GET "https://api.box.com/2.0/file_requests/42037322" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.fileRequests.getFileRequestById(fileRequestId);
+```
+
+```python Python v10
+client.file_requests.get_file_request_by_id(file_request_id)
+```
+
+```csharp .NET v10
+await client.FileRequests.GetFileRequestByIdAsync(fileRequestId: fileRequestId);
+```
+
+```swift Swift v10
+try await client.fileRequests.getFileRequestById(fileRequestId: fileRequestId)
+```
+
+```java Java v10
+client.getFileRequests().getFileRequestById(fileRequestId)
+```
+
+```java Java v5
+BoxFileRequest fileRequest = new BoxFileRequest(api, "id");
+BoxFileRequest.Info fileRequestInfo = fileRequest.getInfo();
+```
+
+```py Python v4
+file_request = client.file_request(file_request_id='123456').get()
+print(f'File request {file_request.id} on folder {file_request.folder.name}')
+```
+
+```csharp .NET v6
+BoxFileRequestObject fileRequest = await client.FileRequestsManager.GetFileRequestByIdAsync("12345");
+```
+
+```js Node v4
+client.fileRequests.getById(fileRequestId)
+```
+</CodeGroup>
+
+<Note>
+
+The ID of a file request can be determined by visiting the Box web
+app and inspecting the URL. Please
+[check our guide](/guides/file-requests/template) on setting up a file
+request template to learn how to determine a file request ID.
+
+</Note>

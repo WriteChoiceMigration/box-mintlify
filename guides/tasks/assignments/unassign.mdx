@@ -1,0 +1,65 @@
+---
+title: "Unassign a task"
+related_endpoints:
+  - delete_task_assignments_id
+related_guides:
+  - tasks/assignments/assign
+  - tasks/assignments/change-state
+---
+To unassign a task, you will need to provide the 
+[`DELETE /task_assignments`](/reference/delete_task_assignments_id) API with the `id`
+of the task assignment.
+
+<CodeGroup>
+```sh cURL
+curl -i -X DELETE "https://api.box.com/2.0/task_assignments/12345" \
+     -H "authorization: Bearer <ACCESS_TOKEN>"
+```
+
+```typescript Node/TypeScript v10
+await client.taskAssignments.deleteTaskAssignmentById(taskAssignment.id!);
+```
+
+```python Python v10
+client.task_assignments.delete_task_assignment_by_id(task_assignment.id)
+```
+
+```csharp .NET v10
+await client.TaskAssignments.DeleteTaskAssignmentByIdAsync(taskAssignmentId: NullableUtils.Unwrap(taskAssignment.Id));
+```
+
+```swift Swift v10
+try await client.taskAssignments.deleteTaskAssignmentById(taskAssignmentId: taskAssignment.id!)
+```
+
+```java Java v10
+client.getTaskAssignments().deleteTaskAssignmentById(taskAssignment.getId())
+```
+
+```java Java v5
+BoxTaskAssignment taskAssignment = new BoxTaskAssignment(api, "id");
+taskAssignment.delete();
+```
+
+```py Python v4
+client.task_assignment(assignment_id='12345').delete()
+print('The task assignment was successfully delete!')
+```
+
+```csharp .NET v6
+await client.TasksManager.DeleteTaskAssignmentAsync("12345");
+```
+
+```js Node v4
+client.tasks.deleteAssignment('12345')
+ .then(() => {
+  // deletion succeeded — no value returned
+ });
+```
+</CodeGroup>
+
+<Warning>
+  # Permissions
+
+  The user deleting the assignment needs to be a collaborator on the file.
+</Warning>

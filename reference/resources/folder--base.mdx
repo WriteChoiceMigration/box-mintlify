@@ -1,0 +1,70 @@
+---
+title: "Folder (Base)"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+The bare basic representation of a folder, the minimal
+amount of fields returned when using the `fields` query
+parameter.
+
+* [Full](/reference/resources/folder--full/)
+* [Standard](/reference/resources/folder/)
+* [Mini](/reference/resources/folder--mini/)
+* [Base](/reference/resources/folder--base/)
+
+<Info>
+This resource has a few variations that can be encountered when
+using the API.
+
+The fields that are part of the **base** variant represent
+the default fields that are always returned when using the `fields`
+query parameter, additional to the fields specified in the
+parameter.
+</Info>
+
+<ParamField body="id" type="string">
+example: `12345`
+
+The unique identifier that represent a folder.
+
+The ID for any folder can be determined
+by visiting a folder in the web application
+and copying the ID from the URL. For example,
+for the URL `https://*.app.box.com/folders/123`
+the `folder_id` is `123`.
+</ParamField>
+
+<ParamField body="type" type="string">
+example: `folder`
+
+The value will always be `folder`.
+
+Value is always `folder`
+</ParamField>
+
+<ParamField body="etag" type="string">
+example: `1`
+
+The HTTP `etag` of this folder. This can be used within some API
+endpoints in the `If-Match` and `If-None-Match` headers to only
+perform changes on the folder if (no) changes have happened.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "id": "12345",
+  "type": "folder",
+  "etag": "1"
+}
+```
+
+</ResponseExample>

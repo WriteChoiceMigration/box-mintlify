@@ -1,0 +1,150 @@
+---
+title: "Users"
+---
+
+API version 2024.0
+
+<Note>
+This resource is used by endpoints in the version **2024.0**.
+For more details, see
+**[Box API versioning](/guides/api-calls/api-versioning-strategy/)**.
+</Note>
+
+A list of users.
+
+<ParamField body="entries" type="User (Full)array">
+A list of users.
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+example: `1000`
+
+The limit that was used for these entries. This will be the same as the
+`limit` query parameter unless that value exceeded the maximum value
+allowed. The maximum value varies by API.
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+example: `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+The marker for the start of the next page of results.
+</ParamField>
+
+<ParamField body="offset" type="integer(int64)">
+example: `2000`
+
+The 0-based offset of the first entry in this set. This will be the same
+as the `offset` query parameter.
+
+This field is only returned for calls that use offset-based pagination.
+For marker-based paginated APIs, this field will be omitted.
+</ParamField>
+
+<ParamField body="order" type="objectarray">
+The order by which items are returned.
+
+This field is only returned for calls that use offset-based pagination.
+For marker-based paginated APIs, this field will be omitted.
+
+<Expandable>
+  <ParamField body="by" type="string">
+  example: `type`
+  
+  The field to order by.
+  </ParamField>
+
+  <ParamField body="direction" type="string">
+  example: `ASC`
+  
+  The direction to order by, either ascending or descending.
+  
+  Value is one of `ASC`,`DESC`
+  </ParamField>
+
+</Expandable>
+</ParamField>
+
+<ParamField body="prev_marker" type="string">
+example: `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih`
+
+The marker for the start of the previous page of results.
+</ParamField>
+
+<ParamField body="total_count" type="integer(int64)">
+example: `5000`
+
+One greater than the offset of the last entry in the entire collection.
+The total number of entries in the collection may be less than
+`total_count`.
+
+This field is only returned for calls that use offset-based pagination.
+For marker-based paginated APIs, this field will be omitted.
+</ParamField>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "entries": [
+    {
+      "id": "11446498",
+      "type": "user",
+      "login": "ceo@example.com",
+      "name": "Aaron Levie",
+      "address": "900 Jefferson Ave, Redwood City, CA 94063",
+      "avatar_url": "https://www.box.com/api/avatar/large/181216415",
+      "created_at": "2012-12-12T10:53:43-08:00",
+      "job_title": "CEO",
+      "language": "en",
+      "max_upload_size": 2147483648,
+      "modified_at": "2012-12-12T10:53:43-08:00",
+      "notification_email": {
+        "email": "notifications@example.com",
+        "is_confirmed": true
+      },
+      "phone": "6509241374",
+      "space_amount": 11345156112,
+      "space_used": 1237009912,
+      "status": "active",
+      "timezone": "Africa/Bujumbura",
+      "can_see_managed_users": true,
+      "enterprise": {
+        "id": "11446498",
+        "name": "Acme Inc.",
+        "type": "enterprise"
+      },
+      "external_app_user_id": "my-user-1234",
+      "hostname": "https://example.app.box.com/",
+      "is_exempt_from_device_limits": true,
+      "is_exempt_from_login_verification": true,
+      "is_external_collab_restricted": true,
+      "is_platform_access_only": true,
+      "is_sync_enabled": true,
+      "my_tags": [
+        "important"
+      ],
+      "role": "admin",
+      "tracking_codes": [
+        {
+          "name": "department",
+          "type": "tracking_code",
+          "value": "Sales"
+        }
+      ]
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii",
+  "offset": 2000,
+  "order": [
+    {
+      "by": "type",
+      "direction": "ASC"
+    }
+  ],
+  "prev_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVih",
+  "total_count": 5000
+}
+```
+
+</ResponseExample>

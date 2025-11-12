@@ -1,0 +1,782 @@
+---
+title: "Update metadata on an item"
+related_endpoints:
+  - put_files_id_metadata_id_id
+  - put_folders_id_metadata_id_id
+related_guides: []
+related_resources:
+  - metadata
+  - metadata_template
+required_guides:
+  - metadata/instances/list
+  - metadata/instances/create
+  - metadata/templates/list
+---
+Updating the metadata applied to a file or folder can be done by using the
+item's `id`, the template's `templateKey` and `scope`, and a set of JSON
+operations to manipulate the data on the template instance.
+
+## Update metadata on a file
+
+To update the metadata to a file, call the
+[`PUT /files/:file_id/metadata/:scope/:templateKey`][e_on_file] API endpoint
+with the file's `file_id`, the template's `scope` and `templateKey`, set of JSON
+operations to manipulate the data on the template instance.
+
+<CodeGroup>
+```sh cURL
+curl -i -X PUT "https://api.box.com/2.0/files/12345/metadata/enterprise_27335/blueprintTemplate" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json-patch+json" \
+     -d '[
+        {
+          "op": "test",
+          "path": "/competitiveDocument",
+          "value": "no"
+        },
+        {
+          "op": "remove",
+          "path": "/competitiveDocument"
+        },
+        {
+          "op": "test",
+          "path": "/status",
+          "value": "active"
+        },
+        {
+          "op": "replace",
+          "path": "/status",
+          "value": "inactive"
+        },
+        {
+          "op": "test",
+          "path": "/author",
+          "value": "Jones"
+        },
+        {
+          "op": "copy",
+          "from": "/author",
+          "path": "/editor"
+        },
+        {
+          "op": "test",
+          "path": "/currentState",
+          "value": "proposal"
+        },
+        {
+          "op": "move",
+          "from": "/currentState",
+          "path": "/previousState"
+        },
+        {
+          "op": "add",
+          "path": "/currentState",
+          "value": "reviewed"
+        }
+      ]'
+```
+
+```typescript Node/TypeScript v10
+await client.fileMetadata.updateFileMetadataById(
+  file.id,
+  'enterprise' as UpdateFileMetadataByIdScope,
+  templateKey,
+  [
+    {
+      op: 'replace' as UpdateFileMetadataByIdRequestBodyOpField,
+      path: '/name',
+      value: 'Jack',
+    } satisfies UpdateFileMetadataByIdRequestBody,
+    {
+      op: 'replace' as UpdateFileMetadataByIdRequestBodyOpField,
+      path: '/age',
+      value: 24,
+    } satisfies UpdateFileMetadataByIdRequestBody,
+    {
+      op: 'replace' as UpdateFileMetadataByIdRequestBodyOpField,
+      path: '/birthDate',
+      value: '2000-01-03T02:20:50.520Z',
+    } satisfies UpdateFileMetadataByIdRequestBody,
+    {
+      op: 'replace' as UpdateFileMetadataByIdRequestBodyOpField,
+      path: '/countryCode',
+      value: 'CA',
+    } satisfies UpdateFileMetadataByIdRequestBody,
+    {
+      op: 'replace' as UpdateFileMetadataByIdRequestBodyOpField,
+      path: '/sports',
+      value: ['football'],
+    } satisfies UpdateFileMetadataByIdRequestBody,
+  ],
+);
+```
+
+```python Python v10
+client.file_metadata.update_file_metadata_by_id(
+    file.id,
+    UpdateFileMetadataByIdScope.ENTERPRISE,
+    template_key,
+    [
+        UpdateFileMetadataByIdRequestBody(
+            op=UpdateFileMetadataByIdRequestBodyOpField.REPLACE,
+            path="/name",
+            value="Jack",
+        ),
+        UpdateFileMetadataByIdRequestBody(
+            op=UpdateFileMetadataByIdRequestBodyOpField.REPLACE, path="/age", value=24
+        ),
+        UpdateFileMetadataByIdRequestBody(
+            op=UpdateFileMetadataByIdRequestBodyOpField.REPLACE,
+            path="/birthDate",
+            value="2000-01-03T02:20:50.520Z",
+        ),
+        UpdateFileMetadataByIdRequestBody(
+            op=UpdateFileMetadataByIdRequestBodyOpField.REPLACE,
+            path="/countryCode",
+            value="CA",
+        ),
+        UpdateFileMetadataByIdRequestBody(
+            op=UpdateFileMetadataByIdRequestBodyOpField.REPLACE,
+            path="/sports",
+            value=["football"],
+        ),
+    ],
+)
+```
+
+```csharp .NET v10
+await client.FileMetadata.UpdateFileMetadataByIdAsync(fileId: file.Id, scope: UpdateFileMetadataByIdScope.Enterprise, templateKey: templateKey, requestBody: Array.AsReadOnly(new [] {new UpdateFileMetadataByIdRequestBody() { Op = UpdateFileMetadataByIdRequestBodyOpField.Replace, Path = "/name", Value = "Jack" },new UpdateFileMetadataByIdRequestBody() { Op = UpdateFileMetadataByIdRequestBodyOpField.Replace, Path = "/age", Value = 24 },new UpdateFileMetadataByIdRequestBody() { Op = UpdateFileMetadataByIdRequestBodyOpField.Replace, Path = "/birthDate", Value = "2000-01-03T02:20:50.520Z" },new UpdateFileMetadataByIdRequestBody() { Op = UpdateFileMetadataByIdRequestBodyOpField.Replace, Path = "/countryCode", Value = "CA" },new UpdateFileMetadataByIdRequestBody() { Op = UpdateFileMetadataByIdRequestBodyOpField.Replace, Path = "/sports", Value = Array.AsReadOnly(new [] {"football"}) }}));
+```
+
+```java Java v10
+client.getFileMetadata().updateFileMetadataById(file.getId(), UpdateFileMetadataByIdScope.ENTERPRISE, templateKey, Arrays.asList(new UpdateFileMetadataByIdRequestBody.Builder().op(UpdateFileMetadataByIdRequestBodyOpField.REPLACE).path("/name").value("Jack").build(), new UpdateFileMetadataByIdRequestBody.Builder().op(UpdateFileMetadataByIdRequestBodyOpField.REPLACE).path("/age").value(24L).build(), new UpdateFileMetadataByIdRequestBody.Builder().op(UpdateFileMetadataByIdRequestBodyOpField.REPLACE).path("/birthDate").value("2000-01-03T02:20:50.520Z").build(), new UpdateFileMetadataByIdRequestBody.Builder().op(UpdateFileMetadataByIdRequestBodyOpField.REPLACE).path("/countryCode").value("CA").build(), new UpdateFileMetadataByIdRequestBody.Builder().op(UpdateFileMetadataByIdRequestBodyOpField.REPLACE).path("/sports").value(Arrays.asList("football")).build()))
+```
+
+```java Java v5
+BoxFile file = new BoxFile(api, "id");
+file.updateMetadata(new Metadata("templateScope", "templateKey").add("/foo", "bar"));
+```
+
+```py Python v4
+file_obj = client.file(file_id='11111')
+file_metadata = file_obj.metadata(scope='enterprise', template='myMetadata')
+
+updates = file_metadata.start_update()
+updates.add('/foo', 'bar')
+updates.update('/baz', 'murp', old_value='quux')  # Ensure the old value was "quux" before updating to "murp"
+
+updated_metadata = file_metadata.update(updates)
+print('Updated metadata on file!')
+print(f'foo is now {updated_metadata["foo"]} and baz is now {updated_metadata["baz"]}')
+```
+
+```csharp .NET v6
+var updates = new List<BoxMetadataUpdate>()
+{
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.test,
+        Path = "/competitiveDocument",
+        Value = "no"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.remove,
+        Path = "/competitiveDocument"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.test,
+        Path = "/status",
+        Value = "active"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.replace,
+        Path = "/competitiveDocument",
+        Value = "inactive"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.test,
+        Path = "/author",
+        Value = "Jones"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.copy,
+        From="/author",
+        Path = "/editor"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.test,
+        Path = "/currentState",
+        Value = "proposal"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.move,
+        From = "/currentState",
+        Path = "/previousState"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.add,
+        Path = "/currentState",
+        Value = "reviewed"
+    }
+};
+Dictionary<string, object> updatedMetadata = await client.MetadataManager
+    .UpdateFileMetadataAsync("11111", updates, "enterprise", "marketingCollateral");
+```
+
+```js Node v4
+var updates = [
+ { op: 'test', path: '/competitiveDocument', value: 'no' },
+ { op: 'remove', path: '/competitiveDocument' },
+ { op: 'test', path: '/status', value: 'active' },
+ { op: 'replace', path: '/status', value: 'inactive' },
+ { op: 'test', path: '/author', value: 'Jones' },
+ { op: 'copy', from: '/author', path: '/editor' },
+ { op: 'test', path: '/currentState', value: 'proposal' },
+ { op: 'move', from: '/currentState', path: '/previousState' },
+ { op: 'add', path: '/currentState', value: 'reviewed' }
+];
+client.files.updateMetadata('11111', client.metadata.scopes.ENTERPRISE, "marketingCollateral", updates)
+ .then(metadata => {
+  /* metadata -> {
+   audience: 'internal',
+   documentType: 'Q1 plans',
+   status: 'inactive',
+   author: 'Jones',
+   '$type': 'marketingCollateral-d086c908-2498-4d3e-8a1f-01e82bfc2abe',
+   '$parent': 'file_11111',
+   '$id': '2094c584-68e1-475c-a581-534a4609594e',
+   '$version': 1,
+   '$typeVersion': 0,
+   editor: 'Jones',
+   previousState: 'proposal',
+   currentState: 'reviewed',
+   '$template': 'marketingCollateral',
+   '$scope': 'enterprise_12345' }
+  */
+ });
+```
+</CodeGroup>
+
+<Info>
+  The authenticated user needs to have write access on the file to be able to
+  write changes to the metadata on a file.
+</Info>
+
+## Update metadata on a folder
+
+To update the metadata to a folder, call the
+[`PUT /folders/:folder_id/metadata/:scope/:templateKey`][e_on_folder] API
+endpoint with the folder's `folder_id`, the template's `scope` and
+`templateKey`, set of JSON operations to manipulate the data on the template instance.
+
+<CodeGroup>
+```sh cURL
+curl -i -X PUT "https://api.box.com/2.0/folders/4353455/metadata/enterprise_27335/blueprintTemplate" \
+     -H "authorization: Bearer <ACCESS_TOKEN>" \
+     -H "content-type: application/json-patch+json" \
+     -d '[
+        {
+          "op": "test",
+          "path": "/competitiveDocument",
+          "value": "no"
+        },
+        {
+          "op": "remove",
+          "path": "/competitiveDocument"
+        },
+        {
+          "op": "test",
+          "path": "/status",
+          "value": "active"
+        },
+        {
+          "op": "replace",
+          "path": "/status",
+          "value": "inactive"
+        },
+        {
+          "op": "test",
+          "path": "/author",
+          "value": "Jones"
+        },
+        {
+          "op": "copy",
+          "from": "/author",
+          "path": "/editor"
+        },
+        {
+          "op": "test",
+          "path": "/currentState",
+          "value": "proposal"
+        },
+        {
+          "op": "move",
+          "from": "/currentState",
+          "path": "/previousState"
+        },
+        {
+          "op": "add",
+          "path": "/currentState",
+          "value": "reviewed"
+        }
+      ]'
+```
+
+```typescript Node/TypeScript v10
+await client.folderMetadata.updateFolderMetadataById(
+  folder.id,
+  'enterprise' as UpdateFolderMetadataByIdScope,
+  templateKey,
+  [
+    {
+      op: 'replace' as UpdateFolderMetadataByIdRequestBodyOpField,
+      path: '/name',
+      value: 'Jack',
+    } satisfies UpdateFolderMetadataByIdRequestBody,
+    {
+      op: 'replace' as UpdateFolderMetadataByIdRequestBodyOpField,
+      path: '/age',
+      value: 24,
+    } satisfies UpdateFolderMetadataByIdRequestBody,
+    {
+      op: 'replace' as UpdateFolderMetadataByIdRequestBodyOpField,
+      path: '/birthDate',
+      value: '2000-01-03T02:20:50.520Z',
+    } satisfies UpdateFolderMetadataByIdRequestBody,
+    {
+      op: 'replace' as UpdateFolderMetadataByIdRequestBodyOpField,
+      path: '/countryCode',
+      value: 'CA',
+    } satisfies UpdateFolderMetadataByIdRequestBody,
+    {
+      op: 'replace' as UpdateFolderMetadataByIdRequestBodyOpField,
+      path: '/sports',
+      value: ['football'],
+    } satisfies UpdateFolderMetadataByIdRequestBody,
+  ],
+);
+```
+
+```python Python v10
+client.folder_metadata.update_folder_metadata_by_id(
+    folder.id,
+    UpdateFolderMetadataByIdScope.ENTERPRISE,
+    template_key,
+    [
+        UpdateFolderMetadataByIdRequestBody(
+            op=UpdateFolderMetadataByIdRequestBodyOpField.REPLACE,
+            path="/name",
+            value="Jack",
+        ),
+        UpdateFolderMetadataByIdRequestBody(
+            op=UpdateFolderMetadataByIdRequestBodyOpField.REPLACE, path="/age", value=24
+        ),
+        UpdateFolderMetadataByIdRequestBody(
+            op=UpdateFolderMetadataByIdRequestBodyOpField.REPLACE,
+            path="/birthDate",
+            value="2000-01-03T02:20:50.520Z",
+        ),
+        UpdateFolderMetadataByIdRequestBody(
+            op=UpdateFolderMetadataByIdRequestBodyOpField.REPLACE,
+            path="/countryCode",
+            value="CA",
+        ),
+        UpdateFolderMetadataByIdRequestBody(
+            op=UpdateFolderMetadataByIdRequestBodyOpField.REPLACE,
+            path="/sports",
+            value=["football"],
+        ),
+    ],
+)
+```
+
+```csharp .NET v10
+await client.FolderMetadata.UpdateFolderMetadataByIdAsync(folderId: folder.Id, scope: UpdateFolderMetadataByIdScope.Enterprise, templateKey: templateKey, requestBody: Array.AsReadOnly(new [] {new UpdateFolderMetadataByIdRequestBody() { Op = UpdateFolderMetadataByIdRequestBodyOpField.Replace, Path = "/name", Value = "Jack" },new UpdateFolderMetadataByIdRequestBody() { Op = UpdateFolderMetadataByIdRequestBodyOpField.Replace, Path = "/age", Value = 24 },new UpdateFolderMetadataByIdRequestBody() { Op = UpdateFolderMetadataByIdRequestBodyOpField.Replace, Path = "/birthDate", Value = "2000-01-03T02:20:50.520Z" },new UpdateFolderMetadataByIdRequestBody() { Op = UpdateFolderMetadataByIdRequestBodyOpField.Replace, Path = "/countryCode", Value = "CA" },new UpdateFolderMetadataByIdRequestBody() { Op = UpdateFolderMetadataByIdRequestBodyOpField.Replace, Path = "/sports", Value = Array.AsReadOnly(new [] {"football"}) }}));
+```
+
+```java Java v10
+client.getFolderMetadata().updateFolderMetadataById(folder.getId(), UpdateFolderMetadataByIdScope.ENTERPRISE, templateKey, Arrays.asList(new UpdateFolderMetadataByIdRequestBody.Builder().op(UpdateFolderMetadataByIdRequestBodyOpField.REPLACE).path("/name").value("Jack").build(), new UpdateFolderMetadataByIdRequestBody.Builder().op(UpdateFolderMetadataByIdRequestBodyOpField.REPLACE).path("/age").value(24L).build(), new UpdateFolderMetadataByIdRequestBody.Builder().op(UpdateFolderMetadataByIdRequestBodyOpField.REPLACE).path("/birthDate").value("2000-01-03T02:20:50.520Z").build(), new UpdateFolderMetadataByIdRequestBody.Builder().op(UpdateFolderMetadataByIdRequestBodyOpField.REPLACE).path("/countryCode").value("CA").build(), new UpdateFolderMetadataByIdRequestBody.Builder().op(UpdateFolderMetadataByIdRequestBodyOpField.REPLACE).path("/sports").value(Arrays.asList("football")).build()))
+```
+
+```java Java v5
+BoxFolder folder = new BoxFolder(api, "id");
+folder.updateMetadata(new Metadata().add("/foo", "bar"));
+```
+
+```py Python v4
+folder = client.folder(folder_id='22222')
+folder_metadata = folder.metadata(scope='enterprise', template='myMetadata')
+
+updates = folder_metadata.start_update()
+updates.add('/foo', 'bar')
+updates.update('/baz', 'murp', old_value='quux')  # Ensure the old value was "quux" before updating to "murp"
+
+updated_metadata = folder_metadata.update(updates)
+print('Updated metadata on folder!')
+print(f'foo is now {updated_metadata["foo"]} and baz is now {updated_metadata["baz"]}')
+```
+
+```csharp .NET v6
+var updates = new List<BoxMetadataUpdate>()
+{
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.test,
+        Path = "/competitiveDocument",
+        Value = "no"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.remove,
+        Path = "/competitiveDocument"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.test,
+        Path = "/status",
+        Value = "active"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.replace,
+        Path = "/competitiveDocument",
+        Value = "inactive"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.test,
+        Path = "/author",
+        Value = "Jones"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.copy,
+        From="/author",
+        Path = "/editor"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.test,
+        Path = "/currentState",
+        Value = "proposal"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.move,
+        From = "/currentState",
+        Path = "/previousState"
+    },
+    new BoxMetadataUpdate()
+    {
+        Op = MetadataUpdateOp.add,
+        Path = "/currentState",
+        Value = "reviewed"
+    }
+};
+Dictionary<string, object> updatedMetadata = await client.MetadataManager
+    .UpdateFolderMetadataAsync("11111", updates, "enterprise", "marketingCollateral");
+```
+
+```js Node v4
+var updates = [
+ { op: 'test', path: '/competitiveDocument', value: 'no' },
+ { op: 'remove', path: '/competitiveDocument' },
+ { op: 'test', path: '/status', value: 'active' },
+ { op: 'replace', path: '/status', value: 'inactive' },
+ { op: 'test', path: '/author', value: 'Jones' },
+ { op: 'copy', from: '/author', path: '/editor' },
+ { op: 'test', path: '/currentState', value: 'proposal' },
+ { op: 'move', from: '/currentState', path: '/previousState' },
+ { op: 'add', path: '/currentState', value: 'reviewed' }
+];
+client.folders.updateMetadata('11111', client.metadata.scopes.ENTERPRISE, "marketingCollateral", updates)
+ .then(metadata => {
+  /* metadata -> {
+   audience: 'internal',
+   documentType: 'Q1 plans',
+   status: 'inactive',
+   author: 'Jones',
+   '$type': 'marketingCollateral-d086c908-2498-4d3e-8a1f-01e82bfc2abe',
+   '$parent': 'folder_11111',
+   '$id': '2094c584-68e1-475c-a581-534a4609594e',
+   '$version': 1,
+   '$typeVersion': 0,
+   editor: 'Jones',
+   previousState: 'proposal',
+   currentState: 'reviewed',
+   '$template': 'marketingCollateral',
+   '$scope': 'enterprise_12345' }
+  */
+ });
+```
+</CodeGroup>
+
+<Info>
+  The authenticated user needs to have write access on the file to be able to
+  write changes to the metadata on a file.
+</Info>
+
+## JSON Operations
+
+Updating an piece of metadata follow the [JSON-Patch specification][jsonpatch],
+which is represented as a list of operation objects.
+
+For metadata instances, these operations can be either `add`, `replace`,
+`remove` , `test`, `move`, or `copy`. Every operation exists out of an `op`
+name, the [JSON Pointer][pointer] `path` that points to the field to changes,
+and an optional `value` or `from` value depending on the operation being made.
+
+```json
+[
+  { "op": "test", "path": "/competitiveDocument", "value": "no" },
+  { "op": "remove", "path": "/competitiveDocument" },
+  { "op": "test", "path": "/status", "value": "active" },
+  { "op": "replace", "path": "/status", "value": "inactive" },
+  { "op": "test", "path": "/author", "value": "Jones" },
+  { "op": "copy", "from": "/author", "path": "/editor" },
+  { "op": "move", "from": "/currentState", "path": "/previousState" },
+  { "op": "add", "path": "/currentState", "value": "reviewed" }
+]
+```
+
+<Warning>
+  When editing metadata, only values that adhere to the metadata template schema
+  will be accepted. The update is applied completely or not at all. If any
+  errors occur during the application of the update operations, the metadata
+  instance is not changed.
+
+  The template instance can only be updated if the template has already been
+  assigned to the file or folder.
+</Warning>
+
+### Add a new value
+
+To add a new value on a template, use the `add` operation.
+
+```json
+[
+  {
+    "op": "add",
+    "path": "/name",
+    "value": "Model 3"
+  }
+]
+```
+
+This will add the `name` field with a value of `Model 3` . Before this
+operation, the template did not have a value for the `name` field.
+
+```json
+{
+  // "name": null, // old value
+  "name": "Model 3", // new value
+  "category": "SUVs",
+  "$type": "productInfo-8120731a-41e4-11ea-b77f-2e728ce88125",
+  "$parent": "folder_3456",
+  "$id": "22ba8c96-41e6-11ea-b77f-2e728ce88125",
+  "$version": 3,
+  "$typeVersion": 0,
+  "$template": "productInfo",
+  "$scope": "enterprise_1234567",
+  "$canEdit": true
+}
+```
+
+<Warning>
+  For `enum` and `multiSelect` fields this new value needs to be one of the
+  valid options for the field.
+</Warning>
+
+### Replace a value
+
+To replace a value on a template, use the `replace` operation.
+
+```json
+[
+  {
+    "op": "replace",
+    "path": "/name",
+    "value": "Model 4"
+  }
+]
+```
+
+This will replace the `name` field value `Model 3` with a new value of `Model
+4`.
+
+```json
+{
+  // "name": "Model 3", # Old value
+  "name": "Model 3", // new value
+  "category": "SUVs",
+  "$type": "productInfo-8120731a-41e4-11ea-b77f-2e728ce88125",
+  "$parent": "folder_3456",
+  "$id": "22ba8c96-41e6-11ea-b77f-2e728ce88125",
+  "$version": 3,
+  "$typeVersion": 0,
+  "$template": "productInfo",
+  "$scope": "enterprise_1234567",
+  "$canEdit": true
+}
+```
+
+<Warning>
+  For `enum` and `multiSelect` fields this new value needs to be one of the
+  valid options for the field.
+</Warning>
+
+### Copy a value
+
+To copy a value from one field to another, use the `copy` operation.
+
+```json
+[
+  {
+    "op": "copy",
+    "from": "/name",
+    "path": "/displayName"
+  }
+]
+```
+
+This will add the `displayName` field with a value that matches the value of the
+`name` field. Before this operation, the template did not have a value for the
+`displayName` field.
+
+```json
+{
+  "name": "Model 3",
+  "displayName": "Model 3", // new value, copied from the name
+  "category": "SUVs",
+  "$type": "productInfo-8120731a-41e4-11ea-b77f-2e728ce88125",
+  "$parent": "folder_3456",
+  "$id": "22ba8c96-41e6-11ea-b77f-2e728ce88125",
+  "$version": 3,
+  "$typeVersion": 0,
+  "$template": "productInfo",
+  "$scope": "enterprise_1234567",
+  "$canEdit": true
+}
+```
+
+<Warning>
+  For `enum` and `multiSelect` fields this new value needs to be one of the
+  valid options for the field.
+</Warning>
+
+### Move a value
+
+To move a value from one field to another, use the `move` operation.
+
+```json
+[
+  {
+    "op": "copy",
+    "from": "/name",
+    "path": "/displayName"
+  }
+]
+```
+
+This will add the `displayName` field with a value that matches the value of the
+`name` field. Before this operation, the template did not have a value for the
+`displayName` field. After this operation, the `name` field no longer exists.
+
+```json
+{
+  // "name": "Model 3", // old value, no longer present now
+  "displayName": "Model 3", // new value, copied from the name
+  "category": "SUVs",
+  "$type": "productInfo-8120731a-41e4-11ea-b77f-2e728ce88125",
+  "$parent": "folder_3456",
+  "$id": "22ba8c96-41e6-11ea-b77f-2e728ce88125",
+  "$version": 3,
+  "$typeVersion": 0,
+  "$template": "productInfo",
+  "$scope": "enterprise_1234567",
+  "$canEdit": true
+}
+```
+
+<Warning>
+  For `enum` and `multiSelect` fields this new value needs to be one of the
+  valid options for the field.
+</Warning>
+
+### Remove a value
+
+To remove a value from the metadata instance, use the `remove` operation.
+
+```json
+[
+  {
+    "op": "remove",
+    "path": "/name"
+  }
+]
+```
+
+This will remove the `name` field completely from the metadata instance.
+
+```json
+{
+  // "name": "Model 3", // old value, no longer present now
+  "category": "SUVs",
+  "$type": "productInfo-8120731a-41e4-11ea-b77f-2e728ce88125",
+  "$parent": "folder_3456",
+  "$id": "22ba8c96-41e6-11ea-b77f-2e728ce88125",
+  "$version": 3,
+  "$typeVersion": 0,
+  "$template": "productInfo",
+  "$scope": "enterprise_1234567",
+  "$canEdit": true
+}
+```
+
+<Warning>
+  For `enum` and `multiSelect` fields this new value needs to be one of the
+  valid options for the field.
+</Warning>
+
+### Test a value
+
+To test that a field has the value you expect, use the `test` operation.
+
+```json
+[
+  {
+    "op": "test",
+    "path": "/name",
+    "value": "Model 4"
+  }
+]
+```
+
+When a test fails the API will not perform any of the operations and return a
+`409 Conflict` HTTP status with the following error.
+
+```json
+{
+  "message": "value differs from expectations",
+  "code": "failed_json_patch_application",
+  "request_id": "bzxgr1gbcq5h67pj"
+}
+```
+
+The main purpose of this operation is to validate that the values on the
+metadata instance are as expected before any operations are performed. The Box
+API either performs all changes or none, and therefore a failing test is very
+useful to ensure all values are expected before any transformation is applied.
+
+[e_on_file]: /reference/put_files_id_metadata_id_id
+[e_on_folder]: /reference/put_folders_id_metadata_id_id
+[jsonpatch]: https://tools.ietf.org/html/rfc6902
+[pointer]: https://tools.ietf.org/html/rfc6901

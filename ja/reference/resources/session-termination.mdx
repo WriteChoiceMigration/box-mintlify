@@ -1,0 +1,30 @@
+---
+title: "セッション終了メッセージ"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+終了ジョブステータスについて通知するメッセージ。
+
+<ParamField body="message" type="string">
+例 `Request is successful, please check the admin
+events for the status of the job`
+
+終了ジョブステータスの一意の識別子。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "message": "Request is successful, please check the admin\nevents for the status of the job"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,62 @@
+---
+title: "Shield情報バリアのセグメントのリスト"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+Shield情報バリアのセグメントオブジェクトのリスト。
+
+<ParamField body="entries" type="Shield情報バリアのセグメントarray">
+Shield情報バリアのセグメントのリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+例 `1000`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。最大値はAPIによって異なります。
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "created_at": "2020-06-26T18:44:45.869Z",
+      "created_by": {
+        "id": "11446498",
+        "type": "user"
+      },
+      "description": "'Corporate division that engages in advisory_based financial\n transactions on behalf of individuals, corporations, and governments.'",
+      "id": "11446498",
+      "name": "Investment Banking",
+      "shield_information_barrier": {
+        "id": "11446498",
+        "type": "shield_information_barrier"
+      },
+      "type": "shield_information_barrier_segment",
+      "updated_at": "2020-07-26T18:44:45.869Z",
+      "updated_by": {
+        "id": "11446498",
+        "type": "user"
+      }
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii"
+}
+```
+
+</ResponseExample>

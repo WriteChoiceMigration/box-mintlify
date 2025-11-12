@@ -1,0 +1,42 @@
+---
+title: "Box Doc Genジョブ (Base)"
+---
+
+APIバージョン 2025.0
+
+Box Doc GenジョブのBase版の表示。
+
+* [Full](/reference/v2025.0/resources/docgen-job--full/)
+* [Standard](/reference/v2025.0/resources/docgen-job/)
+* [Base](/reference/v2025.0/resources/docgen-job--base/)
+
+<Info>
+このリソースにはAPIの使用時に発生する可能性があるいくつかのバリエーションがあります。
+
+**Base**バリアントに含まれるフィールドは、`fields`クエリパラメータで指定されたフィールドのほかに、そのパラメータを使用しているときに必ず返されるデフォルトのフィールドを表します。
+</Info>
+
+<ParamField body="id" type="string">
+例 `12345`
+
+Box Doc Genジョブを表す一意の識別子。
+</ParamField>
+
+<ParamField body="type" type="string">
+例 `docgen_job`
+
+値は常に`docgen_job`になります。
+
+次の値に固定: `docgen_job`
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "id": "12345",
+  "type": "docgen_job"
+}
+```
+
+</ResponseExample>

@@ -1,0 +1,71 @@
+---
+title: "リテンションポリシー割り当て"
+---
+
+APIバージョン 2024.0
+
+<Note>
+このリソースは、バージョン**2024.0**のエンドポイントで使用されています。
+詳細については、
+**[Box APIのバージョン管理](/guides/api-calls/api-versioning-strategy/)**を参照してください。
+</Note>
+
+リテンションポリシー割り当てのリスト。
+
+<ParamField body="entries" type="リテンションポリシー割り当てarray">
+リテンションポリシー割り当てのリスト。
+</ParamField>
+
+<ParamField body="limit" type="integer(int64)">
+例 `1000`
+
+これらのエントリで使用された制限値。許容される最大値を超えていない限り、クエリパラメータの`limit`と等しくなります。最大値はAPIによって異なります。
+</ParamField>
+
+<ParamField body="next_marker" type="string">
+例 `JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii`
+
+次の検索結果ページの開始場所のマーカー。
+</ParamField>
+
+<ResponseExample>
+
+```json レスポンスの例
+{
+  "entries": [
+    {
+      "assigned_at": "2012-12-12T10:53:43-08:00",
+      "assigned_by": {
+        "id": "11446498",
+        "type": "user",
+        "login": "ceo@example.com",
+        "name": "Aaron Levie"
+      },
+      "assigned_to": {
+        "id": "a983f69f-e85f-4ph4-9f46-4afdf9c1af65",
+        "type": "metadata_template"
+      },
+      "filter_fields": [
+        {
+          "field": "a0f4ee4e-1dc1-4h90-a8a9-aef55fc681d4",
+          "value": "0c27b756-0p87-4fe0-a43a-59fb661ccc4e"
+        }
+      ],
+      "id": "11446498",
+      "retention_policy": {
+        "id": "12345",
+        "type": "retention_policy",
+        "disposition_action": "permanently_delete",
+        "policy_name": "Some Policy Name",
+        "retention_length": "365"
+      },
+      "start_date_field": "upload_date",
+      "type": "retention_policy_assignment"
+    }
+  ],
+  "limit": 1000,
+  "next_marker": "JV9IRGZmieiBasejOG9yDCRNgd2ymoZIbjsxbJMjIs3kioVii"
+}
+```
+
+</ResponseExample>

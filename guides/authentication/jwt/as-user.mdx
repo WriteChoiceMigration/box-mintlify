@@ -1,0 +1,79 @@
+---
+title: "as-user Header"
+rank: 3
+related_endpoints: []
+related_guides:
+  - authentication/jwt
+  - authentication/select
+required_guides:
+  - authentication/oauth2/with-sdk
+related_resources: []
+alias_paths: []
+---
+It is possible to for a JWT application to act on behalf of another user
+by leveraging the `as-user` header.
+
+```sh
+curl https://api.box.com/2.0/folders/0 \
+    -H "as-user: [USER_ID]"
+    -H "authorization: Bearer [ACCESS_TOKEN]"
+```
+
+<Info>
+In this situation the user ID is the Box identifier for a user. User IDs can
+found for any user via the `GET /users` endpoint, which is only available to
+admins, or by calling the `GET /users/me` endpoint with an authenticated user
+session.
+</Info>
+
+## Preconditions
+
+The application must be configured to perform actions as users in the
+[Developer Console][devconsole].
+
+<Frame border center>
+  ![Advanced Features](./enable-perform-actions-as-users.png)
+</Frame>
+
+Additionally, the authenticated user needs to be a user with Admin permissions,
+meaning either an Admin or Co-Admin. See our guide on
+[User Types](https://developer.box.com/platform/user-types) for more details.
+
+<Info>
+You cannot use the `user_id` of
+[Service Accounts](https://developer.box.com/platform/user-types/#service-account)
+in the as-user header.
+</Info>
+
+## as-user using SDKs
+
+All of the [official Box SDKs][sdk] support acting on behalf of a user using the
+`as-user` header.
+
+<CodeGroup>
+```csharp .NET
+var user_client = new BoxClient(config, session, asUser: '[USER_ID]');
+```
+```java Java
+client.asUser([USER_ID]");
+// client.asSelf();
+```
+```python Python
+user_to_impersonate = client.user(user_id='[USER_ID]')
+user_client = client.as_user(user_to_impersonate)
+```
+```js Node
+client.asUser('[USER_ID]');
+// client.asSelf();
+```
+
+</CodeGroup>
+
+<Warning>
+  Please note that some of our SDKs create new clients for the other user, while
+  others modify the existing client and provide a way to return to a state where
+  the client authenticates for the original user itself.
+</Warning>
+
+[devconsole]: https://app.box.com/developers/console
+[sdk]: /guides/tooling/sdks
