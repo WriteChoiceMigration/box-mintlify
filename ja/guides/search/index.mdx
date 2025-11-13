@@ -173,13 +173,13 @@ curl -i -X GET "https://api.box.com/2.0/search?query=box%20AND%20sales" \
 
 ```
 
-<Card href="/guides/search/query-operators" title="論理演算子の使用の詳細を確認する" />
+<Card href="/ja/guides/search/query-operators" title="論理演算子の使用の詳細を確認する" />
 
 ## 検索インデックス作成
 
 Box は、Box に格納されているファイルまたはフォルダの検索インデックスを保持します。ファイルまたはフォルダが変更されるたびに、これらの単語がインデックスに追加されます。検索が実行されると、API は、検索インデックスで、クエリに一致するファイルやフォルダを探します。Box 内でコンテンツが追加、更新、または削除されると、それに応じて検索インデックスが更新されます。
 
-<Card href="/guides/search/indexing" title="Boxの検索インデックスの詳細を確認する" />
+<Card href="/ja/guides/search/indexing" title="Boxの検索インデックスの詳細を確認する" />
 
 <Info>
 
@@ -208,7 +208,7 @@ Box は、Box に格納されているファイルまたはフォルダの検索
 | 規模                      | この API では、指定したメタデータテンプレートを使用して返される項目数に制限はありません。一致する結果が 2,000 件以下になるクエリのみを送信することをお勧めします。 | この API には、指定したメタデータテンプレートを使用して返される項目数に制限はありません。ただし、検索に一致する項目数が増えるにつれ、レスポンス時間が大幅に増大します。この API では、1 つのクエリに対する結果は 1,000 万件までという制限があります。一致する結果が 50,000 件以下になるクエリのみを送信することをお勧めします。 |
 | スコープ                  | この API は常に、ユーザーがアクセスできるコンテンツに制限されています。                                                                                            | この API は、ユーザーがアクセスできるコンテンツ (`​user_content​`) または社内のすべてのコンテンツ (`​enterprise_content​`) のいずれかに制限される場合があります。                                                                                                                                                               |
 
-<Card href="/guides/metadata/queries/comparison" title="メタデータクエリAPIの詳細を確認する" />
+<Card href="/ja/guides/metadata/queries/comparison" title="メタデータクエリAPIの詳細を確認する" />
 
 [mdq]: /ja/guides/metadata/queries
 [mdq_api]: /ja/reference/post_metadata_queries_execute_read

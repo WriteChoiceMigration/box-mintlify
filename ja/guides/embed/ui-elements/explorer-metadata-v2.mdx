@@ -121,14 +121,14 @@ import { IntlProvider } from 'react-intl';
 import ContentExplorer from "box-ui-elements/es/elements/content-explorer"
 
 // Fill with custom values of your metadata template
-// You can use this endpoint to get all needed values: /reference/get-metadata-templates-id-id-schema/
+// You can use this endpoint to get all needed values: /ja/reference/get-metadata-templates-id-id-schema/
 const metadataScopeAndKey = `${METADATA_TEMPLATE_SCOPE}.${METADATA_TEMPLATE_KEY}`;
 const metadataFieldNamePrefix = `metadata.${metadataScopeAndKey}`;
 const folderID = "FOLDER_ID"
 
 const metadataQuery = {
    // Check this endpoint for more details on query structure:
-   // /reference/post-metadata-queries-execute-read/
+   // /ja/reference/post-metadata-queries-execute-read/
    from: metadataScopeAndKey,
    ancestor_folder_id: folderID,
    fields: [
